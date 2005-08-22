@@ -1,0 +1,44 @@
+<div id="_group_authorized_remote_form">
+  <div class="input">
+    <table>
+      <thead>
+        <tr>
+	  <th scope='col'></th>
+          <th scope='col'>Name</th>
+        </tr>
+      </thead>
+      </tbody>
+        <% for member in @authorized_members %>
+        <tr>
+	  <td>
+  	    <% if member.banned == 1 %>
+	      <em>Banned</em>
+  	    <% end %>
+	  </td>
+          <td> 
+  	    <%=h member.fullname %>
+  	  </td>
+	  <td>
+  	    <% if @session[:user] != member %>
+              <a id="remove_link_<%= member.id %>" href="javascript:return false;" onclick="toggle('remove_form_<%= member.id %>');toggle('remove_link_<%= member.id %>');">Remove</a>
+              <span id="remove_form_<%= member.id %>" style="display: none">
+                <%= form_remote_tag :update => "_group_authorized_remote_form", :url => { :action => "remove_member", :id => @group.id } %>
+                  <input type="hidden" name="user_id" value="<%= member.id %>"/>
+                  <div class="input">
+                    <label for="event_adopter_id" style="display: inline">User's events will be adopted by:</label>
+                    <select id="event_adopter_id" name="adopter_id">
+                      <%= options_from_collection_for_select @complement_authorized_members[member], 'id', 'fullname', @session[:user].id %>
+                    </select>
+                    <%= submit_tag "Ok" %>
+                  </div>
+                <%= end_form_tag %>
+              </span>
+            <% end %>
+          </td> 
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+

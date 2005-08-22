@@ -1,0 +1,51 @@
+
+Dependencies:
+*ruby/ldap
+ Ruby/LDAP must be installed in order to use LDAP user authentication. The website is
+ located at the following URL: http://ruby-ldap.sourceforge.net/
+
+
+System Settings:
+*LDAP SSL Connection
+ For those of you that elect to use the LDAP user authentication, we use a SSL
+ connection for additional security. Here are the following sets that you must follow
+ in order to setup an SSL LDAP connection:
+   1. Download the root certificate for your LDAP server and save it somewhere in 
+      your home directory (e.g. /home/username/.certs/ldap.pem).
+
+   2. Create a file .ldaprc in your home directory with the following content:
+
+      TLS_CACERT /path/to/dal_ldap.pem
+
+   3. Make sure everything is working by running:
+
+      ldapsearch -ZZ -h ldap.dal.ca -x -b 'dc=dal,dc=ca' '(uid=obaltzer)' dn
+
+      If you do not get an error and something like:
+
+      # numResponses: 2
+      # numEntries: 1
+
+      then it is working.
+
+ For details see: http://www.openldap.org/pub/ksoper/OpenLDAP_TLS_howto.html 
+
+ REMOVE THIS FOR THE RELEASE:
+ Oliver's original instructions are here:
+ https://mblast.cs.dal.ca/projects/te2/wiki/SetupLdapTls
+
+Rails Environment settings:
+ Before you can start using TigerEvents, you have to update the following constants in config/environment.rb. The
+ first below are your LDAP settings.
+   #LDAP settings
+   LDAP_URL = 'ldap.dal.ca'
+   LDAP_PORT = 389
+   LDAP_DN = 'dc=dal,dc=ca'
+
+ The second set constant is the identification of the SUPER_USER. This is the user that will have access to the 
+ setup pages.
+ 
+   #Declare the super user of the system
+   #This is the user which can designate users to be managers and definite the group class hierarchy
+   #This user is identified by their login
+   SUPER_USER = 'cpjordan'

@@ -1,0 +1,17 @@
+<% for column in GroupClass.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @group_class.send(column.name) %>
+</p>
+<% end %>
+
+<p>
+  Groups are: 
+</p>
+<ul>
+  <% for g in @group_class.groups %>
+    <li><%= g.name %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Edit', :action => 'edit', :id => @group_class %> |
+<%= link_to 'Back', :action => 'list' %>

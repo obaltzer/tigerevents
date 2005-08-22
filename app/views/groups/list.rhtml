@@ -1,0 +1,29 @@
+<% if not @newgroups.empty? %>
+<div class="group_listing" id="not_approved_groups">
+  <h2>Not Approved Groups</h2>
+  <table>
+    <% for newgroup in @newgroups %>
+      <tr>
+        <td><%= link_to newgroup.name, :controller => 'groups', :action => 'edit', :id => newgroup %></td>
+        <td><%=h newgroup.description %></td>
+        <td><%= link_to 'Approve', :action => 'approve', :id => newgroup %>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<% end %>
+
+<% if not @groups.empty? %>
+<div class="group_listing" id="approved_groups">
+  <h2>Approved Groups</h2>
+  <table>
+    <% for group in @groups %>
+      <tr>
+        <td><%= link_to group.name, :controller => 'groups', :action => 'edit', :id => group %></td>
+        <td><%=h group.description %></td>
+        <td><%= link_to 'Ban', :action => 'ban', :id => group %>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<% end %>

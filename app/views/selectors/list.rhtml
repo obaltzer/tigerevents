@@ -1,0 +1,17 @@
+<h1>Listing Selectors</h1>
+
+<% if @session[:user] %>
+Welcome <%=h @session[:user].fullname %> 
+<% end %>
+
+<table>
+  <tr>
+    <th>Selector Name</th>
+  </tr>
+  
+<% for selector in @selectors %>
+  <tr>
+    <td><%= link_to selector.name, :action => 'get_events', :id => selector %></td>
+  </tr>
+<% end %>
+</table>

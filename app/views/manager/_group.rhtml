@@ -1,0 +1,56 @@
+
+<% if @session[:user] %>
+Welcome <%=h @session[:user].fullname %> 
+<BR>Your id number is <%= @session[:user].id %>
+<p>	<% for group in @session[:user].groups %>
+		Your group class id is = <%=h group.group_class.id %>
+	<% end %>
+</p>
+<% end %>
+
+<p>
+Groups classes which you can approve are:
+</p>
+
+<% for group in @session[:user].groups %>	
+<p>
+	<%=h group.group_class.id %>	
+</p>
+<% end %>
+
+<% for group_class in @group_classes %>
+	<% for group in @session[:user].groups %>
+		<% if group_class.parent_id == group.group_class.id %>
+			<p> <%=h group_class.id %> </p>
+		<% end %>
+	<% end %>
+<% end %>
+
+<p>
+These are the groups pending approval
+</p>
+<table>
+  <tr>
+<% for column in Group.content_columns %>
+    <th><%= column.human_name %></th>
+<% end %>
+  </tr>
+
+<% for group in @groups_unapproved %>
+  <% for group_class in @group_classes_approveable %>
+	  <tr>
+  	<% for column in Group.content_columns %>
+    	<td><%=h group.send(column.name) %></td>
+  	<% end %>
+    	<td><%= link_to 'Show', :controller => "groups", :action => 'show', :id => group %></td>
+    	<td><%= link_to 'Edit', :controller => "groups", :action => 'edit', :id => group %></td>
+    	<td><%= link_to 'Destroy', {:controller => "groups", :action => 'destroy', :id => group}, :confirm => "Are you sure?" %></td>
+	<% if group_class.id == group.group_class.id %>
+        	<td><%= link_to 'Approve', {:controller => "groups", :action => 'approve', :id => group}, :confirm => "Are you sure?" %></td>
+	<% end %>
+
+  	</tr>
+  <% end %>
+<% end %>
+</table>
+

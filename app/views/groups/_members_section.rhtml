@@ -1,0 +1,11 @@
+<% if not @group.unauthorized_users.empty? %>
+<div class="user_listing" id="not_authorized_users">
+  <h2>Unauthorized Members</h2>
+  <%= render_component :action => 'unauthorized_remote', :id => @group.id %>
+</div>
+<% end %>
+
+<div class="user_listing" id="authorized_users">
+  <h2>Authorized Members</h2>
+  <%= render_component :action => 'authorized_remote', :id => @group.id %>
+</div>

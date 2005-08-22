@@ -1,0 +1,156 @@
+<html>
+  <head>
+    <title>my.dsu.ca - <%= @heading %></title>
+    <%= stylesheet_link_tag 'tigerevents' %>
+    <%= javascript_include_tag "prototype" %>
+    <%= javascript_include_tag "effects" %>
+    <%= javascript_include_tag "dragdrop" %>
+    <script language="JavaScript">
+      function toggle(elem) 
+      {
+        if(document.getElementById)
+        {
+          target = document.getElementById(elem);
+          if(target.style.display == "none")
+          {
+            target.style.display = "";
+          }
+          else
+          {
+            target.style.display = "none";
+          }
+        }
+      }
+      
+      function clear_field(id)
+      {
+        if(document.getElementById)
+        {
+          elem = document.getElementById(id);
+          elem.value = '';
+        }
+      }
+      /* This method catches when the enter key is pressed 
+       * when on an input field and will cause to jump to the element
+       * specified by the ID instead of submitting the form.
+       */
+      function enter(id, event)
+      {
+        if(event && event.keyCode == 13) 
+        {
+          if(document.getElementById)
+          {
+            document.getElementById(id).focus();
+          }
+          return false;
+        }
+        else
+        {
+          return true;
+        }
+      }
+
+      /* Performs a DFS to find the first input element in the form
+       * and sets the focus onto this element.
+       */
+      function focus_form(id)
+      {
+        if(document.getElementById && (form = document.getElementById(id)))
+        {
+          elements = form.getElementsByTagName('input');
+          if(elements.length >= 1)
+          {
+            elements[0].focus();
+          }
+        }
+      }
+    </script>
+  </head>
+  <body onload="new Effect.Appear('banner')">
+  <div id="banner" class="newsletter_header">
+              <%= link_to (image_tag "dsubanner.jpg", {:alt=>"Dalhousie Student Union", :class=>"newsletter_header"}), "http://www.dsu.ca", {:class=>"newsletter_header"} %>
+  </div>
+  <div name="header" class="newsletter_block">
+            <span><%= link_to "Home", {:controller => "events", :id => "week" } %></span>
+            <span><%= link_to "Post Events", {:controller => "events", :action => "new"} %></span>
+            <span>Forum</span>
+            <span>Help</span>
+            <span>Contact</span>
+            <span>|</span>
+            <span><%= link_to "Tigerbooks", "http://www.tigerbooks.ca", {:class=>"newsletter_header"} %></span>
+            <span><%= link_to "DSU", "http://www.dsu.ca", {:class=>"newsletter_header"} %></span>
+  </div>
+  <div id="sidebar">
+    <% if session[:user] -%>
+      <p>Welcome<br/>
+      <%= session[:user].fullname %>
+      <% if session[:user].banned == 1 %>
+        <b>You are banned. Please e-mail ADMIN.</b>
+      <% else %>
+        <%= render_component :controller => "groups", :action => "mygroups" %>
+        <% if session[:user][:superuser] == 1 %>
+          <div style="margin: 0; padding: 0px;">
+            <strong>Site Management:</strong>
+          </div>
+          <ul style="list-style: none; padding: 0; margin: 0.5em 0 0.2em 0.5em;">
+            <li><%= link_to 'Groups', :controller => 'groups', :action => 'list' %></li>
+            <li><%= link_to 'Group Classes', :controller => 'group_classes' %></li>
+            <li><%= link_to 'Priorities', :controller => 'priorities' %></li>
+            <li><%= link_to 'Users', :controller => 'account', :action => 'list' %></li>
+          </ul>
+        <% end %>
+      <% end %>
+      <%= start_form_tag :controller => "account", :action=> "logout" %>
+        <input type="submit" name="logout" value="Logout &#187;" class="primary" />
+      <%= end_form_tag %>
+    <% else %>
+      <%= render_file "account/login" %>
+    <% end -%>
+    <div id="bug_box">
+      <big>Problems, doesn't work, complicated?</big>
+      <p>
+        File a ticket and we will take care of it.
+      </p>
+      <a href="http://mblast.cs.dal.ca/projects/te2/newticket"><big>Click here!</big></a>
+    </div>
+  </div>
+
+  <div id="sidebar_right">
+    <p>
+    Events for:
+    </p>
+    <ul class="period_links">
+      <li><%= link_to 'This Week', :controller => "events", :action => "list", :id => "this_week" %></li>
+      <li><%= link_to 'Next Week', :controller => "events", :action => "list", :id => "next_week" %></li>
+      <li><%= link_to 'This Month', :controller => "events", :action => "list", :id => "this_month" %></li>
+      <li><%= link_to 'Next Month', :controller => "events", :action => "list", :id => "next_month" %></li>
+    </ul>
+    <p>
+    Or for complete control:<br />
+    <%= start_form_tag :controller => "events", :action => "list", :id => nil %>
+       <%= select_date Date.today, :prefix => "startTime" %><br />
+       <%= select_date Date.today, :prefix => "endTime" %>
+       <%= submit_tag "Submit" %>
+    <%= end_form_tag %>
+    </p>
+  </div>
+
+  <div name="eventlist">
+    <table class="newsletter">
+      <tbody>
+        <tr>
+          <td class="newsletter_body">
+            <h1><%=h @heading %></h1>
+            
+            <%= @content_for_layout %>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div name="footer" class="newsletter_block">
+            <p>Developed by the awesome members of <%= link_to "Dal-ACM", "http://www.dal-acm.ca" %></p>
+    </div>
+  </body>
+</html>

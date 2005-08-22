@@ -1,0 +1,4 @@
+<div id="_group_new_remote_form">
+  <%= render_partial "form" %>
+  <%= submit_remote 'group_submit', 'Add', 'this.parentNode', {:url => { :controller => "groups", :action => "create_remote" }}.update(@params) %>
+</div>

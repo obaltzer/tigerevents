@@ -1,0 +1,5 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first_priority:
+  id: 1
+another_priority:
+  id: 2

@@ -1,0 +1,4 @@
+<select id="event_group" name="event[group_id]">
+  <%= @event.group == nil ? "<option selected='selected' ></option>" : "" %>
+  <%= options_from_collection_for_select @groups, 'id', 'name', @event.group == nil ? nil : @event.group.id %>
+</select>

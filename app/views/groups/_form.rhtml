@@ -1,0 +1,23 @@
+<div class="input">
+  <label for="group_name">Group Name</label>
+  <div class="description">
+    Enter the name of your group.
+  </div>
+  <%= text_field 'group', 'name', :onkeypress => "return enter('group_description', event);" %>
+</div>
+<div class="input">
+  <label for="group_description">Description</label>
+  <div class="description">
+    Give a short description of your group and its activities.
+  </div>
+  <%= text_area 'group', 'description', :rows => 5, :onkeypress => "return enter('group_group_class_id', event);"  %>
+</div>
+<div class="input">
+  <label for="group_group_class_id">Group Class</label>
+  <div class="description">
+    Specify your group's class.
+  </div>
+  <select id="group_group_class_id" name="group[group_class_id]" onkeypress="return enter('group_submit', event);" >
+    <%= options_from_collection_for_select @group_classes, 'id', 'name', @group.group_class_id %>
+  </select>  
+</div>

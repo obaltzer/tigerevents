@@ -1,0 +1,24 @@
+<h1>Editing group</h1>
+<%= error_messages_for 'group' %>
+
+<%= start_form_tag :action => 'update', :id => @group.id %>
+  <%= render_partial "form" %>
+  <% if @session[:user].superuser == 1 %>
+    <%= submit_tag "Update", :id => "group_submit" %>
+  <% else %>
+    <%= submit_tag "Update", :id => "group_submit", :onclick => "return confirm('If you do this, your group has to be reapproved by a manager. Until then, none of your events will be listed and you will not be able to edit any of your group properties. Are you absolutely sure about this?')" %>
+  <% end %>
+<%= end_form_tag %>
+
+<div id='members_section' >
+<%= render_partial 'members_section', :id => @group.id %>
+</div>
+
+<div class="event_listing">
+  <h2>Group Events</h2>
+  <%= render_component :action => 'list_events_remote', :id => @group.id %>
+</div>
+
+<center>
+<%=link_to 'History', :controller => "groups", :action => 'history', :id => @group.id %>
+</center>

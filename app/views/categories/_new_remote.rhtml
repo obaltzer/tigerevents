@@ -1,0 +1,4 @@
+<div id="_category_new_remote_form">
+  <%= render_partial "form" %>
+  <%= submit_remote 'category_submit', 'Add', 'this.parentNode', {:url => { :controller => "categories", :action => "create_remote" }}.update(@params) %>
+</div>

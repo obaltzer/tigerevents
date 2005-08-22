@@ -1,0 +1,31 @@
+<h1>Users</h1>
+
+<%= start_form_tag :action => 'list' %>
+<div class="input">
+  <label for="search" style="display: inline">Find user:</label>
+  <%= text_field_tag 'search', @params[:search] ? @params[:search] : '' %>
+  <!-- <%= submit_tag 'Find' %> -->
+  <div class="description">
+    Specify the user's Net-ID or part of the fullname. 
+    Attention: the user had to be logged in at least once to be found.
+  </div>
+</div>
+<%= end_form_tag %>
+
+<table>
+  <tr>
+    <th>Net-ID</th>
+    <th>Fullname</th>
+    <th>Site Manager</th>
+    <th>Banned</th>
+  </tr>
+  <% for @user in @users %>
+    <tr>
+      <td><%=h @user.login %></td>
+      <td><%=h @user.fullname %></td>
+      <td><%= check_box 'user', 'superuser', :onclick => "window.location = '" + url_for(:action => 'toggle_superuser', :id => @user, :params => {:search => @params[:search], :page => @params[:page]} ) + "';" %></td>
+      <td><%= check_box 'user', 'banned', :onclick => "window.location = '" + url_for(:action => 'toggle_banned', :id => @user, :params => {:search => @params[:search], :page => @params[:page]} ) + "';" %></td>
+    </tr>
+  <% end %>
+</table>
+<%= pagination_links @user_pages, :params => { :search => @params[:search] } %>

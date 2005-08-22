@@ -1,0 +1,23 @@
+<%= start_form_tag :controller=> "account", :action=> "login" %>
+
+<div title="Account login" id="loginform" class="form">
+    <h2>
+    <% if @flash["login"] -%>
+      <%= @flash["login"] %>
+    <% else %>
+      Please Login
+    <% end -%>
+    </h2>
+
+    <label for="user_login">Login:</label><br/>
+    <%= text_field "user", "login", :size => 15 %><br/>
+
+    <label for="user_password">Password:</label><br/>
+    <input type="password" name="user_password" id="user_password" size="15"/>
+
+    <br/>
+    <input type="submit" name="login" value="Login &#187;" class="primary" />
+
+</div>
+
+<%= end_form_tag %>

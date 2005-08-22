@@ -1,0 +1,35 @@
+<% require 'date' %>
+<div id="_group_events_form">
+   <div class="input">
+      <table>
+         <tr>
+            <th>Name</th><th>Date</th>
+         </tr>
+
+         <% for event in @events %>
+	    <% if event.endTime == nil
+			timeToCheck = event.startTime
+	       else 
+			timeToCheck = event.endTime
+	       end
+	    %> 
+            <% if timeToCheck > Date.today().to_time() %>
+		<tr id="event[<%=h event.id %>]">
+        	<td>
+                <%=h event.title %>
+                <%=link_to '(Edit)', :controller => "events", :action => 'edit', :id => event %>
+                <%=link_to_remote '(Remove)', :update => "_group_events_form", :url => {:controller => "events", :action => "delete", :id => event.id,:group_id => @group.id }, :confirm => "Really delete #{event.title}" %>
+        	</td>
+        	<td>
+        	<%=h event.startTime %> 
+        	<% if event.endTime %>
+        	- <%=h event.endTime %>
+        	<% end %>
+        	</td>
+	        </tr>
+             <% end %>
+	<% end %>
+      </table>
+   </div>
+</div>
+
