@@ -3,7 +3,7 @@
    <div class="input">
       <table>
          <tr>
-            <th>Name</th><th>Date</th>
+            <th>Name</th><th>Date</th><th>Last Editted</th>
          </tr>
 
          <% for event in @events %>
@@ -25,6 +25,9 @@
         	<% if event.endTime %>
         	- <%=h event.endTime %>
         	<% end %>
+                </td>
+                <td>
+                <small><%=h event.pending? (@group) ? "* #{event.creator.fullname}": "" %></small>
         	</td>
 	        </tr>
              <% end %>

@@ -1,7 +1,5 @@
 class Event < ActiveRecord::Base
     has_and_belongs_to_many :categories
-    has_and_belongs_to_many :creators, :class_name => "User", :join_table => "activities",
-                             :conditions => "action = 'CREATE'"
     belongs_to :group
     belongs_to :priority
     
@@ -14,7 +12,23 @@ class Event < ActiveRecord::Base
     def hasEndTime=(val)
         @hasEndTime = val
     end
-    
+   
+    def pending? (group)
+        user_ids = []
+        for u in group.unauthorized_users
+           user_ids << u.id
+        end
+        group.unauthorized_users.collect{|x| x.id }.include? \
+           self.creator.user_id.to_i
+    end
+
+    def creator
+        User.find( :first, \
+            :joins => "LEFT JOIN activities on users.id = user_id " +\
+                     "LEFT JOIN events on events.id = event_id",
+            :conditions => ["event_id = ? and action = 'CREATE'", self.id]
+            )
+    end
     validate :times
     def times
         if self.announcement == 1
