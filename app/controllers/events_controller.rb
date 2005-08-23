@@ -1,9 +1,9 @@
 class EventsController < ApplicationController
 
-    before_filter :login_required, :only => [:new, :edit, :edit_remote, 
+    before_filter :login_required, :only => [:new, :edit, 
                   :create, :update, :delete]
-    before_filter :can_edit, :only => [:edit, :edit_remote, :update,  
-                  :toggle_visible, :delete]
+    before_filter :can_edit, :only => [:edit, :update,  
+                  :delete]
  
     def index
         list
@@ -70,29 +70,23 @@ class EventsController < ApplicationController
             render_action 'new'
         end
     end
-    
+     
     def edit
         @event = Event.find(@params[:id])
+        if @event.startTime < Time.now and (not @event.endTime or  @event.endTime < Time.now)
+           redirect_to :action => 'list'
+        end
+
         @categories = Category.find_all
         @groups = Group.find_all
         @groupclasses = GroupClass.find_all
-    end
-
-    def edit_remote
-        @event = Event.find(@params[:id])
-        @categories = Category.find_all
-        @groups = Group.find_all
-        @groupclasses = GroupClass.find_all
-        render_partial
-    end
-
-    def show_remote
-        @event = Event.find(@params[:id])
-        render_partial
     end
 
     def update
         @event = Event.find(@params[:id])
+        if @event.startTime < Time.now and (not @event.endTime or  @event.endTime < Time.now)
+           redirect_to :action => 'list'
+        end
 
         # make sure only superusers can set the priority if someone
         # hand-crafts a URL
@@ -154,6 +148,10 @@ class EventsController < ApplicationController
     def delete
         #Event.update(@params[:id], :deleted => 1)
         event = Event.find(@params[:id])
+        if @event.startTime < Time.now and (not @event.endTime or  @event.endTime < Time.now)
+           redirect_to :action => 'list'
+        end
+
         event.update_attribute( :deleted, 1 )
         redirect_to :controller => 'groups', :action => 'list_events_remote', :id => @params[:group_id]
     end

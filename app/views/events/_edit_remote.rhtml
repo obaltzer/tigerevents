@@ -1,9 +1,0 @@
-<h3>Editing Posting: <%= @event.title %></h3>
-
-<%= form_remote_tag :update => "event[#{@event.id}]", :url => {:action => 'update', :id => @event.id} %>
-  <%= render_partial "form" %>
-  <%= submit_tag 'Update' %>
-  <%= link_to_remote 'Cancel', :update => "event[#{@event.id}]", :url => { :controller => 'events', \
-                               :action => 'show_remote', :id => @event.id} %>
-<%= end_form_tag %>
-
