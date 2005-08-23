@@ -1,6 +1,8 @@
 <% for column in Event.content_columns %>
 <p>
+  <% if column.human_name != "Announcement" && column.human_name != "Deleted" %>
   <b><%= column.human_name %>:</b> <%=h @event.send(column.name) %>
+  <% end %>
 </p>
 <% end %>
 
