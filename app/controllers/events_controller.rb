@@ -1,7 +1,9 @@
 class EventsController < ApplicationController
 
-    before_filter :login_required, :only => [:new, :edit, :edit_remote, :create, :update]
-    before_filter :can_edit, :only => [:edit, :edit_remote, :update, :toggle_visible]
+    before_filter :login_required, :only => [:new, :edit, :edit_remote, 
+                  :create, :update, :delete]
+    before_filter :can_edit, :only => [:edit, :edit_remote, :update,  
+                  :toggle_visible, :delete]
  
     def index
         list
@@ -150,7 +152,9 @@ class EventsController < ApplicationController
     end
 
     def delete
-        Event.update(@params[:id], :deleted => 1)
+        #Event.update(@params[:id], :deleted => 1)
+        event = Event.find(@params[:id])
+        event.update_attribute( :deleted, 1 )
         redirect_to :controller => 'groups', :action => 'list_events_remote', :id => @params[:group_id]
     end
 
