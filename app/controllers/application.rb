@@ -14,6 +14,9 @@ class ApplicationController < ActionController::Base
 	    return true
 	end
 	@event = Event.find(@params[:id])
+	if(@event.deleted == 1)
+	    redirect_back_or_default :controller => "events", :action => "index"
+	end
 	if(!@session[:user].approved_groups.include? Group.find(@event.group_id))
 	    redirect_back_or_default :controller => "events", :action => "index"
 	end
