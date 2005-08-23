@@ -10,7 +10,14 @@
             <% if event.endTime %>
               - <%=h event.endTime %>
             <% end %>
-          <div class="description"><%=h event.description %></div>
+          <div class="description">
+	    <% if event.description.size > 100 %>
+	      <%=h event.description.slice(0,100) %>
+	      <%= link_to "[More]", :controller => "events", :action => "show", :id => event %>
+	    <% else %>
+  	      <%=h event.description %>
+	    <% end %>
+	  </div>
         </li>
       <% end %>
     </ul>
