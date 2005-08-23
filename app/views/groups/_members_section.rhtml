@@ -9,3 +9,9 @@
   <h2>Authorized Members</h2>
   <%= render_component :action => 'authorized_remote', :id => @group.id %>
 </div>
+
+<div class="event_listing">
+  <h2>Group Events</h2>
+    <%= render_component :action => 'list_events_remote', :id => @group.id %>
+</div>
+

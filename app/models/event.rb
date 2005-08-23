@@ -46,7 +46,16 @@ class Event < ActiveRecord::Base
             :conditions => ["event_id = ? and action = 'CREATE'", self.id]
             )
     end
-    
+   
+    def lastEditted
+        User.find( :first, \
+            :joins => "LEFT JOIN activities on users.id = user_id " +\
+                     "LEFT JOIN events on events.id = event_id",
+            :conditions => ["event_id = ?", self.id],
+            :order => "activities.updated_on DESC"
+            )
+    end
+
     validate :times
     def times
         if self.announcement == 1

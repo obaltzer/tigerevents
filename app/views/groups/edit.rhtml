@@ -14,11 +14,6 @@
 <%= render_partial 'members_section', :id => @group.id %>
 </div>
 
-<div class="event_listing">
-  <h2>Group Events</h2>
-  <%= render_component :action => 'list_events_remote', :id => @group.id %>
-</div>
-
 <center>
 <%=link_to 'History', :controller => "groups", :action => 'history', :id => @group.id %>
 </center>
