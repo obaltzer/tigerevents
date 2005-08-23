@@ -33,6 +33,7 @@ class EventsController < ApplicationController
     end
 
     def create
+        logger.debug "Params: #{@params.inspect}"
         @event = Event.new(@params[:event])
 	@event.priority_id = \
             Priority.find(:first, :conditions => "name = 'Normal'").id

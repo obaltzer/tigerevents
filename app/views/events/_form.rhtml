@@ -99,11 +99,25 @@
 </div>
 
 <div class="input">
-  <label for="event_startTime">Date and Time</label>
+  <label for="event_start_date">Date and Time</label>
   <div class="description">
     The date and time the event is schedules for.
   </div>
-  <%= datetime_select 'event', 'startTime'  %>
+  <%= text_field 'event', 'start_date', \
+                 :size => "10", \
+                 :onclick => "clear_field('event_start_date')" %>
+  <button type="reset" id="start_date_selector">...</button>
+  <script type="text/javascript">
+    Calendar.setup({
+        inputField     :    "event_start_date",     // id of the input field
+        ifFormat       :    "%d/%m/%Y",      // format of the input field
+        button         :    "start_date_selector",  // trigger for the calendar (button ID)
+        align          :    "Tr",           // alignment (defaults to "Bl")
+        singleClick    :    true
+    });
+  </script>
+  <%= select_hour 'event', 'start_hour' %>:<%= select_min 'event', 'start_min' %>
+  <%= select_ampm 'event', 'start_ampm' %>
 </div>
 
 <div id="endTimeOption" style="display: <%= @event.announcement == 1 ? 'none' : 'block'%>">
@@ -118,7 +132,21 @@
   <div class="description">
     The scheduled ending date and time of the event.
   </div>
-  <%= datetime_select 'event', 'endTime'  %>
+  <%= text_field 'event', 'end_date', \
+                 :size => "10", \
+                 :onclick => "clear_field('event_end_date')" %>
+  <button type="reset" id="end_date_selector">...</button>
+  <script type="text/javascript">
+    Calendar.setup({
+        inputField     :    "event_end_date",     // id of the input field
+        ifFormat       :    "%d/%m/%Y",      // format of the input field
+        button         :    "end_date_selector",  // trigger for the calendar (button ID)
+        align          :    "Tr",           // alignment (defaults to "Bl")
+        singleClick    :    true
+    });
+  </script>
+  <%= select_hour 'event', 'end_hour' %>:<%= select_min 'event', 'end_min' %>
+  <%= select_ampm 'event', 'end_ampm' %>
 </div>
 
 <div class="input">
