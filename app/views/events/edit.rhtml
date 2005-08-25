@@ -6,8 +6,8 @@
   </div>
 <% end %>
 
-<%= form_remote_tag :update => "event[#{@event.id}]", :url => {:action => 'update', :id => @event.id} %>
+<%= start_form_tag :action => 'update', :id => @event.id, :group_id => @params[:group_id] %>
   <%= render_partial "form" %>
   <%= submit_tag 'Update' %>
-  <input type="reset"/>
+  <%=link_to 'Cancel', :controller => "groups", :action => 'edit', :id => @params[:group_id] %>
 <%= end_form_tag %>
