@@ -3,7 +3,7 @@
    <div class="input">
       <table>
          <tr>
-            <th>Name</th><th>Date</th><th>Last Editted</th>
+            <th colspan=3>Name</th><th>Date</th><th>Last Editted</th>
          </tr>
 
          <% for event in @events %>
@@ -17,7 +17,11 @@
 		<tr id="event[<%=h event.id %>]">
         	<td>
                 <%=h event.title %>
+                </td>
+                <td>
                 <%=link_to '(Edit)', :controller => "events", :action => 'edit', :id => event.id, :group_id => @group.id %>
+                </td>
+                <td>
                 <%=link_to_remote '(Remove)', :update => "_group_events_form", \
                     :url => {:controller => "events", :action => "delete", :id => event.id, :group_id => @group.id }, \
                     :confirm => "Really delete #{event.title}" %>
