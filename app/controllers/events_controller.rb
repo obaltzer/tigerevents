@@ -159,8 +159,11 @@ class EventsController < ApplicationController
         # see if user has specified custom time period
         if @params[:period] and @params[:period][:start_date] \
                 and @params[:period][:end_date]
+            # preserve form values in period variable
             p = @params[:period]
             now = Time.now
+            
+            # try creating a time object for the start date
             begin
                 start_date = @params[:period][:start_date].split(/\//)
                 p[:startTime] = Time.local start_date[2], start_date[1], \
@@ -168,7 +171,10 @@ class EventsController < ApplicationController
             rescue
                 flash[:notice] = \
                     "Invalid start date for time period selection."
+                error = true
             end
+
+            
             begin
                 end_date = @params[:period][:end_date].split(/\//)
                 p[:endTime] = Time.local end_date[2], end_date[1], \
@@ -176,10 +182,15 @@ class EventsController < ApplicationController
             rescue 
                 flash[:notice] = \
                     "Invalid end date for time period selection."
+                error = true
             end
             @params[:period].delete :fixed
             @params[:period][:custom] = true
-        else # user did not specify custom time period
+        end
+        
+        # user did not specify custom time period or it failed to
+        # initialize
+        if not @params[:period] or not (p[:startTime] and p[:endTime])
             p = {}
             p[:fixed] = @params[:id] ||= "this_week"
             # the default display is this week
