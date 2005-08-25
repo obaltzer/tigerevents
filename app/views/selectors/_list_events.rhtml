@@ -8,7 +8,7 @@
           <div class="title"><%= link_to event.title, :controller => "events", :action => "show", :id => event %></div>
           <div class="time"><%=h event.startTime.strftime( "%a %b %d %I:%M %p" ) %>
             <% if event.endTime %>
-              - <%=h event.endTime.strftime( (event.endTime - event.startTime < (60 * 60 * 24) and event.endTime.day - event.startTime.day == 0)? 
+              - <%=h event.endTime.strftime( (event.endTime - event.startTime < 1.day and event.endTime.day == event.startTime.day) ? 
                             "%I:%M %p" : 
                             "%a %b %d %I:%M %p") %>
             <% end %>
