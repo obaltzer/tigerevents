@@ -169,7 +169,8 @@ span.selector#headlines div.title a
 {
     font-size: 130%;
 }
-#ban_notice
+
+.ban_notice
 {
     background-color: #FFDD62;
     border: 2px red solid;
@@ -224,4 +225,18 @@ ul.period_links
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+img.date_select
+{
+    vertical-align: middle;
+    margin-bottom: 3px;
+}
+
+#period_display
+{
+    font-size: 70%;
+    margin: 0;
+    margin-left: 0.5em;
+    margin-bottom: 0.5em;
 }

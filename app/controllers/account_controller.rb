@@ -27,7 +27,7 @@ class AccountController < ApplicationController
                     # do not allow banned users to login at all
                     if @user.banned == 1
                         @session[:user] = nil
-                        flash["ban_notice"] = \
+                        flash[:ban_notice] = \
                             "You are banned please contact "\
                             + "the administrator."
                         redirect_to :controller => 'events', \
@@ -37,7 +37,7 @@ class AccountController < ApplicationController
                         @session[:user] = @user
                     end
                 else
-                    flash["login"] = "Login unsuccessful"
+                    flash[:login] = "Login unsuccessful"
                     # @login = @params[:user]
                 end
 	        redirect_to :controller => 'events', :action => 'index'

@@ -1,16 +1,18 @@
 <h1>Listing events</h1>
 <% if @flash[:auth] -%>
-    <div id="auth"><%= @flash[:auth] %></div>
+    <div class="auth"><%= @flash[:auth] %></div>
 <%end -%>
-<% if @flash["notice"] %>
-    <div id="notice"><%= @flash["notice"] %></div>
+<% if @flash[:notice] %>
+    <div class="notice"><%= @flash[:notice] %></div>
 <% end %>
-<% if @flash["ban_notice"] %>
-    <div id="ban_notice"><%= @flash["ban_notice"] %></div>
+<% if @flash[:ban_notice] %>
+    <div class="ban_notice"><%= @flash[:ban_notice] %></div>
 <% end %>
+<div id="period_display">
+  Time period displayed: <%= @period[:startTime].strftime('%A, %b %d %Y') %> to <%= @period[:endTime].strftime('%A, %b %d %Y') %>
+</div>
 <div id="selector_container">
 <% for selector in @selectors %>
-  <%= render_component :controller => "selectors", :action => "list_events", :id => selector, :params => 
-      {:startTime => @params[:startTime], :endTime => @params[:endTime], :period => @params[:period]} %>
+  <%= render_component :controller => "selectors", :action => "list_events", :id => selector, :params => {:period => @params[:period]} %>
 <% end %>
 </div>

@@ -12,7 +12,7 @@ class EventsController < ApplicationController
 
     def list
         # check if the request contained a predefined period
-        set_predefined_periods
+        set_view_period
         # retrieve the user customized layouts now if there are any
         if @session[:user] and not @session[:user].layouts.empty?
             @selectors = @session[:user].layouts.collect { |x| x.selector }
@@ -35,7 +35,6 @@ class EventsController < ApplicationController
     end
 
     def create
-        logger.debug "Params: #{@params.inspect}"
         @event = Event.new(@params[:event])
 	@event.priority_id = \
             Priority.find(:first, :conditions => "name = 'Normal'").id
@@ -91,7 +90,7 @@ class EventsController < ApplicationController
         # make sure only superusers can set the priority if someone
         # hand-crafts a URL
         if @params[:event][:priority_id] and @session[:user].superuser != 1
-            flash["notice"] = 'You do not have permissions to set '\
+            flash[:notice] = 'You do not have permissions to set '\
                              + 'the event priority.'
             render_action 'edit'
             return true
@@ -108,7 +107,7 @@ class EventsController < ApplicationController
                 unless @event.group.users.include? @session[:user]
 
             log_activity @event, 'MODIFY'
-            flash['notice'] = 'Event was successfully updated.'
+            flash[:notice] = 'Event was successfully updated.'
             # clear selectors cache
             SelectorsController.clearCache
             redirect_to :action => 'show_remote', :id => @event
@@ -156,52 +155,51 @@ class EventsController < ApplicationController
         redirect_to :controller => 'groups', :action => 'list_events_remote', :id => @params[:group_id]
     end
 
-    def set_predefined_periods
-        if @params[:id] == "this_week"
-            @params[:startTime] = {}
-            @params[:endTime] = {}
-            @params[:startTime][:year] = Time.now.year
-            @params[:startTime][:month] = Time.now.month
-            @params[:startTime][:day] = Time.now.day
-            @params[:endTime][:year] = 7.days.from_now.year 
-            @params[:endTime][:month] = 7.days.from_now.month 
-            @params[:endTime][:day] = 7.days.from_now.day
-        elsif @params[:id] == "next_week"
-            @params[:startTime] = {}
-            @params[:endTime] = {}
-            week_start = 7.days.from_now - (7.days.from_now.wday).days
-            @params[:startTime][:year] = week_start.year
-            @params[:startTime][:month] = week_start.month
-            @params[:startTime][:day] = week_start.day
-            @params[:endTime][:year] = (week_start + 7.days).year
-            @params[:endTime][:month] = (week_start + 7.days).month
-            @params[:endTime][:day] = (week_start + 7.days).day
-        elsif @params[:id] == "next_month"
-            @params[:startTime] = {}
-            @params[:endTime] = {}
-            month_start = 1.month.from_now - (1.month.from_now.day - 1).days
-            @params[:startTime][:year] = month_start.year
-            @params[:startTime][:month] = month_start.month
-            @params[:startTime][:day] = month_start.day
-            @params[:endTime][:year] = (month_start + 1.month).year
-            @params[:endTime][:month] = (month_start + 1.month).month
-            @params[:endTime][:day] = (month_start + 1.month).day
-         elsif @params[:id] == "this_month"
-            @params[:startTime] = {}
-            @params[:endTime] = {}
-            @params[:startTime][:year] = Time.now.year
-            @params[:startTime][:month] = Time.now.month
-            @params[:startTime][:day] = Time.now.day
-            @params[:endTime][:year] = 1.month.from_now.year 
-            @params[:endTime][:month] = 1.month.from_now.month 
-            @params[:endTime][:day] = 1.month.from_now.day
+    def set_view_period
+        # see if user has specified custom time period
+        if @params[:period] and @params[:period][:start_date] \
+                and @params[:period][:end_date]
+            p = @params[:period]
+            now = Time.now
+            begin
+                start_date = @params[:period][:start_date].split(/\//)
+                p[:startTime] = Time.local start_date[2], start_date[1], \
+                    start_date[0], now.hour, now.min, 0, 0
+            rescue
+                flash[:notice] = \
+                    "Invalid start date for time period selection."
+            end
+            begin
+                end_date = @params[:period][:end_date].split(/\//)
+                p[:endTime] = Time.local end_date[2], end_date[1], \
+                    end_date[0], now.hour, now.min, 0, 0
+            rescue 
+                flash[:notice] = \
+                    "Invalid end date for time period selection."
+            end
+            @params[:period].delete :fixed
+            @params[:period][:custom] = true
+        else # user did not specify custom time period
+            p = {}
+            p[:fixed] = @params[:id] ||= "this_week"
+            # the default display is this week
+            if @params[:id] == "next_week"
+                p[:startTime] = week_start = 7.days.from_now - (7.days.from_now.wday).days
+                p[:endTime] = week_start + 7.days
+            elsif @params[:id] == "next_month"
+                p[:startTime] = month_start = 1.month.from_now - (1.month.from_now.day - 1).days
+                p[:endTime] = month_start + 1.month
+            elsif @params[:id] == "this_month"
+                p[:startTime] = Time.now
+                p[:endTime] = 1.month.from_now 
+            else
+                # default is the this_week
+                p[:fixed] = "this_week"
+                p[:startTime] = Time.now
+                p[:endTime] = 7.days.from_now
+            end
         end
-        if @params[:id]
-            @params[:period] = @params[:id]
-        else
-            @params.delete :period
-        end
-        #logger.debug "Params: #{@params.inspect}"
+        @period = @params[:period] = p
     end
-    private :log_activity, :set_predefined_periods
+    private :log_activity, :set_view_period
 end

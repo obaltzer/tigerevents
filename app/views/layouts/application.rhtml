@@ -75,7 +75,7 @@
               <%= link_to (image_tag "dsubanner.jpg", {:alt=>"Dalhousie Student Union", :class=>"newsletter_header"}), "http://www.dsu.ca", {:class=>"newsletter_header"} %>
   </div>
   <div name="header" class="newsletter_block">
-            <span><%= link_to "Home", {:controller => "events", :id => "week" } %></span>
+            <span><%= link_to "Home", { :controller => "events", :action => "list", :id => nil } %></span>
             <span><%= link_to "Post Events", {:controller => "events", :action => "new"} %></span>
             <span>Forum</span>
             <span>Help</span>
@@ -129,14 +129,45 @@
       <li><%= link_to 'This Month', :controller => "events", :action => "list", :id => "this_month" %></li>
       <li><%= link_to 'Next Month', :controller => "events", :action => "list", :id => "next_month" %></li>
     </ul>
-    <p>
-    Or for complete control:<br />
-    <%= start_form_tag :controller => "events", :action => "list", :id => nil %>
-       <%= select_date Date.today, :prefix => "startTime" %><br />
-       <%= select_date Date.today, :prefix => "endTime" %>
-       <%= submit_tag "Submit" %>
-    <%= end_form_tag %>
-    </p>
+    <% @period ||= {} # XXX bad bad fix, but I have no idea how to do it better right now %>
+    <div style="margin-top: 2em;">
+      <div id="advanced_search_link" style="display: <%= @period[:custom] ? 'none' : 'block' %>">
+        <a href="javascript:toggle('advanced_search_link');toggle('advanced_search_field');">Advanced Options</a>
+      </div>
+      <div id="advanced_search_field" style="display: <%= @period[:custom] ? 'block' : 'none' %>">
+        <p>
+          Select a time period to display:
+        </p>
+        <%= start_form_tag :controller => "events", :action => "list", :id => nil %>
+        <div class="input">
+          <label for="period_start_date">Start:</label>
+          <%= text_field_tag 'period[start_date]', @period[:start_date], \
+                 :id => "period_start_date", \
+                 :size => "10", \
+                 :onclick => "clear_field('period_start_date')" %>
+          <%= image_tag 'calendar.png', { :alt => 'Select date', :id => 'period_start_selector', :class => 'date_select' } %>
+          <script type="text/javascript">
+            Calendar.setup({inputField: "period_start_date", ifFormat: "%d/%m/%Y", button: "period_start_selector",
+                            align: "Bl", singleClick: true});
+          </script>
+        </div>
+        <div class="input">
+          <label for="event_endTime">End:</label>
+          <%= text_field_tag 'period[end_date]', @period[:end_date], \
+                 :id => "period_end_date", \
+                 :size => "10", \
+                 :onclick => "clear_field('period_end_date')" %>
+          <%= image_tag 'calendar.png', { :alt => 'Select date', :id => 'period_end_selector', :class => 'date_select' } %>
+          <script type="text/javascript">
+            Calendar.setup({inputField: "period_end_date", ifFormat: "%d/%m/%Y", button: "period_end_selector",
+                            align: "Bl", singleClick: true});
+          </script>
+        </div>
+        <%= submit_tag "Submit" %>
+        <%= end_form_tag %>
+        <a href="javascript:toggle('advanced_search_link');toggle('advanced_search_field');">Hide Advanced Options</a>
+      </div>
+    </div>
   </div>
 
   <div name="eventlist">

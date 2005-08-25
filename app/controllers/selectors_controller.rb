@@ -14,9 +14,9 @@ class SelectorsController < ApplicationController
     
     def list_events
         #if the cacheKey is nil then it should not be stored
-        cacheKey = nil 
-        if @params[:period] 
-           cacheKey = "#{@params[:id]}_#{@params[:period]}" 
+        cacheKey = nil
+        if @params[:period][:fixed] 
+           cacheKey = "#{@params[:id]}_#{@params[:period][:fixed]}" 
         end
 
         #do not perform selection if it is in the cache
@@ -64,17 +64,20 @@ class SelectorsController < ApplicationController
                     + (selector.include_announcements == 1 ? "1" : "0")\
                     + " "
             end
-            #initialize the start and end time to be used for the time_cond. These may or may not be
-            #initialized with arguments in @params
-            #default time period is 7 days
-            startTime = Date.today.to_time
-            endTime = 7.days.from_now.at_beginning_of_day
- 
+
             #check params
-            if @params[:startTime] && @params[:endTime]
-               startTime = Time.local @params[:startTime][:year], @params[:startTime][:month], @params[:startTime][:day]
+            if @params[:period][:startTime] && @params[:period][:endTime]
+               startTime = @params[:period][:startTime]
+               #Time.local @params[:startTime][:year], @params[:startTime][:month], @params[:startTime][:day]
                #add more day to endTime to be inclusive of the last day
-               endTime = Time.local( @params[:endTime][:year], @params[:endTime][:month], @params[:endTime][:day] ).tomorrow
+               endTime = @params[:period][:endTime]
+               #Time.local( @params[:endTime][:year], @params[:endTime][:month], @params[:endTime][:day] ).tomorrow
+            else
+                #initialize the start and end time to be used for the time_cond. These may or may not be
+                #initialized with arguments in @params
+                #default time period is 7 days
+                startTime = Date.today.to_time
+                endTime = 7.days.from_now.at_beginning_of_day
             end
 
             time_cond = ""

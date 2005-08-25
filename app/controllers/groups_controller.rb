@@ -23,7 +23,7 @@ class GroupsController < ApplicationController
             @params[:group][:approved] = 0
         end
         if @group.update_attributes(@params[:group])
-            flash['notice'] = 'Group properties successfully updated.'
+            flash[:notice] = 'Group properties successfully updated.'
             SelectorsController.clearCache
             # generate a new request such that the authentication based
             # redirection kicks in

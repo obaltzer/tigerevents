@@ -106,7 +106,7 @@
   <%= text_field 'event', 'start_date', \
                  :size => "10", \
                  :onclick => "clear_field('event_start_date')" %>
-  <button type="reset" id="start_date_selector">...</button>
+  <%= image_tag 'calendar.png', { :alt => 'Select date', :id => 'start_date_selector', :class => 'date_select' } %>
   <script type="text/javascript">
     Calendar.setup({
         inputField     :    "event_start_date",     // id of the input field
@@ -135,7 +135,7 @@
   <%= text_field 'event', 'end_date', \
                  :size => "10", \
                  :onclick => "clear_field('event_end_date')" %>
-  <button type="reset" id="end_date_selector">...</button>
+  <%= image_tag 'calendar.png', { :alt => 'Select date', :id => 'end_date_selector', :class => 'date_select' } %>
   <script type="text/javascript">
     Calendar.setup({
         inputField     :    "event_end_date",     // id of the input field
