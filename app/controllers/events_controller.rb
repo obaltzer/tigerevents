@@ -113,7 +113,7 @@ class EventsController < ApplicationController
             if @params[:group_id]
                redirect_to :controller => 'groups', :action => 'edit', :id => @params[:group_id]
             else
-               redirect_to :action => 'list'
+               redirect_to :action => 'show', :id => @params[:id]
             end
         else
             render_action 'edit'
