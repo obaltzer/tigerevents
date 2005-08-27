@@ -26,6 +26,7 @@
 <% end %>
 
 <% if @session[:user] && @event.group.authorized_users.include? (@session[:user]) %>
+    <% @session[:prev_params] = @params %>
     <%= link_to 'Edit', :action => 'edit', :id => @event %> |
 <% end %>
 <%= link_to 'Back', :action => 'list' %>

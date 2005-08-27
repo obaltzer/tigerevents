@@ -6,8 +6,8 @@
   </div>
 <% end %>
 
-<%= start_form_tag :action => 'update', :id => @event.id, :group_id => @params[:group_id] %>
+<%= start_form_tag :action => 'update', :id => @event.id %>
   <%= render_partial "form" %>
   <%= submit_tag 'Update' %>
-  <%=link_to 'Cancel', :controller => "groups", :action => 'edit', :id => @params[:group_id] %>
+  <%=link_to 'Cancel', @session[:prev_params] %>
 <%= end_form_tag %>

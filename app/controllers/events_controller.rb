@@ -110,11 +110,7 @@ class EventsController < ApplicationController
             flash[:notice] = 'Event was successfully updated.'
             # clear selectors cache
             SelectorsController.clearCache
-            if @params[:group_id]
-               redirect_to :controller => 'groups', :action => 'edit', :id => @params[:group_id]
-            else
-               redirect_to :action => 'show', :id => @params[:id]
-            end
+            redirect_to @session[:prev_params]
         else
             render_action 'edit'
         end
