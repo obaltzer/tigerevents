@@ -2,36 +2,30 @@
 <div class="notice"><%=h @flash[:notice] %></div>
 <% end %>
 
-<p></p>
-<h2><center><b><%=h @event.title %></b></h2>
-<p></p>
-
-<font size= 1>
-	<i>Created on: <%=h @event.created_on %>
-	<% if @event.updated_on != @event.created_on %>
-		Last Modified: <%=h @event.updated_on %>
-	<% end %>
-	</i>
-</font>
-</center>
-
-
-<b><p>Start Date/Time:</b> <%=h @event.startTime %></p>
-<% if @event.endTime != nil %>
-<b><p>	End Date/Time:</b> <% @event.endTime %></p>
-<% end %>
-
-
-<table border=1 width=100%>
-<td>
+<h2><%= @event.title %></h2>
+<small><em>Last updated: <%= (@event.updated_on ? @event.updated_on : @event.created_on).strftime( "%a %b %d %I:%M %p" ) %></em></small>
 <p>
-	<%=h @event.description %>
+<%= @event.description %>
 </p>
-</td>
-</table>
-<% if @event.url != nil %>
-	<p> <a href="<%=h @event.url %>"> <%=h @event.url %></a></p>
+<% if @event.announcement == 0 %>
+    <p>
+    Starts: <%= @event.startTime.strftime( "%a %b %d %I:%M %p" ) %>
+    </p>
 <% end %>
 
-<%= link_to 'Edit', :action => 'edit', :id => @event %> |
+<% if @event.endTime && @event.announcement == 0 %>
+    <p>
+    Ends: <%= @event.endTime.strftime( "%a %b %d %I:%M %p" ) %>
+    </p>
+<% end %>
+
+<% if @event.url %>
+    <p>
+    For more information go to the following website: <%= link_to "#{@event.url}", "#{@event.url}" %>
+    </p>
+<% end %>
+
+<% if @session[:user] && @event.group.authorized_users.include? (@session[:user]) %>
+    <%= link_to 'Edit', :action => 'edit', :id => @event %> |
+<% end %>
 <%= link_to 'Back', :action => 'list' %>
