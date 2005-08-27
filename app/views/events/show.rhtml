@@ -2,12 +2,35 @@
 <div class="notice"><%=h @flash[:notice] %></div>
 <% end %>
 
-<% for column in Event.content_columns %>
+<p></p>
+<h2><center><b><%=h @event.title %></b></h2>
+<p></p>
+
+<font size= 1>
+	<i>Created on: <%=h @event.created_on %>
+	<% if @event.updated_on != @event.created_on %>
+		Last Modified: <%=h @event.updated_on %>
+	<% end %>
+	</i>
+</font>
+</center>
+
+
+<b><p>Start Date/Time:</b> <%=h @event.startTime %></p>
+<% if @event.endTime != nil %>
+<b><p>	End Date/Time:</b> <% @event.endTime %></p>
+<% end %>
+
+
+<table border=1 width=100%>
+<td>
 <p>
-  <% if column.human_name != "Announcement" && column.human_name != "Deleted" %>
-  <b><%= column.human_name %>:</b> <%=h @event.send(column.name) %>
-  <% end %>
+	<%=h @event.description %>
 </p>
+</td>
+</table>
+<% if @event.url != nil %>
+	<p> <a href="<%=h @event.url %>"> <%=h @event.url %></a></p>
 <% end %>
 
 <%= link_to 'Edit', :action => 'edit', :id => @event %> |
