@@ -1,137 +1,221 @@
 body
 {
-    background-color: #8CADB5;
-    font-family: Verdana, Arial, sans-serif;
-    font-size: 12px;    
-    color: #444A53;
+    margin: 1em;
+    background-color: white;
+    font-family: "Times New Roman", serif;
+    font-size: 12pt;
+    color: black;
 }
 
-a
+#site-logo
 {
-    font-size: 12px;    
-    color: #444A53;
+    background: url(/images/generic-logo-beta.png) no-repeat;
+    border: 0;
+    padding: 0;
+    margin-bottom: 0.2em;
+}
+
+/* Stole this hack from the standard Plone stylesheet */
+#site-logo a
+{
+    display: block;
+    text-decoration: none;
+    overflow: hidden;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    padding-top: 94px;
+    height: 0px !important;
+    height /**/: 94px;
+    width: 520px;
+    cursor: pointer;
+}    
+
+#today
+{
+    float: right;
+}
+
+ul#site-actions
+{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-left: 10em;
+    white-space: nowrap;
+}
+
+ul#site-actions li
+{
+    display: inline;
+}
+
+ul#site-actions li a
+{
+    background-color: transparent;
+    padding: 0em 1em 0em 1em;
+    margin: 0;
+    color: black;
     font-weight: bold;
     text-decoration: none;
 }
 
-a:hover
+ul#site-actions li a:hover
 {
+    background-color: #00009D;
+    color: white;
+}
+
+div#sidebar
+{
+    clear: both;
+    float: left;
+    width: 9em;
+    padding-right: 1em; /* update left margin of content accordingly */
+}
+
+#time-period-selection
+{
+    margin-top: 0.5em;
+    font-size: 90%;
+    float: right;
+}
+
+#time-period-links
+{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: inline;
+}
+
+#time-period-links li
+{
+    display: inline;
+}
+
+#time-period-links li:after
+{
+    content: ' *';
+}
+
+#time-period-selection a
+{
+    color: black;
     text-decoration: underline;
 }
 
-.newsletter_header{
-   border: 0;
+#time-period-selection a:hover
+{
+    text-decoration: none;
 }
 
-.newsletter_block {
-   background-color: #f4b316;
+#time-period-advanced
+{
+    display: none;
 }
 
-/* CSS Magic to make forms look ok */
+#content
+{
+    margin-left: 10em; /* should be the width of the sidebar */
+    padding-left: 1em;
+    border-left: 1px solid black;
+}
+
+.unvisibleclear
+{
+    clear: both;
+    visibility: hidden; /* this will render the space empty */
+    margin-top: -1em; /* this will get rid of the empty space */
+}
+
+/*************** INPUT FORMS ***************/
 .input
 {   
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+    font-family: sans-serif;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 input
 {
-    border: 1px solid #616976;
-    background-color: #D2DCF4;
+    border: 1px solid black;
+    background-color: #eeeeee;
     font-size: 12px;
     padding: 2px;
-    color: #444A53;
+    color: black;
 }
 
 select {
-    border: 1px solid #616976;  
-    color: #444A53;
-    background-color: #D2DCF4;
+    border: 1px solid black;  
+    color: black;
+    font-size: 12px;
+    background-color: #eeeeee;
     vertical-align: top;
 }
 
 textarea {
-    border: 1px solid #616976;
-    background-color: #D2DCF4;
+    border: 1px solid black;
+    background-color: #eeeeee;
     font-size: 12px;
     padding: 2px;
-    color: #444A53;
-    width: 100%;
+    color: black;
+    width: 40em;
+}
+
+input:focus, select:focus, textarea:focus {
+    background-color: #00009D;
+    color: white;
 }
 
 .input .description
 {
-    font-size: 60%;
-    color: #AFBED5;
+    margin: 0.2em 0 0.3em 0;
+    font-size: 65%;
+    color: #dddddd;
 }
 
 div.input:hover > div.description
 {
-    color: white;
-}
-
-.newsletter_header{
-   border: 0;
-}
-
-.newsletter_block {
-   background-color: #f4b316;
-   clear: both;
+    color: #00009D;
 }
 
 .input label
 {
+    font-size: 90%;
     display: block;
-    font-size: 12px;
     font-weight: bold;
 }
 
-#sidebar {
-   float: left;
-   width: 12em;
-   padding-right: 1em; 
-}
-
-#sidebar_right {
-   float: right;
-   width: 20em;
-   padding-left: 1em;
-}
-
-#eventlist {
-   margin-left: 10%;
-   width: 70%;
-}
-
-#selector_container
-{
-    font-size: 80%;
-    max-width: 60em;
-    padding: 0;
-    margin: 0;
-}
+/************************ SELECTORS *******************/
 
 span.selector
 {
     float: left;
     width: 20em;
     margin: 0;
+    border-right: 1px solid black;
 }
-
 
 div.selector
 {
     height: 20em;
-    overflow: auto;
-    margin: 0.5em;
-    padding: 0.5em 1em;
-    border: 1px dashed #444A53;
-    background-color: #D2DCF4;
+    overflow: hidden;
+    margin: 0em 1em 1em 1em;
+    padding: 0;
 }
 
-.selector * h1
+.selector * h3
 {
-    font-size: 110%;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 100%;
+    margin-top: 0;
+    border-top: 3px solid black;
+    border-bottom: 1px solid black;
+    text-align: center;
 }
 
 .selector ul
@@ -148,26 +232,58 @@ div.selector
     margin-bottom: 0.5em;
 }
 
+span.selector div.title-read-more
+{
+    display: none;
+}
+
 span.selector#headlines
 {
     width: 100%;
+    margin-bottom: 1em;
+    border: none;
 }
 
 span.selector#headlines div.selector
 {
     height: auto;
-    background-color: #F4A59A;
     overflow: visible;
 }
 
-span.selector#headlines h1, span.selector#headlines div.time,
+span.selector#headlines div.time,
 span.selector#headlines div.description
 {
     display: none;
 }
 span.selector#headlines div.title a
 {
+    color: black;
     font-size: 130%;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+span.selector#headlines div.title,
+span.selector#headlines div.title-read-more
+{
+    display: inline;
+}
+
+span.selector#headlines div.title a:hover
+{
+    text-decoration: underline;
+}
+
+span.selector#headlines div.title-read-more a
+{
+    color: black;
+    font-size: 70%;
+    text-decoration: underline;
+}
+
+span.selector#computer_science_society div.selector
+{
+    height: 40em;
 }
 
 .ban_notice

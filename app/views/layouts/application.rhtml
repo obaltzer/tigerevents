@@ -1,9 +1,11 @@
-<!-- DHTML Date/Time Selector
-(c) dynarch.com 2002-2005 / Author: Mihai Bazon
-For latest version visit: http://www.dynarch.com/projects/calendar/
-Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details-->
-
-
+<!-- 
+  Credits:
+  
+  DHTML Date/Time Selector
+  (c) dynarch.com 2002-2005 / Author: Mihai Bazon
+  For latest version visit: http://www.dynarch.com/projects/calendar/
+  Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details
+-->
 <html>
   <head>
     <title>my.dsu.ca - <%= @heading %></title>
@@ -15,183 +17,132 @@ Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details--
     <%= javascript_include_tag "calendar" %>
     <%= javascript_include_tag "calendar-en" %>
     <%= javascript_include_tag "calendar-setup" %>
-    <script language="JavaScript">
-      function toggle(elem) 
-      {
-        if(document.getElementById)
-        {
-          target = document.getElementById(elem);
-          if(target.style.display == "none")
-          {
-            target.style.display = "";
-          }
-          else
-          {
-            target.style.display = "none";
-          }
-        }
-      }
-      
-      function clear_field(id)
-      {
-        if(document.getElementById)
-        {
-          elem = document.getElementById(id);
-          elem.value = '';
-        }
-      }
-      /* This method catches when the enter key is pressed 
-       * when on an input field and will cause to jump to the element
-       * specified by the ID instead of submitting the form.
-       */
-      function enter(id, event)
-      {
-        if(event && event.keyCode == 13) 
-        {
-          if(document.getElementById)
-          {
-            document.getElementById(id).focus();
-          }
-          return false;
-        }
-        else
-        {
-          return true;
-        }
-      }
-
-      /* Performs a DFS to find the first input element in the form
-       * and sets the focus onto this element.
-       */
-      function focus_form(id)
-      {
-        if(document.getElementById && (form = document.getElementById(id)))
-        {
-          elements = form.getElementsByTagName('input');
-          if(elements.length >= 1)
-          {
-            elements[0].focus();
-          }
-        }
-      }
-    </script>
+    <%= javascript_include_tag "tigerevents" %>
   </head>
-  <body onload="new Effect.Appear('banner')">
-  <div id="banner" class="newsletter_header">
-              <%= link_to (image_tag "dsubanner.jpg", {:alt=>"Dalhousie Student Union", :class=>"newsletter_header"}), "http://www.dsu.ca", {:class=>"newsletter_header"} %>
-  </div>
-  <div name="header" class="newsletter_block">
-            <span><%= link_to "Home", { :controller => "events", :action => "list", :id => nil } %></span>
-            <span><%= link_to "Post Events", {:controller => "events", :action => "new"} %></span>
-            <span>Forum</span>
-            <span>Help</span>
-            <span>Contact</span>
-            <span>|</span>
-            <span><%= link_to "Tigerbooks", "http://www.tigerbooks.ca", {:class=>"newsletter_header"} %></span>
-            <span><%= link_to "DSU", "http://www.dsu.ca", {:class=>"newsletter_header"} %></span>
-  </div>
-  <div id="sidebar">
-    <% if session[:user] -%>
-      <p>Welcome<br/>
-      <%= session[:user].fullname %>
-      <% if session[:user].banned == 1 %>
-        <b>You are banned. Please e-mail ADMIN.</b>
-      <% else %>
-        <%= render_component :controller => "groups", :action => "mygroups" %>
-        <% if session[:user][:superuser] == 1 %>
-          <div style="margin: 0; padding: 0px;">
-            <strong>Site Management:</strong>
-          </div>
-          <ul style="list-style: none; padding: 0; margin: 0.5em 0 0.2em 0.5em;">
-            <li><%= link_to 'Groups', :controller => 'groups', :action => 'list' %></li>
-            <li><%= link_to 'Group Classes', :controller => 'group_classes' %></li>
-            <li><%= link_to 'Priorities', :controller => 'priorities' %></li>
-            <li><%= link_to 'Users', :controller => 'account', :action => 'list' %></li>
-          </ul>
-        <% end %>
-      <% end %>
-      <%= start_form_tag :controller => "account", :action=> "logout" %>
-        <input type="submit" name="logout" value="Logout &#187;" class="primary" />
-      <%= end_form_tag %>
-    <% else %>
-      <%= render_file "account/login" %>
-    <% end -%>
-    <div id="bug_box">
-      <big>Problems, doesn't work, complicated?</big>
-      <p>
-        File a ticket and we will take care of it.
-      </p>
-      <a href="http://mblast.cs.dal.ca/projects/te2/newticket"><big>Click here!</big></a>
+  
+  <body>
+    <h1 id="site-logo">
+      <%= link_to "TigerEvents", { :controller => "events", :action => "list", :id => nil } %>
+    </h1>
+   
+    <div id="today">
+      <%= Time.now.strftime '%A, %B %d %Y' %>
     </div>
-  </div>
-
-  <div id="sidebar_right">
-    <p>
-    Events for:
-    </p>
-    <ul class="period_links">
-      <li><%= link_to 'This Week', :controller => "events", :action => "list", :id => "this_week" %></li>
-      <li><%= link_to 'Next Week', :controller => "events", :action => "list", :id => "next_week" %></li>
-      <li><%= link_to 'This Month', :controller => "events", :action => "list", :id => "this_month" %></li>
-      <li><%= link_to 'Next Month', :controller => "events", :action => "list", :id => "next_month" %></li>
+    
+    <ul id="site-actions">
+      <li>
+        <%= link_to "Home", { :controller => "events", :action => "list", :id => nil } %>
+      </li>
+      <li>
+        <%= link_to "Post Events", {:controller => "events", :action => "new"} %>
+      </li>
+      <li>
+        <a href="#">Help</a>
+      </li>
+      <li>
+        <%= link_to "Tigerbooks", "http://www.tigerbooks.ca", {:class=>"newsletter_header"} %>
+      </li>
+      <li>
+        <%= link_to "DSU", "http://www.dsu.ca", {:class=>"newsletter_header"} %>
+      </li>
     </ul>
-    <% @period ||= {} # XXX bad bad fix, but I have no idea how to do it better right now %>
-    <div style="margin-top: 2em;">
-      <div id="advanced_search_link" style="display: <%= @period[:custom] ? 'none' : 'block' %>">
-        <a href="javascript:toggle('advanced_search_link');toggle('advanced_search_field');">Advanced Options</a>
-      </div>
-      <div id="advanced_search_field" style="display: <%= @period[:custom] ? 'block' : 'none' %>">
-        <p>
-          Select a time period to display:
-        </p>
-        <%= start_form_tag :controller => "events", :action => "list", :id => nil %>
-        <div class="input">
-          <label for="period_start_date">Start:</label>
-          <%= text_field_tag 'period[start_date]', @period[:start_date], \
-                 :id => "period_start_date", \
-                 :size => "10", \
-                 :onclick => "clear_field('period_start_date')" %>
-          <%= image_tag 'calendar.png', { :alt => 'Select date', :id => 'period_start_selector', :class => 'date_select' } %>
-          <script type="text/javascript">
-            Calendar.setup({inputField: "period_start_date", ifFormat: "%d/%m/%Y", button: "period_start_selector",
-                            align: "Bl", singleClick: true});
-          </script>
-        </div>
-        <div class="input">
-          <label for="event_endTime">End:</label>
-          <%= text_field_tag 'period[end_date]', @period[:end_date], \
-                 :id => "period_end_date", \
-                 :size => "10", \
-                 :onclick => "clear_field('period_end_date')" %>
-          <%= image_tag 'calendar.png', { :alt => 'Select date', :id => 'period_end_selector', :class => 'date_select' } %>
-          <script type="text/javascript">
-            Calendar.setup({inputField: "period_end_date", ifFormat: "%d/%m/%Y", button: "period_end_selector",
-                            align: "Bl", singleClick: true});
-          </script>
-        </div>
-        <%= submit_tag "Submit" %>
+    
+    <div id="sidebar">
+      <% if session[:user] -%>
+        <p>Welcome<br/>
+        <%= session[:user].fullname %>
+        <% if session[:user].banned == 1 %>
+          <b>You are banned. Please e-mail ADMIN.</b>
+        <% else %>
+          <%= render_component :controller => "groups", :action => "mygroups" %>
+          <% if session[:user][:superuser] == 1 %>
+            <div style="margin: 0; padding: 0px;">
+              <strong>Site Management:</strong>
+            </div>
+            <ul style="list-style: none; padding: 0; margin: 0.5em 0 0.2em 0.5em;">
+              <li><%= link_to 'Groups', :controller => 'groups', :action => 'list' %></li>
+              <li><%= link_to 'Group Classes', :controller => 'group_classes' %></li>
+              <li><%= link_to 'Priorities', :controller => 'priorities' %></li>
+              <li><%= link_to 'Users', :controller => 'account', :action => 'list' %></li>
+            </ul>
+          <% end %>
+        <% end %>
+        <%= start_form_tag :controller => "account", :action=> "logout" %>
+          <input type="submit" name="logout" value="Logout &#187;" class="primary" />
         <%= end_form_tag %>
-        <a href="javascript:toggle('advanced_search_link');toggle('advanced_search_field');">Hide Advanced Options</a>
+      <% else %>
+        <%= render_file "account/login" %>
+      <% end -%>
+      <div id="bug_box">
+        <big>Problems, doesn't work, complicated?</big>
+        <p>
+          File a ticket and we will take care of it.
+        </p>
+        <a href="http://mblast.cs.dal.ca/projects/te2/newticket"><big>Click here!</big></a>
       </div>
     </div>
-  </div>
 
-  <div name="eventlist">
-    <table class="newsletter">
-      <tbody>
-        <tr>
-          <td class="newsletter_body">
-            <h1><%=h @heading %></h1>
-            
-            <%= @content_for_layout %>
-
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div id="time-period-selection">
+      <ul id="time-period-links">
+        <li><%= link_to 'This Week', :controller => "events", :action => "list", :id => "this_week" %></li>
+        <li><%= link_to 'Next Week', :controller => "events", :action => "list", :id => "next_week" %></li>
+        <li><%= link_to 'This Month', :controller => "events", :action => "list", :id => "this_month" %></li>
+        <li><%= link_to 'Next Month', :controller => "events", :action => "list", :id => "next_month" %></li>
+      </ul>
+      <a href="#">Advanced</a>
+      <% @period ||= {} # XXX bad bad fix, but I have no idea how to do it better right now %>
+      <div id="time-period-advanced">
+        <div id="advanced_search_link" style="display: <%= @period[:custom] ? 'none' : 'block' %>">
+          <a href="javascript:toggle('advanced_search_link');toggle('advanced_search_field');">Advanced Options</a>
+        </div>
+        <div id="advanced_search_field" style="display: <%= @period[:custom] ? 'block' : 'none' %>">
+          <p>
+            Select a time period to display:
+          </p>
+          <%= start_form_tag :controller => "events", :action => "list", :id => nil %>
+          <div class="input">
+            <label for="period_start_date">Start:</label>
+            <%= text_field_tag 'period[start_date]', @period[:start_date], \
+                   :id => "period_start_date", \
+                   :size => "10", \
+                   :onclick => "clear_field('period_start_date')" %>
+            <%= image_tag 'calendar.png', { :alt => 'Select date', :id => 'period_start_selector', :class => 'date_select' } %>
+            <script type="text/javascript">
+              Calendar.setup({inputField: "period_start_date", ifFormat: "%d/%m/%Y", button: "period_start_selector",
+                              align: "Bl", singleClick: true});
+            </script>
+          </div>
+          <div class="input">
+            <label for="event_endTime">End:</label>
+            <%= text_field_tag 'period[end_date]', @period[:end_date], \
+                   :id => "period_end_date", \
+                   :size => "10", \
+                   :onclick => "clear_field('period_end_date')" %>
+            <%= image_tag 'calendar.png', { :alt => 'Select date', :id => 'period_end_selector', :class => 'date_select' } %>
+            <script type="text/javascript">
+              Calendar.setup({inputField: "period_end_date", ifFormat: "%d/%m/%Y", button: "period_end_selector",
+                              align: "Bl", singleClick: true});
+            </script>
+          </div>
+          <%= submit_tag "Submit" %>
+          <%= end_form_tag %>
+          <a href="javascript:toggle('advanced_search_link');toggle('advanced_search_field');">Hide Advanced Options</a>
+        </div>
+      </div>
     </div>
+
+    <div id="content">
+      
+      <h1><%=h @heading %></h1>
+      
+      <%= @content_for_layout %>
+   
+      <div class="unvisibleclear">---</div>
+    </div>
+    
     <div name="footer" class="newsletter_block">
-            <p>Developed by the awesome members of <%= link_to "Dal-ACM", "http://www.dal-acm.ca" %></p>
+      <p>Developed by the awesome members of <%= link_to "Dal-ACM", "http://www.dal-acm.ca" %></p>
     </div>
+  
   </body>
 </html>
