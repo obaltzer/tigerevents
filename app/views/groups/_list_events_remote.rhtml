@@ -13,7 +13,7 @@
 			timeToCheck = event.endTime
 	       end
 	    %> 
-            <% if timeToCheck > Date.today().to_time() %>
+            <% if timeToCheck > Time.now() %>
 		<tr id="event[<%=h event.id %>]">
         	<td>
                 <%=h event.title %>
