@@ -58,9 +58,17 @@ class Event < ActiveRecord::Base
 
     validate :times
     def times
+        #checking that the event is scheduled for a future time
+        if (self.startTime and self.startTime < Time.now and ( not @hasEndTime or \
+            not self.endTime or self.endTime < Time.now ) )
+           errors.add_to_base "You can not schedule events for dates that have" +\
+                      " already pasted"
+        end
+        
         if self.announcement == 1
             @hasEndTime = true
         end
+        #checking that endtime is after starttime
         if @hasEndTime and \
                 not (self.endTime and self.endTime > self.startTime)
             errors.add "endTime", "has to be after start time"
