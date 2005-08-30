@@ -2,7 +2,7 @@ development:
   adapter: mysql
   database: tigerevents_dev
   host: localhost
-  socket: /var/run/mysqld/mysqld.sock
+  socket: /var/lib/mysql/mysql.sock
   username: tigerevents
   password: tigerevents
 
@@ -10,14 +10,14 @@ test:
   adapter: mysql
   database: tigerevents_test
   host: localhost
-  socket: /var/run/mysqld/mysqld.sock
+  socket: /var/lib/mysql/mysql.sock
   username: tigerevents
   password: tigerevents
 
 production:
   adapter: mysql
   database: tigerevents
-  socket: /var/run/mysqld/mysqld.sock
+  socket: /var/lib/mysql/mysql.sock
   host: localhost
   username: tigerevents
   password: tigerevents
