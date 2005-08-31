@@ -89,7 +89,7 @@
         <li><%= link_to 'This Month', :controller => "events", :action => "list", :id => "this_month" %></li>
         <li><%= link_to 'Next Month', :controller => "events", :action => "list", :id => "next_month" %></li>
       </ul>
-      <a href="javascript:return;" onclick="toggle_slide('advanced-time-box');">Advanced</a>
+      <a href="javascript:toggle_slide('advanced-time-box');">Advanced</a>
       <% @period ||= {} # XXX bad bad fix, but I have no idea how to do it better right now %>
       <div id="advanced-time-box" style="display: none"><div id="advanced-time">
           <p>
