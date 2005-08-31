@@ -9,8 +9,9 @@
 <html>
   <head>
     <title>my.dsu.ca - <%= @heading %></title>
-    <%= stylesheet_link_tag 'calendar' %>
     <%= stylesheet_link_tag 'tigerevents' %>
+    <%= stylesheet_link_tag 'calendar' %>
+    <%= stylesheet_link_tag 'tigerevents-calendar' %>
     <%= javascript_include_tag "prototype" %>
     <%= javascript_include_tag "effects" %>
     <%= javascript_include_tag "dragdrop" %>
@@ -21,7 +22,7 @@
   </head>
   
   <body>
-    <h1 id="site-logo">
+    <h1 id="site_logo">
       <%= link_to "TigerEvents", { :controller => "events", :action => "list", :id => nil } %>
     </h1>
    
@@ -29,7 +30,7 @@
       <%= Time.now.strftime '%A, %B %d %Y' %>
     </div>
     
-    <ul id="site-actions">
+    <ul id="site_actions">
       <li>
         <%= link_to "Home", { :controller => "events", :action => "list", :id => nil } %>
       </li>
@@ -82,16 +83,16 @@
       </div>
     </div>
 
-    <div id="time-period-selection">
-      <ul id="time-period-links">
+    <div id="time_period_selection">
+      <ul id="time_period_links">
         <li><%= link_to 'This Week', :controller => "events", :action => "list", :id => "this_week" %></li>
         <li><%= link_to 'Next Week', :controller => "events", :action => "list", :id => "next_week" %></li>
         <li><%= link_to 'This Month', :controller => "events", :action => "list", :id => "this_month" %></li>
         <li><%= link_to 'Next Month', :controller => "events", :action => "list", :id => "next_month" %></li>
       </ul>
-      <a href="javascript:toggle_slide('advanced-time-box');">Advanced</a>
+      <a href="javascript:toggle_slide('advanced_time_box');">Advanced</a>
       <% @period ||= {} # XXX bad bad fix, but I have no idea how to do it better right now %>
-      <div id="advanced-time-box" style="display: none"><div id="advanced-time">
+      <div id="advanced_time_box" style="display: none"><div id="advanced_time">
           <p>
             Select a time period to display:
           </p>

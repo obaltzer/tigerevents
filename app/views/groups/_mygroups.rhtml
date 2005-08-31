@@ -1,14 +1,14 @@
 <% unless @groups.empty? %>
 <p><b>Your Groups</b></p>
+<ul class="member_groups">
+  <% @groups.each do |group| %>
+    <li class="<%= group.unauthorized_users.empty? ? 'has_authorized_members' : 'has_unauthorized_members'%>">
+      <%= link_to group.name, :controller => "groups", :action => "edit", :id => group.id %>
+    </li>
+  <% end %>
+</ul>
 <p>
-      <% @groups.each do |group| %>
-         <%= link_to group.name, :controller => "groups", :action => "edit", :id => group.id %>
-         <%= group.unauthorized_users.empty? ? '' : '*' %>
-         <br/>
-      <% end %>
-</p>
-<p>
-<em>* This group has unapproved members </em>
+  <span class="has_unauthorized_members">Group</span> &ndash; <em>This group has unapproved members </em>
 </p>
 <% end %>
 <% unless @pengroups.empty? %>

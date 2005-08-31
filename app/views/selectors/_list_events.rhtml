@@ -6,7 +6,7 @@
       <% for event in @events %>
         <li>
           <div class="title"><%= link_to event.title, :controller => "events", :action => "show", :id => event %></div>
-          <div class="title-read-more"><%= link_to "Read more...", :controller => "events", :action => "show", :id => event %></div>
+          <div class="title_read_more"><%= link_to "Read more...", :controller => "events", :action => "show", :id => event %></div>
           <div class="time"><%=h event.startTime.strftime( "%a %b %d %I:%M %p" ) %>
             <% if event.endTime %>
               - <%=h event.endTime.strftime( (event.endTime - event.startTime < 1.day and event.endTime.day == event.startTime.day) ? 

@@ -7,7 +7,19 @@ body
     color: black;
 }
 
-#site-logo
+a
+{
+    /* font-weight: bold; */
+    text-decoration: none;
+    color: blue;
+}
+
+a:hover
+{
+    text-decoration: underline;
+}
+    
+#site_logo
 {
     background: url(/images/generic-logo-beta.png) no-repeat;
     border: 0;
@@ -16,7 +28,7 @@ body
 }
 
 /* Stole this hack from the standard Plone stylesheet */
-#site-logo a
+#site_logo a
 {
     display: block;
     text-decoration: none;
@@ -36,7 +48,7 @@ body
     float: right;
 }
 
-ul#site-actions
+ul#site_actions
 {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
@@ -47,12 +59,12 @@ ul#site-actions
     white-space: nowrap;
 }
 
-ul#site-actions li
+ul#site_actions li
 {
     display: inline;
 }
 
-ul#site-actions li a
+ul#site_actions li a
 {
     background-color: transparent;
     padding: 0em 1em 0em 1em;
@@ -62,7 +74,7 @@ ul#site-actions li a
     text-decoration: none;
 }
 
-ul#site-actions li a:hover
+ul#site_actions li a:hover
 {
     background-color: #00009D;
     color: white;
@@ -76,14 +88,14 @@ div#sidebar
     padding-right: 1em; /* update left margin of content accordingly */
 }
 
-#time-period-selection
+#time_period_selection
 {
     margin-top: 0.5em;
     font-size: 90%;
     float: right;
 }
 
-#time-period-links
+#time_period_links
 {
     margin: 0;
     padding: 0;
@@ -91,28 +103,29 @@ div#sidebar
     display: inline;
 }
 
-#time-period-links li
+#time_period_links li
 {
     display: inline;
 }
 
-#time-period-links li:after
+#time_period_links li:after
 {
     content: ' *';
 }
 
-#time-period-selection a
+#time_period_selection a
 {
     color: black;
+    font-weight: normal;
     text-decoration: underline;
 }
 
-#time-period-selection a:hover
+#time_period_selection a:hover
 {
     text-decoration: none;
 }
 
-#advanced-time-box
+#advanced_time_box
 {
     position: absolute;
     width: 12em;
@@ -121,7 +134,7 @@ div#sidebar
     z-index: 1;
 }
 
-div#advanced-time
+div#advanced_time
 {
     position: relative;
     background-color: white;
@@ -130,7 +143,7 @@ div#advanced-time
     padding: 0.5em;
 }
 
-div#advanced-time p
+div#advanced_time p
 {
     margin: 0;
 }
@@ -142,17 +155,23 @@ div#advanced-time p
     border-left: 1px solid black;
 }
 
+#event_input_form
+{
+    max-width: 60em;
+}
+
+#add_group_form,
+#add_category_form
+{
+    padding: 0.5em;
+    border: 1px dotted black;
+}
+
 .unvisibleclear
 {
     clear: both;
     visibility: hidden; /* this will render the space empty */
     margin-top: -1em; /* this will get rid of the empty space */
-}
-
-/* make the calendar to hover over all elements */
-div.calendar
-{
-    z-index: 2;
 }
 
 /*************** INPUT FORMS ***************/
@@ -198,7 +217,7 @@ input:focus, select:focus, textarea:focus {
 {
     margin: 0.2em 0 0.3em 0;
     font-size: 65%;
-    color: #dddddd;
+    color: #aaaaaa;
 }
 
 div.input:hover > div.description
@@ -256,7 +275,7 @@ div.selector
     margin-bottom: 0.5em;
 }
 
-span.selector div.title-read-more
+span.selector div.title_read_more
 {
     display: none;
 }
@@ -288,7 +307,7 @@ span.selector#headlines div.title a
 }
 
 span.selector#headlines div.title,
-span.selector#headlines div.title-read-more
+span.selector#headlines div.title_read_more
 {
     display: inline;
 }
@@ -298,16 +317,79 @@ span.selector#headlines div.title a:hover
     text-decoration: underline;
 }
 
-span.selector#headlines div.title-read-more a
+span.selector#headlines div.title_read_more a
 {
     color: black;
     font-size: 70%;
+    font-weight: normal;
     text-decoration: underline;
 }
 
 span.selector#computer_science_society div.selector
 {
     height: 40em;
+}
+
+/****************** TABLE STUFF *********************/
+table
+{
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+th
+{
+    background-color: #eeeeee;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    text-align: left;
+    padding: 0.2em 0.5em 0.2em 0.5em;
+}
+
+tr
+{
+    border-bottom: 1px dotted black;
+}
+
+tr:hover
+{
+    background-color: #FFFFBB;
+}
+
+td
+{
+    text-align: left;
+    padding: 0.2em 0.5em 0.2em 0.5em;
+}
+
+
+td.time_string
+{
+    font-size: 80%;
+}
+
+td.last_editor
+{
+    font-size: 80%;
+}
+
+ul.member_groups
+{
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+span.has_unauthorized_members,
+li.has_unauthorized_members *
+{
+    color: red;
+    font-weight: bold;
+}
+
+.pending_event
+{
+    background-color: #FFDDCC;
 }
 
 .ban_notice
