@@ -56,6 +56,11 @@ class Event < ActiveRecord::Base
             )
     end
 
+    def expired?
+        self.startTime < Time.now and (not self.endTime or self.endTime < \
+             Time.now )
+    end
+
     validate :times
     def times
         #checking that the event is scheduled for a future time

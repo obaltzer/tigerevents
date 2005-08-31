@@ -1,3 +1,6 @@
+<% @session[:prev_params] = { :controller => 'events', :action => 'list', \
+                              :id => "#{@params[:id]}"} %>
+
 <h1>Listing events</h1>
 <% if @flash[:auth] -%>
     <div class="auth"><%= @flash[:auth] %></div>

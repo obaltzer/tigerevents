@@ -25,8 +25,8 @@
     </p>
 <% end %>
 
-<% if @session[:user] && @event.group.authorized_users.include? (@session[:user]) %>
-    <% @session[:prev_params] = @params %>
+<% if @session[:user] and (@event.group.authorized_users.include? (@session[:user]) or @session[:user].superuser == 1 ) \
+      and not @event.expired? %>
     <%= link_to 'Edit', :action => 'edit', :id => @event %> |
 <% end %>
-<%= link_to 'Back', :action => 'list' %>
+<%= link_to 'Back', @session[:prev_params] %>

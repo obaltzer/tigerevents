@@ -3,7 +3,6 @@
  * This file contains TigerEvents specific JavaScript functions used
  * throughout the view.
  */
-
 function toggle(elem) 
 {
   if(document.getElementById)
@@ -16,6 +15,22 @@ function toggle(elem)
     else
     {
       target.style.display = "none";
+    }
+  }
+}
+
+function toggle_slide(elemId)
+{
+  if(document.getElementById)
+  {
+    target = document.getElementById(elemId);
+    if(target.style.display == "none")
+    {
+      new Effect.SlideDown(target);
+    }
+    else
+    {
+      new Effect.SlideUp(target);
     }
   }
 }

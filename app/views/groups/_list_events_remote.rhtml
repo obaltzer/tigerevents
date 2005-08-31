@@ -7,13 +7,7 @@
          </tr>
 
          <% for event in @events %>
-	    <% if event.endTime == nil
-			timeToCheck = event.startTime
-	       else 
-			timeToCheck = event.endTime
-	       end
-	    %> 
-            <% if timeToCheck > Time.now() %>
+            <% if not event.expired? %>
 		<tr id="event[<%=h event.id %>]">
         	<td>
                 <%=h event.title %>

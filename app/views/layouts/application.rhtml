@@ -9,8 +9,8 @@
 <html>
   <head>
     <title>my.dsu.ca - <%= @heading %></title>
-    <%= stylesheet_link_tag 'tigerevents' %>
     <%= stylesheet_link_tag 'calendar' %>
+    <%= stylesheet_link_tag 'tigerevents' %>
     <%= javascript_include_tag "prototype" %>
     <%= javascript_include_tag "effects" %>
     <%= javascript_include_tag "dragdrop" %>
@@ -89,13 +89,9 @@
         <li><%= link_to 'This Month', :controller => "events", :action => "list", :id => "this_month" %></li>
         <li><%= link_to 'Next Month', :controller => "events", :action => "list", :id => "next_month" %></li>
       </ul>
-      <a href="#">Advanced</a>
+      <a href="javascript:return;" onclick="toggle_slide('advanced-time-box');">Advanced</a>
       <% @period ||= {} # XXX bad bad fix, but I have no idea how to do it better right now %>
-      <div id="time-period-advanced">
-        <div id="advanced_search_link" style="display: <%= @period[:custom] ? 'none' : 'block' %>">
-          <a href="javascript:toggle('advanced_search_link');toggle('advanced_search_field');">Advanced Options</a>
-        </div>
-        <div id="advanced_search_field" style="display: <%= @period[:custom] ? 'block' : 'none' %>">
+      <div id="advanced-time-box" style="display: none"><div id="advanced-time">
           <p>
             Select a time period to display:
           </p>
@@ -126,7 +122,6 @@
           </div>
           <%= submit_tag "Submit" %>
           <%= end_form_tag %>
-          <a href="javascript:toggle('advanced_search_link');toggle('advanced_search_field');">Hide Advanced Options</a>
         </div>
       </div>
     </div>

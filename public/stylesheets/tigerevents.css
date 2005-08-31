@@ -112,9 +112,27 @@ div#sidebar
     text-decoration: none;
 }
 
-#time-period-advanced
+#advanced-time-box
 {
-    display: none;
+    position: absolute;
+    width: 12em;
+    right: 1em;
+    top: 12em;
+    z-index: 1;
+}
+
+div#advanced-time
+{
+    position: relative;
+    background-color: white;
+    border: 1px solid black;
+    opacity: 0.8;
+    padding: 0.5em;
+}
+
+div#advanced-time p
+{
+    margin: 0;
 }
 
 #content
@@ -129,6 +147,12 @@ div#sidebar
     clear: both;
     visibility: hidden; /* this will render the space empty */
     margin-top: -1em; /* this will get rid of the empty space */
+}
+
+/* make the calendar to hover over all elements */
+div.calendar
+{
+    z-index: 2;
 }
 
 /*************** INPUT FORMS ***************/
@@ -201,7 +225,7 @@ span.selector
 
 div.selector
 {
-    height: 20em;
+    max-height: 20em;
     overflow: hidden;
     margin: 0em 1em 1em 1em;
     padding: 0;
@@ -247,7 +271,7 @@ span.selector#headlines
 span.selector#headlines div.selector
 {
     height: auto;
-    overflow: visible;
+    overflow: auto;
 }
 
 span.selector#headlines div.time,
@@ -334,13 +358,6 @@ span.selector#computer_science_society div.selector
 #bug_box big
 {
     font-weight: bold;
-}
-
-ul.period_links
-{
-    list-style: none;
-    margin: 0;
-    padding: 0;
 }
 
 img.date_select
