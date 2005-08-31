@@ -115,11 +115,12 @@ class GroupsController < ApplicationController
              else
                 #get the events the user created for the group
                 events_to_delete = Event.find(:all, \
-                                    :include => [:creators], \
-                                    :conditions => ['group_id = ? AND user_id = ?', @group.id, m])
+                    :joins => "LEFT JOIN activities on events.id = event_id", \
+                    :conditions => ["group_id = ? and user_id = ? and action = 'CREATE'", \
+                                    @group.id, user.id])
                 #flagged them as deleted
                 for e in events_to_delete
-                   e.update_attribute( :deleted, 1 );
+                        e.update_attribute( :deleted, 1 );
                 end
                 @group.users.delete( user )
              end
