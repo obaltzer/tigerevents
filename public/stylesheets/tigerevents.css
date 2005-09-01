@@ -90,8 +90,8 @@ div#sidebar
 
 #time_period_selection
 {
+    font-size: 70%;
     margin-top: 0.5em;
-    font-size: 90%;
     float: right;
 }
 
@@ -127,10 +127,11 @@ div#sidebar
 
 #advanced_time_box
 {
+    font-size: 12pt;
     position: absolute;
     width: 12em;
     right: 1em;
-    top: 12em;
+    top: 10em;
     z-index: 1;
 }
 
@@ -150,7 +151,9 @@ div#advanced_time p
 
 #content
 {
+    margin-top: 1em;
     margin-left: 10em; /* should be the width of the sidebar */
+    padding-top: 1em;
     padding-left: 1em;
     border-left: 1px solid black;
 }
@@ -237,20 +240,21 @@ div.input:hover > div.description
 span.selector
 {
     float: left;
-    width: 20em;
+    width: 18em;
     margin: 0;
+    padding: 0 1em 0 1em;
     border-right: 1px solid black;
 }
 
 div.selector
 {
-    max-height: 20em;
-    overflow: hidden;
-    margin: 0em 1em 1em 1em;
+    height: 20em;
+    overflow: auto;
+    margin: 0.5em 0em 1em 0em;
     padding: 0;
 }
 
-.selector * h3
+span.selector > h3
 {
     text-transform: uppercase;
     letter-spacing: 0.3em;
@@ -275,6 +279,11 @@ div.selector
     margin-bottom: 0.5em;
 }
 
+.selector li a
+{
+    font-weight: bold;
+}
+
 span.selector div.title_read_more
 {
     display: none;
@@ -282,8 +291,9 @@ span.selector div.title_read_more
 
 span.selector#headlines
 {
-    width: 100%;
-    margin-bottom: 1em;
+    width: auto;
+    float: none;
+    display: block;
     border: none;
 }
 
@@ -323,11 +333,6 @@ span.selector#headlines div.title_read_more a
     font-size: 70%;
     font-weight: normal;
     text-decoration: underline;
-}
-
-span.selector#computer_science_society div.selector
-{
-    height: 40em;
 }
 
 /****************** TABLE STUFF *********************/
@@ -400,6 +405,14 @@ li.has_unauthorized_members *
     padding: 0.5em;
 }
 
+.auth
+{
+    background-color: #FFDD62;
+    border: 2px red solid;
+    padding: 0.5em;
+    margin: 1em;
+}
+
 .group_listing,
 .user_listing,
 .event_listing
@@ -450,8 +463,7 @@ img.date_select
 
 #period_display
 {
-    font-size: 70%;
     margin: 0;
-    margin-left: 0.5em;
+    margin-left: 1em;
     margin-bottom: 0.5em;
 }

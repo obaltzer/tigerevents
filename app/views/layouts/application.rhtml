@@ -8,7 +8,9 @@
 -->
 <html>
   <head>
-    <title>my.dsu.ca - <%= @heading %></title>
+    <title>my.dsu.ca - Find out what's happening at Dal and in Halifax Metro</title>
+    <meta name="description" content="TigerEvents is the number source for event announcements at Dalhousie University and Halifax Metro."/>
+    <meta name="keywords" content="events,announcements,Dalhousie University,Halifax,Dartmouth,Nova Scotia,what s going on,what s happening,going out,societies,Dalhousie Student Union,DSU,Dalhouse Student Chapter of the ACM,Dal-ACM"/>
     <%= stylesheet_link_tag 'tigerevents' %>
     <%= stylesheet_link_tag 'calendar' %>
     <%= stylesheet_link_tag 'tigerevents-calendar' %>
@@ -130,7 +132,6 @@
     <div id="content">
       
       <h1><%=h @heading %></h1>
-      
       <%= @content_for_layout %>
    
       <div class="unvisibleclear">---</div>

@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
 
     def can_edit
         if(@session[:user] == nil || @session[:user].banned == 1)
+            flash[:auth] = \
+                "You do not have permissions to edit this posting."
 	    redirect_back_or_default :controller => "events", :action => "index"
 	end
         if(@session[:user].superuser == 1)
@@ -15,9 +17,13 @@ class ApplicationController < ActionController::Base
 	end
 	@event = Event.find(@params[:id])
 	if(@event.deleted == 1)
+            flash[:auth] = \
+                "You do not have permissions to edit this posting."
 	    redirect_back_or_default :controller => "events", :action => "index"
 	end
 	if(!@session[:user].approved_groups.include? Group.find(@event.group_id))
+            flash[:auth] = \
+                "You do not have permissions to edit this posting."
 	    redirect_back_or_default :controller => "events", :action => "index"
 	end
 	true
@@ -25,9 +31,13 @@ class ApplicationController < ActionController::Base
 
     def super_user
         if(!@session[:user])
+            flash[:auth] = \
+                "You do not have permissions to access the page."
             redirect_back_or_default :controller => "events", :action => "index"
 	end
 	if(@session[:user].superuser == 0)
+            flash[:auth] = \
+                "You do not have permissions to access the page."
             redirect_back_or_default :controller => "events", :action => "index"
 	end
     end

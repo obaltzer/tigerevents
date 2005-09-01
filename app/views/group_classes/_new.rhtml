@@ -1,15 +1,13 @@
-<div id="_group_class_new">
-  <h2>Create a new Group Class</h2>
-  <%= form_remote_tag :update => "_group_class_list", :url => { :action => "create" } %>
-    <input type="hidden" name="update_with" value="<%= url_for :action => "list" %>"/> 
-    <input type="hidden" name="update" value="_group_class_list"/> 
-    <div class="input">
-      <label for="group_class_name">Group Class Name</label>
-      <div class="description">
-        Specify the name of the group class you want to create.
-      </div>
-      <%= text_field 'group_class', 'name' %>
+<h2>Create a new Group Class</h2>
+<%= form_remote_tag :update => "_group_class_list", :url => { :action => "create" } %>
+  <input type="hidden" name="update_with" value="<%= url_for :action => "list" %>"/> 
+  <input type="hidden" name="update" value="_group_class_list"/> 
+  <div class="input">
+    <label for="group_class_name">Group Class Name</label>
+    <div class="description">
+      Specify the name of the group class you want to create.
     </div>
-    <%= submit_tag "Create" %>
-  <%= end_form_tag %>
-</div>
+    <%= text_field 'group_class', 'name' %>
+  </div>
+  <%= submit_tag "Create" %>
+<%= end_form_tag %>

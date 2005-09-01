@@ -37,7 +37,7 @@ class AccountController < ApplicationController
                         @session[:user] = @user
                     end
                 else
-                    flash[:login] = "Login unsuccessful"
+                    flash[:auth] = "Login unsuccessful"
                     # @login = @params[:user]
                 end
 	        redirect_to :controller => 'events', :action => 'index'

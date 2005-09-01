@@ -1,41 +1,39 @@
-<div id="_group_class_list">
-  <h2>Existing Group Classes</h2>
-  <table>
-    <thead>
+<h2>Existing Group Classes</h2>
+<table>
+  <thead>
+    <tr>
+      <td>Group Class Name</td>
+      <td>Actions</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% for c in @group_classes do %>
       <tr>
-        <td>Group Class Name</td>
-        <td>Actions</td>
+        <td><%=h c.name %></td>
+        <td>
+          <% if @group_classes.length >= 2 %>
+            <a id="remove_link_<%= c.id %>" href="#" onclick="toggle('remove_form_<%= c.id %>');toggle('remove_link_<%= c.id %>');">Remove</a>
+            <span id="remove_form_<%= c.id %>" style="display: none">
+              <%= form_remote_tag :update => "_group_class_list", :url => { :action => "remove", :id => c.id } %>
+                <input type="hidden" name="update_with" value="<%= url_for :action => "list" %>"/>
+                <div class="input">
+                  <label for="new_class_id" style="display: inline">Reassign existing groups to:</label>
+                  <!-- div class="description">
+                    Groups that are associated with <%=h c.name %> will be reassigned to the group you specify here.
+                  </div-->
+                  <select id="new_class_id" name="new_class_id">
+                    <%= options_from_collection_for_select @complements[c], 'id', 'name' %>
+                  </select>
+                  <!-- %= submit_tag "Ok", :id => "remove_submit", :onclick => "toggle('remove_form_" +  c.id.to_s + "');toggle('remove_link_" + c.id.to_s + "');" % -->
+                  <%= submit_tag "Ok" %>
+                </div>
+              <%= end_form_tag %>
+            </span>
+          <% else %>
+            Cannot delete this group class. Please create a new group class first.
+          <% end %>
+        </td>
       </tr>
-    </thead>
-    <tbody>
-      <% for c in @group_classes do %>
-        <tr>
-          <td><%=h c.name %></td>
-          <td>
-            <% if @group_classes.length >= 2 %>
-              <a id="remove_link_<%= c.id %>" href="#" onclick="toggle('remove_form_<%= c.id %>');toggle('remove_link_<%= c.id %>');">Remove</a>
-              <span id="remove_form_<%= c.id %>" style="display: none">
-                <%= form_remote_tag :update => "_group_class_list", :url => { :action => "remove", :id => c.id } %>
-                  <input type="hidden" name="update_with" value="<%= url_for :action => "list" %>"/>
-                  <div class="input">
-                    <label for="new_class_id" style="display: inline">Reassign existing groups to:</label>
-                    <!-- div class="description">
-                      Groups that are associated with <%=h c.name %> will be reassigned to the group you specify here.
-                    </div-->
-                    <select id="new_class_id" name="new_class_id">
-                      <%= options_from_collection_for_select @complements[c], 'id', 'name' %>
-                    </select>
-                    <!-- %= submit_tag "Ok", :id => "remove_submit", :onclick => "toggle('remove_form_" +  c.id.to_s + "');toggle('remove_link_" + c.id.to_s + "');" % -->
-                    <%= submit_tag "Ok" %>
-                  </div>
-                <%= end_form_tag %>
-              </span>
-            <% else %>
-              Cannot delete this group class. Please create a new group class first.
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+    <% end %>
+  </tbody>
+</table>

@@ -192,7 +192,7 @@ class EventsController < ApplicationController
         # initialize
         if not @params[:period] or not (p[:startTime] and p[:endTime])
             p = {}
-            p[:fixed] = @params[:id] ||= "this_week"
+            p[:fixed] = @params[:id] ||= "this_month"
             # the default display is this week
             if @params[:id] == "next_week"
                 p[:startTime] = week_start = 7.days.from_now - (7.days.from_now.wday).days
@@ -203,11 +203,14 @@ class EventsController < ApplicationController
             elsif @params[:id] == "this_month"
                 p[:startTime] = Time.now
                 p[:endTime] = 1.month.from_now 
-            else
-                # default is the this_week
-                p[:fixed] = "this_week"
+            elsif @params[:id] == "this_week"
                 p[:startTime] = Time.now
                 p[:endTime] = 7.days.from_now
+            else
+                # default is the this_month
+                p[:fixed] = "this_month"
+                p[:startTime] = Time.now
+                p[:endTime] = 1.month.from_now
             end
         end
         @period = @params[:period] = p

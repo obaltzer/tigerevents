@@ -77,12 +77,16 @@ class GroupsController < ApplicationController
     #checks to see if the user belongs to this group
     def belongs_to
         if(@session[:user] == nil || @session[:user].banned == 1)
+            flash[:auth] = \
+                "You do not have permission to manage this group."
 	    redirect_to :controller => "events", :action => "index"
         end
         if(@session[:user].superuser == 1)
 	    return true
 	end
 	if(!@session[:user].approved_groups.include? Group.find(@params[:id]))
+            flash[:auth] = \
+                "You do not have permission to manage this group."
 	    redirect_to :controller => "events", :action => "index"
         end
 	true

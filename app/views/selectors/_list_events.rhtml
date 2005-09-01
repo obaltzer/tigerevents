@@ -1,7 +1,7 @@
 <% if not @events.empty? %>
 <span class="selector" id="<%=h @selector.label.downcase %>">
+  <h3><%=h @selector.name %></h3>
   <div class="selector">
-    <h3><%=h @selector.name %></h3>
     <ul>
       <% for event in @events %>
         <li>
