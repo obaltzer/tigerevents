@@ -23,7 +23,7 @@
   	    <% if @session[:user] != member %>
               <a id="remove_link_<%= member.id %>" href="javascript:return false;" onclick="toggle('remove_form_<%= member.id %>');toggle('remove_link_<%= member.id %>');">Remove</a>
               <span id="remove_form_<%= member.id %>" style="display: none">
-                <%= form_remote_tag :update => "_group_authorized_remote_form", :url => { :action => "remove_member", :id => @group.id } %>
+                <%= form_remote_tag :update => "members_section", :url => { :action => "remove_member", :id => @group.id } %>
                   <input type="hidden" name="user_id" value="<%= member.id %>"/>
                   <div class="input">
                     <label for="event_adopter_id" style="display: inline">User's events will be adopted by:</label>

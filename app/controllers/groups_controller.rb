@@ -115,11 +115,12 @@ class GroupsController < ApplicationController
              else
                 #get the events the user created for the group
                 events_to_delete = Event.find(:all, \
-                                    :include => [:creators], \
-                                    :conditions => ['group_id = ? AND user_id = ?', @group.id, m])
+                    :joins => "LEFT JOIN activities on events.id = event_id", \
+                    :conditions => ["group_id = ? and user_id = ? and action = 'CREATE'", \
+                                    @group.id, user.id])
                 #flagged them as deleted
                 for e in events_to_delete
-                   e.update_attribute( :deleted, 1 );
+                        e.update_attribute( :deleted, 1 );
                 end
                 @group.users.delete( user )
              end
@@ -139,12 +140,12 @@ class GroupsController < ApplicationController
             @complement_authorized_members[m] = Array.new(@authorized_members)
             @complement_authorized_members[m].delete_if { |x| x.id == m.id }
         end
-        render_partial
+        render_partial 
     end
 
     #removes the member from the group
     def remove_member
-        group = Group.find @params[:id]
+        @group = Group.find @params[:id]
         user = User.find @params[:user_id]
         adopter = User.find @params[:adopter_id]
         # find the events that belong to the user
@@ -158,7 +159,7 @@ class GroupsController < ApplicationController
                         + "events.id = activities.event_id",\
             :conditions => ["action IN ('CREATE', 'ADOPT') AND "\
                             + "groups.id = ? AND users.id = ?", \
-                            group.id, user.id]
+                            @group.id, user.id]
         # adopt events from user_id to adopter_id 
         for e in events do
             a = Activity.new
@@ -167,10 +168,10 @@ class GroupsController < ApplicationController
             a.action = 'ADOPT'
             a.save
         end
-        group.users.delete user
+        @group.users.delete user
         # clear selectors cache
         SelectorsController.clearCache
-        redirect_to :action => "authorized_remote", :id => @params[:id]
+        render_partial 'members_section', :id => @params[:id]
     end
 
     #these methods are for editing events that belong to the group
