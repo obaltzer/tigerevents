@@ -467,3 +467,23 @@ img.date_select
     margin-left: 1em;
     margin-bottom: 0.5em;
 }
+
+/*********CREDITS*********/
+div.ninja{
+    min-height: 150px;
+}
+
+div.ninja_name{
+    color: black;
+    font-size: 130%;
+    font-weight: normal;
+    font-style: italic;
+}
+
+div.ninja_image{
+    float: left;
+}
+
+div.ninja_text{
+}
+
