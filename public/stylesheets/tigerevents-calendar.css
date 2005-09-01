@@ -1,0 +1,17 @@
+/* This fixes up, what we have messed up in our stylesheed. I do not want
+ * to edit the calendar CSS, to keep it easy to upgrade.
+ */
+
+/* make the calendar to hover over all elements */
+div.calendar
+{
+    z-index: 2;
+}
+
+div.calendar table, div.calendar tr, div.calendar td, div.calendar th
+{
+    border-collapse: separate;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
