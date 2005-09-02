@@ -528,7 +528,7 @@ img.date_select
 
 /*********CREDITS*********/
 div.ninja{
-    min-height: 150px;
+    min-height: 175px;
 }
 
 div.ninja_name{
@@ -546,4 +546,33 @@ div.ninja_image{
 div.ninja_text{
     margin: 0.5em;
 }
+
+/*********ERROR MESSAGES***********/
+
+#ErrorExplanation {
+  background-color: #FFDD62;
+  border: 2px red solid;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 1em;
+  background-color: #FFDD62;
+}
+
+#ErrorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  margin: -7px;
+}
+
+#ErrorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#ErrorExplanation ul li {
+  list-style: square;
+}
+
 
