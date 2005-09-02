@@ -132,7 +132,7 @@ class EventsController < ApplicationController
         else
             @event = Event.new(@params[:event])
         end
-        @groups = Group.find_all
+        @groups = Group.find( :all, :order => "name ASC" )
         render_partial
     end    
 
