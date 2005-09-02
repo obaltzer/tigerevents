@@ -147,7 +147,8 @@ class EventsController < ApplicationController
     def delete
         #Event.update(@params[:id], :deleted => 1)
         event = Event.find(@params[:id])
-        if @event.startTime < Time.now and (not @event.endTime or  @event.endTime < Time.now)
+        #can't delete events that have already past
+        if event.startTime < Time.now and (not event.endTime or  event.endTime < Time.now)
            redirect_to :action => 'list'
         end
 
