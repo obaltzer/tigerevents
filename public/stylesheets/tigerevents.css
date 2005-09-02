@@ -428,6 +428,7 @@ li.has_unauthorized_members *
     border: 1px dotted black;
     margin: 1em 0 1em 0;
     padding: 0.5em;
+    width: 40em;
 }
 
 .show_event .description
@@ -556,6 +557,7 @@ div.ninja_text{
   padding-bottom: 12px;
   margin-bottom: 1em;
   background-color: #FFDD62;
+  width: 40em;
 }
 
 #ErrorExplanation h2 {
