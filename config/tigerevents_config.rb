@@ -1,3 +1,5 @@
+# TigerEvents Version String
+TE_VERSION = '1.0-beta3'
 
 #LDAP settings
 LDAP_USE_SSL = true

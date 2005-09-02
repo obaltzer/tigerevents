@@ -24,6 +24,11 @@
   </head>
   
   <body>
+    <div id="partners">
+      <a href="http://www.dalgazette.ca/"><%= image_tag 'gazette.png', { :alt => 'The Dalhousie Gazette' } %></a>
+      <a href="http://ckdu.dal.ca/ckdu-hi.pls"><%= image_tag 'ckdu.png', { :alt => 'CKDU Live Stream' } %></a>
+    </div>
+    
     <h1 id="site_logo">
       <%= link_to "TigerEvents", { :controller => "events", :action => "list", :id => nil } %>
     </h1>
@@ -31,7 +36,7 @@
     <div id="today">
       <%= Time.now.strftime '%A, %B %d %Y' %>
     </div>
-    
+   
     <ul id="site_actions">
       <li>
         <%= link_to "Home", { :controller => "events", :action => "list", :id => nil } %>
@@ -140,8 +145,11 @@
       <div class="unvisibleclear">---</div>
     </div>
     
-    <div name="footer" class="newsletter_block">
-      <p>Developed by the awesome members of <%= link_to "Dal-ACM", "http://www.dal-acm.ca" %></p>
+    <div id="version_tag">
+      TigerEvents v<%= TE_VERSION %>
+    </div>
+    <div id="footer">
+      Developed by the awesome <%= link_to 'members', { :controller => 'content', :action => 'ninjas' } %> of <%= link_to "Dal-ACM", "http://www.dal-acm.ca" %>
     </div>
   
   </body>

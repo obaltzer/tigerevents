@@ -2,28 +2,35 @@
 <div class="notice"><%=h @flash[:notice] %></div>
 <% end %>
 
-<h2><%=h @event.title %></h2>
-<small><em>Last updated: <%=h (@event.updated_on ? @event.updated_on : @event.created_on).strftime( "%a %b %d %I:%M %p" ) %></em></small>
-<p>
-<%=h @event.description %>
-</p>
+<div class="show_event">
+  <h2><%=h @event.title %></h2>
+  <div class="last_update">
+    Last updated: <%=h (@event.updated_on ? @event.updated_on : @event.created_on).strftime( "%a %b %d %I:%M %p" ) %>
+  </div>
+  <div class="wrapper">
+    <div class="description">
+      <%=h @event.description %>
+    </div>
 <% if @event.announcement == 0 %>
-    <p>
-    Starts: <%=h @event.startTime.strftime( "%a %b %d %I:%M %p" ) %>
-    </p>
+  <div class="time_info">
+    <span class="time_info_label">Starts:</span>
+    <span class="time_info_content"><%=h @event.startTime.strftime("%I:%M %p on %A, %B %d %Y") %></span>
+  </div>
 <% end %>
 
 <% if @event.endTime && @event.announcement == 0 %>
-    <p>
-    Ends: <%=h @event.endTime.strftime( "%a %b %d %I:%M %p" ) %>
-    </p>
+  <div class="time_info">
+    <span class="time_info_label">Ends:</span>
+    <span class="time_info_content"><%=h @event.endTime.strftime("%I:%M %p on %A, %B %d %Y") %></span>
+  </div>
 <% end %>
 
 <% if @event.url %>
-    <p>
-    For more information go to the following website: <%= link_to "#{h @event.url}", "#{h @event.url}" %>
-    </p>
+  <p>
+    For more information visit: <%= link_to "#{h @event.url}", "#{h @event.url}" %>
+  </p>
 <% end %>
+</div>
 
 <% if @session[:user] and (@event.group.authorized_users.include? (@session[:user]) or @session[:user].superuser == 1 ) \
       and not @event.expired? %>

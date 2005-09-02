@@ -1,6 +1,7 @@
 body
 {
     margin: 1em;
+    background-image: url(/images/background.png);
     background-color: white;
     font-family: "Times New Roman", serif;
     font-size: 12pt;
@@ -46,6 +47,17 @@ a:hover
 #today
 {
     float: right;
+}
+
+#partners
+{
+    margin-top: 2em;
+    float: right;
+}
+
+#partners img
+{
+    border: 0;
 }
 
 ul#site_actions
@@ -131,7 +143,7 @@ div#sidebar
     position: absolute;
     width: 12em;
     right: 1em;
-    top: 10em;
+    top: 11em;
     z-index: 1;
 }
 
@@ -397,6 +409,52 @@ li.has_unauthorized_members *
     background-color: #FFDDCC;
 }
 
+/************** SHOW EVENT ******************/
+
+.show_event > h2
+{
+    margin-bottom: 0.2em;
+}
+
+.show_event > div.last_update
+{
+    font-size: 80%;
+    font-style: italic;
+}
+
+.show_event > div.wrapper
+{
+    background-color: white;
+    border: 1px dotted black;
+    margin: 1em 0 1em 0;
+    padding: 0.5em;
+}
+
+.show_event .description
+{
+    margin-bottom: 1em;
+}
+
+div.time_info .time_info_label
+{
+    font-weight: bold;
+}
+
+/************** RANDOM STUFF ****************/
+
+#version_tag
+{
+    margin-top: 1em;
+    float: right;
+}
+
+#footer
+{
+    margin-top: 0.5em;
+    border-top: 1px solid black;
+    padding-top: 0.5em;
+}
+
 .ban_notice
 {
     background-color: #FFDD62;
@@ -481,9 +539,11 @@ div.ninja_name{
 }
 
 div.ninja_image{
+    margin: 0.5em;
     float: left;
 }
 
 div.ninja_text{
+    margin: 0.5em;
 }
 
