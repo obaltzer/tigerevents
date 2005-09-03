@@ -2,36 +2,66 @@
 <div class="notice"><%=h @flash[:notice] %></div>
 <% end %>
 
-<div class="show_event">
+<div class="event_information">
   <h2><%=h @event.title %></h2>
   <div class="last_update">
     Last updated: <%=h (@event.updated_on ? @event.updated_on : @event.created_on).strftime( "%a %b %d %I:%M %p" ) %>
   </div>
-  <div class="wrapper">
-    <div class="description">
-      <%=h @event.description %>
-    </div>
-<% if @event.announcement == 0 %>
-  <div class="time_info">
-    <span class="time_info_label">Starts:</span>
-    <span class="time_info_content"><%=h @event.startTime.strftime("%I:%M %p on %A, %B %d %Y") %></span>
-  </div>
-<% end %>
-
-<% if @event.endTime && @event.announcement == 0 %>
-  <div class="time_info">
-    <span class="time_info_label">Ends:</span>
-    <span class="time_info_content"><%=h @event.endTime.strftime("%I:%M %p on %A, %B %d %Y") %></span>
-  </div>
-<% end %>
-
-<% if @event.url %>
-  <p>
-    For more information visit: <%= link_to "#{h @event.url}", "#{h @event.url}" %>
-  </p>
-<% end %>
-</div>
-
+  <table class="event_information">
+    <tr class="event_description">
+      <td colspan="2" >
+        <%=h @event.description %>
+      </td>
+    </tr>
+    <tr class="event_organizer">
+      <th>
+        Event Organizer:
+      </th>
+      <td>
+        <div id="<%=h @event.group.id.to_s + '_description' %>" class="tooltip">
+          <%=h @event.group.description %>
+        </div>
+        <%=h @event.group.name %> 
+        <%= image_tag 'i.png', { :alt => 'Group Information', \
+              :onmouseover => 'ttOn(\'' + @event.group.id.to_s \
+                + '_description\')',\
+              :onmouseout => 'ttOff(\'' + @event.group.id.to_s \
+                + '_description\')',\
+              :class => 'info_image'} 
+        %>
+      </td>
+    </tr>
+     <% if @event.announcement == 0 %>
+      <tr class="event_time">
+        <th>
+          Starts:
+        </th>
+        <td>
+          <%=h @event.startTime.strftime("%I:%M %p on %A, %B %d %Y") %>
+        </td>
+      </tr>
+      <% if @event.endTime %>
+        <tr class="event_time">
+          <th>
+            Ends:
+          </th>
+          <td>
+            <%=h @event.endTime.strftime("%I:%M %p on %A, %B %d %Y") %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+    <% if @event.url %>
+      <tr class="event_url">
+        <th>
+          For more information visit: 
+        </th>
+        <td>
+          <%= link_to "#{h @event.url}", "#{h @event.url}" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
 <% if @session[:user] and (@event.group.authorized_users.include? (@session[:user]) or @session[:user].superuser == 1 ) \
       and not @event.expired? %>
     <%= link_to 'Edit', :action => 'edit', :id => @event %> |

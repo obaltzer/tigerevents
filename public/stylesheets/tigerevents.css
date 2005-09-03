@@ -411,34 +411,54 @@ li.has_unauthorized_members *
 
 /************** SHOW EVENT ******************/
 
-.show_event > h2
+.event_information > h2
 {
     margin-bottom: 0.2em;
 }
 
-.show_event > div.last_update
+.event_information > div.last_update
 {
     font-size: 80%;
     font-style: italic;
 }
 
-.show_event > div.wrapper
+.event_information table
 {
-    background-color: white;
-    border: 1px dotted black;
-    margin: 1em 0 1em 0;
-    padding: 0.5em;
     width: 40em;
+    margin: 1em 0 1em 0;
+    border: 1px dotted black;
+    background-color: white;
 }
 
-.show_event .description
+.event_information tr, 
+.event_information th, 
+.event_information td
 {
-    margin-bottom: 1em;
+    border: 0;
+    background-color: transparent;
 }
 
-div.time_info .time_info_label
+.event_information th
 {
-    font-weight: bold;
+    white-space: nowrap;
+    vertical-align: top;
+}
+
+.event_information td
+{
+    width: 100%;
+}
+
+.event_information .info_image
+{
+    padding: 2px;
+    vertical-align: center;
+}
+
+tr.event_description td
+{
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
 /************** RANDOM STUFF ****************/
@@ -577,4 +597,17 @@ div.ninja_text{
   list-style: square;
 }
 
+/************** TOOLTIP ****************/
 
+.tooltip 
+{
+    font: 12px Helvetica, Arial, sans-serif;
+    border: solid 1px #666666;
+    color: #333333;
+    background-color: #ffffcc;
+    max-width: 30em;
+    padding: 2px;
+    position: absolute;
+    z-index: 100;
+    display: none;
+}

@@ -3,6 +3,42 @@
  * This file contains TigerEvents specific JavaScript functions used
  * throughout the view.
  */
+
+/* This is a quick tooltip hack, based on
+ * http://www.webmatze.de/webdesign/javascript/tooltips.htm */
+tooltip_obj = null;
+document.onmousemove = updateTooltip;
+
+function updateTooltip(e)
+{
+    x = (document.all) ? window.event.x + document.body.scrollLeft 
+                       : e.pageX;
+    y = (document.all) ? window.event.y + document.body.scrollTop
+                       : e.pageY;
+    if(tooltip_obj)
+    {
+        tooltip_obj.style.left = (x + 20) + "px";
+        tooltip_obj.style.top = (y + 20) + "px";
+    }
+}
+
+function ttOn(id)
+{
+    tooltip_obj = document.getElementById(id);
+    tooltip_obj.style.display = "block";
+}
+
+function ttOff()
+{
+    tooltip_obj.style.display = "none";
+    tooltip_obj = null;
+}
+
+function mail(b, a)
+{
+    window.location = 'mailto:' + a + '@' + b;
+}
+
 function toggle(elem) 
 {
   if(document.getElementById)
