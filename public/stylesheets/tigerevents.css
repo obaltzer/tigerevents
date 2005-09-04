@@ -259,14 +259,21 @@ span.selector
 }
 
 div.selector
-{
+{   
     height: 20em;
     overflow: auto;
     margin: 0.5em 0em 1em 0em;
     padding: 0;
 }
 
-span.selector > h3
+span.selector > div.selector_name
+{
+    height: 2.5em;
+    margin: 0;
+    padding: 0;
+}
+
+span.selector > div.selector_name > h3
 {
     text-transform: uppercase;
     letter-spacing: 0.3em;
@@ -300,6 +307,8 @@ span.selector div.title_read_more
 {
     display: none;
 }
+
+/******************* HEADLINE SELECTOR SPECIFIC ********************/
 
 span.selector#headlines
 {
@@ -344,6 +353,53 @@ span.selector#headlines div.title_read_more a
     color: black;
     font-size: 70%;
     font-weight: normal;
+    text-decoration: underline;
+}
+
+/******************* ANNOUNCEMENT SELECTOR SPECIFIC ***********/
+
+span.selector#all_announcements
+{
+    width: auto;
+    float: none;
+    display: block;
+    border: none;
+}
+
+span.selector#all_announcements div.selector_name
+{
+    display: none;
+}
+
+span.selector#all_announcements div.selector
+{
+    height: 3em;
+    overflow: auto;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+span.selector#all_announcements div.time,
+span.selector#all_announcements div.description
+{
+    display: none;
+}
+
+span.selector#all_announcements div.title a
+{
+    color: blue;
+    font-size: 130%;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+span.selector#all_announcements div.title
+{
+    display: inline;
+}
+
+span.selector#all_announcements div.title a:hover
+{
     text-decoration: underline;
 }
 

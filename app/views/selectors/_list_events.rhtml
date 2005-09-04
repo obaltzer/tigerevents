@@ -1,8 +1,10 @@
 <% if not @events.empty? %>
 <span class="selector" id="<%=h @selector.label.downcase %>">
-  <h3><%=h @selector.name %></h3>
+  <div class="selector_name">
+    <h3><%=h @selector.name %></h3>
+  </div>
   <div class="selector">
-    <ul>
+    <ul id="<%=h @selector.label.downcase %>_list">
       <% for event in @events %>
         <li>
           <div class="title"><%= link_to event.title, :controller => "events", :action => "show", :id => event %></div>

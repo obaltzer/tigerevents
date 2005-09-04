@@ -114,3 +114,77 @@ function focus_form(id)
     }
   }
 }
+
+/**
+ * This function iterates through all the child <li> elements of the given
+ * element and displays them one by one fading them in and out.
+ */
+FadeItems = Class.create();
+FadeItems.prototype = (function() {}).extend({
+    initialize: function(elem) 
+    {
+        this.p = elem;
+        this.p.style.display = "none";
+        this.i = 0;
+        this.current = null;
+        this.counter = 0;
+        if(this.p)
+        {
+            this.c = this.p.getElementsByTagName('li');
+            var i = 0;
+            for(i = 0; i < this.c.length; i++)
+            {
+                Element.hide(this.c[i]);
+            }
+        }
+        this.p.style.display = "block";
+        this.fadeOut();
+    },
+
+    fadeOut: function() {
+        if(this.counter == 0 && this.current != null)
+        {
+            new Effect.Fade(this.current);
+            this.current = null;
+            this.counter = 11;
+            setTimeout(this.fadeOut.bind(this), 100);
+        }
+        else if(this.counter > 0)
+        {            
+            this.counter--;
+            setTimeout(this.fadeOut.bind(this), 100);
+        }
+        else 
+        {
+            this.current = this.c[this.i];
+            this.i++;
+            if(this.i == this.c.length)
+            {
+                this.i = 0;
+            }
+            this.fadeIn();
+        }
+    },
+     
+    fadeIn: function() 
+    {
+        if(this.counter == 0 && this.current)
+        {
+            new Effect.Appear(this.current);
+            this.counter = 30;
+            setTimeout(this.fadeIn.bind(this), 100);
+        }
+        else if(this.counter > 0)
+        {            
+            this.counter--;
+            if(this.counter == 0)
+            {
+                this.fadeOut();
+            }
+            else
+            {
+                setTimeout(this.fadeIn.bind(this), 100);
+            }
+        }
+    }
+});

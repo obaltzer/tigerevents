@@ -101,10 +101,14 @@ class EventsController < ApplicationController
          
         if @event.update_attributes(@params[:event])
             
-            # associate user with new group, if the association does not
-            # exist yet
+            # The following is only necessary, if the user who edited the
+            # event, has changed the group of the event to a group of which
+            # the user is not a member yet. Hence, associate the user with
+            # the group as an unautorized member, if the user-group
+            # association does not exist yet.
             @event.group.users.push_with_attributes( @session[:user], 'authorized' => 0 ) \
-                unless @event.group.users.include? @session[:user]
+                unless @event.group.users.include? @session[:user] \
+                        or @session[:user].superuser == 1
 
             log_activity @event, 'MODIFY'
             flash[:notice] = 'Event was successfully updated.'
