@@ -67,7 +67,7 @@ class Event < ActiveRecord::Base
         if (self.startTime and self.startTime < Time.now and ( not @hasEndTime or \
             not self.endTime or self.endTime < Time.now ) )
            errors.add_to_base "You can not schedule events for dates that have" +\
-                      " already pasted"
+                      " already passed"
         end
         
         if self.announcement == 1
