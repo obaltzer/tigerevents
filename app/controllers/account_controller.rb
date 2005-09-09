@@ -29,7 +29,8 @@ class AccountController < ApplicationController
                         @session[:user] = nil
                         flash[:ban_notice] = \
                             "You are banned please contact "\
-                            + "the administrator."
+                            + "<a href='mailto:" + ADMIN_EMAIL + "'>"\
+			    + ADMIN_CONTACT + "</a>"
                         redirect_to :controller => 'events', \
                                     :action => 'index'
                         return 

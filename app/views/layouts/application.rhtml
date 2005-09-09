@@ -8,9 +8,7 @@
 -->
 <html>
   <head>
-    <title>my.dsu.ca - Find out what's happening at Dal and in Halifax Metro</title>
-    <meta name="description" content="TigerEvents is the number source for event announcements at Dalhousie University and Halifax Metro."/>
-    <meta name="keywords" content="events,announcements,Dalhousie University,Halifax,Dartmouth,Nova Scotia,what s going on,what s happening,going out,societies,Dalhousie Student Union,DSU,Dalhouse Student Chapter of the ACM,Dal-ACM"/>
+    <title>TigerEvents</title>
     <%= stylesheet_link_tag 'tigerevents' %>
     <%= stylesheet_link_tag 'calendar' %>
     <%= stylesheet_link_tag 'tigerevents-calendar' %>
@@ -29,8 +27,6 @@
   
   <body>
     <div id="partners">
-      <a href="http://www.dalgazette.ca/"><%= image_tag 'gazette.png', { :alt => 'The Dalhousie Gazette' } %></a>
-      <a href="http://ckdu.dal.ca/ckdu-hi.pls"><%= image_tag 'ckdu.png', { :alt => 'CKDU Live Stream' } %></a>
     </div>
     
     <h1 id="site_logo">
@@ -52,12 +48,6 @@
         <%= link_to "Help", { :controller => "content", :action => "help" } %>
       </li>
       <li>
-        <%= link_to "Tigerbooks", "http://www.tigerbooks.ca", {:class=>"newsletter_header"} %>
-      </li>
-      <li>
-        <%= link_to "DSU", "http://www.dsu.ca", {:class=>"newsletter_header"} %>
-      </li>
-      <li>
         <%= link_to "Credits", { :controller => "content", :action => "ninjas" } %>
       </li>
     </ul>
@@ -67,7 +57,7 @@
         <p>Welcome<br/>
         <%= session[:user].fullname %>
         <% if session[:user].banned == 1 %>
-          <b>You are banned. Please e-mail ADMIN.</b>
+          <b>You are banned. Please e-mail <a href="mailto:<%= ADMIN_EMAIL %>"><%= ADMIN_CONTACT %> </a>.</b>
         <% else %>
           <%= render_component :controller => "groups", :action => "mygroups" %>
           <% if session[:user][:superuser] == 1 %>
