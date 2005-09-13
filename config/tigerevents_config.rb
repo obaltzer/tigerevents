@@ -15,6 +15,8 @@ EXPIRY_TIME = 300
 ADMIN_CONTACT = 'Dalhousie Student Union'
 ADMIN_EMAIL = 'dsuvpi@dal.ca'
 
+MAIL_SUFFIX = '@dal.ca'
+
 # This variable holds the relative or absolute URL through which
 # authentication should be passes. Set this to the address of the 'login'
 # action in the 'account' controller on your preferably secure server, e.g.
