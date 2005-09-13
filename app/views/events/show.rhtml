@@ -23,10 +23,8 @@
         </div>
         <%=h @event.group.name %> 
         <%= image_tag 'i.png', { :alt => 'Group Information', \
-              :onmouseover => 'ttOn(\'' + @event.group.id.to_s \
-                + '_description\')',\
-              :onmouseout => 'ttOff(\'' + @event.group.id.to_s \
-                + '_description\')',\
+              :onmouseover => 'ttOn(\'description_' + @event.group.id.to_s + '\')',\
+              :onmouseout => 'ttOff(\'description_' + @event.group.id.to_s + '\')',\
               :class => 'info_image'} 
         %>
       </td>
