@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <!-- 
   Credits:
   
@@ -6,6 +7,7 @@
   For latest version visit: http://www.dynarch.com/projects/calendar/
   Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details
 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>TigerEvents</title>
@@ -114,7 +116,7 @@
             </script>
           </div>
           <div class="input">
-            <label for="event_endTime">End:</label>
+            <label for="period_end_date">End:</label>
             <%= text_field_tag 'period[end_date]', @period[:end_date], \
                    :id => "period_end_date", \
                    :size => "10", \
@@ -124,8 +126,8 @@
               Calendar.setup({inputField: "period_end_date", ifFormat: "%d/%m/%Y", button: "period_end_selector",
                               align: "Bl", singleClick: true});
             </script>
-          </div>
           <%= submit_tag "Submit" %>
+          </div>
           <%= end_form_tag %>
         </div>
       </div>

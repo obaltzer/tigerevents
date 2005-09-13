@@ -18,7 +18,7 @@
         Event Organizer:
       </th>
       <td>
-        <div id="<%=h @event.group.id.to_s + '_description' %>" class="tooltip">
+        <div id="<%=h 'description_' + @event.group.id.to_s  %>" class="tooltip">
           <%=h @event.group.description %>
         </div>
         <%=h @event.group.name %> 
