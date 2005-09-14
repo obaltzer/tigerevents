@@ -28,7 +28,7 @@
     </table>
   </div>
    <!--Carrying update information forward as this div is re-rendered on each update -->
-  <%= submit_remote 'update_members', 'Update Members', 'members_section', 
+  <%= submit_remote 'update_members', 'Update Members', 'this.parentNode', 
     {:url => { :controller => "groups", :action => "authorize_members", :id => @group.id }}.update( 
     :update => 'members_section' )
   %>
