@@ -9,7 +9,7 @@
           <th></th>
         </tr>
       </thead>
-      </tbody>
+      <tbody>
         <% for member in @authorized_members %>
         <tr>
 	  <td>
@@ -26,18 +26,18 @@
 	  <td>
   	    <% if @session[:user] != member %>
               <a id="remove_link_<%= member.id %>" href="javascript:return false;" onclick="toggle('remove_form_<%= member.id %>');toggle('remove_link_<%= member.id %>');">Remove</a>
-              <span id="remove_form_<%= member.id %>" style="display: none">
+              <div id="remove_form_<%= member.id %>" style="display: none">
                 <%= form_remote_tag :update => "members_section", :url => { :action => "remove_member", :id => @group.id } %>
-                  <input type="hidden" name="user_id" value="<%= member.id %>"/>
                   <div class="input">
-                    <label for="event_adopter_id" style="display: inline">User's events will be adopted by:</label>
-                    <select id="event_adopter_id" name="adopter_id">
+                    <label style="display: inline">User's events will be adopted by:</label>
+                    <select name="adopter_id">
                       <%= options_from_collection_for_select @complement_authorized_members[member], 'id', 'fullname', @session[:user].id %>
                     </select>
+                    <input type="hidden" name="user_id" value="<%= member.id %>"/>
                     <%= submit_tag "Ok" %>
                   </div>
                 <%= end_form_tag %>
-              </span>
+              </div>
             <% end %>
           </td> 
         </tr>

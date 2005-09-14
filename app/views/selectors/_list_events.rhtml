@@ -1,9 +1,9 @@
 <% if not @events.empty? %>
-<span class="selector" id="<%=h @selector.label.downcase %>">
+<div class="selector" id="<%=h @selector.label.downcase %>">
   <div class="selector_name">
     <h3><%=h @selector.name %></h3>
   </div>
-  <div class="selector">
+  <div class="selector_content">
     <ul id="<%=h @selector.label.downcase %>_list">
       <% for event in @events %>
         <li>
@@ -28,5 +28,5 @@
       <% end %>
     </ul>
   </div>
-</span>
+</div>
 <% end %>

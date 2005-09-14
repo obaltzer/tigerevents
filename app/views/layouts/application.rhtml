@@ -1,13 +1,14 @@
-<!-- 
-  Credits:
-  
-  DHTML Date/Time Selector
-  (c) dynarch.com 2002-2005 / Author: Mihai Bazon
-  For latest version visit: http://www.dynarch.com/projects/calendar/
-  Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details
--->
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
+  <!-- 
+    Credits:
+  
+    DHTML Date/Time Selector
+    (c) dynarch.com 2002-2005 / Author: Mihai Bazon
+    For latest version visit: http://www.dynarch.com/projects/calendar/
+    Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details
+  -->
   <head>
     <title>TigerEvents</title>
     <%= stylesheet_link_tag 'tigerevents' %>
@@ -55,8 +56,10 @@
     
     <div id="sidebar">
       <% if session[:user] -%>
-        <p>Welcome<br/>
-        <%= session[:user].fullname %>
+        <p>
+          Welcome<br/>
+          <%= session[:user].fullname %>
+        </p>
         <% if session[:user].banned == 1 %>
           <b>You are banned. Please e-mail <a href="mailto:<%= ADMIN_EMAIL %>"><%= ADMIN_CONTACT %> </a>.</b>
         <% else %>
@@ -74,7 +77,7 @@
           <% end %>
         <% end %>
         <%= start_form_tag :controller => "account", :action=> "logout" %>
-          <input type="submit" name="logout" value="Logout &#187;" class="primary" />
+          <div><input type="submit" name="logout" value="Logout &#187;" class="primary" /></div>
         <%= end_form_tag %>
       <% else %>
         <%= render_file "account/login" %>
@@ -137,7 +140,7 @@
       <h1><%=h @heading %></h1>
       <%= @content_for_layout %>
    
-      <div class="unvisibleclear">---</div>
+      <div class="invisibleclear">---</div>
     </div>
     
     <div id="version_tag">

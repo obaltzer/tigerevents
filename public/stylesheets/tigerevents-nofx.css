@@ -1,12 +1,12 @@
 /* IE does not support CSS2 selectors and this file fixes this. */
-span.selector div.selector_name
+div.selector div.selector_name
 {
     height: 2.5em;
     margin: 0;
     padding: 0;
 }
 
-span.selector h3
+div.selector h3
 {
     text-transform: uppercase;
     letter-spacing: 0.3em;
@@ -17,7 +17,7 @@ span.selector h3
     text-align: center;
 }
 
-span.selector#all_announcements div.selector
+div.selector#all_announcements div.selector_content
 {
     height: auto;
     overflow: visible;

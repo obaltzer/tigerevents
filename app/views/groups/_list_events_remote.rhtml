@@ -8,7 +8,7 @@
 
          <% for event in @events %>
             <% if not event.expired? %>
-	      <tr id="event[<%=h event.id %>]" class="<%= event.pending?(@group) ? 'pending_event' : 'active_event' %>">
+	      <tr id="event_<%=h event.id %>" class="<%= event.pending?(@group) ? 'pending_event' : 'active_event' %>">
         	<td>
                 <%=h event.title %>
                 </td>
@@ -37,7 +37,7 @@
 	<% end %>
       </table>
       <p>
-        <div class="pending_event" style="float: left; width: 2em; height: 1em; margin-right: 1em;"> </div>The event was created by an <em>unapproved member</em> and will not be displayed until they are approved.
+        <span class="pending_event" style="float: left; width: 2em; height: 1em; margin-right: 1em;"> </span>The event was created by an <em>unapproved member</em> and will not be displayed until they are approved.
       </p>
    </div>
 </div>

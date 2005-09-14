@@ -24,10 +24,11 @@
             <td> <%=radio_button 'member[]', 'authorized', 0 %></td>
           </tr>
         <% end %>
-      </table>
-    </div>
+      </tbody>
+    </table>
+  </div>
    <!--Carrying update information forward as this div is re-rendered on each update -->
-  <%= submit_remote 'Update Members', 'Update Members', 'members_section', 
+  <%= submit_remote 'update_members', 'Update Members', 'members_section', 
     {:url => { :controller => "groups", :action => "authorize_members", :id => @group.id }}.update( 
     :update => 'members_section' )
   %>

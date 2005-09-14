@@ -22,7 +22,7 @@ a:hover
     
 #site_logo
 {
-    background: url(/images/generic-logo-beta.png) no-repeat;
+    background: url(/images/generic-logo.png) no-repeat;
     border: 0;
     padding: 0;
     margin-bottom: 0.2em;
@@ -37,9 +37,9 @@ a:hover
     border: 0;
     margin: 0;
     padding: 0;
-    padding-top: 94px;
+    padding-top: 79px;
     height: 0px !important;
-    height /**/: 94px;
+    height /**/: 79px;
     width: 520px;
     cursor: pointer;
 }    
@@ -51,7 +51,7 @@ a:hover
 
 #partners
 {
-    margin-top: 2em;
+    margin-top: 1.5em;
     float: right;
 }
 
@@ -182,7 +182,7 @@ div#advanced_time p
     border: 1px dotted black;
 }
 
-.unvisibleclear
+.invisibleclear
 {
     clear: both;
     visibility: hidden; /* this will render the space empty */
@@ -249,7 +249,7 @@ div.input:hover > div.description
 
 /************************ SELECTORS *******************/
 
-span.selector
+div.selector
 {
     float: left;
     width: 18em;
@@ -258,7 +258,7 @@ span.selector
     border-right: 1px solid black;
 }
 
-div.selector
+div.selector_content
 {   
     height: 20em;
     overflow: auto;
@@ -266,14 +266,14 @@ div.selector
     padding: 0;
 }
 
-span.selector > div.selector_name
+div.selector > div.selector_name
 {
     height: 2.5em;
     margin: 0;
     padding: 0;
 }
 
-span.selector > div.selector_name > h3
+div.selector > div.selector_name > h3
 {
     text-transform: uppercase;
     letter-spacing: 0.3em;
@@ -303,14 +303,14 @@ span.selector > div.selector_name > h3
     font-weight: bold;
 }
 
-span.selector div.title_read_more
+div.selector div.title_read_more
 {
     display: none;
 }
 
 /******************* HEADLINE SELECTOR SPECIFIC ********************/
 
-span.selector#headlines
+div.selector#headlines
 {
     width: auto;
     float: none;
@@ -318,18 +318,18 @@ span.selector#headlines
     border: none;
 }
 
-span.selector#headlines div.selector
+div.selector#headlines div.selector_content
 {
     height: auto;
     overflow: auto;
 }
 
-span.selector#headlines div.time,
-span.selector#headlines div.description
+div.selector#headlines div.time,
+div.selector#headlines div.description
 {
     display: none;
 }
-span.selector#headlines div.title a
+div.selector#headlines div.title a
 {
     color: black;
     font-size: 130%;
@@ -337,18 +337,18 @@ span.selector#headlines div.title a
     text-decoration: none;
 }
 
-span.selector#headlines div.title,
-span.selector#headlines div.title_read_more
+div.selector#headlines div.title,
+div.selector#headlines div.title_read_more
 {
     display: inline;
 }
 
-span.selector#headlines div.title a:hover
+div.selector#headlines div.title a:hover
 {
     text-decoration: underline;
 }
 
-span.selector#headlines div.title_read_more a
+div.selector#headlines div.title_read_more a
 {
     color: black;
     font-size: 70%;
@@ -358,7 +358,7 @@ span.selector#headlines div.title_read_more a
 
 /******************* ANNOUNCEMENT SELECTOR SPECIFIC ***********/
 
-span.selector#all_announcements
+div.selector#all_announcements
 {
     width: auto;
     float: none;
@@ -366,12 +366,12 @@ span.selector#all_announcements
     border: none;
 }
 
-span.selector#all_announcements div.selector_name
+div.selector#all_announcements div.selector_name
 {
     display: none;
 }
 
-span.selector#all_announcements div.selector
+div.selector#all_announcements div.selector_content
 {
     height: 3em;
     overflow: auto;
@@ -379,13 +379,13 @@ span.selector#all_announcements div.selector
     border-bottom: 1px solid black;
 }
 
-span.selector#all_announcements div.time,
-span.selector#all_announcements div.description
+div.selector#all_announcements div.time,
+div.selector#all_announcements div.description
 {
     display: none;
 }
 
-span.selector#all_announcements div.title a
+div.selector#all_announcements div.title a
 {
     color: blue;
     font-size: 130%;
@@ -393,12 +393,12 @@ span.selector#all_announcements div.title a
     text-decoration: none;
 }
 
-span.selector#all_announcements div.title
+div.selector#all_announcements div.title
 {
     display: inline;
 }
 
-span.selector#all_announcements div.title a:hover
+div.selector#all_announcements div.title a:hover
 {
     text-decoration: underline;
 }
@@ -465,6 +465,10 @@ li.has_unauthorized_members *
     background-color: #FFDDCC;
 }
 
+.history_action
+{
+    text-align: center;
+}
 /************** SHOW EVENT ******************/
 
 .event_information > h2
