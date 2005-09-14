@@ -17,6 +17,11 @@ ADMIN_EMAIL = 'dsuvpi@dal.ca'
 
 MAIL_SUFFIX = '@dal.ca'
 
+#AUTH_TYPE defines where users authenticate from.
+# ldap - an ldap server defined by the ldap settings
+# mysql - an sql server
+AUTH_TYPE = 'ldap'
+
 # This variable holds the relative or absolute URL through which
 # authentication should be passes. Set this to the address of the 'login'
 # action in the 'account' controller on your preferably secure server, e.g.

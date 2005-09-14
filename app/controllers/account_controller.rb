@@ -7,8 +7,10 @@ class AccountController < ApplicationController
         case @request.method
               when :post
                 # authenticate user against LDAP server
+		if (AUTH_TYPE == 'ldap')
                   @authenticated, fullname = \
-                    authenticate(@params[:user][:login], @params[:user_password])
+                    ldap_authenticate(@params[:user][:login], @params[:user_password])
+		end
                 if @authenticated
                     @params[:user].update("fullname" => fullname)
                     @user = User.get(@params[:user])
@@ -50,7 +52,15 @@ class AccountController < ApplicationController
     # username: the username of the user
     # password: the user's password with the LDAP server
     #
-    def authenticate(username, password)
+
+    def sql_authenticate(username, password)
+        hashed_password = hash_password(password || "")
+	find(:first,
+	     :conditions => ["name = ? and hashed_password = ?", 
+	                     username, password])
+    end
+    
+    def ldap_authenticate(username, password)
         # initialize return values
         authenticated = false
         fullName = username

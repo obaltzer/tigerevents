@@ -1,3 +1,4 @@
+require "digest/sha1"
 # This is the model for the user information stored in the database
 class User < ActiveRecord::Base
     has_and_belongs_to_many :groups
@@ -8,7 +9,11 @@ class User < ActiveRecord::Base
     has_many :layouts, :order => "rank"
     
     validates_uniqueness_of :login, :on => :create
-   
+
+    def self.hash_password(password)
+      Digest::SHA1.hexdigest(password)
+    end
+    
     # Authenticates the user with the given login and password.
     def self.get(user)
         @user = find_first(['login = ?', user[:login]])
