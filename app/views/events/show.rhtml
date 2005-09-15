@@ -1,3 +1,4 @@
+
 <% if @flash[:notice] %>
 <div class="notice"><%=h @flash[:notice] %></div>
 <% end %>
@@ -21,7 +22,7 @@
         <div id="<%=h 'description_' + @event.group.id.to_s  %>" class="tooltip">
           <%=h @event.group.description %>
         </div>
-        <%=h @event.group.name %> 
+        <%=link_to @event.group.name, :controller => 'groups', :action => 'show', :id => @event.group.id %> 
         <%= image_tag 'i.png', { :alt => 'Group Information', \
               :onmouseover => 'ttOn(\'description_' + @event.group.id.to_s + '\')',\
               :onmouseout => 'ttOff(\'description_' + @event.group.id.to_s + '\')',\

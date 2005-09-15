@@ -1,12 +1,13 @@
-<% for column in Group.content_columns %>
+<h1>
+  <%=h @group.name %>
+</h1>
 <p>
-  <b><%= column.human_name %>:</b> <%=h @group.send(column.name) %>
+  <%=h @group.description %>
 </p>
+
+<p>
+  Class: <%=h @group.group_class.name %>
+</p>
+<% if @group.users.include? @session[:user] %>
+<%= link_to 'Edit', :action => 'edit', :id => @group %> 
 <% end %>
-
-<p>
-  Class is: <%= @group.group_class.name %>
-</p>
-
-<%= link_to 'Edit', :action => 'edit', :id => @group %> |
-<%= link_to 'Back', :action => 'list' %>
