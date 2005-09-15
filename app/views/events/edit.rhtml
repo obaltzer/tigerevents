@@ -8,6 +8,8 @@
 
 <%= start_form_tag :action => 'update', :id => @event.id %>
   <%= render_partial "form" %>
-  <%= submit_tag 'Update' %>
-  <%=link_to 'Cancel', @session[:prev_params] %>
+  <div>
+    <%= submit_tag 'Update' %>
+    <%=link_to 'Cancel', @session[:prev_params] %>
+  </div>
 <%= end_form_tag %>

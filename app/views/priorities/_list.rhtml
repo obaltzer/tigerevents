@@ -19,19 +19,19 @@
         </td>
         <td>
           <% if @priorities.length >= 2 %>
-            <a id="remove_link_<%= p.id %>" href="#" onclick="toggle('remove_form_<%= p.id %>');toggle('remove_link_<%= p.id %>');"/>Remove</a>
-            <span id="remove_form_<%= p.id %>" style="display: none">
+            <a id="remove_link_<%= p.id %>" href="#" onclick="toggle('remove_form_<%= p.id %>');toggle('remove_link_<%= p.id %>');">Remove</a>
+            <div id="remove_form_<%= p.id %>" style="display: none">
               <%= form_remote_tag :update => "_priority_list", :url => { :action => "remove", :id => p.id } %>
-                <input type="hidden" name="update_with" value="<%= url_for :action => "list" %>"/>
                 <div class="input">
-                  <label for="new_priority_id" style="display: inline">Reassign existing events to priority:</label>
-                  <select id="new_priority_id" name="new_priority_id">
+                  <label style="display: inline">Reassign existing events to priority:</label>
+                  <select name="new_priority_id">
                     <%= options_from_collection_for_select @complements[p], 'id', 'name' %>
                   </select>
+                  <input type="hidden" name="update_with" value="<%= url_for :action => "list" %>"/>
                   <%= submit_tag "Ok" %>
                 </div>
               <%= end_form_tag %>
-            </span>
+            </div>
           <% else %>
             Cannot delete this priority. Please create a new priority first.
           <% end %>

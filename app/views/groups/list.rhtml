@@ -6,7 +6,7 @@
       <tr>
         <td><%= link_to newgroup.name, :controller => 'groups', :action => 'edit', :id => newgroup %></td>
         <td><%=h newgroup.description %></td>
-        <td><%= link_to 'Approve', :action => 'approve', :id => newgroup %>
+        <td><%= link_to 'Approve', :action => 'approve', :id => newgroup %></td>
       </tr>
     <% end %>
   </table>
@@ -21,7 +21,7 @@
       <tr>
         <td><%= link_to group.name, :controller => 'groups', :action => 'edit', :id => group %></td>
         <td><%=h group.description %></td>
-        <td><%= link_to 'Ban', :action => 'ban', :id => group %>
+        <td><%= link_to 'Ban', :action => 'ban', :id => group %></td>
       </tr>
     <% end %>
   </table>

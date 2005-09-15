@@ -1,7 +1,5 @@
 <h2>Create a new Priority</h2>
 <%= form_remote_tag :update => "_priority_list", :url => { :action => "create" } %>
-  <input type="hidden" name="update_with" value="<%= url_for :action => "list" %>"/> 
-  <input type="hidden" name="update" value="_priority_list"/> 
   <div class="input">
     <label for="priority_name">Priority Name</label>
     <div class="description">
@@ -16,5 +14,9 @@
     </div>
     <%= text_field 'priority', 'rank' %>
   </div>
-  <%= submit_tag "Create" %>
+  <div>
+    <input type="hidden" name="update_with" value="<%= url_for :action => "list" %>"/> 
+    <input type="hidden" name="update" value="_priority_list"/> 
+    <%= submit_tag "Create" %>
+  </div>
 <%= end_form_tag %>

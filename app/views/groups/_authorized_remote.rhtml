@@ -24,7 +24,7 @@
   	    <%=h member.login + MAIL_SUFFIX %>
   	  </td>
 	  <td>
-  	    <% if @session[:user] != member %>
+  	    <% if @session[:user] != member and @complement_authorized_members[member].length != 0 %>
               <a id="remove_link_<%= member.id %>" href="javascript:return false;" onclick="toggle('remove_form_<%= member.id %>');toggle('remove_link_<%= member.id %>');">Remove</a>
               <div id="remove_form_<%= member.id %>" style="display: none">
                 <%= form_remote_tag :update => "members_section", :url => { :action => "remove_member", :id => @group.id } %>
