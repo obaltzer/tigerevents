@@ -15,7 +15,7 @@
 <p><b>Your Pending Groups</b></p>
 <p>
       <% @pengroups.each do |group| %>
-         <%= group.name %>
+         <%= link_to group.name, :controller => "groups", :action => "edit", :id => group.id %>
          <br/>
       <% end %>
 </p>

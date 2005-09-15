@@ -84,7 +84,8 @@ class GroupsController < ApplicationController
         if(@session[:user].superuser == 1)
 	    return true
 	end
-	if(!@session[:user].approved_groups.include? Group.find(@params[:id]))
+        #check to see if the user is one of the authorized group members
+	if(!Group.find(@params[:id]).authorized_users.include? @session[:user])
             flash[:auth] = \
                 "You do not have permission to manage this group."
 	    redirect_to :controller => "events", :action => "index"
