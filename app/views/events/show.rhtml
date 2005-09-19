@@ -61,7 +61,7 @@
       </tr>
     <% end %>
   </table>
-<% if @session[:user] and (@event.group.authorized_users.include? (@session[:user]) or @session[:user].superuser == 1 ) \
+<% if @session[:user] and (@event.group.authorized_users.include? @session[:user] or @session[:user].superuser == 1 ) \
       and not @event.expired? %>
     <%= link_to 'Edit', :action => 'edit', :id => @event %> |
 <% end %>
