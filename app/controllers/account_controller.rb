@@ -2,7 +2,7 @@ require "ldap"
 
 class AccountController < ApplicationController
     before_filter :super_user, :only => [:list, :toggle_superuser, \
-                                         :toggle_banned, :add_user]
+                                         :toggle_banned]
     def login
         case @request.method
               when :post
@@ -25,9 +25,11 @@ class AccountController < ApplicationController
                     end
                     #set fullname with the fullname extracted from the LDAP server
                     #this can change over time
-                    if @user.fullname != fullname
-                       @user.update_attribute(:fullname, fullname)
-                    end
+		    if(AUTH_TYPE == 'ldap')
+                       if @user.fullname != fullname
+                          @user.update_attribute(:fullname, fullname)
+                       end
+		    end
                     
                     # do not allow banned users to login at all
                     if @user.banned == 1
@@ -36,7 +38,7 @@ class AccountController < ApplicationController
                             "You are banned please contact "\
                             + "<a href='mailto:" + ADMIN_EMAIL + "'>"\
 			    + ADMIN_CONTACT + "</a>"
-                        redirect_to :controller => 'events', \
+                        eedirect_to :controller => 'events', \
                                     :action => 'index'
                         return 
                     else
@@ -62,7 +64,8 @@ class AccountController < ApplicationController
       else
          @user = User.new(params[:user])
 	 if @user.save
-	    redirect_to_index("User #{@user.login} created")
+	    flash[:auth] = "User #{@user.login} created"
+	    redirect_to :controller => 'events', :action => 'index'
 	 end
        end
     end
