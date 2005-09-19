@@ -2,7 +2,7 @@ require "ldap"
 
 class AccountController < ApplicationController
     before_filter :super_user, :only => [:list, :toggle_superuser, \
-                                         :toggle_banned]
+                                         :toggle_banned, :add_user]
     def login
         case @request.method
               when :post
@@ -10,6 +10,9 @@ class AccountController < ApplicationController
 		if (AUTH_TYPE == 'ldap')
                   @authenticated, fullname = \
                     ldap_authenticate(@params[:user][:login], @params[:user_password])
+		else
+		  @authenticated, fullname = \
+                    sql_authenticate(@params[:user][:login], @params[:user_password])
 		end
                 if @authenticated
                     @params[:user].update("fullname" => fullname)
@@ -53,11 +56,22 @@ class AccountController < ApplicationController
     # password: the user's password with the LDAP server
     #
 
+    def add_user
+      if request.get?
+         @user = User.new
+      else
+         @user = User.new(params[:user])
+	 if @user.save
+	    redirect_to_index("User #{@user.login} created")
+	 end
+       end
+    end
+    
     def sql_authenticate(username, password)
-        hashed_password = hash_password(password || "")
-	find(:first,
-	     :conditions => ["name = ? and hashed_password = ?", 
-	                     username, password])
+        hashed_password = User.hash_password(password || "")
+	User.find(:first,
+	     :conditions => ["login = ? and hashed_pass = ?", 
+	                     username, hashed_password])
     end
     
     def ldap_authenticate(username, password)

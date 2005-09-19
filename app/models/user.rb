@@ -1,6 +1,7 @@
 require "digest/sha1"
 # This is the model for the user information stored in the database
 class User < ActiveRecord::Base
+    attr_accessor :password
     has_and_belongs_to_many :groups
     has_and_belongs_to_many :approved_groups, :class_name => "Group", :conditions => "authorized = 1 AND approved=1"
     has_and_belongs_to_many :unapproved_member, :class_name => "Group", :conditions => "authorized = 0"
@@ -10,8 +11,12 @@ class User < ActiveRecord::Base
     
     validates_uniqueness_of :login, :on => :create
 
-    def self.hash_password(password)
-      Digest::SHA1.hexdigest(password)
+    def before_create
+      self.hashed_pass = User.hash_password(self.password)
+    end
+    
+    def after_create
+      @password = nil
     end
     
     # Authenticates the user with the given login and password.
@@ -19,4 +24,9 @@ class User < ActiveRecord::Base
         @user = find_first(['login = ?', user[:login]])
     end
 
+    private
+    def self.hash_password(password)
+      Digest::SHA1.hexdigest(password)
+    end
+    
 end
