@@ -42,6 +42,34 @@
   </div>
 
   <div class="input">
+    <label for="event_group">Organizer of event</label>
+    <div class="description">
+      Specify which society or group organizes this event or create a new group.
+    </div>
+    <div style="float: right" id="add_group_button">
+      <input type="button" value="Add Group" onclick="toggle('add_group_button');toggle('add_group_form');clear_field('group_name');clear_field('group_description');focus_form('add_group_form');"/>
+    </div>
+    <div style="float: right; display: none" id="add_group_form">
+      <%= render_component :controller => "groups",
+                           :action => "new_remote",
+                           :params => { 
+                              :update => "groups_list",
+                              :update_with => {
+                                  :controller => "events",
+                                  :action => "list_groups",
+                                  :id => @event.id
+                                },
+                              :html => {
+                                :onsubmit => "toggle('add_group_button');toggle('add_group_form');"
+                              }
+                            } %>   
+    </div>
+    <div id="groups_list">
+      <%= render_component :action => 'list_groups', :id => @event.id, :params => @params %>
+    </div>
+  </div>
+
+  <div class="input">
     <label for="event_categories">Categories</label>
     <div class="description">
       Specify the categories this event or announcement fits under or create a
@@ -67,34 +95,6 @@
     </div>
     <div id="category_list" >
       <%= render_component :action => 'list_categories', :id => @event.id, :params => @params %>
-    </div>
-  </div>
-
-  <div class="input">
-    <label for="event_group">Organizer of event</label>
-    <div class="description">
-      Specify which society or group organizes this event or create a new group.
-    </div>
-    <div style="float: right" id="add_group_button">
-      <input type="button" value="Add Group" onclick="toggle('add_group_button');toggle('add_group_form');clear_field('group_name');clear_field('group_description');focus_form('add_group_form');"/>
-    </div>
-    <div style="float: right; display: none" id="add_group_form">
-      <%= render_component :controller => "groups",
-                           :action => "new_remote",
-                           :params => { 
-                              :update => "groups_list",
-                              :update_with => {
-                                  :controller => "events",
-                                  :action => "list_groups",
-                                  :id => @event.id
-                                },
-                              :html => {
-                                :onsubmit => "toggle('add_group_button');toggle('add_group_form');"
-                              }
-                            } %>   
-    </div>
-    <div id="groups_list">
-      <%= render_component :action => 'list_groups', :id => @event.id, :params => @params %>
     </div>
   </div>
 
