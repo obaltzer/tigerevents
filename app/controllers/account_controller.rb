@@ -1,4 +1,4 @@
-require "ldap"
+require "ldap" if AUTH_TYPE=="ldap"
 
 class AccountController < ApplicationController
     before_filter :super_user, :only => [:list, :toggle_superuser, \
