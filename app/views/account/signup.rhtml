@@ -1,19 +1,22 @@
-<%= start_form_tag :action=> "signup" %>
-
-<div title="Account signup" id="signupform" class="form">
-  <h3>Signup</h3>
-  <%= error_messages_for 'user' %><br/>
-  
-  <label for="user_login">Desired login:</label><br/>
-  <%= text_field "user", "login", :size => 30 %><br/>
-  <label for="user_email">Email address:</label><br/>
-  <%= text_field "user", "email", :size => 40 %><br/>
-  <label for="user_password">Choose password:</label><br/>
-  <%= password_field "user", "password", :size => 30 %><br/>
-  <label for="user_password_confirmation">Confirm password:</label><br/>
-  <%= password_field "user", "password_confirmation", :size => 30 %><br/>
-
-<input type="submit" value="Signup &#187;" class="primary" />
-
+<% @page_title = "Add a User" -%>
+<%= error_messages_for 'user' %>
+<%= form_tag %>
+<table>
+<tr>
+<td>Login:</td>
+<td><%= text_field("user", "login") %></td>
+</tr>
+<tr>
+<td>Password:</td>
+<td><%= password_field("user", "password") %></td>
+</tr>
+<tr>
+<td>Full Name:</td>
+<td><%= text_field("user", "fullname") %></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="submit" value=" ADD USER " /></td>
+</tr>
+</table>
 <%= end_form_tag %>
-

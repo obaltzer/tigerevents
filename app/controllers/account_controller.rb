@@ -58,7 +58,7 @@ class AccountController < ApplicationController
     # password: the user's password with the LDAP server
     #
 
-    def add_user
+    def signup
       if request.get?
          @user = User.new
       else
