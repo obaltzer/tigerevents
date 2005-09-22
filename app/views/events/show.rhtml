@@ -10,7 +10,7 @@
   </div>
   <table class="event_information">
     <tr class="event_description">
-      <td colspan="2" >
+      <td colspan="3" >
         <%=h @event.description %>
       </td>
     </tr>
@@ -19,15 +19,15 @@
         Event Organizer:
       </th>
       <td>
-        <div id="<%=h 'description_' + @event.group.id.to_s  %>" class="tooltip">
-          <%=h @event.group.description %>
-        </div>
         <%=link_to @event.group.name, :controller => 'groups', :action => 'show', :id => @event.group.id %> 
-        <%= image_tag 'i.png', { :alt => 'Group Information', \
+        <%= image_tag 'i.png', { :alt => '', \
               :onmouseover => 'ttOn(\'description_' + @event.group.id.to_s + '\')',\
               :onmouseout => 'ttOff(\'description_' + @event.group.id.to_s + '\')',\
               :class => 'info_image'} 
         %>
+        <div id="<%=h 'description_' + @event.group.id.to_s  %>" class="tooltip">
+          <%=h @event.group.description %>
+	</div>
       </td>
     </tr>
      <% if @event.announcement == 0 %>
