@@ -70,8 +70,10 @@ class GroupsController < ApplicationController
     end
 
     def list
-        @newgroups = Group.find(:all, :conditions => "approved = 0")
-        @groups = Group.find(:all, :conditions => "approved = 1")
+        @newgroups = Group.find(:all, :conditions => "approved = 0").sort {
+        |a,b| a.name.downcase <=> b.name.downcase } 
+        @groups = Group.find(:all, :conditions => "approved = 1").sort {
+        |a,b| a.name.downcase <=> b.name.downcase } 
     end
 
     #checks to see if the user belongs to this group
