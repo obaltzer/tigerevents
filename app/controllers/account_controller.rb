@@ -1,55 +1,34 @@
-require "ldap" if AUTH_TYPE=="ldap"
-
+require "authentication"
 class AccountController < ApplicationController
     before_filter :super_user, :only => [:list, :toggle_superuser, \
                                          :toggle_banned]
     def login
+    if (AUTH_TYPE == 'ldap')
+        @accController = LDAPAccountController.new
+    else
+        @accController = SQLAccountController.new
+    end
         case @request.method
-              when :post
-                # authenticate user against LDAP server
-		if (AUTH_TYPE == 'ldap')
-                  @authenticated, fullname = \
-                    ldap_authenticate(@params[:user][:login], @params[:user_password])
-		else
-		  @authenticated, fullname = \
-                    sql_authenticate(@params[:user][:login], @params[:user_password])
-		end
-                if @authenticated
-                    @params[:user].update("fullname" => fullname)
-                    @user = User.get(@params[:user])
-                    if not @user
-                        @user = User.new(@params[:user])
-                        if @user.save
-                            @user = User.get(@params[:user])
-                        end
-                    end
-                    #set fullname with the fullname extracted from the LDAP server
-                    #this can change over time
-		    if(AUTH_TYPE == 'ldap')
-                       if @user.fullname != fullname
-                          @user.update_attribute(:fullname, fullname)
-                       end
-		    end
-                    
-                    # do not allow banned users to login at all
-                    if @user.banned == 1
-                        @session[:user] = nil
-                        flash[:ban_notice] = \
-                            "You are banned please contact "\
-                            + "<a href='mailto:" + ADMIN_EMAIL + "'>"\
-			    + ADMIN_CONTACT + "</a>"
-                        eedirect_to :controller => 'events', \
-                                    :action => 'index'
-                        return 
-                    else
-                        @session[:user] = @user
-                    end
-                else
-                    flash[:auth] = "Login unsuccessful"
-                    # @login = @params[:user]
-                end
-	        redirect_to :controller => 'events', :action => 'index'
+        when :post
+            @user = @accController.login_user(@params[:user],
+                @params[:user_password])
+        else
+            
         end
+        if not @user
+            flash[:auth] = "Login unsuccessful"
+        else
+            if @user.banned == 1
+                @session[:user] = nil
+                flash[:ban_notice] = \
+                    "You are banned. Please contact" \
+                    + "<a href='mailto:" + ADMIN_EMAIL \
+                    + "'> " + ADMIN_CONTACT + "</a>"
+            else
+                @session[:user] = @user
+            end
+        end
+        redirect_to :controller => 'events', :action => 'index'
     end
 
     # Authenticates the user against an LDAP server
@@ -68,13 +47,6 @@ class AccountController < ApplicationController
 	    redirect_to :controller => 'events', :action => 'index'
 	 end
        end
-    end
-    
-    def sql_authenticate(username, password)
-        hashed_password = User.hash_password(password || "")
-	User.find(:first,
-	     :conditions => ["login = ? and hashed_pass = ?", 
-	                     username, hashed_password])
     end
     
     def ldap_authenticate(username, password)
