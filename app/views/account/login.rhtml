@@ -20,4 +20,11 @@
 
 </div>
 
+<div>
+    <% if AUTH_TYPE != 'ldap' %>
+        <%= link_to "Create New Account", :controller=>"account",
+        :action=>"signup" %>
+    <% end %>
+</div>
+
 </form>

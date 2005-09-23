@@ -4,6 +4,11 @@ class BaseAccountController
     def initialize
 
     end
+
+    def login_user
+        return nil
+    end
+    
 end
 
 class SQLAccountController < BaseAccountController
@@ -14,15 +19,13 @@ class SQLAccountController < BaseAccountController
 
     def authenticate(username, password)
         hashed_password = User.hash_password(password || "")
-        user = User.find(:first,
+        return User.find(:first,
             :conditions => ["login = ? and hashed_pass = ?",
 	    username, hashed_password])
-        return user
     end
 
     def login_user (user, pass)
-        @user = authenticate(user[:login], pass)
-        return @user
+        return authenticate(user[:login], pass)
     end
 
 end
