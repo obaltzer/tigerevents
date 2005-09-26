@@ -50,7 +50,7 @@
         <%= link_to "Help", { :controller => "content", :action => "help" } %>
       </li>
       <li>
-        <%= link_to "Credits", { :controller => "content", :action => "ninjas" } %>
+        <%= link_to "Credits", { :controller => "content", :action => "credits" } %>
       </li>
     </ul>
     
@@ -144,10 +144,10 @@
     </div>
     
     <div id="version_tag">
-      TigerEvents v<%= TE_VERSION %>
+      TigerEvents <%= TE_VERSION %>
     </div>
     <div id="footer">
-      Developed by the awesome <%= link_to 'members', { :controller => 'content', :action => 'ninjas' } %> of <%= link_to "Dal-ACM", "http://www.dal-acm.ca" %>
+      Developed by <%= link_to 'members', { :controller => 'content', :action => 'credits' } %> of <%= link_to "Dal-ACM", "http://www.dal-acm.ca" %>
     </div>
   
   </body>

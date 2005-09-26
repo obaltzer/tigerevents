@@ -3,21 +3,21 @@ TE_VERSION = 'svn/trunk'
 
 #LDAP settings
 LDAP_USE_SSL = true
-LDAP_URL = 'ldap.dal.ca'
+LDAP_URL = 'ldap.foobar.com'
 LDAP_PORT = 389
-LDAP_DN = 'dc=dal,dc=ca'
+LDAP_DN = 'dc=search,dc=domain'
 LDAP_START_TLS = true 
 
 # selector cache settings
 # expiry time in seconds
 EXPIRY_TIME = 300
 
-ADMIN_CONTACT = 'Dalhousie Student Union'
-ADMIN_EMAIL = 'dsuvpi@dal.ca'
+ADMIN_CONTACT = 'TigerEvents Administrator'
+ADMIN_EMAIL = 'tigerevents@localhost'
 
-MAIL_SUFFIX = '@dal.ca'
+MAIL_SUFFIX = '@localhost'
 
-#AUTH_TYPE defines where users authenticate from.
+# AUTH_TYPE defines where users authenticate from.
 # ldap - an ldap server defined by the ldap settings
 # mysql - an sql server
 AUTH_TYPE = 'ldap'
