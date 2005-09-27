@@ -6,22 +6,22 @@ TE_VERSION = 'svn/trunk'
 EXPIRY_TIME = 300
 
 # Administrator Contact Information
-ADMIN_CONTACT = 'TigerEvents Administrator'
-ADMIN_EMAIL = 'tigerevents@localhost'
+ADMIN_CONTACT = '#{admin_name}'
+ADMIN_EMAIL = '#{admin_email}'
 
 MAIL_SUFFIX = '@localhost'
 
 # AUTH_TYPE defines where users authenticate from.
 # ldap - an ldap server defined by the ldap settings
 # sql - an sql server
-AUTH_TYPE = 'ldap'
+AUTH_TYPE = '#{auth_type}'
 
 #LDAP settings
-LDAP_USE_SSL = true
-LDAP_URL = 'ldap.foobar.com'
-LDAP_PORT = 389
-LDAP_DN = 'dc=search,dc=domain'
-LDAP_START_TLS = true 
+LDAP_USE_SSL = #{ldap_use_ssl}
+LDAP_URL = '#{ldap_url}'
+LDAP_PORT = #{ldap_port}
+LDAP_DN = '#{ldap_dn}'
+LDAP_START_TLS = #{ldap_start_tls} 
 
 # This variable holds the relative or absolute URL through which
 # authentication should be passes. Set this to the address of the 'login'

@@ -1,4 +1,4 @@
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
   id int(11) NOT NULL auto_increment,
   login varchar(80) NOT NULL UNIQUE,
   fullname varchar(80) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE users (
 ) TYPE=MyISAM;
 
 
-CREATE TABLE activities (
+CREATE TABLE IF NOT EXISTS activities (
   id int(11) NOT NULL auto_increment,
   action varchar(100) NOT NULL,
   user_id int(11) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE activities (
   FOREIGN KEY (event_id) REFERENCES events(id)
 ) TYPE=MyISAM;
 
-CREATE TABLE events (
+CREATE TABLE IF NOT EXISTS events (
   id int(11) NOT NULL auto_increment,
   announcement int(1) NOT NULL default '0',
   group_id int(11),
@@ -43,14 +43,14 @@ CREATE TABLE events (
   FOREIGN KEY (priority_id) REFERENCES priorities(id)
 ) TYPE=MyISAM;
 
-CREATE TABLE categories_events (
+CREATE TABLE IF NOT EXISTS categories_events (
   event_id int(11) NOT NULL,
   category_id int(11) NOT NULL,
   FOREIGN KEY (event_id) REFERENCES events(id),
   FOREIGN KEY (category_id) REFERENCES categories(id)
 ) TYPE=MyISAM;
 
-CREATE TABLE categories (
+CREATE TABLE IF NOT EXISTS categories (
   id int(11) NOT NULL auto_increment,
   name varchar(100) NOT NULL,
   hide tinyint(1) NOT NULL default '0',
@@ -61,7 +61,7 @@ CREATE TABLE categories (
   FOREIGN KEY (created_by) REFERENCES users(id)
 ) TYPE=MyISAM;
 
-CREATE TABLE eventratings (
+CREATE TABLE IF NOT EXISTS eventratings (
   id int(11) NOT NULL auto_increment,
   event_id int(11) NOT NULL,
   score int(11) NOT NULL,
@@ -69,7 +69,7 @@ CREATE TABLE eventratings (
   FOREIGN KEY (event_id) REFERENCES events(id)
 ) TYPE=MyISAM;
 
-CREATE TABLE groups_users (
+CREATE TABLE IF NOT EXISTS groups_users (
   user_id int(11) NOT NULL,
   group_id int(11) NOT NULL,
   authorized tinyint(1) NOT NULL default '0',
@@ -78,7 +78,7 @@ CREATE TABLE groups_users (
   FOREIGN KEY (group_id) REFERENCES groups(id)
 ) TYPE=MyISAM;
 
-CREATE TABLE groups (
+CREATE TABLE IF NOT EXISTS groups (
   id int(11) NOT NULL auto_increment,
   name varchar(100) NOT NULL UNIQUE,
   description text NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE groups (
   FULLTEXT KEY groupsIndex (description,name)
 ) TYPE=MyISAM;
 
-CREATE TABLE group_classes (
+CREATE TABLE IF NOT EXISTS group_classes (
   id int(11) NOT NULL auto_increment,
   name varchar(100) NOT NULL,
   parent_id int(11),
@@ -97,7 +97,7 @@ CREATE TABLE group_classes (
   FOREIGN KEY (parent_id) REFERENCES group_classes(id)
 ) TYPE=MyISAM;
 
-CREATE TABLE group_classes_users (
+CREATE TABLE IF NOT EXISTS group_classes_users (
   user_id int(11) NOT NULL,
   group_class_id int(11) NOT NULL,
   PRIMARY KEY(user_id, group_class_id),
@@ -105,7 +105,7 @@ CREATE TABLE group_classes_users (
   FOREIGN KEY (group_class_id) REFERENCES group_class(id)
 ) TYPE=MyISAM;
 
-CREATE TABLE bookmarks (
+CREATE TABLE IF NOT EXISTS bookmarks (
   id int(11) NOT NULL auto_increment,
   user_id int(11) NOT NULL,
   event_id int(11) NOT NULL,
@@ -114,7 +114,7 @@ CREATE TABLE bookmarks (
   FOREIGN KEY (event_id) REFERENCES events(id)
 ) TYPE=MyISAM;
 
-CREATE TABLE layouts (
+CREATE TABLE IF NOT EXISTS layouts (
   id int(11) NOT NULL auto_increment,
   user_id int(11),
   selector_id int(11) NOT NULL,
@@ -124,14 +124,14 @@ CREATE TABLE layouts (
   FOREIGN KEY (selector_id) REFERENCES selectors(id)
 ) TYPE=MyISAM;
 
-CREATE TABLE priorities (
+CREATE TABLE IF NOT EXISTS priorities (
   id int(11) NOT NULL auto_increment,
   name varchar(30) NOT NULL,
   rank int(4) NOT NULL,
   PRIMARY KEY (id)
 );
 
-CREATE TABLE selectors (
+CREATE TABLE IF NOT EXISTS selectors (
   id int(11) NOT NULL auto_increment,
   name varchar(100) NOT NULL,
   label varchar(100) NOT NULL,
@@ -140,13 +140,13 @@ CREATE TABLE selectors (
   PRIMARY KEY (id)
 ) TYPE=MyISAM;
 
-CREATE TABLE association_types (
+CREATE TABLE IF NOT EXISTS association_types (
   id int(11) NOT NULL auto_increment,
   name varchar(10) NOT NULL,
   PRIMARY KEY (id)
 );
 
-CREATE TABLE categories_selectors (
+CREATE TABLE IF NOT EXISTS categories_selectors (
   selector_id int(11) NOT NULL,
   category_id int(11) NOT NULL,
   association_type_id int(11) NOT NULL,
@@ -155,7 +155,7 @@ CREATE TABLE categories_selectors (
   FOREIGN KEY (association_type_id) REFERENCES association_types(id)
 );
 
-CREATE TABLE group_classes_selectors (
+CREATE TABLE IF NOT EXISTS group_classes_selectors (
   selector_id int(11) NOT NULL,
   group_class_id int(11) NOT NULL,
   association_type_id int(11) NOT NULL,
@@ -164,7 +164,7 @@ CREATE TABLE group_classes_selectors (
   FOREIGN KEY (association_type_id) REFERENCES association_types(id)
 );
 
-CREATE TABLE groups_selectors (
+CREATE TABLE IF NOT EXISTS groups_selectors (
   selector_id int(11) NOT NULL,
   group_id int(11) NOT NULL,
   association_type_id int(11) NOT NULL,
@@ -173,7 +173,7 @@ CREATE TABLE groups_selectors (
   FOREIGN KEY (association_type_id) REFERENCES association_types(id)
 );
 
-CREATE TABLE priorities_selectors (
+CREATE TABLE IF NOT EXISTS priorities_selectors (
   selector_id int(11) NOT NULL,
   priority_id int(11) NOT NULL,
   association_type_id int(11) NOT NULL,
