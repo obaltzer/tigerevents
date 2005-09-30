@@ -13,7 +13,17 @@ class Event < ActiveRecord::Base
     def hasEndTime=(val)
         @hasEndTime = val
     end
-   
+
+    def isEditableBy(user)
+        if user == nil
+            return false
+        end
+        if user.approved_groups.include? Group.find(self.group_id)
+            return true
+        end
+        return false
+    end
+
     before_validation :convert_times
     def convert_times
         begin
