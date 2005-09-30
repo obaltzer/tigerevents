@@ -63,9 +63,12 @@ class GroupsController < ApplicationController
     end
 
     def mygroups
-    	@groups = @session[:user].approved_groups
-    	@pengroups = @session[:user].unapproved_groups
-    	@penmember = @session[:user].unapproved_member
+    	@groups = @session[:user].approved_groups.sort {
+            |a,b| a.name.downcase <=> b.name.downcase }
+    	@pengroups = @session[:user].unapproved_groups.sort {
+            |a,b| a.name.downcase <=> b.name.downcase }
+    	@penmember = @session[:user].unapproved_member.sort {
+            |a,b| a.name.downcase <=> b.name.downcase }
 	render_partial
     end
 
