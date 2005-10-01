@@ -1,6 +1,9 @@
 # TigerEvents Version String
 TE_VERSION = 'svn/trunk'
 
+# name of your organization
+ORGANIZATION_NAME= 'Organization'
+
 # selector cache settings
 # expiry time in seconds
 EXPIRY_TIME = 300
