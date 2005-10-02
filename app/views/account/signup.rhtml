@@ -2,21 +2,21 @@
 <%= error_messages_for 'user' %>
 <%= form_tag %>
 <table>
-<tr>
-<td>Login:</td>
-<td><%= text_field("user", "login") %></td>
-</tr>
-<tr>
-<td>Password:</td>
-<td><%= password_field("user", "user_password") %></td>
-</tr>
-<tr>
-<td>Full Name:</td>
-<td><%= text_field("user", "fullname") %></td>
-</tr>
-<tr>
-<td></td>
-<td><input type="submit" value=" ADD USER " /></td>
-</tr>
-</table>
+    <tr>
+        <td>Login:</td>
+        <td><%= text_field("user", "login") %></td>
+    </tr>
+    <tr>
+        <td>Password:</td>
+        <td><%= password_field("user", "user_password") %></td>
+    </tr>
+    <tr>
+        <td>Full Name:</td>
+        <td><%= text_field("user", "fullname") %></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><input type="submit" value=" ADD USER " /></td>
+    </tr>
+    </table>
 <%= end_form_tag %>

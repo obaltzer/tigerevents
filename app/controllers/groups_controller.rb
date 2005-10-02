@@ -63,20 +63,17 @@ class GroupsController < ApplicationController
     end
 
     def mygroups
-    	@groups = @session[:user].approved_groups.sort {
-            |a,b| a.name.downcase <=> b.name.downcase }
-    	@pengroups = @session[:user].unapproved_groups.sort {
-            |a,b| a.name.downcase <=> b.name.downcase }
-    	@penmember = @session[:user].unapproved_member.sort {
-            |a,b| a.name.downcase <=> b.name.downcase }
+    	@groups = @session[:user].approved_groups.sort_by { |a| a.name }
+    	@pengroups = @session[:user].unapproved_groups.sort_by { |a| a.name }
+    	@penmember = @session[:user].unapproved_member.sort_by { |a| a.name }
 	render_partial
     end
 
     def list
-        @newgroups = Group.find(:all, :conditions => "approved = 0").sort {
-        |a,b| a.name.downcase <=> b.name.downcase } 
-        @groups = Group.find(:all, :conditions => "approved = 1").sort {
-        |a,b| a.name.downcase <=> b.name.downcase } 
+        @newgroups = Group.find(:all, :conditions => 
+            "approved = 0").sort_by { |a| a.name }
+        @groups = Group.find(:all, :conditions => 
+            "approved = 1").sort_by { |a| a.name }
     end
 
     #checks to see if the user belongs to this group
@@ -95,7 +92,7 @@ class GroupsController < ApplicationController
                 "You do not have permission to manage this group."
 	    redirect_to :controller => "events", :action => "index"
         end
-	true
+	return true
     end
 							
     def edit
