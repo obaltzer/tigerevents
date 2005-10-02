@@ -4,7 +4,7 @@ body
     background-image: url(/images/background.png);
     background-color: white;
     font-family: "Times New Roman", serif;
-    font-size: 12pt;
+    font-size: 10pt;
     color: black;
 }
 
@@ -303,9 +303,15 @@ div.selector > div.selector_name > h3
     font-weight: bold;
 }
 
-div.selector div.title_read_more
+.selector div.prefix_time,
+.selector div.time {
+    font-weight: bold;
+    font-size: 80%;
+}
+
+.selector span.link_more a
 {
-    display: none;
+    color: #000;
 }
 
 /******************* HEADLINE SELECTOR SPECIFIC ********************/
@@ -324,11 +330,25 @@ div.selector#headlines div.selector_content
     overflow: auto;
 }
 
-div.selector#headlines div.time,
+div.selector#headlines div.prefix_time
+{
+    display: block;
+    float: left;
+    font-weight: normal;
+    margin-top: 0.5em;
+    width: 7em;
+    color: #333333;
+}
+
+div.selector#headlines div.time
+{
+    display: none;
+}
 div.selector#headlines div.description
 {
     display: none;
 }
+
 div.selector#headlines div.title a
 {
     color: black;
@@ -337,22 +357,13 @@ div.selector#headlines div.title a
     text-decoration: none;
 }
 
-div.selector#headlines div.title,
-div.selector#headlines div.title_read_more
+div.selector#headlines div.title
 {
     display: inline;
 }
 
 div.selector#headlines div.title a:hover
 {
-    text-decoration: underline;
-}
-
-div.selector#headlines div.title_read_more a
-{
-    color: black;
-    font-size: 70%;
-    font-weight: normal;
     text-decoration: underline;
 }
 
@@ -379,6 +390,7 @@ div.selector#all_announcements div.selector_content
     border-bottom: 1px solid black;
 }
 
+div.selector#all_announcements div.prefix_time,
 div.selector#all_announcements div.time,
 div.selector#all_announcements div.description
 {
@@ -672,7 +684,3 @@ div.ninja_text{
     display: none;
 }
 
-div.time {
-    font-weight: bold;
-    font-size: 80%;
-}

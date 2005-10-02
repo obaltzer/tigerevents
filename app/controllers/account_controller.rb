@@ -3,32 +3,29 @@ class AccountController < ApplicationController
     before_filter :super_user, :only => [:list, :toggle_superuser, \
                                          :toggle_banned]
     def login
-    if (AUTH_TYPE == 'ldap')
-        @accController = LDAPAccountController.new
-    else
-        @accController = SQLAccountController.new
-    end
+        if (AUTH_TYPE == 'ldap')
+            @accController = LDAPAccountController.new
+        else
+            @accController = SQLAccountController.new
+        end
         case @request.method
-        when :post
-            @user = @accController.login_user(@params[:user],
-                @params[:user_password])
-        else
-            
+            when :post
+                @user = @accController.login_user(@params[:user], @params[:user_password])
+                if not @user
+                    flash[:auth] = "Login unsuccessful"
+                else
+                    if @user.banned == 1
+                        @session[:user] = nil
+                        flash[:ban_notice] = \
+                            "You are banned. Please contact" \
+                            + "<a href='mailto:" + ADMIN_EMAIL \
+                            + "'> " + ADMIN_CONTACT + "</a>"
+                    else
+                        @session[:user] = @user
+                    end
+                end
+                redirect_to :controller => 'events', :action => 'index'
         end
-        if not @user
-            flash[:auth] = "Login unsuccessful"
-        else
-            if @user.banned == 1
-                @session[:user] = nil
-                flash[:ban_notice] = \
-                    "You are banned. Please contact" \
-                    + "<a href='mailto:" + ADMIN_EMAIL \
-                    + "'> " + ADMIN_CONTACT + "</a>"
-            else
-                @session[:user] = @user
-            end
-        end
-        redirect_to :controller => 'events', :action => 'index'
     end
 
     # Authenticates the user against an LDAP server
