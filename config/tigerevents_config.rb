@@ -1,9 +1,6 @@
 # TigerEvents Version String
 TE_VERSION = 'svn/trunk'
 
-# name of your organization
-ORGANIZATION_NAME= 'Organization'
-
 # selector cache settings
 # expiry time in seconds
 EXPIRY_TIME = 300
@@ -21,9 +18,9 @@ AUTH_TYPE = 'ldap'
 
 #LDAP settings
 LDAP_USE_SSL = true
-LDAP_URL = 'ldap.foobar.com'
+LDAP_URL = 'ldap.dal.ca'
 LDAP_PORT = 389
-LDAP_DN = 'dc=search,dc=domain'
+LDAP_DN = 'dc=dal,dc=ca'
 LDAP_START_TLS = true 
 
 # This variable holds the relative or absolute URL through which
