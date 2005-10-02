@@ -15,57 +15,74 @@ class EventsControllerTest < Test::Unit::TestCase
 
   def test_index
     get :index
-    assert_rendered_file 'list'
+    assert_response :success
+    assert_template 'list'
   end
 
   def test_list
     get :list
-    assert_rendered_file 'list'
-    assert_template_has 'events'
+
+    assert_response :success
+    assert_template 'list'
+
+    assert_not_nil assigns(:events)
   end
 
   def test_show
-    get :show, 'id' => 1
-    assert_rendered_file 'show'
-    assert_template_has 'event'
-    assert_valid_record 'event'
+    get :show, :id => 1
+
+    assert_response :success
+    assert_template 'show'
+
+    assert_not_nil assigns(:events)
+    assert assigns(:events).valid?
   end
 
   def test_new
     get :new
-    assert_rendered_file 'new'
-    assert_template_has 'event'
+
+    assert_response :success
+    assert_template 'new'
+
+    assert_not_nil assigns(:events)
   end
 
   def test_create
-    num_events = Event.find_all.size
+    num_events = Events.count
 
-    post :create, 'event' => { }
+    post :create, :events => {}
+
+    assert_response :redirect
     assert_redirected_to :action => 'list'
 
-    assert_equal num_events + 1, Event.find_all.size
+    assert_equal num_events + 1, Events.count
   end
 
   def test_edit
-    get :edit, 'id' => 1
-    assert_rendered_file 'edit'
-    assert_template_has 'event'
-    assert_valid_record 'event'
+    get :edit, :id => 1
+
+    assert_response :success
+    assert_template 'edit'
+
+    assert_not_nil assigns(:events)
+    assert assigns(:events).valid?
   end
 
   def test_update
-    post :update, 'id' => 1
+    post :update, :id => 1
+    assert_response :redirect
     assert_redirected_to :action => 'show', :id => 1
   end
 
   def test_destroy
-    assert_not_nil Event.find(1)
+    assert_not_nil Events.find(1)
 
-    post :destroy, 'id' => 1
+    post :destroy, :id => 1
+    assert_response :redirect
     assert_redirected_to :action => 'list'
 
     assert_raise(ActiveRecord::RecordNotFound) {
-      event = Event.find(1)
+      Events.find(1)
     }
   end
 end
