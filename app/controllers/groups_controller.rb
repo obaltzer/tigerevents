@@ -34,20 +34,10 @@ class GroupsController < ApplicationController
         end
     end
 
-    def approve
+    def toggle_approved
 	@group = Group.find(@params[:id])
-	@group.approved = 1
-	@group.save
+	@group.toggle! :approved
         # clear cache to render events of the approved group
-        SelectorsController.clearCache
-	redirect_to :action => "list"
-    end
-    
-    def ban
-	@group = Group.find(@params[:id])
-	@group.approved = 0
-	@group.save
-        # clear cache to hide eventsof the banned group
         SelectorsController.clearCache
 	redirect_to :action => "list"
     end

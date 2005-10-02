@@ -5,7 +5,7 @@ class AccountController < ApplicationController
     before_filter :super_user, :only => [:list, :toggle_superuser, \
                                          :toggle_banned]
 
-def login
+    def login
         if (AUTH_TYPE == 'ldap')
             @accController = LDAPAccountController.new
         else
