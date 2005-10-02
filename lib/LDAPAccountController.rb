@@ -1,35 +1,5 @@
 require "ldap" if AUTH_TYPE=="ldap"
 
-class BaseAccountController
-    def initialize
-
-    end
-
-    def login_user
-        return nil
-    end
-    
-end
-
-class SQLAccountController < BaseAccountController
-
-    def initialize
-        super
-    end
-
-    def authenticate(username, password)
-        hashed_password = User.hash_password(password || "")
-        return User.find(:first,
-            :conditions => ["login = ? and hashed_pass = ?",
-	    username, hashed_password])
-    end
-
-    def login_user (user, pass)
-        return authenticate(user[:login], pass)
-    end
-
-end
-
 class LDAPAccountController < BaseAccountController
 
     def initialize
@@ -58,8 +28,8 @@ class LDAPAccountController < BaseAccountController
             dn = x.dn
             }
         rescue RuntimeError
-        # if more than one rdn is found, not try to bind
-        dn = nil
+            # if more than one rdn is found, not try to bind
+            dn = nil
         end
 
         if dn
