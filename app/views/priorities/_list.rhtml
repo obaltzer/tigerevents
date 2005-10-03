@@ -14,14 +14,14 @@
         <td><%=h p.rank %></td>
         <td><%=h p.name %></td>
         <td>
-          <%= link_to_remote "Up", :update => "_priority_list", :url => { :action => "move_up", :id => p.id } %>
-          <%= link_to_remote "Down", :update => "_priority_list", :url => { :action => "move_down", :id => p.id } %>
+          <%= link_to_remote "Up", :update => "priority_list", :url => { :action => "move_up", :id => p.id } %>
+          <%= link_to_remote "Down", :update => "priority_list", :url => { :action => "move_down", :id => p.id } %>
         </td>
         <td>
           <% if @priorities.length >= 2 %>
             <a id="remove_link_<%= p.id %>" href="#" onclick="toggle('remove_form_<%= p.id %>');toggle('remove_link_<%= p.id %>');">Remove</a>
             <div id="remove_form_<%= p.id %>" style="display: none">
-              <%= form_remote_tag :update => "_priority_list", :url => { :action => "remove", :id => p.id } %>
+              <%= form_remote_tag :update => "priority_list", :url => { :action => "remove", :id => p.id } %>
                 <div class="input">
                   <label style="display: inline">Reassign existing events to priority:</label>
                   <select name="new_priority_id">
