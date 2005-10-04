@@ -10,6 +10,7 @@ class LDAPAccountController < BaseAccountController
         # initialize return values
         authenticated = false
         fullName = username
+        email = username
 
         # connect to LDAP server
         if (LDAP_USE_SSL)
@@ -41,6 +42,7 @@ class LDAPAccountController < BaseAccountController
                 conn.search(LDAP_DN, LDAP::LDAP_SCOPE_SUBTREE, "(uid=#{username})") {|x|
                     if x.vals("displayName")
                         fullName = x.get_values("displayName")[0]
+                        email = x.get_values("mail")[0]
                     end
 		    #set user as being authenticated
                     authenticated = true
@@ -51,11 +53,11 @@ class LDAPAccountController < BaseAccountController
                 authenticated = false
 	    end
 	end
-	return authenticated, fullName
+	return authenticated, fullName, email
     end
 
     def login_user (user, pass)
-        @authenticated, fullname = authenticate(user[:login], pass)
+        @authenticated, fullname, email = authenticate(user[:login], pass)
         if @authenticated
             user.update("fullname" => fullname)
             @user = User.get(user)
@@ -65,6 +67,9 @@ class LDAPAccountController < BaseAccountController
             end
             if @user.fullname != fullname
                 @user.update_attribute(:fullname, fullname)
+            end
+            if @user.email != email
+                @user.update_attribute(:email, email)
             end
             return @user
         else

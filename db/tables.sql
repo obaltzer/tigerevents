@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS users (
   id int(11) NOT NULL auto_increment,
   login varchar(80) NOT NULL UNIQUE,
   fullname varchar(80) NOT NULL,
+  email varchar(100) NOT NULL,
   hashed_pass char(40) NULL,
   banned tinyint(1) NOT NULL default '0',
   superuser tinyint(1) NOT NULL default '0',

@@ -9,8 +9,6 @@ EXPIRY_TIME = 300
 ADMIN_CONTACT = 'TigerEvents Administrator'
 ADMIN_EMAIL = 'tigerevents@localhost'
 
-MAIL_SUFFIX = '@localhost'
-
 # AUTH_TYPE defines where users authenticate from.
 # ldap - an ldap server defined by the ldap settings
 # sql - an sql server

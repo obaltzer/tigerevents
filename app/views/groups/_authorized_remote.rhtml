@@ -21,7 +21,7 @@
   	    <%=h member.fullname %>
   	  </td>
           <td> 
-  	    <%=h member.login + MAIL_SUFFIX %>
+  	    <%=h member.email %>
   	  </td>
 	  <td>
   	    <% if @session[:user] != member and @complement_authorized_members[member].length != 0 %>
