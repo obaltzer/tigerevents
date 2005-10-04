@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS events (
   startTime datetime NOT NULL,
   endTime datetime,
   priority_id int(11),
+  location varchar(100),
   url varchar(100),
   deleted int(1) NOT NULL default '0',
   created_on timestamp(14) NOT NULL,

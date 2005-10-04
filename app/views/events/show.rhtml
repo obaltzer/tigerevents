@@ -31,6 +31,16 @@
       </td>
     </tr>
      <% if @event.announcement == 0 %>
+      <% if @event.location %>
+      <tr class="event_location">
+        <th>
+          Location:
+        </th>
+        <td>
+          <%= @event.location %>
+        </td>
+      </tr>
+      <% end %>
       <tr class="event_time">
         <th>
           Starts:
