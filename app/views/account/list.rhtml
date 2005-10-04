@@ -12,6 +12,9 @@
 </div>
 <%= end_form_tag %>
 
+<%= link_to "Previous page", { :page => @user_pages.current.previous } if @user_pages.current.previous %>
+<%= pagination_links @user_pages, :params => { :search => @params[:search] } %>
+<%= link_to "Next page", { :page => @user_pages.current.next } if @user_pages.current.next %> 
 <table>
   <tr>
     <th>Net-ID</th>
@@ -28,4 +31,6 @@
     </tr>
   <% end %>
 </table>
+<%= link_to "Previous page", { :page => @user_pages.current.previous } if @user_pages.current.previous %>
 <%= pagination_links @user_pages, :params => { :search => @params[:search] } %>
+<%= link_to "Next page", { :page => @user_pages.current.next } if @user_pages.current.next %> 
