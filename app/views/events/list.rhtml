@@ -15,6 +15,6 @@
 </div>
 <div id="selector_container">
 <% for selector in @selectors %>
-  <%= render_component :controller => "selectors", :action => "list_events", :id => selector, :params => {:period => @params[:period]} %>
+  <%= render_component :controller => "selectors", :action => "events", :id => selector.id, :params => {:period => @params[:period]} %>
 <% end %>
 </div>

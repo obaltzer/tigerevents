@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
     has_and_belongs_to_many :unapproved_member, :class_name => "Group", :conditions => "authorized = 0"
     has_and_belongs_to_many :unapproved_groups, :class_name => "Group", :conditions => "authorized = 1 AND approved=0"
     has_many :bookmarks
-    has_many :layouts, :order => "rank"
+    has_many :layouts
     
     validates_uniqueness_of :login, :on => :create
 

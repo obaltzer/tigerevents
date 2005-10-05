@@ -16,7 +16,7 @@ INSERT INTO priorities (name, rank) VALUES ('Headline 2', 2);
 INSERT INTO priorities (name, rank) VALUES ('Important', 50);
 INSERT INTO priorities (name, rank) VALUES ('Normal', 100);
 
-INSERT INTO events (group_id, title, description, startTime, priority_id) VALUES (1, 'GeekBeer', 'Weekly GeekBeer', DATE_ADD(NOW(), INTERVAL 1 DAY), 3);
+INSERT INTO events (group_id, title, description, startTime, priority_id) VALUES (1, 'GeekBeer', 'All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy.', DATE_ADD(NOW(), INTERVAL 1 DAY), 3);
 INSERT INTO events (group_id, title, description, startTime, priority_id) VALUES (1, 'Citizenship Award Celebration', 'Social Hangout', DATE_ADD(NOW(), INTERVAL 1 DAY), 4);
 INSERT INTO events (group_id, title, description, startTime, priority_id) VALUES (2, 'Baltzer Award', 'Baltzer Award for outstanding coolness', DATE_ADD(NOW(), INTERVAL 1 DAY), 1);
 INSERT INTO events (group_id, title, description, startTime, priority_id) VALUES (2, 'Dal-ACM thumb wrestling championship', 'Coolest sports event ever', DATE_ADD(NOW(), INTERVAL 1 DAY), 2);
@@ -24,7 +24,7 @@ INSERT INTO events (group_id, title, description, startTime, priority_id) VALUES
 INSERT INTO events (group_id, title, description, startTime, priority_id) VALUES (3, 'my.dsu.ca launch', 'Launch of the best website ever', DATE_ADD(NOW(), INTERVAL 1 DAY), 1);
 INSERT INTO events (announcement, group_id, title, description, startTime, endTime, priority_id) VALUES (1, 2, 'Dal-ACM Announcement', 'Some cool stuff Dal-ACM has to say.', DATE_ADD(NOW(), INTERVAL -1 DAY), DATE_ADD(NOW(), INTERVAL 1 DAY), 2);
 INSERT INTO events (announcement, group_id, title, description, startTime, endTime, priority_id) VALUES (1, 1, 'CSS Announcement', 'Not much to announce.', DATE_ADD(NOW(), INTERVAL -1 DAY), DATE_ADD(NOW(), INTERVAL 1 DAY), 4);
-INSERT INTO events (announcement, group_id, title, description, startTime, endTime, priority_id) VALUES (1, 3, 'Oliver wins the Universe Awesomeness Award', 'No Description', DATE_ADD(NOW(), INTERVAL -1 DAY), DATE_ADD(NOW(), INTERVAL 1 DAY), 1);
+INSERT INTO events (announcement, group_id, title, description, startTime, endTime, priority_id) VALUES (1, 3, 'Oliver wins the Universe Awesomeness Award', 'Add a lot of text here to make the description to be cut off. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy.', DATE_ADD(NOW(), INTERVAL -1 DAY), DATE_ADD(NOW(), INTERVAL 1 DAY), 1);
 
 
 INSERT INTO categories_events (event_id, category_id) VALUES (1, 4);
@@ -70,8 +70,9 @@ INSERT INTO activities (event_id, user_id, action) SELECT events.id, users.id, '
 INSERT INTO groups_users (user_id, group_id, authorized) SELECT users.id, groups.id, 1 FROM groups, users WHERE users.login = 'dummy';
 
 -- add anonymous user layouts, put headlines and announcements on top
-INSERT INTO layouts (user_id, selector_id, rank) SELECT NULL, selectors.id, 100 FROM selectors;
-UPDATE layouts SET rank = 1 WHERE selector_id = 3 OR selector_id = 7;
+INSERT INTO layouts (user_id) VALUES (NULL);
+INSERT INTO layouts_selectors (layout_id, selector_id, rank) SELECT layouts.id, selectors.id, 100 FROM selectors, layouts WHERE layouts.user_id IS NULL;
+UPDATE layouts_selectors SET rank = 1 WHERE selector_id = 3 OR selector_id = 7;
 
 --add user / event data to test user group management
 --Chris, approved for CSS, event posted for CSS

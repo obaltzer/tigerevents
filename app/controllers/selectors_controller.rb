@@ -12,10 +12,10 @@ class SelectorsController < ApplicationController
         @selectors = Selector.find_all
     end
     
-    def list_events
+    def events
         #if the cacheKey is nil then it should not be stored
         cacheKey = nil
-        if @params[:period][:fixed] 
+        if @params[:period] and @params[:period][:fixed] 
            cacheKey = "#{@params[:id]}_#{@params[:period][:fixed]}" 
         end
 
@@ -66,7 +66,8 @@ class SelectorsController < ApplicationController
             end
 
             #check params
-            if @params[:period][:startTime] && @params[:period][:endTime]
+            if @params[:period] and @params[:period][:startTime] \
+                    and @params[:period][:endTime]
                startTime = @params[:period][:startTime]
                #Time.local @params[:startTime][:year], @params[:startTime][:month], @params[:startTime][:day]
                #add more day to endTime to be inclusive of the last day
@@ -137,5 +138,20 @@ class SelectorsController < ApplicationController
 
     def SelectorsController.clearCache
         @@cache.clear
+    end
+
+    def edit
+        @selector = Selector.find @params[:id]
+        @associations = {}
+        @selector.associations.each { |a|
+            @associations[a] = {}
+            @associations[a][:active] = @selector.send(Inflector.pluralize(a))
+            tmp = Array.new(eval(Inflector.camelize(a)).find_all)
+            tmp.reject! { |x|
+                @associations[a][:active].include?(x) 
+            }
+            @associations[a][:available] = tmp
+        }
+        render_partial
     end
 end
