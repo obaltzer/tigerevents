@@ -2,13 +2,17 @@ class LayoutsController < ApplicationController
     # before_filter :super_user
 
     def edit
+        render
+    end
+
+    def selector_selection
         @layout = Layout.find @params[:id]
         @active_selectors = @layout.selectors
         @available_selectors = Array.new(Selector.find_all)
         @available_selectors.reject! { |x|
             @active_selectors.include?(x)
         }
-        render
+        render_partial
     end
 
     def active_selectors

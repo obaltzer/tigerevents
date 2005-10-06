@@ -696,10 +696,15 @@ div.ninja_text{
 }
 
 /*************** SELECTOR BUILDER ***********/
+div#selector_creation
+{
+    float: left;
+}
+
 div.selector_list
 {
     float: left;
-    width: 30em;
+    width: 25em;
 }
 
 div.selector_list h3
@@ -710,21 +715,22 @@ div.selector_list h3
 div.selector_list ul
 {
     list-style: none;
-    display: inline;
     font-family: sans-serif;
     margin: 0;
     padding: 0;
-    min-height: 6em;
-    min-width: 20em;
+    /* min-height: 3em; */
+    width: 25em;
+    height: 2em;
 }
 
-div.selector_list ul li
-{
+div.selector_list ul li {
+    float: left;
     height: 1.3em;
     width: 20em;
     padding: 2px;
     padding-left: 5px;
-    border: 1px dotted #999999;
+    border: 1px solid #999999;
+    background-color: white;
     margin: 2px;
 }
 
@@ -750,14 +756,23 @@ ul#available_selectors li
     background-color: #EEDC82;
 }
 
-div#selector_workspace
+div#workspace_wrapper
 {
     clear: both;
-    border: 1px solid black;
-    padding: 0.5em;
+    padding-top: 2em;
+}
+
+div#selector_workspace
+{
+    border-top: 1px dotted black;
+    padding: 0em;
     height: auto;
     width: auto;
-    border: none;
+}
+
+div#selector_workspace h2
+{
+    font-family: sans-serif;
 }
 
 div.list_container
@@ -772,7 +787,8 @@ ul.association_list
     font-family: sans-serif;
     margin: 0;
     padding: 0;
-    min-height: 3em;
+    width: 30em;
+    height: 3em;
 }
 ul.association_list li {
     float: left;
@@ -780,7 +796,7 @@ ul.association_list li {
     width: 10em;
     padding: 2px;
     padding-left: 5px;
-    border: 1px dotted #999999;
+    border: 1px solid #999999;
     background-color: white;
     margin: 2px;
 }
@@ -788,14 +804,14 @@ ul.association_list li {
 div.list_available_associations
 {
    float:left;
-   margin: 1em;
+   margin: 0em;
    width: 30em;
 }
 
 div.list_active_associations
 {
    float: left;
-   margin: 1em;
+   margin: 0em;
    width: 30em;
 }
 

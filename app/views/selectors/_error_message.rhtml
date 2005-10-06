@@ -1,0 +1,13 @@
+<%= error_messages_for 'selector' %>
+<% if @params[:action] == "create" %>
+  <%= link_to_remote 'Back', :update => "selector_selection", 
+                              :url => { :controller => "layouts",
+                                   :action => "selector_selection",
+                                   :id => @params[:layout_id] } %>
+<% else %>
+  <%= link_to_remote 'Back', :update => "selector_workspace", 
+                              :url => { :controller => "selectors",
+                                   :action => "edit",
+                                   :id => @selector.id } %>
+<% end %>
+  

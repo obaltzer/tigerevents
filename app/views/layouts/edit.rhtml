@@ -3,49 +3,22 @@
 <div id="message_container">
 </div>
 
-<div class="selector_list">
-  <h3>Active Selectors</h3>
-  *<ul id="active_selectors">
-    <% for selector in @active_selectors %>
-      <li id="item_<%= selector.id %>">
-        <div class="action">
-          <%= link_to_remote image_tag('pencil.gif', :alt => 'Edit Selector'), :update => 'selector_workspace', :url => { :controller => 'selectors', :action => 'edit', :id => selector } %>
-        </div>
-        <div class="action">
-          <%= link_to_remote image_tag('preview.gif', :alt => 'Preview Selector'), :update => 'selector_workspace', :url => { :controller => 'selectors', :action => 'events', :id => selector } %>
-        </div>
-        <%=h selector.name %>
-      </li>
-    <% end %>
-  </ul>
-</div>
-<div class="selector_list">
-  <h3>Available Selectors</h3>
-  *<ul id="available_selectors">
-    <% for selector in @available_selectors %>
-      <li id="item_<%= selector.id %>">
-        <div class="action">
-          <%= link_to_remote image_tag('pencil.gif', :alt => 'Edit Selector'), :update => 'selector_workspace', :url => { :controller => 'selectors', :action => 'edit', :id => selector } %>
-        </div>
-        <div class="action">
-          <%= link_to_remote image_tag('preview.gif', :alt => 'Preview Selector'), :update => 'selector_workspace', :url => { :controller => 'selectors', :action => 'events', :id => selector } %>
-        </div>
-        <%=h selector.name %>
-      </li>
-    <% end %>
-  </ul>
+<div id="selector_selection">
+  <%= render_component :action => "selector_selection", :id => @params[:id] %>
 </div>
 
-<%= sortable_element 'active_selectors', 
-    :update => 'message_container', 
-    :containment => ["active_selectors", "available_selectors"],
-    :constraint => false,
-    :dropOnEmpty => true,
-    :url => { :action => "active_selectors", :id => @layout } %>
-<%= sortable_element 'available_selectors', 
-    :containment => ["active_selectors", "available_selectors"],
-    :constraint => false,
-    :dropOnEmpty => true %>
-       
-<div id="selector_workspace">
+<div id="selector_creation">
+  <%= form_remote_tag :update => "selector_selection", :url => { :controller => "selectors", :action => "create" } %>
+    <div class="input">
+      <label for="selector_name">Create Selector:</label>
+      <%= text_field 'selector', 'name', :size => 15 %>
+    </div>
+    <input type="hidden" name="layout_id" value="<%= @params[:id] %>"/>
+    <%= submit_tag "Create" %>
+  <%= end_form_tag %>
+</div>
+
+<div id="workspace_wrapper">
+  <div id="selector_workspace">
+  </div>
 </div>

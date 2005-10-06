@@ -177,4 +177,31 @@ class SelectorsController < ApplicationController
         SelectorsController.clearCache
         render_partial
     end
+
+    def create
+        @selector = Selector.new(@params[:selector])
+        @selector.label = @selector.name.to_s.gsub(/::/, '/').gsub(/ /,'_').downcase
+        @selector.include_announcements = true
+        @selector.include_events = true
+        if @selector.save
+            render_component :controller => "layouts", 
+                             :action => "selector_selection",
+                             :id => @params[:layout_id]
+        else
+            render_partial "error_message"
+        end
+    end
+
+    def update
+        @selector = Selector.find(@params[:id])
+        if @selector.name != @params[:selector][:name]
+            @params[:selector][:label] = 
+                @params[:selector][:name].to_s.gsub(/::/, '/').gsub(/ /,'_').downcase
+        end
+        if @selector.update_attributes(@params[:selector])
+            render_partial "selector_properties"
+        else
+            render_partial "error_message"
+        end
+    end
 end
