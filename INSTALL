@@ -1,10 +1,36 @@
+TigerEvents
+
+If you encounter any problems please submit a bug report on our website
+http://www.tigeronrails.com/, send us an email to acm+dev@cs.dal.ca or join
+the developers in IRC channel #tigers on the Freenode network
+(irc.freenode.net).
+
 Dependencies:
 
+  - Ruby 1.8
+  
   - ruby/ldap
     
     Ruby/LDAP must be installed in order to use LDAP user authentication.
     You can obtain the latest Ruby/LDAP distribution from
     http://ruby-ldap.sourceforge.net/.
+
+Setup:
+
+  - run the setup script from the root directory of the distribution using
+    the following command:
+
+    ruby setup.rb
+
+    The script will ask you a variety of questions to setup your
+    TigerEvents environment
+
+  - Run the Webrick webserver by calling:
+
+    ruby script/server
+
+  - For a production site setup please refer to the Rails documentation in
+    README.Rails
 
 System Settings:
 

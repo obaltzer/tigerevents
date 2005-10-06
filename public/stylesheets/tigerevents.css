@@ -843,3 +843,10 @@ div#message_container p
     border: 2px red solid;
     padding: 0.2em;
 }
+
+div.usage_hint
+{
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-family: sans-serif;
+}
