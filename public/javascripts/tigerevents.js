@@ -127,7 +127,7 @@ function focus_form(id)
  * element and displays them one by one fading them in and out.
  */
 FadeItems = Class.create();
-FadeItems.prototype = (function() {}).extend({
+Object.extend(FadeItems.prototype, {
     initialize: function(elem) 
     {
         this.p = elem;
