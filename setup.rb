@@ -262,6 +262,7 @@ database = File.join("config", "database.yml")
 config = File.join("config", "tigerevents_config.rb")
 sitesql = File.join("db", "site_setup.sql")
 tables = File.join("db", "tables.sql")
+basedata = File.join("db", "base_data.sql")
 
 # write database.yml
 if FileTest.exists?(database)
@@ -297,6 +298,9 @@ f.close
 f = File.open(tables, "r")
 db_tables = f.read
 f.close
+f = File.open(basedata, "r")
+db_base = f.read
+f.close
 x = eval("\"" + tmpl + "\"")
 f = File.open(sitesql, "w")
 f.write(x)
@@ -305,6 +309,8 @@ f.close
 print "\n\nThe configuration has been written. You can find the\n"
 print "site-specific SQL script in db/site_setup.sql, which should\n"
 print "be executed by the database administrator to setup the database.\n"
+print "E.g:\n\n"
+print "\t$ mysql -u root < db/site_setup.sql\n\n"
 print "After this you can run the local test web-server by executing:\n\n"
 print "\truby script/server\n\n"
 print "and connect to http://localhost:3000/.\n\n"

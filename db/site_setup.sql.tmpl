@@ -6,5 +6,6 @@ FLUSH PRIVILEGES;
 connect #{db_name};
 
 #{db_tables}
+#{db_base}
 
 INSERT INTO users (login, fullname, hashed_pass, superuser) VALUES ('#{admin_username}', '#{admin_name}', '#{admin_password}', 1);
