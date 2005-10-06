@@ -204,6 +204,7 @@ class SelectorsController < ApplicationController
                 @params[:selector][:name].to_s.gsub(/::/, '/').gsub(/ /,'_').downcase
         end
         if @selector.update_attributes(@params[:selector])
+            SelectorsController.clearCache
             render_partial "selector_properties"
         else
             render_partial "error_message"
