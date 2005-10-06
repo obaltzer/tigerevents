@@ -19,7 +19,12 @@ a:hover
 {
     text-decoration: underline;
 }
-    
+
+a img
+{
+    border: none;
+}
+
 #site_logo
 {
     background: url(/images/generic-logo.png) no-repeat;
@@ -684,3 +689,45 @@ div.ninja_text{
     display: none;
 }
 
+/*************** SELECTOR BUILDER ***********/
+ul#selector_list
+{
+    list-style: none;
+    display: inline;
+    font-family: sans-serif;
+}
+
+ul#selector_list li
+{
+    height: 1.3em;
+    width: 20em;
+    padding: 2px;
+    padding-left: 5px;
+    border: 1px dotted #E8A400;
+    background-color: #FFF4D8;
+    margin: 2px;
+}
+
+ul#selector_list li div.action
+{
+    float: right;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+ul#selector_list li div.action img
+{
+    vertical-align: middle;
+}
+
+div#selector_workspace
+{
+    border: 1px solid black;
+    padding: 0.5em;
+}
+
+div#selector_workspace
+{
+    height: auto;
+    width: auto;
+    border: none;
+}

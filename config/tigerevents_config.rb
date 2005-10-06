@@ -1,3 +1,6 @@
+$KCODE = 'u'
+require 'jcode'
+
 # TigerEvents Version String
 TE_VERSION = 'svn/trunk'
 

@@ -119,12 +119,17 @@ CREATE TABLE IF NOT EXISTS bookmarks (
 CREATE TABLE IF NOT EXISTS layouts (
   id int(11) NOT NULL auto_increment,
   user_id int(11),
+  PRIMARY KEY(id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
+) TYPE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS layouts_selectors (
+  layout_id int(11) NOT NULL,
   selector_id int(11) NOT NULL,
   rank int(11) NOT NULL,
-  PRIMARY KEY(id),
-  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (layout_id) REFERENCES layouts(id),
   FOREIGN KEY (selector_id) REFERENCES selectors(id)
-) TYPE=MyISAM;
+);
 
 CREATE TABLE IF NOT EXISTS priorities (
   id int(11) NOT NULL auto_increment,

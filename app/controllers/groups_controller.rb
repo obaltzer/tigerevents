@@ -38,6 +38,9 @@ class GroupsController < ApplicationController
 	@group = Group.find(@params[:id])
 	@group.toggle! :approved
         # clear cache to render events of the approved group
+        if @group.approved == 1
+            AdminMailer.deliver_group_approved(@group)
+        end
         SelectorsController.clearCache
 	redirect_to :action => "list"
     end
@@ -107,6 +110,7 @@ class GroupsController < ApplicationController
              if @params[:member][m][:authorized] == '1'
                 @group.users.delete( user )
                 @group.users.push_with_attributes( user, 'authorized' => 1 )
+                AdminMailer.deliver_accepted(user, @group)
 
              #otherwise, flagged their submitted events for this group as deleted
              else

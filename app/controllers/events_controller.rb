@@ -15,12 +15,11 @@ class EventsController < ApplicationController
         set_view_period
         # retrieve the user customized layouts now if there are any
         if @session[:user] and not @session[:user].layouts.empty?
-            @selectors = @session[:user].layouts.collect { |x| x.selector }
+            @selectors = @session[:user].layouts.selectors
         else
             # if there are none, use the NULL user
-            @selectors= Layout.find(:all,\
-                :conditions => "user_id IS NULL",\
-                :order => "rank").collect { |x| x.selector_id }
+            @layout = Layout.find :first, :condition => "user_id IS NULL"
+            @selectors = @layout.selectors
         end
     end
 
