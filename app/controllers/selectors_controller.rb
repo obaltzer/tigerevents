@@ -1,6 +1,11 @@
 require 'active_support/inflector'
 
 class SelectorsController < ApplicationController
+    before_filter :login_required, 
+                  :only => [:edit, :create, :associate, :update]
+    before_filter :super_user, 
+                  :only => [:edit, :create, :associate, :update]
+
     @@cache = {}
    
     def index

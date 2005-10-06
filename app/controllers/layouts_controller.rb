@@ -1,6 +1,7 @@
 class LayoutsController < ApplicationController
-    # before_filter :super_user
-
+    before_filter :login_required
+    before_filter :super_user
+    
     def edit
         render
     end
