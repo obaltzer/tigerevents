@@ -17,8 +17,11 @@
     <%= stylesheet_link_tag 'tigerevents-nofx', :rel => "alternate stylesheet", :title => "nofx" %>
     <%= javascript_include_tag "browser_detect" %>
     <%= javascript_include_tag "prototype" %>
+    <!--
     <%= javascript_include_tag "effects" %>
     <%= javascript_include_tag "dragdrop" %>
+    -->
+    <%= javascript_include_tag "scriptaculous" %>
     <%= javascript_include_tag "calendar" %>
     <%= javascript_include_tag "calendar-en" %>
     <%= javascript_include_tag "calendar-setup" %>
@@ -137,7 +140,6 @@
 
     <div id="content">
       
-      <h1><%=h @heading %></h1>
       <%= @content_for_layout %>
    
       <div class="invisibleclear">---</div>

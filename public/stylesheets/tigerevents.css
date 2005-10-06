@@ -696,44 +696,134 @@ div.ninja_text{
 }
 
 /*************** SELECTOR BUILDER ***********/
-ul#selector_list
+div.selector_list
+{
+    float: left;
+    width: 30em;
+}
+
+div.selector_list h3
+{
+    font-family: sans-serif;
+}
+
+div.selector_list ul
 {
     list-style: none;
     display: inline;
     font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 6em;
+    min-width: 20em;
 }
 
-ul#selector_list li
+div.selector_list ul li
 {
     height: 1.3em;
     width: 20em;
     padding: 2px;
     padding-left: 5px;
-    border: 1px dotted #E8A400;
-    background-color: #FFF4D8;
+    border: 1px dotted #999999;
     margin: 2px;
 }
 
-ul#selector_list li div.action
+div.selector_list ul li div.action
 {
     float: right;
     margin-left: 2px;
     margin-right: 2px;
 }
-ul#selector_list li div.action img
+div.selector_list ul li div.action img
 {
     vertical-align: middle;
 }
 
-div#selector_workspace
+ul#active_selectors li
 {
-    border: 1px solid black;
-    padding: 0.5em;
+    background-color: #698B69;
+    color: white;
+}
+
+ul#available_selectors li
+{
+    background-color: #EEDC82;
 }
 
 div#selector_workspace
 {
+    clear: both;
+    border: 1px solid black;
+    padding: 0.5em;
     height: auto;
     width: auto;
     border: none;
+}
+
+div.list_container
+{
+    height: auto;
+    clear: both;
+}
+
+ul.association_list
+{
+    list-style: none;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 3em;
+}
+ul.association_list li {
+    float: left;
+    height: 1.3em;
+    width: 10em;
+    padding: 2px;
+    padding-left: 5px;
+    border: 1px dotted #999999;
+    background-color: white;
+    margin: 2px;
+}
+ 
+div.list_available_associations
+{
+   float:left;
+   margin: 1em;
+   width: 30em;
+}
+
+div.list_active_associations
+{
+   float: left;
+   margin: 1em;
+   width: 30em;
+}
+
+div.list_available_associations li
+{
+    background-color: #EEDC82;
+}
+
+div.list_active_associations li
+{
+    background-color: #698B69;
+    color: white;
+}
+
+div.list_available_associations h4,
+div.list_active_associations h4
+{
+    font-family: sans-serif;
+}
+
+div#message_container
+{
+    min-height: 3em;
+}
+
+div#message_container p
+{
+    background-color: #FFDD62;
+    border: 2px red solid;
+    padding: 0.2em;
 }

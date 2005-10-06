@@ -154,4 +154,27 @@ class SelectorsController < ApplicationController
         }
         render_partial
     end
+
+    def associate
+        @selector = Selector.find @params[:id]
+        association = @params[:association]
+        list = @params["list_active_#{association}"] || []
+        assoc = Inflector.pluralize(association)
+        # we have updated the list for association a, now store the
+        # new association, but delete all old ones first
+        @selector.send(assoc).clear
+        # get all possible association objects for this association
+        map = {}
+        eval(Inflector.camelize(association)).find_all.each { |x| 
+            map[x.id] = x
+        }
+        # now iterate over the new associations and add them to the
+        # associations table as OR relationship
+        list.each { |x|
+            @selector.send(assoc).push_with_attributes(
+                map[x.to_i], "association_type_id" => 1)
+        }
+        SelectorsController.clearCache
+        render_partial
+    end
 end

@@ -1,0 +1,29 @@
+<% for name,map in @associations %>
+<div class="list_container">
+  <div class="list_active_associations">
+    <h4><%= Inflector.humanize(name) %> chosen</h4>
+    <ul id="list_active_<%= name %>" class="association_list">
+      <% for i in map[:active] %>
+        <li id="item_<%= i.id %>"><%=h i.name %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="list_available_associations">
+    <h4><%= Inflector.humanize(name) %> available</h4>
+    <ul id="list_available_<%= name %>" class="association_list">
+      <% for i in map[:available] %>
+        <li id="item_<%= i.id %>"><%=h i.name %></li>
+      <% end %>
+    </ul>
+  </div>
+  <%= sortable_element "list_active_#{name}", :update => 'message_container',  
+    :containment => ["list_active_#{name}", "list_available_#{name}"],
+    :constraint => false,
+    :dropOnEmpty => true,
+    :url => { :action => "associate", :id => @selector, :association => name } %>
+  <%= sortable_element "list_available_#{name}", 
+    :containment => ["list_active_#{name}", "list_available_#{name}"],
+    :constraint => false,
+    :dropOnEmpty => true %>
+</div>
+<% end %>
