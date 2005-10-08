@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
     end
     
     def after_create
+      AdminMailer.deliver_account_created(self)
       @password = nil
     end
     

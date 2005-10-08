@@ -34,20 +34,13 @@ class GroupsController < ApplicationController
         end
     end
 
-    def approve
+    def toggle_approved
 	@group = Group.find(@params[:id])
-	@group.approved = 1
-	@group.save
+	@group.toggle! :approved
         # clear cache to render events of the approved group
-        SelectorsController.clearCache
-	redirect_to :action => "list"
-    end
-    
-    def ban
-	@group = Group.find(@params[:id])
-	@group.approved = 0
-	@group.save
-        # clear cache to hide eventsof the banned group
+        if @group.approved == 1
+            AdminMailer.deliver_group_approved(@group)
+        end
         SelectorsController.clearCache
 	redirect_to :action => "list"
     end
@@ -120,6 +113,7 @@ class GroupsController < ApplicationController
              if @params[:member][m][:authorized] == '1'
                 @group.users.delete( user )
                 @group.users.push_with_attributes( user, 'authorized' => 1 )
+                AdminMailer.deliver_accepted(user, @group)
 
              #otherwise, flagged their submitted events for this group as deleted
              else

@@ -19,7 +19,7 @@
 	      <% end %>
 	    </td>
             <td> <%=h @member.fullname %> </td> 
-            <td> <%=h @member.login + MAIL_SUFFIX %> </td> 
+            <td> <%=h @member.email %> </td> 
             <td> <%=radio_button 'member[]', 'authorized', 1 %></td>
             <td> <%=radio_button 'member[]', 'authorized', 0 %></td>
           </tr>

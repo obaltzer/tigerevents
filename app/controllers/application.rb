@@ -32,12 +32,12 @@ class ApplicationController < ActionController::Base
     def super_user
         if(!@session[:user])
             flash[:auth] = \
-                "You do not have permissions to access the page."
+                'You do not have permissions to access the page.'
             redirect_back_or_default :controller => "events", :action => "index"
 	end
 	if(@session[:user].superuser == 0)
             flash[:auth] = \
-                "You do not have permissions to access the page."
+                'You do not have permissions to access the page.'
             redirect_back_or_default :controller => "events", :action => "index"
 	end
     end
