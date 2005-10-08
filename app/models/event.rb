@@ -3,15 +3,12 @@ class Event < ActiveRecord::Base
     has_and_belongs_to_many :categories
     belongs_to :group
     belongs_to :priority
+    attr_writer :hasEndTime
     
     # wrapper to properly associate the event with multiple categories
     def categories=(list)
         categories.clear
         categories << Category.find(list)
-    end
-
-    def hasEndTime=(val)
-        @hasEndTime = val
     end
 
     def isEditableBy(user)

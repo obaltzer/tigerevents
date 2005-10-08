@@ -21,7 +21,7 @@
 </div>
 
 <div>
-    <% if AUTH_TYPE != 'ldap' %>
+    <% if @accController.respond_to?("signup") %>
         <%= link_to "Create New Account", :controller=>"account",
         :action=>"signup" %>
     <% end %>

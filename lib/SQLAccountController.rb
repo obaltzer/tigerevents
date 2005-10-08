@@ -1,9 +1,28 @@
+require "BaseAccountController"
 class SQLAccountController < BaseAccountController
 
     def initialize
         super
     end
 
+    def login_user (user, pass)
+        return authenticate(user[:login], pass)
+    end
+
+    def signup
+        if request.get?
+            @user = User.new
+        else
+            @user = User.new(params[:user])
+            if @user.save
+                flash[:auth] = "User #{@user.login} created"
+                redirect_to :controller => 'events',
+                    :action => 'index'
+            end
+        end
+    end
+    
+    private
     def authenticate(username, password)
         hashed_password = User.hash_password(password || "")
         return User.find(:first,
@@ -11,8 +30,5 @@ class SQLAccountController < BaseAccountController
                 username, hashed_password])
     end
 
-    def login_user (user, pass)
-        return authenticate(user[:login], pass)
-    end
 
 end

@@ -1,5 +1,5 @@
-require "ldap" if AUTH_TYPE=="ldap"
-
+require "BaseAccountController"
+require "ldap"
 class LDAPAccountController < BaseAccountController
 
     def initialize
@@ -40,9 +40,9 @@ class LDAPAccountController < BaseAccountController
                 # set fullName of user - if the bind fails or there is no display name then
                 # fullName remains as the user's login name
                 conn.search(LDAP_DN, LDAP::LDAP_SCOPE_SUBTREE, "(uid=#{username})") {|x|
-                    if x.vals("displayName")
-                        fullName = x.get_values("displayName")[0]
-                        email = x.get_values("mail")[0]
+                    if x.vals(LDAP_DISPLAY_NAME)
+                        fullName = x.get_values(LDAP_DISPLAY_NAME)[0]
+                        email = x.get_values(LDAP_EMAIL_ADDRESS)[0]
                     end
 		    #set user as being authenticated
                     authenticated = true
