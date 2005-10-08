@@ -15,10 +15,9 @@ class Event < ActiveRecord::Base
     end
 
     def isEditableBy(user)
-        if user == nil
+        if (user == nil)
             return false
-        end
-        if user.approved_groups.include? Group.find(self.group_id)
+        elsif (user.approved_groups.include? Group.find(self.group_id))
             return true
         end
         return false

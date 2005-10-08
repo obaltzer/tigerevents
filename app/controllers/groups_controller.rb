@@ -21,8 +21,7 @@ class GroupsController < ApplicationController
         @group = Group.find(@params[:id])
         if @session[:user].superuser != 1
             @params[:group][:approved] = 0
-        end
-        if @group.update_attributes(@params[:group])
+        elsif @group.update_attributes(@params[:group])
             flash[:notice] = 'Group properties successfully updated.'
             SelectorsController.clearCache
             # generate a new request such that the authentication based
@@ -56,20 +55,15 @@ class GroupsController < ApplicationController
     end
 
     def mygroups
-    	@groups = @session[:user].approved_groups.sort {
-            |a,b| a.name.downcase <=> b.name.downcase }
-    	@pengroups = @session[:user].unapproved_groups.sort {
-            |a,b| a.name.downcase <=> b.name.downcase }
-    	@penmember = @session[:user].unapproved_member.sort {
-            |a,b| a.name.downcase <=> b.name.downcase }
+    	@groups = @session[:user].approved_groups.sort_by { |a| a.name }
+    	@pengroups = @session[:user].unapproved_groups.sort_by { |a| a.name }
+    	@penmember = @session[:user].unapproved_member.sort_by { |a| a.name }
 	render_partial
     end
 
     def list
-        @newgroups = Group.find(:all, :conditions => "approved = 0").sort {
-        |a,b| a.name.downcase <=> b.name.downcase } 
-        @groups = Group.find(:all, :conditions => "approved = 1").sort {
-        |a,b| a.name.downcase <=> b.name.downcase } 
+        @newgroups = Group.find(:all, :conditions => "approved = 0").sort_by { |a| a.name }
+        @groups = Group.find(:all, :conditions => "approved = 1").sort_by { |a| a.name }
     end
 
     #checks to see if the user belongs to this group
@@ -78,8 +72,7 @@ class GroupsController < ApplicationController
             flash[:auth] = \
                 "You do not have permission to manage this group."
 	    redirect_to :controller => "events", :action => "index"
-        end
-        if(@session[:user].superuser == 1)
+        elsif(@session[:user].superuser == 1)
 	    return true
 	end
         #check to see if the user is one of the authorized group members
@@ -88,7 +81,7 @@ class GroupsController < ApplicationController
                 "You do not have permission to manage this group."
 	    redirect_to :controller => "events", :action => "index"
         end
-	true
+	return true
     end
 							
     def edit

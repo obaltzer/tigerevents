@@ -125,7 +125,7 @@ class EventsController < ApplicationController
         else
             @event = Event.new(@params[:event])
         end
-        @categories = Category.find_all.sort { |a,b| a.name.downcase <=> b.name.downcase }
+        @categories = Category.find_all.sort_by { |a| a.name }
         render_partial
     end
     
