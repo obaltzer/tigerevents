@@ -5,7 +5,8 @@ class AccountController < ApplicationController
     def login
         case @request.method
             when :post
-                @user = $accController.login_user(@params[:user], @params[:user_password])
+                @user = $accController.login_user(@params[:user])
+                @user.user_password = nil
                 if not @user
                     flash[:auth] = "Login unsuccessful"
                 else
@@ -24,7 +25,7 @@ class AccountController < ApplicationController
     end
 
     def signup
-        if $accController.respond_to? ("signup")
+        if $accController.respond_to?("signup")
             if request.get?
                 @user = User.new
             else

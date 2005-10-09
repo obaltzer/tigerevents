@@ -6,6 +6,24 @@ class LDAPAccountController < BaseAccountController
         super
     end
 
+    def login_user (user)
+        @authenticated, fullname, email = authenticate(user[:login], user[:user_password])
+        if @authenticated
+            user.update("fullname" => fullname)
+            @user = User.get(user)
+            if not @user
+                @user = User.new(user)
+                @user.save
+            end
+            @user.update_attribute(:fullname, fullname) if @user.fullname != fullname
+            @user.update_attribute(:email, email) if @user.email != email
+            return @user
+        else
+            return nil
+        end
+    end
+
+    private
     def authenticate(username, password)
         # initialize return values
         authenticated = false
@@ -56,24 +74,4 @@ class LDAPAccountController < BaseAccountController
 	return authenticated, fullName, email
     end
 
-    def login_user (user, pass)
-        @authenticated, fullname, email = authenticate(user[:login], pass)
-        if @authenticated
-            user.update("fullname" => fullname)
-            @user = User.get(user)
-            if not @user
-                @user = User.new(user)
-                @user.save
-            end
-            if @user.fullname != fullname
-                @user.update_attribute(:fullname, fullname)
-            end
-            if @user.email != email
-                @user.update_attribute(:email, email)
-            end
-            return @user
-        else
-            return nil
-        end
-    end
 end

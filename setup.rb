@@ -46,10 +46,10 @@ end
 # use database authentication
 if auth == 1
     print "Database authentication selected.\n\n"
-    auth_type = 'sql'
+    auth_type = 'SQLAccountController'
 elsif auth == 2
     print "LDAP authentication selected.\n\n"
-    auth_type = 'ldap'
+    auth_type = 'LDAPAccountController'
     ldap_ok = false
     while not ldap_ok
         print "Please specify your LDAP server (e.g ldap.foobar.com): "

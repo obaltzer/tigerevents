@@ -5,8 +5,8 @@ class SQLAccountController < BaseAccountController
         super
     end
 
-    def login_user (user, pass)
-        return authenticate(user[:login], pass)
+    def login_user (user)
+        return authenticate(user[:login], user[:user_password])
     end
 
     def signup
