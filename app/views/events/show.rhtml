@@ -11,7 +11,7 @@
   <table class="event_information">
     <tr class="event_description">
       <td colspan="3" >
-        <%=h @event.description %>
+        <%= simple_format(@event.description) %>
       </td>
     </tr>
     <tr class="event_organizer">
