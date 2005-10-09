@@ -26,8 +26,10 @@
           </div>
           <div class="description">
 	    <% if event.description.size > 100 %>
-	      <%=h event.description.slice(0,100) %>
-	      <span class="link_more"><%= link_to "...more", :controller => "events", :action => "show", :id => event %></span>
+	      <%=h event.description.slice(0, event.description.rindex(' ')) %>
+	      <span class="link_more">
+                <%= link_to "...more", :controller => "events", :action => "show", :id => event %>
+              </span>
 	    <% else %>
   	      <%=h event.description %>
 	    <% end %>

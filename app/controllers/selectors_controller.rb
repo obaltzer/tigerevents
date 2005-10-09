@@ -133,6 +133,11 @@ class SelectorsController < ApplicationController
             #grab selector and events
             @selector = selector
             @events = events 
+            for event in @events
+                if (event.description.length > 100)
+                    event.description = event.description.slice(0, 101)
+                end
+            end
         else    #it is cached
            @selector = @@cache[cacheKey][:selector]
            @events = @@cache[cacheKey][:events]
