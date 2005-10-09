@@ -21,9 +21,9 @@
 </div>
 
 <div>
-    <% if @accController.respond_to?("signup") %>
-        <%= link_to "Create New Account", :controller=>"account",
-        :action=>"signup" %>
+    <% if $accController.respond_to?("signup") %>
+        <%= link_to "Create New Account", :controller => 'account',
+        :action => 'signup' %>
     <% end %>
 </div>
 

@@ -10,16 +10,7 @@ class SQLAccountController < BaseAccountController
     end
 
     def signup
-        if request.get?
-            @user = User.new
-        else
-            @user = User.new(params[:user])
-            if @user.save
-                flash[:auth] = "User #{@user.login} created"
-                redirect_to :controller => 'events',
-                    :action => 'index'
-            end
-        end
+        return true
     end
     
     private

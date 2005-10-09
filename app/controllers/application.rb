@@ -1,10 +1,13 @@
 require_dependency "login_system"
+require AUTH_TYPE
 # The filters added to this controller will be run for all controllers in the application.
 # Likewise will all the methods added be available for all controllers.
 class ApplicationController < ActionController::Base
     include LoginSystem
     model :user
     helper :Application
+
+    $accController = eval(AUTH_TYPE + ".new")
 
     def can_edit
         if(@session[:user] == nil || @session[:user].banned == 1)
