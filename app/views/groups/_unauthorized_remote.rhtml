@@ -1,4 +1,4 @@
-<div id="_group_unauthorized_remote_form" >
+<%= form_remote_tag :update => "members_section", :url => { :controller => "groups", :action => "authorize_members", :id => @group.id } %>
   <div class="input">
     <table>
       <thead>
@@ -28,9 +28,6 @@
     </table>
   </div>
    <!--Carrying update information forward as this div is re-rendered on each update -->
-  <%= submit_remote 'update_members', 'Update Members', 'this.parentNode', 
-    {:url => { :controller => "groups", :action => "authorize_members", :id => @group.id }}.update( 
-    :update => 'members_section' )
-  %>
-</div>
+  <%= submit_tag "Update Members" %>
+<%= end_form_tag %>
 
