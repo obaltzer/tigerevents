@@ -788,19 +788,26 @@ ul.association_list
     margin: 0;
     padding: 0;
     width: 30em;
-    height: 3em;
+    height: 7em;
 }
 ul.association_list li {
     float: left;
-    height: 1.3em;
     width: 10em;
     padding: 2px;
     padding-left: 5px;
+    padding-right: 5px;
     border: 1px solid #999999;
     background-color: white;
     margin: 2px;
 }
- 
+
+ul.association_list li div.name_boundary
+{
+    overflow: hidden;
+    vertical-align: center;
+    height: 2.6em;
+}
+
 div.list_available_associations
 {
    float:left;
