@@ -182,5 +182,6 @@ class GroupsController < ApplicationController
     def history
 	@group = Group.find(@params[:id])
 	@events = @group.undeleted_events
+        render_partial
     end
 end

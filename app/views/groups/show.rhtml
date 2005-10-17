@@ -2,12 +2,13 @@
   <%=h @group.name %>
 </h1>
 <p>
-  <%=h @group.description %>
+  <strong>Description:</strong><br/>
+  <%=h simple_format(@group.description) %>
 </p>
 
 <p>
   Class: <%=h @group.group_class.name %>
 </p>
-<% if @group.users.include? @session[:user] %>
-<%= link_to 'Edit', :action => 'edit', :id => @group %> 
-<% end %>
+<h3>History</h3>
+<%= render_component :controller => "groups", :action => "history", :id =>
+@group.id %>
