@@ -55,22 +55,22 @@
       <li>
         <%= link_to "Credits", { :controller => "content", :action => "credits" } %>
       </li>
+      <li>
+      <a href="javascript:toggle_slide('sidebar');">Advanced</a>
+      </li>
     </ul>
     
     <div id="sidebar">
+     <ul>
       <% if session[:user] -%>
-        <p>
+        <li>
           Welcome<br/>
           <%= session[:user].fullname %>
-        </p>
-        <% if session[:user].banned == 1 %>
-          <b>You are banned. Please e-mail <a href="mailto:<%= ADMIN_EMAIL %>"><%= ADMIN_CONTACT %> </a>.</b>
-        <% else %>
+        </li>
           <%= render_component :controller => "groups", :action => "mygroups" %>
           <% if session[:user][:superuser] == 1 %>
-            <div style="margin: 0; padding: 0px;">
+          <li>
               <strong>Site Management:</strong>
-            </div>
             <ul style="list-style: none; padding: 0; margin: 0.5em 0 0.2em 0.5em;">
               <li><%= link_to 'Groups', :controller => 'groups', :action => 'list' %></li>
               <li><%= link_to 'Group Classes', :controller => 'group_classes' %></li>
@@ -78,14 +78,17 @@
               <li><%= link_to 'Users', :controller => 'account', :action => 'list' %></li>
               <li><%= link_to 'Edit Layout', :controller => 'layouts', :action => 'edit', :id => 1 %></li>
             </ul>
+          </li>
           <% end %>
-        <% end %>
-        <%= start_form_tag :controller => "account", :action=> "logout" %>
-          <div><input type="submit" name="logout" value="Logout &#187;" class="primary" /></div>
-        <%= end_form_tag %>
+          <li>
+          <%= start_form_tag :controller => "account", :action=> "logout" %>
+            <div><input type="submit" name="logout" value="Logout" class="primary" /></div>
+          <%= end_form_tag %>
+          </li>
       <% else %>
         <%= render_file "account/login" %>
       <% end -%>
+      <li>
       <div id="bug_box">
         <big>Problems? Doesn't work? Complicated?</big>
         <p>
@@ -93,6 +96,7 @@
         </p>
         <a href="http://mblast.cs.dal.ca/projects/te2/newticket"><big>Click here!</big></a>
       </div>
+      </li>
     </div>
 
     <div id="time_period_selection">

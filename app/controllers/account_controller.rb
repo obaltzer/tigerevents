@@ -6,10 +6,10 @@ class AccountController < ApplicationController
         case @request.method
             when :post
                 @user = $accController.login_user(@params[:user])
-                @user.user_password = nil
                 if not @user
                     flash[:auth] = "Login unsuccessful"
                 else
+                    @user.user_password = nil
                     if @user.banned == 1
                         @session[:user] = nil
                         flash[:ban_notice] = \

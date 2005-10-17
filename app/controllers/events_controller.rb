@@ -18,7 +18,7 @@ class EventsController < ApplicationController
             @selectors = @session[:user].layouts.selectors
         else
             # if there are none, use the NULL user
-            @layout = Layout.find :first, :condition => "user_id IS NULL"
+            @layout = Layout.find(:first, :condition => "user_id IS NULL")
             @selectors = @layout.selectors
         end
     end

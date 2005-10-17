@@ -105,6 +105,20 @@ div#sidebar
     padding-right: 1em; /* update left margin of content accordingly */
 }
 
+div#sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+div#sidebar ul li ul {
+    display: list-item;
+}
+
+div#sidebar ul li label {
+    font-weight: bold;
+}
+
 #time_period_selection
 {
     font-size: 70%;

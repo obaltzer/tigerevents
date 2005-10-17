@@ -1,32 +1,37 @@
 <% unless @groups.empty? %>
-<p><b>Your Groups</b></p>
-<ul class="member_groups">
-  <% @groups.each do |group| %>
-    <li class="<%= group.unauthorized_users.empty? ? 'has_authorized_members' : 'has_unauthorized_members'%>">
-      <%= link_to group.name + (group.unauthorized_users.empty? ? '' : ' *' ) , :controller => "groups", :action => "edit", :id => group.id %>
-    </li>
-  <% end %>
-</ul>
-<p><small>
-  <span class="has_unauthorized_members">Group *</span> &ndash; <em>This group has unapproved members </em>
-</small></p>
+  <li>
+    <label>Your Groups</label>
+    <ul id="member_groups" class="group_menu">
+      <% @groups.each do |group| %>
+        <li class="<%= group.unauthorized_users.empty? ? 'has_authorized_members' : 'has_unauthorized_members'%>">
+        <%= link_to group.name + (group.unauthorized_users.empty? ? '' : ' *' ) , :controller => "groups", :action => "edit", :id => group.id %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
 <% end %>
 <% unless @pengroups.empty? %>
-<p><b>Your Pending Groups</b></p>
-<p>
+  <li>
+    <label>Your Pending Groups</label>
+    <ul id="pending_groups" class="group_menu">
       <% @pengroups.each do |group| %>
-         <%= link_to group.name, :controller => "groups", :action => "edit", :id => group.id %>
-         <br/>
+        <li>
+          <%= link_to group.name, :controller => "groups", :action => "edit", :id => group.id %>
+        </li>
       <% end %>
-</p>
+    </ul>
+  </li>
 <% end %>
 <% unless @penmember.empty? %>
-<p><b>Your Pending Memberships</b></p>
-<p>
+  <li>
+    <label>Pending Memberships</label>
+    <ul id="pending_membership" class="group_menu">
       <% @penmember.each do |group| %>
-         <%= group.name %>
-         <br/>
+        <li>
+          <%= group.name %>
+        </li>
       <% end %>
-</p>
+    </ul>
+  </li>
 <% end %>
 
