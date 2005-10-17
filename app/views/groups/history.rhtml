@@ -1,43 +1,25 @@
 <% require 'time' %>
-<% @session[:prev_params] = @params %>
-
-<div id="_group_events_form">
-   <div class="input">
+   <div class="history">
       <table>
          <tr>
-            <th colspan="3">Name</th><th>Date</th><th>Last Editted</th>
+            <th>Name</th><th>Date</th>
          </tr>
 
          <% for event in @events %>
+         <% if event.expired? %>
+               
           <tr id="event<%=h event.id %>" class="<%= event.pending?(@group) ? 'pending_event' : 'active_event' %>">
             <td>
-            <%=h event.title %>
+               <%=link_to event.title, :controller => "events", :action => "show", :id => event %>
             </td>
-            <% if not event.expired? %>
-                <td>
-                <%=link_to '(Edit)', :controller => "events", :action => 'edit', :id => event %>
-                </td>
-                <td>
-        	<%=link_to_remote '(Remove)', :update => "_group_events_form", :url => {:controller => "events", :action => "delete", :id => event.id,:group_id => @group.id }, :confirm => "Really delete #{event.title}" %>
-                </td>
-            <% else %>
-               <td colspan="2">
-               <%=link_to '(View)', :controller => "events", :action => "show", :id => event %>
-               </td>
-            <% end %>
-		     
             <td class="time_string">
               <%=h event.startTime.strftime( "%a %b %d %I:%M %p" ) %>
               <% if event.endTime %>
               - <%=h event.endTime.strftime( "%a %b %d %I:%M %p" ) %>
               <% end %>
             </td>
-            
-            <td class="last_editor">
-              <%=h event.pending?(@group) ? event.creator.fullname : event.lastEditted.fullname %>
-            </td>
           </tr>
+          <% end %>
         <% end %>
       </table>
    </div>
-</div>
