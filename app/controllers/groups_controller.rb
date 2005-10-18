@@ -181,7 +181,9 @@ class GroupsController < ApplicationController
     #shows all events, lets you edit only those that haven't passed.
     def history
 	@group = Group.find(@params[:id])
-	@events = @group.undeleted_events
+	@events_pages, @events = paginate :event, :per_page => 10,
+            :conditions => ["events.group_id = ? AND events.deleted = 0 AND events.startTime < ?",
+            @group.id, Time.now]
         render_partial
     end
 end

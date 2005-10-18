@@ -1,13 +1,14 @@
 <% require 'time' %>
    <div class="history">
+    <%= link_to "Previous page", { :page => @events_pages.current.previous } if @events_pages.current.previous %>
+    <%= pagination_links @events_pages %>
+    <%= link_to "Next page", { :page => @events_pages.current.next } if @events_pages.current.next %> 
       <table>
          <tr>
             <th>Name</th><th>Date</th>
          </tr>
 
          <% for event in @events %>
-         <% if event.expired? %>
-               
           <tr id="event<%=h event.id %>" class="<%= event.pending?(@group) ? 'pending_event' : 'active_event' %>">
             <td>
                <%=link_to event.title, :controller => "events", :action => "show", :id => event %>
@@ -19,7 +20,9 @@
               <% end %>
             </td>
           </tr>
-          <% end %>
         <% end %>
       </table>
+    <%= link_to "Previous page", { :page => @events_pages.current.previous } if @events_pages.current.previous %>
+    <%= pagination_links @events_pages %>
+    <%= link_to "Next page", { :page => @events_pages.current.next } if @events_pages.current.next %> 
    </div>
