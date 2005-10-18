@@ -2,10 +2,12 @@ class AccountController < ApplicationController
     before_filter :super_user, :only => [:list, :toggle_superuser, \
                                          :toggle_banned]
 
+    include eval(AUTH_TYPE)
+
     def login
         case @request.method
             when :post
-                @user = $accController.login_user(@params[:user])
+                @user = login_user(@params[:user])
                 if not @user
                     flash[:auth] = "Login unsuccessful"
                 else
@@ -21,23 +23,6 @@ class AccountController < ApplicationController
                     end
                 end
                 redirect_to :controller => 'events', :action => 'index'
-        end
-    end
-
-    def signup
-        if $accController.respond_to?("signup")
-            if request.get?
-                @user = User.new
-            else
-                @user = User.new(params[:user])
-                if @user.save
-                    flash[:auth] = "User #{@user.login} created"
-                    redirect_to :controller => 'events',
-                        :action => 'index'
-                end
-            end
-        else
-            redirect_to :controller => 'events', :action => 'index'
         end
     end
 

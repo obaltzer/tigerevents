@@ -1,9 +1,7 @@
-require "BaseAccountController"
 require "ldap"
-class LDAPAccountController < BaseAccountController
+module LDAPAccountController
 
-    def initialize
-        super
+    def new 
     end
 
     def login_user (user)

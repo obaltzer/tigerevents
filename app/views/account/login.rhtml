@@ -24,7 +24,7 @@
 </form>
 
 <div>
-    <% if $accController.respond_to?("signup") %>
+    <% if AccountController.new.respond_to?(:signup) %>
         <%= link_to "Create New Account", :controller => 'account',
         :action => 'signup' %>
     <% end %>

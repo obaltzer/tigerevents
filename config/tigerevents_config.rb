@@ -15,7 +15,7 @@ ADMIN_EMAIL = 'tigerevents@localhost'
 # AUTH_TYPE defines where users authenticate from.
 # ldap - an ldap server defined by the ldap settings
 # sql - an sql server
-AUTH_TYPE = 'LDAPAccountController'
+AUTH_TYPE = 'SQLAccountController'
 
 #LDAP settings
 LDAP_USE_SSL = true
