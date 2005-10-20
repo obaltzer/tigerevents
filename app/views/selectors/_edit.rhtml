@@ -8,7 +8,7 @@
     <h4><%= Inflector.humanize(name) %> chosen</h4>
     <ul id="list_active_<%= name %>" class="association_list">
       <% for i in map[:active] %>
-        <li id="item_<%= i.id %>"><%=h i.name %></li>
+        <li id="item_<%= i.id %>"><div class="name_boundary"><%=h i.name.slice(0, 30) %></div></li>
       <% end %>
     </ul>
   </div>
@@ -16,7 +16,7 @@
     <h4><%= Inflector.humanize(name) %> available</h4>
     <ul id="list_available_<%= name %>" class="association_list">
       <% for i in map[:available] %>
-        <li id="item_<%= i.id %>"><%=h i.name %></li>
+        <li id="item_<%= i.id %>"><div class="name_boundary"><%=h i.name %></div></li>
       <% end %>
     </ul>
   </div>

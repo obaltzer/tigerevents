@@ -715,18 +715,18 @@ div#selector_creation
     float: left;
 }
 
-div.selector_list
+div.dragable_list
 {
     float: left;
     width: 25em;
 }
 
-div.selector_list h3
+div.dragable_list h3
 {
     font-family: sans-serif;
 }
 
-div.selector_list ul
+div.dragable_list ul
 {
     list-style: none;
     font-family: sans-serif;
@@ -737,7 +737,7 @@ div.selector_list ul
     height: 2em;
 }
 
-div.selector_list ul li {
+div.dragable_list ul li {
     float: left;
     height: 1.3em;
     width: 20em;
@@ -748,15 +748,21 @@ div.selector_list ul li {
     margin: 2px;
 }
 
-div.selector_list ul li div.action
+div.dragable_list ul li div.action
 {
     float: right;
     margin-left: 2px;
     margin-right: 2px;
 }
-div.selector_list ul li div.action img
+div.dragable_list ul li div.action img
 {
     vertical-align: middle;
+}
+
+div.dragable_list form
+{
+    display: inline;
+    margin: 0;
 }
 
 ul#active_selectors li
@@ -802,19 +808,26 @@ ul.association_list
     margin: 0;
     padding: 0;
     width: 30em;
-    height: 3em;
+    height: 7em;
 }
 ul.association_list li {
     float: left;
-    height: 1.3em;
     width: 10em;
     padding: 2px;
     padding-left: 5px;
+    padding-right: 5px;
     border: 1px solid #999999;
     background-color: white;
     margin: 2px;
 }
- 
+
+ul.association_list li div.name_boundary
+{
+    overflow: hidden;
+    vertical-align: center;
+    height: 2.6em;
+}
+
 div.list_available_associations
 {
    float:left;
@@ -863,4 +876,9 @@ div.usage_hint
     margin-top: 1em;
     margin-bottom: 1em;
     font-family: sans-serif;
+}
+
+div#priority_new
+{
+    clear: left;
 }
