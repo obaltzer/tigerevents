@@ -13,17 +13,19 @@
             </span>
           </div>
           <div class="title"><%= link_to event.title, :controller => "events", :action => "show", :id => event %></div>
-          <div class="time">
-            <span class="start">
-              <%=h event.startTime.strftime( "%a %b %d %I:%M %p" ) %>
-            </span>
-            <% if event.endTime %>
-              <span class="sep">-</span> 
-              <span class="end"><%=h event.endTime.strftime( (event.endTime - event.startTime < 1.day and event.endTime.day == event.startTime.day) ? 
-                            "%I:%M %p" : 
-                            "%a %b %d %I:%M %p") %></span>
-            <% end %>
-          </div>
+          <% if event.announcement == 0 %>
+            <div class="time">
+              <span class="start">
+                <%=h event.startTime.strftime( "%a %b %d %I:%M %p" ) %>
+              </span>
+              <% if event.endTime %>
+                <span class="sep">-</span> 
+                <span class="end"><%=h event.endTime.strftime( (event.endTime - event.startTime < 1.day and event.endTime.day == event.startTime.day) ? 
+                              "%I:%M %p" : 
+                              "%a %b %d %I:%M %p") %></span>
+              <% end %>
+            </div>
+          <% end %>
           <div class="description">
 	    <% if event.description.size > 100 %>
 	      <%=h event.description.slice(0, event.description.rindex(' ')) %>
