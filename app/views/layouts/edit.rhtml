@@ -8,7 +8,8 @@
 </div>
 
 <div id="selector_creation">
-  <%= form_remote_tag :update => "selector_selection", :url => { :controller => "selectors", :action => "create" } %>
+  <%= form_remote_tag :update => "selector_workspace", :complete => remote_function(:update => 'selector_selection', :url => { :controller => 'layouts', :action => 'selector_selection', :id => @params[:id] }), 
+                      :url => { :controller => "selectors", :action => "create" } %>
     <div class="input">
       <label for="selector_name">Create Selector:</label>
       <%= text_field 'selector', 'name', :size => 15 %>

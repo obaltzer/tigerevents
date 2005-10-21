@@ -162,7 +162,7 @@ class SelectorsController < ApplicationController
             }
             @associations[a][:available] = tmp
         }
-        render_partial
+        render_partial "edit"
     end
 
     def associate
@@ -194,9 +194,8 @@ class SelectorsController < ApplicationController
         @selector.include_announcements = true
         @selector.include_events = true
         if @selector.save
-            render_component :controller => "layouts", 
-                             :action => "selector_selection",
-                             :id => @params[:layout_id]
+            @params[:id] = @selector.id
+            edit
         else
             render_partial "error_message"
         end

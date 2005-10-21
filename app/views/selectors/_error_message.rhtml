@@ -1,9 +1,6 @@
 <%= error_messages_for 'selector' %>
 <% if @params[:action] == "create" %>
-  <%= link_to_remote 'Back', :update => "selector_selection", 
-                              :url => { :controller => "layouts",
-                                   :action => "selector_selection",
-                                   :id => @params[:layout_id] } %>
+  Please create a selector with a different name or edit the exiting one.
 <% else %>
   <%= link_to_remote 'Back', :update => "selector_workspace", 
                               :url => { :controller => "selectors",
