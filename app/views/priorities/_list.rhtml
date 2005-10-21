@@ -1,42 +1,40 @@
 <h2>Existing Priorities</h2>
-<table>
-  <thead>
-    <tr>
-      <td>Rank</td>
-      <td>Name</td>
-      <td>Order</td>
-      <td>Actions</td>
-    </tr>
-  </thead>
-  <tbody>
+<div class="usage_hint">
+  <strong>Usage Hint:</strong> Drag the priorities to sort them in the order you want to have them.
+</div>
+<div class="dragable_list">
+  <ul id="priorities">
     <% for p in @priorities %>
-      <tr>
-        <td><%=h p.rank %></td>
-        <td><%=h p.name %></td>
-        <td>
-          <%= link_to_remote "Up", :update => "priority_list", :url => { :action => "move_up", :id => p.id } %>
-          <%= link_to_remote "Down", :update => "priority_list", :url => { :action => "move_down", :id => p.id } %>
-        </td>
-        <td>
+      <li id="item_<%= p.id %>">
+        <div class="action">
+            <!-- %= link_to_remote image_tag('trash.gif', :alt => 'Delete Priority'), :update => 'priority_list', :url => { :controller => 'priorities', :action => 'remove', :id => priority } % -->
+            <a id="remove_link_<%= p.id %>" href="#" onclick="toggle('remove_form_<%= p.id %>');toggle('remove_link_<%= p.id %>');"><%= image_tag('trash.gif', :alt => 'Delete Priority') %></a>
+        </div>
+        <%=h p.name %>
+        <div id="remove_form_<%= p.id %>" style="display: none">
           <% if @priorities.length >= 2 %>
-            <a id="remove_link_<%= p.id %>" href="#" onclick="toggle('remove_form_<%= p.id %>');toggle('remove_link_<%= p.id %>');">Remove</a>
-            <div id="remove_form_<%= p.id %>" style="display: none">
-              <%= form_remote_tag :update => "priority_list", :url => { :action => "remove", :id => p.id } %>
-                <div class="input">
-                  <label style="display: inline">Reassign existing events to priority:</label>
-                  <select name="new_priority_id">
-                    <%= options_from_collection_for_select @complements[p], 'id', 'name' %>
-                  </select>
-                  <input type="hidden" name="update_with" value="<%= url_for :action => "list" %>"/>
-                  <%= submit_tag "Ok" %>
-                </div>
-              <%= end_form_tag %>
-            </div>
+            <%= form_remote_tag :update => "priority_list", :url => { :action => "remove", :id => p.id } %>
+              <div class="input">
+                <label style="display: inline">Reassign existing events to priority:</label>
+                <select name="new_priority_id">
+                  <%= options_from_collection_for_select @complements[p], 'id', 'name' %>
+                </select>
+                <input type="hidden" name="update_with" value="<%= url_for :action => "list" %>"/>
+                <%= submit_tag "Ok" %>
+                <input type="reset" value="Cancel" onclick="toggle('remove_form_<%= p.id %>');toggle('remove_link_<%= p.id %>');"/>
+              </div>
+            <%= end_form_tag %>
           <% else %>
-            Cannot delete this priority. Please create a new priority first.
+           Please create a new priority first.
           <% end %>
-        </td>
-      </tr>
+        </div>
+      </li>
     <% end %>
-  </tbody>
-</table>
+  </ul>
+</div>
+ <%= sortable_element 'priorities', 
+    :update => 'message_container', 
+    :containment => ["priorities"],
+    :constraint => false,
+    :dropOnEmpty => true,
+    :url => { :controller => "priorities", :action => "order" } %>

@@ -776,6 +776,12 @@ ul#available_selectors li
     background-color: #EEDC82;
 }
 
+#priority_list li
+{
+    background-color: #EEDC82;
+    height: auto;
+}
+
 div#workspace_wrapper
 {
     clear: both;
@@ -861,7 +867,7 @@ div.list_active_associations h4
 
 div#message_container
 {
-    min-height: 3em;
+    min-height: 2em;
 }
 
 div#message_container p
@@ -880,5 +886,5 @@ div.usage_hint
 
 div#priority_new
 {
-    clear: left;
+    float: right;
 }

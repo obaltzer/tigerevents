@@ -50,46 +50,19 @@ class PrioritiesController < ApplicationController
             render_partial 'embed_error_message'
         end
     end
-
-    def move_up
-        priorities = Priority.find :all, :order => "rank ASC"
-        last = nil
-        current = nil
-        for p in priorities do
-            current = p
-            break if current.id == @params[:id].to_i
-            last = current
-        end
-        if current and last and current != last
-            crank = current.rank
-            lrank = last.rank
-            last.update_attribute :rank, crank
-            current.update_attribute :rank, lrank
-        end
-        # clear the caches for the events beeing rendered with the
-        # new priority
-        SelectorsController.clearCache
-        redirect_to :action => 'list'
-    end
     
-    def move_down
-        priorities = Priority.find :all, :order => "rank DESC"
-        last = nil
-        current = nil
-        for p in priorities do
-            current = p
-            break if current.id == @params[:id].to_i
-            last = current
+    def order
+        if @params[:priorities]
+            map = {}
+            @params[:priorities].size.times { |i| 
+                map[@params[:priorities][i].to_i] = i + 1
+            }
+            for p in Priority.find_all
+                if map[p.id]
+                    p.update_attribute :rank, map[p.id]
+                end
+            end
         end
-        if current and last and current != last
-            crank = current.rank
-            lrank = last.rank
-            last.update_attribute :rank, crank
-            current.update_attribute :rank, lrank
-        end
-        # clear the caches for the events beeing rendered with the
-        # new priority
-        SelectorsController.clearCache
-        redirect_to :action => 'list'
+        render_partial
     end
 end         
