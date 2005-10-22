@@ -18,7 +18,7 @@ class EventsController < ApplicationController
             @selectors = @session[:user].layouts.selectors
         else
             # if there are none, use the NULL user
-            @layout = Layout.find(:first, :condition => "user_id IS NULL")
+            @layout = Layout.find(:first, :conditions => "user_id IS NULL")
             @selectors = @layout.selectors
         end
     end
@@ -88,7 +88,7 @@ class EventsController < ApplicationController
 
         # make sure only superusers can set the priority if someone
         # hand-crafts a URL
-        if @params[:event][:priority_id] and @session[:user].superuser != 1
+        if @params[:event][:priority_id] and !@session[:user][:superuser]
             flash[:notice] = 'You do not have permissions to set '\
                              + 'the event priority.'
             render_action 'edit'
@@ -107,7 +107,7 @@ class EventsController < ApplicationController
             # association does not exist yet.
             @event.group.users.push_with_attributes( @session[:user], 'authorized' => 0 ) \
                 unless @event.group.users.include? @session[:user] \
-                        or @session[:user].superuser == 1
+                        or @session[:user][:superuser]
 
             log_activity @event, 'MODIFY'
             flash[:notice] = 'Event was successfully updated.'

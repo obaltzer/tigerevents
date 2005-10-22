@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
             flash[:auth] = \
                 "You do not have permissions to edit this posting."
 	    redirect_back_or_default :controller => "events", :action => "index"
-        elsif(@session[:user].superuser == 1)
+        elsif(@session[:user][:superuser])
 	    return true
 	end
 	@event = Event.find(@params[:id])
@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     end
 
     def super_user
-        if(@session[:user] == nil || @session[:user].superuser == 0)
+        if(@session[:user] == nil || !@session[:user][:superuser])
             flash[:auth] = \
                 'You do not have permissions to access the page.'
             redirect_back_or_default :controller => "events", :action => "index"

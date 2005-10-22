@@ -1,6 +1,6 @@
 <%= error_messages_for 'event' %>
 <div id="event_input_form">
-  <% if session[:user].superuser == 1 %>
+  <% if session[:user][:superuser] %>
     <div class="input">
       <label for="event_priority">Priority</label>
       <div class="description">

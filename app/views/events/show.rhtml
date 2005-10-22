@@ -4,7 +4,7 @@
 <% end %>
 
 <div class="event_information">
-  <% if (session[:user] != nil) && (session[:user][:superuser] == 1) %>
+  <% if (session[:user] != nil) && (session[:user][:superuser]) %>
     <p> Edited by: 
         <%= @event.creator.fullname %> 
         <%= @event.creator.email %>
@@ -77,7 +77,7 @@
       </tr>
     <% end %>
   </table>
-<% if @session[:user] and (@event.group.authorized_users.include? @session[:user] or @session[:user].superuser == 1 ) \
+<% if @session[:user] and (@event.group.authorized_users.include?@session[:user] or @session[:user][:superuser]) \
       and not @event.expired? %>
     <%= link_to 'Edit', :action => 'edit', :id => @event %> |
 <% end %>

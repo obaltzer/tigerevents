@@ -19,7 +19,7 @@ class GroupsController < ApplicationController
 
     def update
         @group = Group.find(@params[:id])
-        if @session[:user].superuser != 1
+        if !@session[:user][:superuser] 
             @params[:group][:approved] = 0
         elsif @group.update_attributes(@params[:group])
             flash[:notice] = 'Group properties successfully updated.'
@@ -74,7 +74,7 @@ class GroupsController < ApplicationController
             flash[:auth] = \
                 "You do not have permission to manage this group."
 	    redirect_to :controller => "events", :action => "index"
-        elsif(@session[:user].superuser == 1)
+        elsif(@session[:user][:superuser] )
 	    return true
 	end
         #check to see if the user is one of the authorized group members

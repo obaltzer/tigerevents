@@ -56,7 +56,6 @@
         <%= link_to "Credits", { :controller => "content", :action => "credits" } %>
       </li>
     </ul>
-    
     <div id="sidebar">
      <ul>
       <% if session[:user] -%>
@@ -65,7 +64,7 @@
           <%= session[:user].fullname %>
         </li>
           <%= render_component :controller => "groups", :action => "mygroups" %>
-          <% if session[:user][:superuser] == 1 %>
+          <% if session[:user][:superuser] %>
           <li>
               <strong>Site Management:</strong>
             <ul style="list-style: none; padding: 0; margin: 0.5em 0 0.2em 0.5em;">

@@ -6,7 +6,7 @@
   </div>
 <% end %>
 
-<% if (session[:user] != nil) && (session[:user][:superuser] == 1) %>
+<% if (session[:user] != nil) && (session[:user][:superuser]) %>
   <p> Edited by:
     <%= @event.creator.fullname %>
     <%= @event.creator.email %>
