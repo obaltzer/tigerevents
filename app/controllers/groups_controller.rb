@@ -63,7 +63,9 @@ class GroupsController < ApplicationController
 
     def list
         @newgroups = Group.find(:all, :conditions => "approved = 0").sort_by { |a| a.name }
-        @groups = Group.find(:all, :conditions => "approved = 1").sort_by { |a| a.name }
+	@groups_pages, @groups = paginate :group, :per_page => 10,
+            :conditions => ["approved = 1"],
+            :order_by => :name
     end
 
     #checks to see if the user belongs to this group

@@ -4,6 +4,12 @@
 <% end %>
 
 <div class="event_information">
+  <% if (session[:user] != nil) && (session[:user][:superuser] == 1) %>
+    <p> Edited by: 
+        <%= @event.creator.fullname %> 
+        <%= @event.creator.email %>
+    </p>
+  <% end %>
   <h2><%=h @event.title %></h2>
   <div class="last_update">
     Last updated: <%=h (@event.updated_on ? @event.updated_on : @event.created_on).strftime( "%a %b %d %I:%M %p" ) %>

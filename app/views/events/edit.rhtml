@@ -6,6 +6,14 @@
   </div>
 <% end %>
 
+<% if (session[:user] != nil) && (session[:user][:superuser] == 1) %>
+  <p> Edited by:
+    <%= @event.creator.fullname %>
+    <%= @event.creator.email %>
+  </p>
+<% end %>
+                            
+
 <%= start_form_tag :action => 'update', :id => @event.id %>
   <%= render_partial "form" %>
   <div>

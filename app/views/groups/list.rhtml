@@ -15,6 +15,9 @@
 
 <% if not @groups.empty? %>
 <div class="group_listing" id="approved_groups">
+  <%= link_to "Previous page", { :page => @groups_pages.current.previous } if @groups_pages.current.previous %>
+  <%= pagination_links @groups_pages %>
+  <%= link_to "Next page", { :page => @groups_pages.current.next } if @groups_pages.current.next %>
   <h2>Approved Groups</h2>
   <table>
     <% for group in @groups %>
@@ -25,5 +28,8 @@
       </tr>
     <% end %>
   </table>
+  <%= link_to "Previous page", { :page => @groups_pages.current.previous } if @groups_pages.current.previous %>
+  <%= pagination_links @groups_pages %>
+  <%= link_to "Next page", { :page => @groups_pages.current.next } if @groups_pages.current.next %>
 </div>
 <% end %>
