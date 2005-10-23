@@ -22,6 +22,7 @@
   </div>
   <%= sortable_element "list_active_#{name}", :update => 'message_container',  
     :containment => ["list_active_#{name}", "list_available_#{name}"],
+    :complete => visual_effect(:highlight, 'message', :duration => 0.5 ),
     :constraint => false,
     :dropOnEmpty => true,
     :url => { :action => "associate", :id => @selector, :association => name } %>

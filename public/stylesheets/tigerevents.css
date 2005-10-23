@@ -872,8 +872,8 @@ div#message_container
 
 div#message_container p
 {
-    background-color: #FFDD62;
-    border: 2px red solid;
+    border: 1px solid red;
+    color: blue;
     padding: 0.2em;
 }
 

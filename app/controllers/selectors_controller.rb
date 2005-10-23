@@ -214,4 +214,15 @@ class SelectorsController < ApplicationController
             render_partial "error_message"
         end
     end
+
+    def delete
+        selector = Selector.find(@params[:id])
+        if selector
+            for e in selector.associations do
+                selector.send(Inflector.pluralize(e)).clear
+            end
+            selector.destroy
+        end
+        render_partial
+    end
 end

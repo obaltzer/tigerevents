@@ -7,6 +7,16 @@
     <% for selector in @active_selectors %>
       <li id="item_<%= selector.id %>">
         <div class="action">
+          <%= link_to_remote image_tag('trash.gif', :alt => 'Delete Selector'), 
+                             :confirm => "Are you sure you want to delete selector \"#{selector.name}\"?", 
+                             :complete =>  remote_function(:update => 'selector_selection', 
+                                                          :url => { :controller => 'layouts', :action => 'selector_selection', :id => @params[:id] }) +
+                                            ";" + update_element_function("selector_workspace", :action => :empty) +
+                                            ";" + visual_effect(:highlight, 'message', :duration => 0.5 ), 
+                             :update => 'message_container', 
+                             :url => { :controller => 'selectors', :action => 'delete', :id => selector } %>
+        </div>
+        <div class="action">
           <%= link_to_remote image_tag('pencil.gif', :alt => 'Edit Selector'), :update => 'selector_workspace', :url => { :controller => 'selectors', :action => 'edit', :id => selector } %>
         </div>
         <div class="action">
@@ -23,6 +33,16 @@
     <% for selector in @available_selectors %>
       <li id="item_<%= selector.id %>">
         <div class="action">
+          <%= link_to_remote image_tag('trash.gif', :alt => 'Delete Selector'), 
+                             :confirm => "Are you sure you want to delete selector \"#{selector.name}\"?", 
+                             :complete =>  remote_function(:update => 'selector_selection', 
+                                                          :url => { :controller => 'layouts', :action => 'selector_selection', :id => @params[:id] }) +
+                                            ";" + update_element_function("selector_workspace", :action => :empty) +
+                                            ";" + visual_effect(:highlight, 'message', :duration => 0.5 ), 
+                             :update => 'message_container', 
+                             :url => { :controller => 'selectors', :action => 'delete', :id => selector } %>
+        </div>
+        <div class="action">
           <%= link_to_remote image_tag('pencil.gif', :alt => 'Edit Selector'), :update => 'selector_workspace', :url => { :controller => 'selectors', :action => 'edit', :id => selector } %>
         </div>
         <div class="action">
@@ -36,6 +56,7 @@
 
 <%= sortable_element 'active_selectors', 
     :update => 'message_container', 
+    :complete => visual_effect(:highlight, 'message', :duration => 0.5 ),
     :containment => ["active_selectors", "available_selectors"],
     :constraint => false,
     :dropOnEmpty => true,
