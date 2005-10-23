@@ -75,6 +75,14 @@ elsif auth == 2
         print "accounts (e.g. dc=foobar,dc=com): "
         ldap_dn = gets.strip
 
+        print "Please specify the field name your LDAP configuration\n"
+        print "uses for the user's full name: "
+        ldap_displayname = gets.strip
+
+        print "Please specify the field name your LDAP configuration\n"
+        print "uses for the user's e-mail address: "
+        ldap_email = gets.strip
+
         print "\nPlease check the following LDAP configuration:\n\n"
         print "\tLDAP server:      #{ldap_url}\n"
         print "\tUse SSL/TLS:      #{ldap_use_ssl}\n"
@@ -82,6 +90,8 @@ elsif auth == 2
             print "\tUse TLS:          #{ldap_start_tls}\n"
         end
         print "\tLDAP search base: #{ldap_dn}\n"
+        print "\tLDAP display name field: #{ldap_displayname}\n"
+        print "\tLDAP e-mail field: #{ldap_email}\n"
         print "\nAre those settings correct (y/n)? "
         ldap_ok = gets.strip
         if ldap_ok == "y"

@@ -1,3 +1,6 @@
+$KCODE = 'u'
+require 'jcode'
+
 # TigerEvents Version String
 TE_VERSION = 'svn/trunk'
 
@@ -20,6 +23,10 @@ LDAP_URL = '#{ldap_url}'
 LDAP_PORT = #{ldap_port}
 LDAP_DN = '#{ldap_dn}'
 LDAP_START_TLS = #{ldap_start_tls} 
+
+#LDAP variable settings
+LDAP_DISPLAY_NAME = '#{ldap_displayname}'
+LDAP_EMAIL_ADDRESS = '#{ldap_email}'
 
 # This variable holds the relative or absolute URL through which
 # authentication should be passes. Set this to the address of the 'login'
