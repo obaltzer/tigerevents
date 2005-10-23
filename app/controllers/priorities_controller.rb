@@ -26,21 +26,21 @@ class PrioritiesController < ApplicationController
     end
 
     def remove
-        old_p = Priority.find @params[:id]
+        @old_p = Priority.find @params[:id]
         begin
             new_p = Priority.find @params[:new_priority_id]
-            if not old_p or not new_p
+            if not @old_p or not new_p
                 @message = "You have to specify the replacement priority."
                 render_partial 'embed_error_message'
-            elsif old_p != new_p
+            elsif @old_p != new_p
                 Event.update_all "priority_id = #{new_p.id}", \
-                                 "priority_id = #{old_p.id}"
+                                 "priority_id = #{@old_p.id}"
                 # XXX this does not update selectors see #110
-                old_p.destroy
+                @old_p.destroy
                 # clear the caches for the events beeing rendered with the
                 # new priority
                 SelectorsController.clearCache
-                redirect_to @params[:update_with]
+                render_partial
             else
                 @message = "You cannot replace a priority with itself."
                 render_partial 'embed_error_message'
