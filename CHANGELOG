@@ -1,3 +1,17 @@
-TigerEvents 1.0 (2005-09-26)
+HEAD
+
+Upgraded to Rails gem 0.14.1
+Authentication scheme broken into multiple files and now act as mixins
+instead of classes.
+Users now e-mailed upon group acceptance, membership acceptance, and
+banning, as well as account creation.
+Distinction between ID and e-mail.
+Long lists are now paginated.
+Added Location attribute to events.
+Multiple usability issues cleaned up.
+Fixed an issue with the group history page having edit and delete
+links (even though non-members could not execute those tasks anyway)
+
+TigerEvents 0.5.0 (2005-09-26)
 
  - initial public release
