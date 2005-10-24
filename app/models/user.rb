@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
     has_many :layouts
     
     validates_uniqueness_of :login, :on => :create
+    validates_presence_of :fullname, :on => :create
+    validates_presence_of :user_password, :on=> :create
+    validates_uniqueness_of :email, :on => :create
 
     def before_create
         if self.user_password != nil
