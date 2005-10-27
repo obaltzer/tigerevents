@@ -62,12 +62,32 @@ class GroupsController < ApplicationController
     end
 
     def list
-        @newgroups = Group.find(:all, :conditions => "approved = 0").sort_by { |a| a.name }
-	@groups_pages, @groups = paginate :group, :per_page => 10,
-            :conditions => ["approved = 1"],
-            :order_by => :name
+        if @params[:action] == "list"
+            @newgroups = Group.find(:all, :conditions => "approved = 0").sort_by { |a| a.name }
+        end
+        if not @params[:search] or @params[:search] == ""
+            @params.delete(:search)
+            @groups_pages, @groups = paginate :group, :per_page => 10,
+                :conditions => ["approved = 1"],
+                :order_by => :name
+        else
+            tokens = @params[:search].split.collect {|c| "%#{c.downcase}%"}
+            @groups_pages, @groups = paginate :group,
+                :per_page => 10,
+                :conditions => ["approved = 1 AND " + 
+                                (["(LOWER(name) LIKE ? OR LOWER(description) LIKE ? )"] * tokens.size).join(" AND "), 
+                                *tokens.collect { |token| [token] * 2 }.flatten],
+            #                   ^ I have no idea what this star is for, but
+            #                   we need it
+                :order_by => :name
+        end
     end
-
+    
+    def live_search
+        list
+        render_partial "list_approved_groups"
+    end
+    
     #checks to see if the user belongs to this group
     def belongs_to
         if(@session[:user] == nil || @session[:user].banned == 1)

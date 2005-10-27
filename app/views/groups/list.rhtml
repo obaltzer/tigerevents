@@ -14,22 +14,25 @@
 <% end %>
 
 <% if not @groups.empty? %>
-<div class="group_listing" id="approved_groups">
-  <%= link_to "Previous page", { :page => @groups_pages.current.previous } if @groups_pages.current.previous %>
-  <%= pagination_links @groups_pages %>
-  <%= link_to "Next page", { :page => @groups_pages.current.next } if @groups_pages.current.next %>
+<div class="group_listing">
   <h2>Approved Groups</h2>
-  <table>
-    <% for group in @groups %>
-      <tr>
-        <td><%= link_to group.name, :controller => 'groups', :action => 'edit', :id => group %></td>
-        <td><%=h group.description %></td>
-        <td><%= link_to 'Ban', :action => 'toggle_approved', :id => group %></td>
-      </tr>
-    <% end %>
-  </table>
-  <%= link_to "Previous page", { :page => @groups_pages.current.previous } if @groups_pages.current.previous %>
-  <%= pagination_links @groups_pages %>
-  <%= link_to "Next page", { :page => @groups_pages.current.next } if @groups_pages.current.next %>
+  
+  <form id="search_form" action="<%= url_for :action => 'list' %>" method="POST">
+    <div class="input">
+      <label for="search" style="display: inline">Find group:</label>
+      <%= text_field_tag 'search', @params[:search] ? @params[:search] : '' %>
+      <div class="description">
+        Specify a the text you want to search for in a group's name and description.
+      </div>
+    </div>
+  </form>
+  <%= observe_form 'search_form', 
+    :url => { :action => 'live_search' }, 
+    :frequency => 1, 
+    :update => 'approved_groups' %>
+  
+  <div id="approved_groups">
+    <%= render_partial 'list_approved_groups' %>
+  </div>
 </div>
 <% end %>

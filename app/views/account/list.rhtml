@@ -1,6 +1,6 @@
 <h1>Users</h1>
 
-<%= start_form_tag :action => 'list' %>
+<form id="search_form" action="<%= url_for :action => 'list' %>" method="POST">
 <div class="input">
   <label for="search" style="display: inline">Find user:</label>
   <%= text_field_tag 'search', @params[:search] ? @params[:search] : '' %>
@@ -10,27 +10,12 @@
     Attention: the user had to be logged in at least once to be found.
   </div>
 </div>
-<%= end_form_tag %>
+</form>
+<%= observe_form 'search_form', 
+    :url => { :action => 'live_search' }, 
+    :frequency => 1, 
+    :update => 'user_list' %>
 
-<%= link_to "Previous page", { :page => @user_pages.current.previous } if @user_pages.current.previous %>
-<%= pagination_links @user_pages, :params => { :search => @params[:search] } %>
-<%= link_to "Next page", { :page => @user_pages.current.next } if @user_pages.current.next %> 
-<table>
-  <tr>
-    <th>Net-ID</th>
-    <th>Fullname</th>
-    <th>Site Manager</th>
-    <th>Banned</th>
-  </tr>
-  <% for @user in @users %>
-    <tr>
-      <td><%=h @user.login %></td>
-      <td><%=h @user.fullname %></td>
-      <td><%= check_box 'user', 'superuser', :id => 'user_superuser_' + @user.id.to_s, :onclick => "window.location = '" + url_for(:action => 'toggle_superuser', :id => @user, :params => {:search => @params[:search], :page => @params[:page]} ) + "';" %></td>
-      <td><%= check_box 'user', 'banned', :id => 'user_banned_' + @user.id.to_s, :onclick => "window.location = '" + url_for(:action => 'toggle_banned', :id => @user, :params => {:search => @params[:search], :page => @params[:page]} ) + "';" %></td>
-    </tr>
-  <% end %>
-</table>
-<%= link_to "Previous page", { :page => @user_pages.current.previous } if @user_pages.current.previous %>
-<%= pagination_links @user_pages, :params => { :search => @params[:search] } %>
-<%= link_to "Next page", { :page => @user_pages.current.next } if @user_pages.current.next %> 
+<div id="user_list">
+  <%= render_partial 'user_list' %>
+</div>

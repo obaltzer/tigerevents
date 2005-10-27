@@ -40,14 +40,22 @@ class AccountController < ApplicationController
                 :per_page => 20, \
                 :order_by => 'login'
         else
-            @user_pages, @users = paginate :users, \
-                :per_page => 20, \
-                :conditions => ["MATCH(fullname) AGAINST (?) OR login = ?", \
-                                @params[:search], @params[:search]], \
+            tokens = @params[:search].split.collect {|c| "%#{c.downcase}%"}
+            @user_pages, @users = paginate :users,
+                :per_page => 20,
+                :conditions => [(["(LOWER(login) LIKE ? OR LOWER(fullname) LIKE ? )"] * tokens.size).join(" AND "), 
+                                *tokens.collect { |token| [token] * 2 }.flatten],
+            #                   ^ I have no idea what this star is for, but
+            #                   we need it
                 :order_by => 'login'
-        end
+       end
     end
 
+    def live_search
+        list
+        render_partial 'user_list'
+    end
+ 
     def toggle_superuser
         @user = User.find @params[:id]
         @user.toggle! :superuser
