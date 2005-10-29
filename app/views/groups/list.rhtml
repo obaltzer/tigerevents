@@ -3,11 +3,13 @@
   <h2>Not Approved Groups</h2>
   <table>
     <% for newgroup in @newgroups %>
+    <% if newgroup.users.first != nil %>
       <tr>
         <td><%= link_to newgroup.name, :controller => 'groups', :action => 'edit', :id => newgroup %></td>
         <td><%=h newgroup.description %></td>
         <td><%= link_to 'Approve', :action => 'toggle_approved', :id => newgroup %></td>
       </tr>
+    <% end %>
     <% end %>
   </table>
 </div>

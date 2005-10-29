@@ -1,12 +1,26 @@
 class Group < ActiveRecord::Base
     has_many :events
-    has_many :undeleted_events, :class_name => "Event", :conditions => "deleted = 0", :order => "startTime ASC"
     belongs_to :group_class
     has_and_belongs_to_many :users
-    has_and_belongs_to_many :authorized_users, :class_name => "User", :conditions => "authorized = 1"
-    has_and_belongs_to_many :unauthorized_users, :class_name => "User", :conditions => "authorized = 0"
     validates_presence_of :name
     validates_uniqueness_of :name
     validates_presence_of :group_class_id
     validates_presence_of :description
+
+    def authorized_users
+        return User.find(:all, :include => :groups,
+            :conditions => ["authorized = ? AND groups.id = #{self.id}", true])
+    end
+
+    def unauthorized_users
+        return User.find(:all, :include => :groups,
+            :conditions => ["authorized = ? AND groups.id = #{self.id}", false])
+    end
+
+    def undeleted_events
+        return Event.find(:all, :include => :group,
+            :conditions => ["deleted = ? AND groups.id = #{self.id}", false], 
+            :order => "startTime ASC")
+    end
+    
 end

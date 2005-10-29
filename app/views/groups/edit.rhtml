@@ -11,7 +11,7 @@
 
 <%= start_form_tag :action => 'update', :id => @group.id %>
   <%= render_partial "form" %>
-  <% if @session[:user].superuser == 1 %>
+  <% if @session[:user].superuser? %>
     <div><%= submit_tag "Update", :id => "group_submit" %></div>
   <% else %>
     <div><%= submit_tag "Update", :id => "group_submit", :onclick => "return confirm('If you do this, your group has to be reapproved by a manager. Until then, none of your events will be listed and you will not be able to edit any of your group properties. Are you absolutely sure about this?')" %></div>

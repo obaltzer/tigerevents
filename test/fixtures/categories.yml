@@ -1,0 +1,12 @@
+category_1:
+  id: 1
+  name: 'Social'
+category_2:
+  id: 2
+  name: 'Varisty'
+category_3:
+  id: 3
+  name: 'Scholarships'
+category_4:
+  id: 4
+  name: 'Beer'

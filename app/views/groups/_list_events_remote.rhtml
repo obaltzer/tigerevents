@@ -3,14 +3,16 @@
    <div class="input">
       <table>
          <tr>
-            <th colspan="3">Name</th><th>Date</th><th>Last Editted</th>
+            <th colspan="3">Name</th>
+            <th>Date</th>
+            <th>Last Editted</th>
          </tr>
 
          <% for event in @events %>
             <% if not event.expired? %>
 	      <tr id="event_<%=h event.id %>" class="<%= event.pending?(@group) ? 'pending_event' : 'active_event' %>">
         	<td>
-                <%=h event.title %>
+                  <%=h event.title %>
                 </td>
                 <td>
                 <%=link_to '(Edit)', :controller => "events", :action => 'edit', :id => event.id, :group_id => @group.id %>

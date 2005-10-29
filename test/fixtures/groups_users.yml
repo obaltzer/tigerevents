@@ -1,0 +1,40 @@
+gu_1:
+  user_id: 1
+  group_id: 1 
+  authorized: 1 
+gu_2:
+  user_id: 1
+  group_id: 2
+  authorized: 1
+gu_3:
+  user_id: 1
+  group_id: 3
+  authorized: 1
+gu_4:
+  user_id: 2
+  group_id: 1
+  authorized: 1
+gu_5:
+  user_id: 3
+  group_id: 1
+  authorized: 0
+gu_6:
+  user_id: 4
+  group_id: 1
+  authorized: 1
+gu_7:
+  user_id: 3
+  group_id: 2
+  authorized: 1
+gu_8:
+  user_id: 4
+  group_id: 2
+  authorized: 1
+gu_9:
+  user_id: 2
+  group_id: 2
+  authorized: 0
+gu_9:
+  user_id: 2
+  group_id: 4
+  authorized: 0

@@ -20,7 +20,7 @@ class GroupsController < ApplicationController
     def update
         @group = Group.find(@params[:id])
         if !@session[:user][:superuser] 
-            @params[:group][:approved] = 0
+            @params[:group][:approved] = true 
         elsif @group.update_attributes(@params[:group])
             flash[:notice] = 'Group properties successfully updated.'
             SelectorsController.clearCache
@@ -37,7 +37,7 @@ class GroupsController < ApplicationController
 	@group = Group.find(@params[:id])
 	@group.toggle! :approved
         # clear cache to render events of the approved group
-        if @group.approved == 1
+        if @group.approved?
             AdminMailer.deliver_group_approved(@group)
         end
         SelectorsController.clearCache
@@ -63,12 +63,14 @@ class GroupsController < ApplicationController
 
     def list
         if @params[:action] == "list"
-            @newgroups = Group.find(:all, :conditions => "approved = 0").sort_by { |a| a.name }
+            @newgroups = Group.find(:all, 
+                :conditions => ["approved = ?", false],
+                :order => "name ASC")
         end
         if not @params[:search] or @params[:search] == ""
             @params.delete(:search)
-            @groups_pages, @groups = paginate :group, :per_page => 10,
-                :conditions => ["approved = 1"],
+	    @groups_pages, @groups = paginate :group, :per_page => 10,
+                :conditions => ["approved =?", true],
                 :order_by => :name
         else
             tokens = @params[:search].split.collect {|c| "%#{c.downcase}%"}
@@ -90,11 +92,11 @@ class GroupsController < ApplicationController
     
     #checks to see if the user belongs to this group
     def belongs_to
-        if(@session[:user] == nil || @session[:user].banned == 1)
+        if(@session[:user] == nil || @session[:user].banned? )
             flash[:auth] = \
                 "You do not have permission to manage this group."
 	    redirect_to :controller => "events", :action => "index"
-        elsif(@session[:user][:superuser] )
+        elsif(@session[:user].superuser? )
 	    return true
 	end
         #check to see if the user is one of the authorized group members
@@ -125,9 +127,9 @@ class GroupsController < ApplicationController
           for m in @params[:member].keys
              user = User.find(m)
              #approve the user if the authorized radio button has been selected
-             if @params[:member][m][:authorized] == '1'
+             if @params[:member][m][:authorized] == true
                 @group.users.delete( user )
-                @group.users.push_with_attributes( user, 'authorized' => 1 )
+                @group.users.push_with_attributes( user, 'authorized' => true )
                 AdminMailer.deliver_accepted(user, @group)
 
              #otherwise, flagged their submitted events for this group as deleted
@@ -139,7 +141,7 @@ class GroupsController < ApplicationController
                                     @group.id, user.id])
                 #flagged them as deleted
                 for e in events_to_delete
-                        e.update_attribute( :deleted, 1 );
+                        e.update_attribute( :deleted, true );
                 end
                 @group.users.delete( user )
              end
@@ -204,8 +206,8 @@ class GroupsController < ApplicationController
     def history
 	@group = Group.find(@params[:id])
 	@events_pages, @events = paginate :event, :per_page => 10,
-            :conditions => ["events.group_id = ? AND events.deleted = 0 AND events.startTime < ?",
-            @group.id, Time.now]
+            :conditions => ["events.group_id = ? AND events.deleted = ? AND events.startTime < ?",
+            @group.id, false, Time.now]
         render_partial
     end
 end

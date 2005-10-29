@@ -64,10 +64,10 @@ class SelectorsController < ApplicationController
             # assemble the conditions to select announcements or events
             # respectively
             type_cond = ""
+            type_val = []
             if selector.include_announcements != selector.include_events
-                type_cond = " AND events.announcement = " \
-                    + (selector.include_announcements == 1 ? "1" : "0")\
-                    + " "
+                type_cond = " AND events.announcement = ?" 
+                type_val << (selector.include_announcements == 1 ? true : false)
             end
 
             #check params
@@ -87,13 +87,16 @@ class SelectorsController < ApplicationController
             end
 
             time_cond = ""
+            time_val = []
                 # get all announcements which have started and not ended
                 # yet
-            time_cond << " AND ((events.announcement = 1 "\
+            time_cond << " AND ((events.announcement = ? "\
                             + "AND startTime <= '#{startTime.to_formatted_s(:db) }' "\
                             + "AND endTime > '#{startTime.to_formatted_s(:db) }' ) OR "
+            time_val << true
                 # get all events that... 
-            time_cond << "(events.announcement = 0 "
+            time_cond << "(events.announcement = ? "
+            time_val << false
                 # start before the end of the time period
             time_cond << "AND startTime <= '#{endTime.to_formatted_s(:db) }' "
                     # and have not started yet
@@ -102,6 +105,18 @@ class SelectorsController < ApplicationController
                     # reached yet 
             time_cond << "OR (endTime IS NOT NULL AND endTime > '#{startTime.to_formatted_s(:db) }') )))"
             # find the approved events association with the selector
+
+            show_cond = ""
+            show_val = []
+            show_cond << "groups.approved = ?"
+            show_val << true
+            show_cond << " AND groups_users.authorized = ?"
+            show_val << true
+            show_cond << " AND deleted = ?"
+            show_val << false
+            show_cond << " AND users.banned = ?"
+            show_val << false
+            
             events = Event.find(\
                 :all, \
                 :include => [:categories, :group, :priority], \
@@ -116,12 +131,9 @@ class SelectorsController < ApplicationController
                     + "LEFT JOIN users ON "\
                     + "users.id = activities.user_id", \
                 :conditions => [conditions \
-                    + "groups.approved = 1 "\
-                    + "AND groups_users.authorized = 1 "\
-                    + "AND activities.user_id IS NOT NULL "\
-                    + "AND deleted = 0 "\
-                    + "AND users.banned = 0 "\
-                    + type_cond + time_cond] + condition_val,\
+                    + show_cond \
+                    + type_cond + time_cond] + condition_val + show_val + type_val +
+                    time_val, \
                 :order => "events.startTime, priorities.rank, "\
                         + "activities.created_on DESC")
             #cache the query if it is from a defined period

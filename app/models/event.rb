@@ -76,7 +76,7 @@ class Event < ActiveRecord::Base
                       " already passed"
         end
         
-        if self.announcement == 1
+        if self.announcement?
             @hasEndTime = true
         end
         #checking that endtime is after starttime

@@ -1,5 +1,70 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first_event:
+event_1:
   id: 1
+  group_id: 1
+  title: 'Geekbeer'
+  description: 'At the CS Building'
+  startTime: <%= (Time.now + 1.day).strftime("%Y-%m-%d %H:%M:%S") %>
+  priority_id: 4
 another_event:
   id: 2
+  group_id: 1
+  title: 'Citizenship Award Celebration'
+  description: 'Because Sean Wins'
+  startTime: <%= (Time.now + 6.days).strftime("%Y-%m-%d %H:%M:%S") %>
+  priority_id: 1
+event_3:
+  id: 3
+  group_id: 2
+  title: 'Baltzer Award'
+  description: 'For Awesomeness'
+  startTime: <%= (Time.now + 4.days).strftime("%Y-%m-%d %H:%M:%S")%>
+  priority_id: 4
+event_4:
+  id: 4
+  group_id: 2
+  title: 'Dal-ACM Thumb Wrestling Contest'
+  description: 'Coolest Sporting Event EVER'
+  startTime: <%= (Time.now + 1.day).strftime("%Y-%m-%d %H:%M:%S")%>
+  priority_id: 1
+event_5:
+  id: 5
+  group_id: 1
+  title: 'CSS Soccer'
+  description: 'Come out and help defeat the evil Engineering Society!!'
+  startTime: <%= (Time.now + 1.day).strftime("%Y-%m-%d %H:%M:%S")%>
+  priority_id: 4
+event_6:
+  id: 6
+  group_id: 3
+  title: 'my.dsu.ca site launch'
+  description: 'Release of the best site evar'
+  startTime: <%= (Time.now + 8.days).strftime("%Y-%m-%d %H:%M:%S")%>
+  priority_id: 1
+announcement_1:
+  id: 7
+  announcement: true
+  group_id: 2
+  title: 'Dal-ACM Announcement'
+  description: 'Cause we rule'
+  startTime: <%= (Time.now).strftime("%Y-%m-%d %H:%M:%S")%>
+  endTime: <%= (Time.now + 15.days).strftime("%Y-%m-%d %H:%M:%S")%>
+  priority_id: 4
+announcement_2:
+  id: 8
+  announcement: true
+  group_id: 1
+  title: 'CSS Announcement'
+  description: 'Cooler than cool'
+  startTime: <%=Time.now.strftime("%Y-%m-%d %H:%M:%S")%>
+  endTime: <%= (Time.now + 15.days).strftime("%Y-%m-%d %H:%M:%S")%>
+  priority_id: 4
+announcement_3:
+  id: 9
+  announcement: true
+  group_id: 3
+  title: 'Oliver Wins The Universe'
+  description: 'Total takeover time: 5 minutes'
+  startTime: <%=Time.now.strftime("%Y-%m-%d %H:%M:%S")%>
+  endTime: <%= (Time.now + 15.days).strftime("%Y-%m-%d %H:%M:%S")%>
+  priority_id: 1

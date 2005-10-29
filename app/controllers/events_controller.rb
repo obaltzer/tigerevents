@@ -43,7 +43,7 @@ class EventsController < ApplicationController
 	      flash[:auth] = "You are not an authorized member of the #{@event.group.name}. " +
                           "Your posting will be displayed once your membership to #{@event.group.name} " +
                           "has been authorized by one its members."
-           elsif @event.group.approved == 0
+           elsif @event.group.approved == false 
               flash[:auth] = "Group #{@event.group.name} is not approved yet. The #{ADMIN_CONTACT} is responsible " +
                           "for approving groups. Once your group is approved your postings for #{@event.group.name} " + 
                           "will be displayed. If you have any questions please contact the #{ADMIN_CONTACT} at #{ADMIN_EMAIL}."    
@@ -52,7 +52,7 @@ class EventsController < ApplicationController
 	if @event.save
             # only associate user with group after the event has been
             # created to ensure the group exists
-            @event.group.users.push_with_attributes( @session[:user], 'authorized' => 0 ) \
+            @event.group.users.push_with_attributes( @session[:user], 'authorized' => false ) \
                 unless @event.group.users.include? @session[:user]
             
             log_activity @event, 'CREATE'
@@ -105,7 +105,7 @@ class EventsController < ApplicationController
             # the user is not a member yet. Hence, associate the user with
             # the group as an unautorized member, if the user-group
             # association does not exist yet.
-            @event.group.users.push_with_attributes( @session[:user], 'authorized' => 0 ) \
+            @event.group.users.push_with_attributes( @session[:user], 'authorized' => false ) \
                 unless @event.group.users.include? @session[:user] \
                         or @session[:user][:superuser]
 

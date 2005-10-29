@@ -1,0 +1,8 @@
+pselector_1:
+  selector_id: 3
+  priority_id: 1
+  association_type_id: 2
+pselector_2:
+  selector_id: 3
+  priority_id: 2
+  association_type_id: 2

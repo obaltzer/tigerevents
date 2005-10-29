@@ -1,0 +1,28 @@
+ls_1:
+  layout_id: 1
+  selector_id: 1
+  rank: 100
+ls_2:
+  layout_id: 1
+  selector_id: 2
+  rank: 100
+ls_3:
+  layout_id: 1
+  selector_id: 3
+  rank: 1
+ls_4:
+  layout_id: 1
+  selector_id: 4
+  rank: 100
+ls_5:
+  layout_id: 1
+  selector_id: 5
+  rank: 100
+ls_6:
+  layout_id: 1
+  selector_id: 6
+  rank: 100
+ls_7:
+  layout_id: 1
+  selector_id: 7
+  rank: 1

@@ -1,5 +1,17 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 first_priority:
   id: 1
-another_priority:
+  name: 'Headline 1'
+  rank: 1
+second_priority:
   id: 2
+  name: 'Headline 2'
+  rank: 2
+important_priority:
+  id: 3
+  name: 'Important'
+  rank: 50
+normal_priority:
+  id: 4
+  name: 'Normal'
+  rank: 100

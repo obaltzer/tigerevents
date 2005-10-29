@@ -12,7 +12,7 @@ class AccountController < ApplicationController
                     flash[:auth] = "Login unsuccessful"
                 else
                     @user.user_password = nil
-                    if @user.banned == 1
+                    if @user.banned? 
                         @session[:user] = nil
                         flash[:ban_notice] = \
                             "You are banned. Please contact" \

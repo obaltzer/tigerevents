@@ -1,5 +1,6 @@
 HEAD
 
+Refactoring of system to use migrations and to be database neutral
 Upgraded to Rails gem 0.14.1
 Authentication scheme broken into multiple files and now act as mixins
 instead of classes.

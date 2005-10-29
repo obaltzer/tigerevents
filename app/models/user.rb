@@ -3,16 +3,31 @@ require "digest/sha1"
 class User < ActiveRecord::Base
     attr_accessor :user_password
     has_and_belongs_to_many :groups
-    has_and_belongs_to_many :approved_groups, :class_name => "Group", :conditions => "authorized = 1 AND approved=1"
-    has_and_belongs_to_many :unapproved_member, :class_name => "Group", :conditions => "authorized = 0"
-    has_and_belongs_to_many :unapproved_groups, :class_name => "Group", :conditions => "authorized = 1 AND approved=0"
     has_many :bookmarks
     has_many :layouts
     
     validates_uniqueness_of :login, :on => :create
     validates_presence_of :fullname, :on => :create
-    validates_presence_of :user_password, :on=> :create
+    validates_presence_of :user_password, :on => :create
     validates_uniqueness_of :email, :on => :create
+
+    def approved_groups
+        return Group.find(:all, :include => :users,
+            :conditions => ["authorized = ? AND approved = ? AND users.id =
+            #{self.id}", true, true])
+    end
+
+    def unapproved_member
+        return Group.find(:all, :include => :users,
+            :conditions => ["authorized = ? AND users.id =
+            #{self.id}", false])
+    end
+
+    def unapproved_groups
+        return Group.find(:all, :include => :users,
+            :conditions => ["authorized = ? AND approved = ? AND users.id =
+            #{self.id}", true, false])
+    end
 
     def before_create
         if self.user_password != nil

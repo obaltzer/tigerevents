@@ -18,8 +18,10 @@
       Specify whether this posting is an event or announcement. An event will be advertised immediately until its end-time has been reached. 
       An announcement, however, is advertised beginning with its start date/time until its end-time is reached.
     </div>
-    <input type="radio" name="event[announcement]" value="0" onclick="toggle('endTimeForm');toggle('endTimeOption');" <%= @event.announcement == 0 ? 'checked="checked"' : '' %> /> Event
-    <input type="radio" name="event[announcement]" value="1" onclick="toggle('endTimeForm');toggle('endTimeOption');" <%= @event.announcement == 1 ? 'checked="checked"' : '' %> /> Announcement
+    <input type="radio" name="event[announcement]" value="0" onclick="toggle('endTimeForm');toggle('endTimeOption');" 
+        <%= @event.announcement == false ? 'checked="checked"' : '' %> /> Event
+    <input type="radio" name="event[announcement]" value="1" onclick="toggle('endTimeForm');toggle('endTimeOption');" 
+        <%= @event.announcement == false ? 'checked="checked"' : '' %> /> Announcement
   </div>
 
   <!--[form:event]-->
@@ -62,14 +64,14 @@
     <%= select_ampm 'event', 'start_ampm' %>
   </div>
 
-  <div id="endTimeOption" style="display: <%= @event.announcement == 1 ? 'none' : 'block'%>">
+  <div id="endTimeOption" style="display: <%= @event.announcement == false ? 'none' : 'block'%>">
     <div class="input">
       <label for="event_hasEndTime">Event has end time?</label>
       <input <%= @event.endTime ? 'checked="checked"' : '' %> id="event_hasEndTime" name="event_hasEndTime" onclick="toggle('endTimeForm')" type="checkbox" value="1"/>
     </div>
   </div>
 
-  <div class="input" id="endTimeForm" style="display: <%= @event.endTime or @event.announcement == 1 ? 'block' : 'none' %>">
+  <div class="input" id="endTimeForm" style="display: <%= @event.endTime or @event.announcement ? 'block' : 'none' %>">
     <label for="event_end_date">Ending Date and Time</label>
     <div class="description">
       The scheduled ending date and time of the event.

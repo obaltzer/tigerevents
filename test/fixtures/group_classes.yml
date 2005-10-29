@@ -1,5 +1,12 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first_group_class:
+super_class:
   id: 1
-another_group_class:
+  name: 'DSU'
+child_class_1:
   id: 2
+  name: 'A Level'
+  parent_id: 1
+child_class_2:
+  id: 3
+  name: 'E Level'
+  parent_id: 1

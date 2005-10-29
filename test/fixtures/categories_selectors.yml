@@ -1,0 +1,12 @@
+cat_sel_1:
+    selector_id: 4
+    category_id: 2
+    association_type_id: 1
+cat_sel_2:
+    selector_id: 5
+    category_id: 2
+    association_type_id: 2
+cat_sel_3:
+    selector_id: 4
+    category_id: 4
+    association_type_id: 1

@@ -1,0 +1,20 @@
+user_1:
+  id: 1
+  login: 'dummy'
+  fullname: 'DUMMY USER'
+user_2:
+  id: 2
+  login: 'cpjordan'
+  fullname: 'Chris Jordan'
+  email: 'cpjordan'
+user_3:
+  id: 3
+  login: 'obaltzer'
+  fullname: 'Oliver Baltzer'
+  email: 'obaltzer'
+superuser_1:
+  id: 4
+  login: 'ssmith'
+  fullname: 'Sean Smith'
+  email: 'ssmith'
+  superuser: true

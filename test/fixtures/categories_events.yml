@@ -1,0 +1,28 @@
+ce_1:
+  event_id: 1
+  category_id: 4
+ce_2:
+  event_id: 2
+  category_id: 3
+ce_3:
+  event_id: 3
+  category_id: 3
+ce_4:
+  event_id: 4
+  category_id: 2
+ce_5:
+  event_id: 5
+  category_id: 2
+ce_6:
+  event_id: 6
+  category_id: 1
+<% for i in 10..15 %> 
+ce_<%= i %>:
+  event_id: <%= i %>
+  category_id: 1
+<% end %>
+<% for i in 16..20 %> 
+ce_<%= i %>:
+  event_id: <%= i %>
+  category_id: 4
+<% end %>

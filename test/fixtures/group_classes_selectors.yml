@@ -1,0 +1,8 @@
+gcselector_1:
+  selector_id: 1
+  group_class_id: 1
+  association_type_id: 2
+gcselector_2:
+  selector_id: 5
+  group_class_id: 3
+  association_type_id: 2

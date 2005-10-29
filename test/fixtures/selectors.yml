@@ -1,5 +1,37 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 first_selector:
   id: 1
+  name: 'DSU'
+  label: 'dsu'
+  include_events: true
 another_selector:
   id: 2
+  name: 'Computer Science Society'
+  label: 'computer_science_society'
+  include_events: true
+selector_3:
+  id: 3
+  name: 'Headlines'
+  label: 'headlines'
+  include_events: true
+selector_4:
+  id: 4
+  name: 'Varsity Or Beer'
+  label: 'varsity_or_beer'
+  include_events: true
+selector_5:
+  id: 5
+  name: 'Level E And Varsity'
+  label: 'level_e_and_varsity'
+  include_events: true
+selector_6:
+  id: 6
+  name: 'All Events'
+  label: 'all_events'
+  include_events: true
+selector_7:
+  id: 7
+  name: 'All Announcements'
+  label: 'all_announcements'
+  include_events: false
+  include_announcements: true
