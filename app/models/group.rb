@@ -14,7 +14,12 @@ class Group < ActiveRecord::Base
 
     def unauthorized_users
         return User.find(:all, :include => :groups,
-            :conditions => ["authorized = ? AND groups.id = #{self.id}", false])
+            :conditions => ["authorized = ? AND groups.id = #{self.id}", false]).collect { |m|
+                # this adds the missing authorized attribute to the User
+                # object
+                m[:authorized] = false
+                m
+            }
     end
 
     def undeleted_events

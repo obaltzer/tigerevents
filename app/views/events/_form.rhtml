@@ -1,4 +1,5 @@
 <%= error_messages_for 'event' %>
+<%= @event.inspect %>
 <div id="event_input_form">
   <% if session[:user][:superuser] %>
     <div class="input">
@@ -18,10 +19,15 @@
       Specify whether this posting is an event or announcement. An event will be advertised immediately until its end-time has been reached. 
       An announcement, however, is advertised beginning with its start date/time until its end-time is reached.
     </div>
-    <input type="radio" name="event[announcement]" value="0" onclick="toggle('endTimeForm');toggle('endTimeOption');" 
+    <% if @event.announcement %>
+      <%= javascript_tag 'var event_select = false' %>
+    <% else %>
+      <%= javascript_tag 'var event_select = true' %>
+    <% end %>
+    <input type="radio" name="event[announcement]" value="false" onclick="if(!event_select){toggle('endTimeForm');toggle('endTimeOption');event_select = true;}" 
         <%= @event.announcement == false ? 'checked="checked"' : '' %> /> Event
-    <input type="radio" name="event[announcement]" value="1" onclick="toggle('endTimeForm');toggle('endTimeOption');" 
-        <%= @event.announcement == false ? 'checked="checked"' : '' %> /> Announcement
+    <input type="radio" name="event[announcement]" value="true" onclick="if(event_select){toggle('endTimeForm');toggle('endTimeOption');event_select = false;}" 
+        <%= @event.announcement == true ? 'checked="checked"' : '' %> /> Announcement
   </div>
 
   <!--[form:event]-->
@@ -64,7 +70,7 @@
     <%= select_ampm 'event', 'start_ampm' %>
   </div>
 
-  <div id="endTimeOption" style="display: <%= @event.announcement == false ? 'none' : 'block'%>">
+  <div id="endTimeOption" style="display: <%= @event.announcement == true ? 'none' : 'block'%>">
     <div class="input">
       <label for="event_hasEndTime">Event has end time?</label>
       <input <%= @event.endTime ? 'checked="checked"' : '' %> id="event_hasEndTime" name="event_hasEndTime" onclick="toggle('endTimeForm')" type="checkbox" value="1"/>

@@ -7,10 +7,11 @@
 <% end %>
 
 <% if (session[:user] != nil) && (session[:user][:superuser]) %>
-  <p> Edited by:
-    <%= @event.creator.fullname %>
-    <%= @event.creator.email %>
-  </p>
+  <div class="last_update">
+    Last updated by:
+    <%= @event.updator.fullname %> 
+    <%= "&lt;" + mail_to(@event.updator.email) + "&gt" if @event.updator.email %>
+  </div>
 <% end %>
                             
 

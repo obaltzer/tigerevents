@@ -4,15 +4,14 @@
 <% end %>
 
 <div class="event_information">
-  <% if (session[:user] != nil) && (session[:user][:superuser]) %>
-    <p> Edited by: 
-        <%= @event.creator.fullname %> 
-        <%= @event.creator.email %>
-    </p>
-  <% end %>
   <h2><%=h @event.title %></h2>
   <div class="last_update">
     Last updated: <%=h (@event.updated_on ? @event.updated_on : @event.created_on).strftime( "%a %b %d %I:%M %p" ) %>
+    <% if (session[:user] != nil) && (session[:user][:superuser]) %>
+      by 
+      <%= @event.updator.fullname %> 
+      <%= "&lt;" + mail_to(@event.updator.email) + "&gt" if @event.updator.email %>
+    <% end %>
   </div>
   <table class="event_information">
     <tr class="event_description">
@@ -26,11 +25,10 @@
       </th>
       <td>
         <%=link_to @event.group.name, :controller => 'groups', :action => 'show', :id => @event.group.id %> 
-        <%= image_tag 'i.png', { :alt => '', \
+        <%= link_to image_tag('i.png', { :alt => '', \
               :onmouseover => 'ttOn(\'description_' + @event.group.id.to_s + '\')',\
               :onmouseout => 'ttOff(\'description_' + @event.group.id.to_s + '\')',\
-              :class => 'info_image'} 
-        %>
+              :class => 'info_image'}), :controller => 'groups', :action => 'show', :id => @event.group.id %> 
         <div id="<%=h 'description_' + @event.group.id.to_s  %>" class="tooltip">
           <%=h @event.group.description %>
 	</div>

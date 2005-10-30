@@ -2,6 +2,7 @@ user_1:
   id: 1
   login: 'dummy'
   fullname: 'DUMMY USER'
+  email: 'dummy@dummy.com'
 user_2:
   id: 2
   login: 'cpjordan'
@@ -12,6 +13,7 @@ user_3:
   login: 'obaltzer'
   fullname: 'Oliver Baltzer'
   email: 'obaltzer'
+  superuser: true
 superuser_1:
   id: 4
   login: 'ssmith'

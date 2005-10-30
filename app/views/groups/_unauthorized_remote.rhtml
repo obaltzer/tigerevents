@@ -6,8 +6,8 @@
 	  <th></th>
           <th>Name</th>
           <th>E-mail</th>
-	  <th>Authorized</th>
-	  <th>Do Not Authorized</th>
+	  <th>Authorize</th>
+	  <th>Do Not Authorize</th>
         </tr>
       </thead>
       <tbody>
@@ -20,8 +20,8 @@
 	    </td>
             <td> <%=h @member.fullname %> </td> 
             <td> <%=h @member.email %> </td> 
-            <td> <%=radio_button 'member[]', 'authorized', 1 %></td>
-            <td> <%=radio_button 'member[]', 'authorized', 0 %></td>
+            <td> <%=radio_button 'member[]', 'authorized', true %></td>
+            <td> <%=radio_button 'member[]', 'authorized', false %></td>
           </tr>
         <% end %>
       </tbody>

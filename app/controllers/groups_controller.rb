@@ -126,8 +126,9 @@ class GroupsController < ApplicationController
         if @params[:member]
           for m in @params[:member].keys
              user = User.find(m)
+             logger.debug "Params: #{@params[:member][m].inspect}"
              #approve the user if the authorized radio button has been selected
-             if @params[:member][m][:authorized] == true
+             if @params[:member][m][:authorized] == "true"
                 @group.users.delete( user )
                 @group.users.push_with_attributes( user, 'authorized' => true )
                 AdminMailer.deliver_accepted(user, @group)
