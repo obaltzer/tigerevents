@@ -25,6 +25,9 @@
       </th>
       <td>
         <%=link_to @event.group.name, :controller => 'groups', :action => 'show', :id => @event.group.id %> 
+        <% if (session[:user] != nil) && (session[:user][:superuser]) %>
+          <%=link_to "(edit)", :controller => 'groups', :action => 'edit', :id => @event.group.id %> 
+        <% end %>
         <%= link_to image_tag('i.png', { :alt => '', \
               :onmouseover => 'ttOn(\'description_' + @event.group.id.to_s + '\')',\
               :onmouseout => 'ttOff(\'description_' + @event.group.id.to_s + '\')',\

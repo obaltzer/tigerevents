@@ -271,7 +271,6 @@ end
 database = File.join("config", "database.yml")
 config = File.join("config", "tigerevents_config.rb")
 sitesql = File.join("db", "site_setup.sql")
-tables = File.join("db", "tables.sql")
 basedata = File.join("db", "base_data.sql")
 
 # write database.yml
@@ -305,9 +304,7 @@ end
 f = File.open(sitesql + ".tmpl", "r")
 tmpl = f.read
 f.close
-f = File.open(tables, "r")
-db_tables = f.read
-f.close
+exec "rake migrate"
 f = File.open(basedata, "r")
 db_base = f.read
 f.close

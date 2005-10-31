@@ -4,48 +4,51 @@
 
 class InitialSchema < ActiveRecord::Migration
   def self.up
-    create_table "activities", :force => true do |t|
-      t.column "action", :string, :limit => 100, :default => "", :null => false
-      t.column "user_id", :integer, :default => 0, :null => false
-      t.column "event_id", :integer, :default => 0, :null => false
-      t.column "created_on", :datetime
-      t.column "updated_on", :datetime
+    create_table :activities, :force => true do |t|
+      t.column :action, :string, :limit => 100, :default => "", :null => false
+      t.column :user_id, :integer, :default => 0, :null => false
+      t.column :event_id, :integer, :default => 0, :null => false
+      t.column :created_on, :datetime
+      t.column :updated_on, :datetime
     end
 
-    create_table "association_types", :force => true do |t|
-      t.column "name", :string, :limit => 10, :default => "", :null => false
+    create_table :association_types, :force => true do |t|
+      t.column :name, :string, :limit => 10, :default => "", :null => false
     end
 
-    create_table "bookmarks", :force => true do |t|
-      t.column "user_id", :integer, :default => 0, :null => false
-      t.column "event_id", :integer, :default => 0, :null => false
+    AssociationType.create(:name => 'OR')
+    AssociationType.create(:name => 'AND')
+
+    create_table :bookmarks, :force => true do |t|
+      t.column :user_id, :integer, :default => 0, :null => false
+      t.column :event_id, :integer, :default => 0, :null => false
     end
 
-    create_table "categories", :force => true do |t|
-      t.column "name", :string, :limit => 100, :default => "", :null => false
-      t.column "hide", :boolean, :default => false, :null => false
-      t.column "created_on", :datetime
-      t.column "updated_on", :datetime
-      t.column "created_by", :integer, :default => 0, :null => false
+    create_table :categories, :force => true do |t|
+      t.column :name, :string, :limit => 100, :default => "", :null => false
+      t.column :hide, :boolean, :default => false, :null => false
+      t.column :created_on, :datetime
+      t.column :updated_on, :datetime
+      t.column :created_by, :integer, :default => 0, :null => false
     end
 
-    create_table "categories_events", :id => false, :force => true do |t|
-      t.column "event_id", :integer, :default => 0, :null => false
-      t.column "category_id", :integer, :default => 0, :null => false
+    create_table :categories_events, :id => false, :force => true do |t|
+      t.column :event_id, :integer, :default => 0, :null => false
+      t.column :category_id, :integer, :default => 0, :null => false
     end
 
-    create_table "categories_selectors", :id => false, :force => true do |t|
-      t.column "selector_id", :integer, :default => 0, :null => false
-      t.column "category_id", :integer, :default => 0, :null => false
-      t.column "association_type_id", :integer, :default => 0, :null => false
+    create_table :categories_selectors, :id => false, :force => true do |t|
+      t.column :selector_id, :integer, :default => 0, :null => false
+      t.column :category_id, :integer, :default => 0, :null => false
+      t.column :association_type_id, :integer, :default => 0, :null => false
     end
 
-    create_table "eventratings", :force => true do |t|
-      t.column "event_id", :integer, :default => 0, :null => false
-      t.column "score", :integer, :default => 0, :null => false
+    create_table :eventratings, :force => true do |t|
+      t.column :event_id, :integer, :default => 0, :null => false
+      t.column :score, :integer, :default => 0, :null => false
     end
 
-    create_table "events", :force => true do |t|
+    create_table :events, :force => true do |t|
       t.column :announcement, :boolean, :default => false, :null => false
       t.column :group_id, :integer
       t.column :description, :text, :default => "", :null => false
@@ -59,72 +62,79 @@ class InitialSchema < ActiveRecord::Migration
       t.column :updated_on, :datetime
     end
 
-    create_table "group_classes", :force => true do |t|
-      t.column "name", :string, :limit => 100, :default => "", :null => false
-      t.column "parent_id", :integer
+    create_table :group_classes, :force => true do |t|
+      t.column :name, :string, :limit => 100, :default => "", :null => false
+      t.column :parent_id, :integer
     end
 
-    create_table "group_classes_selectors", :id => false, :force => true do |t|
-      t.column "selector_id", :integer, :default => 0, :null => false
-      t.column "group_class_id", :integer, :default => 0, :null => false
-      t.column "association_type_id", :integer, :default => 0, :null => false
+    create_table :group_classes_selectors, :id => false, :force => true do |t|
+      t.column :selector_id, :integer, :default => 0, :null => false
+      t.column :group_class_id, :integer, :default => 0, :null => false
+      t.column :association_type_id, :integer, :default => 0, :null => false
     end
 
-    create_table "group_classes_users", :id => false, :force => true do |t|
-      t.column "user_id", :integer, :default => 0, :null => false
-      t.column "group_class_id", :integer, :default => 0, :null => false
+    create_table :group_classes_users, :id => false, :force => true do |t|
+      t.column :user_id, :integer, :default => 0, :null => false
+      t.column :group_class_id, :integer, :default => 0, :null => false
     end
 
-    create_table "groups", :force => true do |t|
-      t.column "name", :string, :limit => 100, :default => "", :null => false
-      t.column "description", :text, :default => "", :null => false
-      t.column "group_class_id", :integer
-      t.column "approved", :boolean, :default => false, :null => false
+    create_table :groups, :force => true do |t|
+      t.column :name, :string, :limit => 100, :default => "", :null => false
+      t.column :description, :text, :default => "", :null => false
+      t.column :group_class_id, :integer
+      t.column :approved, :boolean, :default => false, :null => false
     end
 
     add_index "groups", ["name"], :name => "name", :unique => true
 
-    create_table "groups_selectors", :id => false, :force => true do |t|
-      t.column "selector_id", :integer, :default => 0, :null => false
-      t.column "group_id", :integer, :default => 0, :null => false
-      t.column "association_type_id", :integer, :default => 0, :null => false
+    create_table :groups_selectors, :id => false, :force => true do |t|
+      t.column :selector_id, :integer, :default => 0, :null => false
+      t.column :group_id, :integer, :default => 0, :null => false
+      t.column :association_type_id, :integer, :default => 0, :null => false
     end
 
-    create_table "groups_users", :id => false, :force => true do |t|
-      t.column "user_id", :integer, :default => 0, :null => false
-      t.column "group_id", :integer, :default => 0, :null => false
-      t.column "authorized", :boolean, :default => false, :null => false
+    create_table :groups_users, :id => false, :force => true do |t|
+      t.column :user_id, :integer, :default => 0, :null => false
+      t.column :group_id, :integer, :default => 0, :null => false
+      t.column :authorized, :boolean, :default => false, :null => false
     end
 
-    create_table "layouts", :force => true do |t|
-      t.column "user_id", :integer
+    create_table :layouts, :force => true do |t|
+      t.column :user_id, :integer
     end
 
-    create_table "layouts_selectors", :id => false, :force => true do |t|
-      t.column "layout_id", :integer, :default => 0, :null => false
-      t.column "selector_id", :integer, :default => 0, :null => false
-      t.column "rank", :integer, :default => 0, :null => false
+    Layout.create
+
+    create_table :layouts_selectors, :id => false, :force => true do |t|
+      t.column :layout_id, :integer, :default => 0, :null => false
+      t.column :selector_id, :integer, :default => 0, :null => false
+      t.column :rank, :integer, :default => 0, :null => false
     end
 
-    create_table "priorities", :force => true do |t|
-      t.column "name", :string, :limit => 30, :default => "", :null => false
-      t.column "rank", :integer, :default => 0, :null => false
+    create_table :priorities, :force => true do |t|
+      t.column :name, :string, :limit => 30, :default => "", :null => false
+      t.column :rank, :integer, :default => 0, :null => false
     end
 
-    create_table "priorities_selectors", :id => false, :force => true do |t|
+    create_table :priorities_selectors, :id => false, :force => true do |t|
       t.column :selector_id, :integer, :default => 0, :null => false
       t.column :priority_id, :integer, :default => 0, :null => false
       t.column :association_type_id, :integer, :default => 0, :null => false
     end
 
-    create_table "selectors", :force => true do |t|
+    create_table :selectors, :force => true do |t|
       t.column :name, :string, :limit => 100, :default => "", :null => false
       t.column :label, :string, :limit => 100, :default => "", :null => false
       t.column :include_events, :boolean, :default => false, :null => false
       t.column :include_announcements, :boolean, :default => false, :null => false
     end
 
-    create_table "users", :force => true do |t|
+    Selector.create(:name => "All Events And Announcements", 
+        :label => "all_events_and_announcements",
+        :include_events => true,
+        :include_announcements => true)
+
+    create_table :users, :force => true do |t|
       t.column :login, :string, :limit => 80, :default => "", :null => false
       t.column :fullname, :string, :limit => 80, :default => "", :null => false
       t.column :hashed_pass, :string, :limit => 40
@@ -139,25 +149,6 @@ class InitialSchema < ActiveRecord::Migration
   end
   
   def self.down
-    drop_table "activities"
-    drop_table "association_types"
-    drop_table "bookmarks"
-    drop_table "categories"
-    drop_table "categories_events"
-    drop_table "categories_selectors"
-    drop_table "eventratings"
-    drop_table "events"
-    drop_table "group_classes"
-    drop_table "group_classes_selectors"
-    drop_table "group_classes_users"
-    drop_table "groups"
-    drop_table "groups_selectors"
-    drop_table "groups_users"
-    drop_table "layouts"
-    drop_table "layouts_selectors"
-    drop_table "priorities"
-    drop_table "priorities_selectors"
-    drop_table "selectors"
-    drop_table "users"
+    # Why migrate down to a non-existant system?
   end
 end
