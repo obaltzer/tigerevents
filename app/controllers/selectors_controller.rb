@@ -67,22 +67,22 @@ class SelectorsController < ApplicationController
             type_val = []
             if selector.include_announcements != selector.include_events
                 type_cond = " AND events.announcement = ?" 
-                type_val << (selector.include_announcements == 1 ? true : false)
+                type_val << (selector.include_announcements == true ? true : false)
             end
 
             #check params
             if @params[:period] and @params[:period][:startTime] \
                     and @params[:period][:endTime]
-               startTime = @params[:period][:startTime]
-               #Time.local @params[:startTime][:year], @params[:startTime][:month], @params[:startTime][:day]
-               #add more day to endTime to be inclusive of the last day
-               endTime = @params[:period][:endTime]
-               #Time.local( @params[:endTime][:year], @params[:endTime][:month], @params[:endTime][:day] ).tomorrow
+                startTime = @params[:period][:startTime]
+                #Time.local @params[:startTime][:year], @params[:startTime][:month], @params[:startTime][:day]
+                #add more day to endTime to be inclusive of the last day
+                endTime = @params[:period][:endTime]
+                #Time.local( @params[:endTime][:year], @params[:endTime][:month], @params[:endTime][:day] ).tomorrow
             else
                 #initialize the start and end time to be used for the time_cond. These may or may not be
                 #initialized with arguments in @params
                 #default time period is 7 days
-                startTime = Date.today.to_time
+                startTime = Time.now
                 endTime = 7.days.from_now.at_beginning_of_day
             end
 

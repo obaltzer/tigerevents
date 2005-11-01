@@ -1,5 +1,4 @@
 <%= error_messages_for 'event' %>
-<%= @event.inspect %>
 <div id="event_input_form">
   <% if session[:user][:superuser] %>
     <div class="input">
@@ -24,9 +23,9 @@
     <% else %>
       <%= javascript_tag 'var event_select = true' %>
     <% end %>
-    <input type="radio" name="event[announcement]" value="false" onclick="if(!event_select){toggle('endTimeForm');toggle('endTimeOption');event_select = true;}" 
+    <input type="radio" name="event[announcement]" value="false" onclick="if(!event_select){show('endTimeOption');getElementById('event_hasEndTime').checked = true;event_select = true;}" 
         <%= @event.announcement == false ? 'checked="checked"' : '' %> /> Event
-    <input type="radio" name="event[announcement]" value="true" onclick="if(event_select){toggle('endTimeForm');toggle('endTimeOption');event_select = false;}" 
+    <input type="radio" name="event[announcement]" value="true" onclick="if(event_select){show('endTimeForm');hide('endTimeOption');event_select = false;}" 
         <%= @event.announcement == true ? 'checked="checked"' : '' %> /> Announcement
   </div>
 

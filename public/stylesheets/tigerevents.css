@@ -888,3 +888,48 @@ div#priority_new
 {
     float: right;
 }
+
+/*********** CONTEXT HELP ****************/
+.help_container
+{
+    font: 12px Helvetica, Arial, sans-serif;
+    border: solid 1px #666666;
+    color: #333333;
+    background-color: #ffffcc;
+    width: 300px;
+    padding: 2px;
+    position: absolute;
+    z-index: 100;
+    display: none;
+}
+
+.help_link
+{
+    margin-right: 30px;
+    float: right;
+}
+
+#help_close a
+{
+    float: right;
+    margin-top: 5px;
+    margin-right: 1em;
+    font-size: 9pt;
+    color: #444;
+}
+
+#help_close a:hover
+{
+    text-decoration: none;
+}
+
+#help_close img
+{
+    vertical-align: top;
+    margin-top: 1px;
+}
+
+#help_content
+{
+    margin: 2em 0.5em 0.5em 0.5em;
+}

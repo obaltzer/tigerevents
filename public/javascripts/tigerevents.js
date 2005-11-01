@@ -9,6 +9,30 @@
 tooltip_obj = null;
 document.onmousemove = updateTooltip;
 
+function toggle_help(e, id)
+{
+    help_obj = document.getElementById(id);
+    if(help_obj)
+    {
+        if(help_obj.style.display == "block")
+        {
+            help_obj.style.display = "none";
+        }
+        else
+        {        
+            x = (document.all) ? window.event.x + document.body.scrollLeft 
+                               : e.pageX;
+            y = (document.all) ? window.event.y + document.body.scrollTop
+                               : e.pageY;
+            width = help_obj.style.width;
+            width = width.substring(0, width.length - 2);
+            help_obj.style.display = "block";
+            help_obj.style.left = eval("(x - " + width + ") + \"px\"");
+            help_obj.style.top = (y + 20) + "px";
+        }
+    }
+}
+
 function updateTooltip(e)
 {
     x = (document.all) ? window.event.x + document.body.scrollLeft 
@@ -17,7 +41,7 @@ function updateTooltip(e)
                        : e.pageY;
     if(tooltip_obj)
     {
-        tooltip_obj.style.left = (x + 20) + "px";
+        tooltip_obj.style.left = (x) + "px";
         tooltip_obj.style.top = (y + 20) + "px";
     }
 }
@@ -39,6 +63,24 @@ function mail(b, a)
     window.location = 'mailto:' + a + '@' + b;
 }
 
+function show(elem)
+{
+    if(document.getElementById)
+    {
+        target = document.getElementById(elem);
+        target.style.display = "";
+    }
+}
+
+function hide(elem)
+{
+    if(document.getElementById)
+    {
+        target = document.getElementById(elem);
+        target.style.display = "none";
+    }
+}
+        
 function toggle(elem) 
 {
   if(document.getElementById)
