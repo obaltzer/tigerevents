@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require './config/boot'
 
 begin
     require 'rubygems'
@@ -134,7 +135,7 @@ while not admin_ok
     print "\nWhat is the administrator's email address\n"
     print "(e.g. john.doe@foobar.com)? "
     admin_email = gets.strip
-    if auth_type == "sql"
+    if auth_type == "SQLAccountController"
         begin
             require "digest/sha1"
         rescue LoadError
@@ -148,9 +149,9 @@ while not admin_ok
         admin_username = gets.strip
         print "What should be the administrator's password? \033[8m"
         admin_password = gets.strip
-        admin_password = Digest::SHA1.hexdigest(admin_password) 
+#        admin_password = Digest::SHA1.hexdigest(admin_password) 
         print "\033[0m"
-    elsif auth_type == "ldap"
+    elsif auth_type == "LDAPAccountController"
         print "\nYou have choosen LDAP authentication.\n"
         print "What is the administrators username on the LDAP server? "
         admin_username = gets.strip
@@ -254,11 +255,10 @@ elsif db_conn == "TCP/IP"
 end
 
 print "\n\n--------------------------------------------------------------\n"
-print "\nThe program is now going to generate 3 files:\n\n"
+print "\nThe program is now going to generate 2 files:\n\n"
 print "\tconfig/database.yml: contains database connectivity information\n"
 print "\t                     for the application\n\n"
 print "\tconfig/tigerevents_config: local TigerEvents configuration\n\n"
-print "\tdb/site_setup.sql: SQL script to setup the database\n"
 print "\nExiting files with be saves with extension .orig\n"
 print "Continue (y/n)? "
 cont = gets.strip
@@ -270,8 +270,6 @@ end
 
 database = File.join("config", "database.yml")
 config = File.join("config", "tigerevents_config.rb")
-sitesql = File.join("db", "site_setup.sql")
-basedata = File.join("db", "base_data.sql")
 
 # write database.yml
 if FileTest.exists?(database)
@@ -297,21 +295,35 @@ f = File.open(config, "w")
 f.write(x)
 f.close
 
-# write site_setup.sql
-if FileTest.exists?(sitesql)
-    File.rename(sitesql, sitesql + ".orig")
+fork do
+    exec "rake migrate"
 end
-f = File.open(sitesql + ".tmpl", "r")
-tmpl = f.read
-f.close
-exec "rake migrate"
-f = File.open(basedata, "r")
-db_base = f.read
-f.close
-x = eval("\"" + tmpl + "\"")
-f = File.open(sitesql, "w")
-f.write(x)
-f.close
+Process.wait
+if db_conn == "socket"
+ActiveRecord::Base.establish_connection(
+    :adapter  => "mysql",
+    :socket   => "#{db_sock}",
+    :username => "#{db_user}",
+    :password => "#{db_pass}",
+    :database => "#{db_name}"
+)
+elsif db_conn == "TCP/IP"
+ActiveRecord::Base.establish_connection(
+    :adapter  => "mysql",
+    :host     => "#{db_host}",
+    :username => "#{db_user}",
+    :password => "#{db_pass}",
+    :database => "#{db_name}"
+    )
+end
+
+User.create(:login => "#{admin_username}",
+        :user_password => "#{admin_password}",
+        :fullname => "#{admin_name}",
+        :superuser => true,
+        :email => "#{admin_email}")
+ActiveRecord::Base.remove_connection
+
 
 print "\n\nThe configuration has been written. You can find the\n"
 print "site-specific SQL script in db/site_setup.sql, which should\n"

@@ -85,7 +85,7 @@ class InitialSchema < ActiveRecord::Migration
       t.column :approved, :boolean, :default => false, :null => false
     end
 
-    add_index "groups", ["name"], :name => "name", :unique => true
+    add_index :groups, [:name], :unique => true
 
     create_table :groups_selectors, :id => false, :force => true do |t|
       t.column :selector_id, :integer, :default => 0, :null => false
@@ -144,7 +144,7 @@ class InitialSchema < ActiveRecord::Migration
       t.column :updated_on, :datetime
     end
 
-    add_index "users", ["login"], :name => "login", :unique => true
+    add_index :users, [:login], :unique => true
 
   end
   
