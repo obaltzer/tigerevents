@@ -74,4 +74,12 @@ module ApplicationHelper
             + %(<option value="1") + (value ? %(selected="selected") : "") + %(>pm</option>\n)\
             + %(</select>)
     end
+
+    def context_help
+        @context = {}
+        @context[:controller] = @params[:controller]
+        @context[:action] = "help"
+        @context[:id] = @params[:action]
+        render_partial 'layouts/context_help'
+    end
 end

@@ -1,6 +1,6 @@
 class ContentController < ApplicationController
 
-   def ninjas
+   def help
    end
 
 end

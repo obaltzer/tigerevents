@@ -7,7 +7,6 @@
     </div>
     <%= text_field 'priority', 'name' %>
   </div>
-  <%= hidden_field_tag 'priority[rank]', '0' %>  
   <div>
     <input type="hidden" name="update_with" value="<%= url_for :action => "list" %>"/> 
     <input type="hidden" name="update" value="priority_list"/> 

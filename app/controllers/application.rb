@@ -34,4 +34,8 @@ class ApplicationController < ActionController::Base
             redirect_back_or_default :controller => "events", :action => "index"
 	end
     end
+
+    def help
+        render_partial @params[:controller] + "/help_" + @params[:id]
+    end
 end
