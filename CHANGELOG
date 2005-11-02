@@ -1,5 +1,10 @@
-HEAD
+0.6.0p
 
+Setup script now handles table generation and superuser creation
+Lots of admin usability fixes, including better searching for users and
+groups.
+Group listing now shows all historical events.
+Selectors can be deleted.
 Refactoring of system to use migrations and to be database neutral
 Upgraded to Rails gem 0.14.1
 Authentication scheme broken into multiple files and now act as mixins
@@ -13,6 +18,10 @@ Multiple usability issues cleaned up.
 Fixed an issue with the group history page having edit and delete
 links (even though non-members could not execute those tasks anyway)
 
+For a full list of bug fixes, please refer to 
+http://mblast.cs.dal.ca/projects/te2/query?status=closed&milestone=0.6.0
+
 TigerEvents 0.5.0 (2005-09-26)
 
  - initial public release
+ http://mblast.cs.dal.ca/projects/te2/query?status=closed&milestone=0.5.0

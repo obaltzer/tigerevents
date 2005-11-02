@@ -116,6 +116,8 @@ class InitialSchema < ActiveRecord::Migration
       t.column :rank, :integer, :default => 0, :null => false
     end
 
+    Priority.create(:name => 'Default Priority')
+
     create_table :priorities_selectors, :id => false, :force => true do |t|
       t.column :selector_id, :integer, :default => 0, :null => false
       t.column :priority_id, :integer, :default => 0, :null => false

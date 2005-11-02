@@ -7,8 +7,10 @@ the developers in IRC channel #tigers on the Freenode network
 
 Dependencies:
 
-  - Ruby 1.8
-  
+  - Ruby >= 1.8
+
+  - Rails >= 0.14.1
+
   - ruby/ldap
     
     Ruby/LDAP must be installed in order to use LDAP user authentication.
@@ -16,6 +18,9 @@ Dependencies:
     http://ruby-ldap.sourceforge.net/.
 
 Setup:
+
+  - create a database and associate a user with it for usage by
+    tigerevents.
 
   - run the setup script from the root directory of the distribution using
     the following command:
@@ -28,6 +33,9 @@ Setup:
   - Run the Webrick webserver by calling:
 
     ruby script/server
+
+  - Log in with the admin account and create your priorities, selectors, and
+    group classes (there are some defaults available) through the online admin interface.
 
   - For a production site setup please refer to the Rails documentation in
     README.Rails
