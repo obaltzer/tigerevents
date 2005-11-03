@@ -18,7 +18,11 @@ class PrioritiesController < ApplicationController
 
     def create
         p = Priority.find(:first, :order => "rank DESC")
-        @params[:priority][:rank] = p.rank + 1
+        if not p
+            @params[:priority][:rank] = 1
+        else
+            @params[:priority][:rank] = p.rank + 1
+        end
         @priority = Priority.new @params[:priority]
         if @priority.save
             redirect_to @params[:update_with]

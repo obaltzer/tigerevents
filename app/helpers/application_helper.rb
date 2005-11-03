@@ -75,11 +75,11 @@ module ApplicationHelper
             + %(</select>)
     end
 
-    def context_help
+    def context_help(action = nil)
         @context = {}
         @context[:controller] = @params[:controller]
         @context[:action] = "help"
-        @context[:id] = @params[:action]
+        @context[:id] = action ? action : @params[:action]
         render_partial 'layouts/context_help'
     end
 end

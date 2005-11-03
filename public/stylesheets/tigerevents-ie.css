@@ -1,3 +1,11 @@
+#site_logo
+{
+    background: url(/images/generic-logo.gif) no-repeat;
+    border: 0;
+    padding: 0;
+    margin-bottom: 0.2em;
+}
+
 /* IE does not support CSS2 selectors and this file fixes this. */
 div.selector div.selector_name
 {
@@ -35,3 +43,4 @@ div.selector#all_announcements div.selector_content
     font-size: 80%;
     font-style: italic;
 }
+

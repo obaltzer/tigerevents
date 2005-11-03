@@ -325,12 +325,9 @@ User.create(:login => "#{admin_username}",
 ActiveRecord::Base.remove_connection
 
 
-print "\n\nThe configuration has been written. You can find the\n"
-print "site-specific SQL script in db/site_setup.sql, which should\n"
-print "be executed by the database administrator to setup the database.\n"
-print "E.g:\n\n"
-print "\t$ mysql -u root < db/site_setup.sql\n\n"
-print "After this you can run the local test web-server by executing:\n\n"
+print "\n\nThe configuration has been written and the database has\n"
+print "been set up. You can now run the local test web-server\n"
+print "by executing:\n\n"
 print "\truby script/server\n\n"
 print "and connect to http://localhost:3000/.\n\n"
 print "You need to login to the website with the administrator account\n"

@@ -12,3 +12,7 @@ else
 {
     setActiveStyleSheet('nofx', 1);
 }
+if(browser.isIE)
+{
+    setActiveStyleSheet('ie', 1);
+}
