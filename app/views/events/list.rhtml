@@ -11,7 +11,7 @@
     <div class="ban_notice"><%= @flash[:ban_notice] %></div>
 <% end %>
 <div id="period_display">
-  <small>Time period displayed: <%= @period[:startTime].strftime('%A, %b %d %Y') %> to <%= @period[:endTime].strftime('%A, %b %d %Y') %></small>
+  <small>Events From <%= @period[:startTime].strftime('%A, %b %d %Y') %> to <%= @period[:endTime].strftime('%A, %b %d %Y') %></small>
 </div>
 <div id="selector_container">
 <% for selector in @selectors %>

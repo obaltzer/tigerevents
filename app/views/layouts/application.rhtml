@@ -82,7 +82,9 @@
           <%= end_form_tag %>
           </li>
       <% else %>
-        <%= render_file "account/login" %>
+        <li>
+            <%= render_file "account/login" %>
+        </li>
       <% end -%>
       <li>
       <div id="bug_box">
@@ -98,6 +100,7 @@
 
     <div id="time_period_selection">
       <ul id="time_period_links">
+        <li>Change View To: </li>
         <li><%= link_to 'This Week', :controller => "events", :action => "list", :id => "this_week" %></li>
         <li><%= link_to 'Next Week', :controller => "events", :action => "list", :id => "next_week" %></li>
         <li><%= link_to 'This Month', :controller => "events", :action => "list", :id => "this_month" %></li>
