@@ -3,3 +3,13 @@ Welcome to TigerEvents
   TigerEvents is a web-based events announcement system. It is based on the
   Ruby on Rails application framework. For detailed installation
   instructions please refer to files INSTALL and README.Rails.
+
+Upgrading to 0.6.0
+
+Due to the switch to migrations in 0.6 and the inclusion of new columns,
+there are some things you need to do to ensure that you keep your old data.
+
+1) Dump tables using 'mysqldump -t -c'
+2) Drop your old database, and create a new blank one
+3) run 'ruby upgrade_to_0.6.rb'
+4) Import your old data
