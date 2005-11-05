@@ -12,6 +12,7 @@
   </div>
   <%= text_area 'group', 'description', :rows => 5 %>
 </div>
+<% if @group_classes.length > 1 %>
 <div class="input">
   <label for="group_group_class_id">Group Class</label>
   <div class="description">
@@ -21,3 +22,4 @@
     <%= options_from_collection_for_select @group_classes, 'id', 'name', @group.group_class_id %>
   </select>  
 </div>
+<% end %>

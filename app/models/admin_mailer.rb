@@ -3,7 +3,7 @@ class AdminMailer < ActionMailer::Base
   def group_approved(group)
     @subject    = 'Group Approved'
     @body["group"] = group
-    @recipients = 'ssmith@cs.dal.ca'
+    @recipients = group.users.first.email
     @from       = ADMIN_EMAIL
     @sent_on    = Time.now
   end
