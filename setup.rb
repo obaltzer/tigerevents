@@ -24,7 +24,19 @@ if cont != "y"
     exit
 end
 
-print "Section 1: Authentication System\n"
+
+print "Section 1: Server\n"
+print "--------------------------------\n"
+
+hostname = nil
+while not hostname
+    print "\nWhat is the root path to your tigerevents install?\n"
+    print "e.g. http://tigerevents.tigeronrails.com\n\n"
+    print "Hostname/path: "
+    hostname = gets.strip
+end
+
+print "Section 2: Authentication System\n"
 print "--------------------------------\n"
 
 auth = nil
@@ -33,7 +45,7 @@ while not auth
     print "authenticate user?\n\n"
     print "\t[1] Database\n"
     print "\t[2] LDAP (requires an SSL/TLS enabled LDAP server)\n\n"
-    print "Selection (default 1): "
+    print "Selection (default [1]): "
     auth = gets.strip
     if auth == ""
         auth = "1"

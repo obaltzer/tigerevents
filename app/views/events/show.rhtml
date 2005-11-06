@@ -15,8 +15,11 @@
   </div>
   <table class="event_information">
     <tr class="event_description">
+      <th>
+        Event Description:
+      </th>
       <td colspan="3" >
-        <%= simple_format(@event.description) %>
+        <%= sanitize(simple_format(@event.description)) %>
       </td>
     </tr>
     <tr class="event_organizer">
