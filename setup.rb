@@ -28,12 +28,12 @@ end
 print "Section 1: Server\n"
 print "--------------------------------\n"
 
-hostname = nil
-while not hostname
+te_path = nil
+while not te_path
     print "\nWhat is the root path to your tigerevents install?\n"
     print "e.g. http://tigerevents.tigeronrails.com\n\n"
     print "Hostname/path: "
-    hostname = gets.strip
+    te_path = gets.strip
 end
 
 print "Section 2: Authentication System\n"
