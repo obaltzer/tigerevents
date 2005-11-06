@@ -1,13 +1,23 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-<% for i in 1..9 %> activity_<%= i %>:
+<% for i in 1..9 %> 
+activity_<%= i %>:
   id: <%= i %>
   action: 'Create'
   user_id: 1
   event_id: <%= i %>
 <% end %>
-<% for i in 10..20 %> activity_<%= i %>:
-  id: <%= i %>
+activity_10:
+  id: 10
   action: 'Create'
-  user_id: 2 
-  event_id: <%= i %>
-<% end %>
+  user_id: 5 
+  event_id: 10
+activity_11:
+  id: 11
+  action: 'Create'
+  user_id: 6 
+  event_id: 11
+activity_12:
+  id: 12
+  action: 'Create'
+  user_id: 5
+  event_id: 12

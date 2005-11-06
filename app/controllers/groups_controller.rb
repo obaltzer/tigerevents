@@ -207,8 +207,10 @@ class GroupsController < ApplicationController
     def history
 	@group = Group.find(@params[:id])
 	@events_pages, @events = paginate :event, :per_page => 10,
-            :conditions => ["events.group_id = ? AND events.deleted = ? AND events.startTime < ?",
-            @group.id, false, Time.now]
+            :conditions => ["events.group_id = ? AND events.deleted = ? 
+                AND events.startTime < ? AND events.endTime IS ? OR
+                events.endTime < ?",
+            @group.id, false, Time.now, nil, Time.now]
         render_partial
     end
 end

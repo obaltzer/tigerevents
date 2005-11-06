@@ -38,3 +38,11 @@ gu_9:
   user_id: 2
   group_id: 4
   authorized: 0
+gu_10:
+  user_id: 5
+  group_id: 5
+  authorized: 1
+gu_11:
+  user_id: 6
+  group_id: 5
+  authorized: 0
