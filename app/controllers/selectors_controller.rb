@@ -14,7 +14,7 @@ class SelectorsController < ApplicationController
     end
     
     def list
-        @selectors = Selector.find_all
+        @selectors = Selector.find(:all)
     end
     
     def events
@@ -35,7 +35,7 @@ class SelectorsController < ApplicationController
            
             # computing the conditions depending on the associations
             # between the selector and other entities
-            association_types = AssociationType.find_all
+            association_types = AssociationType.find(:all)
             condition_str = []
             condition_val = []
             for t in association_types do
@@ -168,7 +168,7 @@ class SelectorsController < ApplicationController
         @selector.associations.each { |a|
             @associations[a] = {}
             @associations[a][:active] = @selector.send(Inflector.pluralize(a))
-            tmp = Array.new(eval(Inflector.camelize(a)).find_all)
+            tmp = Array.new(eval(Inflector.camelize(a)).find(:all))
             tmp.reject! { |x|
                 @associations[a][:active].include?(x) 
             }
@@ -187,7 +187,7 @@ class SelectorsController < ApplicationController
         @selector.send(assoc).clear
         # get all possible association objects for this association
         map = {}
-        eval(Inflector.camelize(association)).find_all.each { |x| 
+        eval(Inflector.camelize(association)).find(:all).each { |x| 
             map[x.id] = x
         }
         # now iterate over the new associations and add them to the

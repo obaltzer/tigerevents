@@ -7,7 +7,7 @@
         Set the priority of the event. The higher the priority the more further up the event will be displayed in a list.
       </div>
       <select id="event_priority" name="event[priority_id]">
-        <%= options_from_collection_for_select Priority.find_all, 'id', 'name', @event.priority ? @event.priority.id : -1 %>
+        <%= options_from_collection_for_select Priority.find(:all), 'id', 'name', @event.priority ? @event.priority.id : -1 %>
       </select>
     </div>
   <% end %>

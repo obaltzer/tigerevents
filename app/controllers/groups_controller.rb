@@ -28,7 +28,7 @@ class GroupsController < ApplicationController
             # redirection kicks in
             redirect_to :action => 'edit', :id => @group
         else
-            @group_classes = GroupClass.find_all
+            @group_classes = GroupClass.find(:all)
             render_action 'edit'
         end
     end
@@ -46,7 +46,7 @@ class GroupsController < ApplicationController
     
     def new_remote
         @group = Group.new
-        @group_classes = GroupClass.find_all
+        @group_classes = GroupClass.find(:all)
         render_partial
     end
     
@@ -110,7 +110,7 @@ class GroupsController < ApplicationController
 							
     def edit
        @group = Group.find(@params[:id])
-       @group_classes = GroupClass.find_all
+       @group_classes = GroupClass.find(:all)
     end
 
     #the next two methods deal with finding unauthorized members and possibly authorizing or dismissing them

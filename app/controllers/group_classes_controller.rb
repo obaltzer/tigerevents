@@ -2,7 +2,7 @@ class GroupClassesController < ApplicationController
     before_filter :super_user
     
     def list
-        @group_classes = GroupClass.find_all
+        @group_classes = GroupClass.find(:all)
         @complements = {}
         for c in @group_classes do
             @complements[c] = Array.new(@group_classes)
