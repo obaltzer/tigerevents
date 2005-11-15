@@ -1,4 +1,15 @@
-0.6.0p
+0.6.1
+
+Fixed errors with history including pagination not working, and unapproved
+events being shown.
+Context sensitive help has been added to the selectors page.
+Removed problem where users were unable to create groups due to not being
+able to select a group class.
+HTML now properly displayed in both frontpage and event page.
+Fixed an issue where some mail was going to 'ssmith@cs.dal.ca' instead of
+to the owner of a group.
+
+0.6.0
 
 Setup script now handles table generation and superuser creation
 Lots of admin usability fixes, including better searching for users and

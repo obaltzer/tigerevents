@@ -208,9 +208,15 @@ class GroupsController < ApplicationController
     def history
 	#@group = Group.find(@params[:id])
 	@events_pages, @events = paginate :event, :per_page => 10,
+            :joins => "LEFT JOIN activities ON events.id =
+            activities.event_id LEFT JOIN groups ON groups.id =
+            events.group_id LEFT JOIN groups_users ON groups.id =
+            groups_users.group_id",
             :conditions => ["events.group_id = ? AND events.deleted = ? 
                 AND events.startTime < ? AND (events.endTime IS ? 
-                OR events.endTime < ?)",
-            @group.id, false, Time.now, nil, Time.now]
+                OR events.endTime < ?) AND activities.action = 'CREATE'
+                AND activities.user_id = groups_users.user_id
+                AND groups_users.authorized = ?",
+            @group.id, false, Time.now, nil, Time.now, true]
     end
 end
