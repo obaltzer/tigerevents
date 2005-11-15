@@ -1,5 +1,7 @@
 0.6.1
 
+Made non-approved event highlighting more visible, and removed legend when
+no unapproved items are displayed.
 Fixed errors with history including pagination not working, and unapproved
 events being shown.
 Context sensitive help has been added to the selectors page.

@@ -201,6 +201,13 @@ class GroupsController < ApplicationController
     def list_events_remote
        @group = Group.find(@params[:id])
        @events = @group.undeleted_events
+       @show_legend = false
+       for event in @events
+        if(event.pending?(@group))
+            @show_legend = true
+            break
+        end
+       end
        render_partial
     end
     
