@@ -201,8 +201,42 @@ div#advanced_time p
 #add_group_form,
 #add_category_form
 {
-    padding: 0.5em;
-    border: 1px dotted black;
+}
+div.embedded_add_form div.wrapper
+{
+    padding: 0 0.5em 1em 0.5em;
+    border-bottom: 2px solid #535353;
+    border-left: 1px solid #535353;
+    border-right: 1px solid #535353;
+    background-color: #DFEDCF;
+}
+
+div.embedded_add_form div.wrapper h3
+{
+    margin-left: -0.5em;
+    margin-right: -0.5em;
+    padding: 2px 0.5em 2px 0.5em;
+    font-size: 100%;
+    font-weight: bold;
+    background-color: #B0B0B0;
+    color: white;
+    border-top: 2px solid #535353;
+}
+
+div.embedded_add_form div.hide_button
+{
+    color: blue;
+    float: right;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-right: 1em;
+    font-size: 9pt;
+}
+
+div.embedded_add_form div.hide_button img
+{
+    vertical-align: top;
+    margin-top: 1px;
 }
 
 .invisibleclear
@@ -937,3 +971,19 @@ div#priority_new
 {
     margin: 2em 0.5em 0.5em 0.5em;
 }
+
+span.add_action
+{
+    margin-left: 1.5em;
+    color: blue;
+    vertical-align: bottom;
+}
+
+span.add_action:hover
+{
+    margin-left: 1.5em;
+    text-decoration: underline;
+    cursor: pointer;
+    cursor: hand;
+}
+

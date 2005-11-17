@@ -3,3 +3,6 @@ Welcome to TigerEvents
   TigerEvents is a web-based events announcement system. It is based on the
   Ruby on Rails application framework. For detailed installation
   instructions please refer to files INSTALL and README.Rails.
+
+  If you are upgrading from a previous version of TigerEvents, please refer
+  to the documentation in file UPGRADE.

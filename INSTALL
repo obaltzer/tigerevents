@@ -19,10 +19,10 @@ Dependencies:
 
 Setup:
 
-  - create a database and associate a user with it for usage by
+  - Create a database and associate a user with it for usage by
     tigerevents.
 
-  - run the setup script from the root directory of the distribution using
+  - Run the setup script from the root directory of the distribution using
     the following command:
 
     ruby setup.rb
@@ -35,7 +35,8 @@ Setup:
     ruby script/server
 
   - Log in with the admin account and create your priorities, selectors, and
-    group classes (there are some defaults available) through the online admin interface.
+    group classes (there are some defaults available) through the online
+    administration interface.
 
   - For a production site setup please refer to the Rails documentation in
     README.Rails
