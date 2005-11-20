@@ -1,5 +1,6 @@
 0.6.1
 
+Changes the way the add group and add category forms worked.
 Made non-approved event highlighting more visible, and removed legend when
 no unapproved items are displayed.
 Fixed errors with history including pagination not working, and unapproved
@@ -11,7 +12,10 @@ HTML now properly displayed in both frontpage and event page.
 Fixed an issue where some mail was going to 'ssmith@cs.dal.ca' instead of
 to the owner of a group.
 
-0.6.0
+For a full list see:
+http://www.tigeronrails.com/tigerevents/query?status=closed&milestone=0.6.1
+
+0.6.0 (2005-03-11)
 
 Setup script now handles table generation and superuser creation
 Lots of admin usability fixes, including better searching for users and
@@ -32,9 +36,9 @@ Fixed an issue with the group history page having edit and delete
 links (even though non-members could not execute those tasks anyway)
 
 For a full list of bug fixes, please refer to 
-http://mblast.cs.dal.ca/projects/te2/query?status=closed&milestone=0.6.0
+http://www.tigeronrails.com/tigerevents/query?status=closed&milestone=0.6.0
 
 TigerEvents 0.5.0 (2005-09-26)
 
  - initial public release
- http://mblast.cs.dal.ca/projects/te2/query?status=closed&milestone=0.5.0
+ http://www.tigeronrails.com/tigerevents/query?status=closed&milestone=0.5.1
