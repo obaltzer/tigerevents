@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require './config/boot'
-
 begin
     require 'rubygems'
 rescue LoadError
@@ -311,31 +310,12 @@ fork do
     exec "rake migrate"
 end
 Process.wait
-if db_conn == "socket"
-ActiveRecord::Base.establish_connection(
-    :adapter  => "mysql",
-    :socket   => "#{db_sock}",
-    :username => "#{db_user}",
-    :password => "#{db_pass}",
-    :database => "#{db_name}"
-)
-elsif db_conn == "TCP/IP"
-ActiveRecord::Base.establish_connection(
-    :adapter  => "mysql",
-    :host     => "#{db_host}",
-    :username => "#{db_user}",
-    :password => "#{db_pass}",
-    :database => "#{db_name}"
-    )
-end
-
+require './config/environment'
 User.create(:login => "#{admin_username}",
         :user_password => "#{admin_password}",
         :fullname => "#{admin_name}",
         :superuser => true,
         :email => "#{admin_email}")
-ActiveRecord::Base.remove_connection
-
 
 print "\n\nThe configuration has been written and the database has\n"
 print "been set up. You can now run the local test web-server\n"
