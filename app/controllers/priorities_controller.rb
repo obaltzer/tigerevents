@@ -63,7 +63,7 @@ class PrioritiesController < ApplicationController
             @params[:priorities].size.times { |i| 
                 map[@params[:priorities][i].to_i] = i + 1
             }
-            for p in Priority.find_all
+            for p in Priority.find(:all)
                 if map[p.id]
                     p.update_attribute :rank, map[p.id]
                 end

@@ -29,8 +29,8 @@ class EventsController < ApplicationController
 
     def new
         @event = Event.new
-        @groups = Group.find_all
-        @groupclasses = GroupClass.find_all
+        @groups = Group.find(:all)
+        @groupclasses = GroupClass.find(:all)
     end
 
     def create
@@ -62,9 +62,9 @@ class EventsController < ApplicationController
            
             redirect_to :action => 'list'
         else
-            @categories = Category.find_all
-            @groups = Group.find_all
-            @groupclasses = GroupClass.find_all
+            @categories = Category.find(:all)
+            @groups = Group.find(:all)
+            @groupclasses = GroupClass.find(:all)
             render_action 'new'
         end
     end
@@ -75,9 +75,9 @@ class EventsController < ApplicationController
            redirect_to :action => 'list'
         end
 
-        @categories = Category.find_all
-        @groups = Group.find_all
-        @groupclasses = GroupClass.find_all
+        @categories = Category.find(:all)
+        @groups = Group.find(:all)
+        @groupclasses = GroupClass.find(:all)
     end
 
     def update
@@ -125,7 +125,7 @@ class EventsController < ApplicationController
         else
             @event = Event.new(@params[:event])
         end
-        @categories = Category.find_all.sort_by { |a| a.name }
+        @categories = Category.find(:all).sort_by { |a| a.name }
         render_partial
     end
     

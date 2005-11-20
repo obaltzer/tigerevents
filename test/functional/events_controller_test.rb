@@ -38,12 +38,12 @@ class EventsControllerTest < Test::Unit::TestCase
   end
 
   def test_create
-    num_events = Event.find_all.size
+    num_events = Event.find(:all).size
 
     post :create, 'event' => { }
     assert_redirected_to :action => 'list'
 
-    assert_equal num_events + 1, Event.find_all.size
+    assert_equal num_events + 1, Event.find(:all).size
   end
 
   def test_edit

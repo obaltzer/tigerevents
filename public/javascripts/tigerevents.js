@@ -260,3 +260,28 @@ function setActiveStyleSheet(title, reset)
         }
     }
 }
+
+function toggle_action_link(id, on, off)
+{
+    var elem;
+
+    if(document.getElementById)
+    {
+        elem = document.getElementById(id)
+    }
+    else if(document.all)
+    {
+        elem = eval("document.all." + id)
+    }
+    else
+        return false;
+
+    if(elem.innerHTML == on)
+    {
+        elem.innerHTML = off;
+    }
+    else
+    {
+        elem.innerHTML = on;
+    }
+}

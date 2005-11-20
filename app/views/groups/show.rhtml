@@ -10,5 +10,4 @@
   Class: <%=h @group.group_class.name %>
 </p>
 <h3>History</h3>
-<%= render_component :controller => "groups", :action => "history", :id =>
-@group.id %>
+<%= render_partial 'history' %>

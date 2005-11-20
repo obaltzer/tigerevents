@@ -1,8 +1,8 @@
 <% require 'time' %>
    <div class="history">
-    <%= link_to "Previous page", { :page => @events_pages.current.previous } if @events_pages.current.previous %>
-    <%= pagination_links @events_pages %>
-    <%= link_to "Next page", { :page => @events_pages.current.next } if @events_pages.current.next %> 
+    <%= link_to "Previous page", {:controller => 'groups', :action => 'show', :page => @events_pages.current.previous } if @events_pages.current.previous %>
+    <%= pagination_links @events_pages, :params => {:action => 'show'} %>
+    <%= link_to "Next page", {:controller => 'groups', :action => 'show', :page => @events_pages.current.next } if @events_pages.current.next %> 
       <table>
          <tr>
             <th>Name</th><th>Date</th>

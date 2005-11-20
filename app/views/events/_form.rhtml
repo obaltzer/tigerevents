@@ -7,7 +7,7 @@
         Set the priority of the event. The higher the priority the more further up the event will be displayed in a list.
       </div>
       <select id="event_priority" name="event[priority_id]">
-        <%= options_from_collection_for_select Priority.find_all, 'id', 'name', @event.priority ? @event.priority.id : -1 %>
+        <%= options_from_collection_for_select Priority.find(:all), 'id', 'name', @event.priority ? @event.priority.id : -1 %>
       </select>
     </div>
   <% end %>
@@ -112,11 +112,17 @@
     <div class="description">
       Specify which society or group organizes this event or create a new group.
     </div>
-    <div style="float: right" id="add_group_button">
-      <input type="button" value="Add Group" onclick="toggle('add_group_button');toggle('add_group_form');clear_field('group_name');clear_field('group_description');focus_form('add_group_form');"/>
+    <div>
+      <span id="groups_list">
+      <%= render_component :action => 'list_groups', :id => @event.id, :params => @params %> 
+      </span>
+      <span class="add_action" id="show_group_form" onclick="toggle_slide('add_group_form');toggle_action_link('show_group_form', 'Add a new group', 'Hide form');">Add a new group</span>
     </div>
-    <div style="float: right; display: none" id="add_group_form">
-      <%= render_component :controller => "groups",
+    <div class="embedded_add_form" style="display: none;" id="add_group_form">
+      <div class="wrapper">
+        <div class="hide_button" onclick="toggle_slide('add_group_form');toggle_action_link('show_group_form', 'Add a new group', 'Hide form');">hide <%= image_tag 'close.gif' %></div>
+        <h3>Add a new group</h3>
+        <%= render_component :controller => "groups",
                            :action => "new_remote",
                            :params => { 
                               :update => "groups_list",
@@ -126,12 +132,10 @@
                                   :id => @event.id
                                 },
                               :html => {
-                                :onsubmit => "toggle('add_group_button');toggle('add_group_form');"
+                                :onsubmit => "toggle_slide('add_group_form');toggle_action_link('show_group_form', 'Add a new group', 'Hide form');"
                               }
-                            } %>   
-    </div>
-    <div id="groups_list">
-      <%= render_component :action => 'list_groups', :id => @event.id, :params => @params %>
+                            } %>
+      </div>
     </div>
   </div>
 
@@ -141,26 +145,30 @@
       Specify the categories this event or announcement fits under or create a
       new category. Hold 'Ctrl' key to select multiple categories.  
     </div>
-    <div style="float: right" id="add_category_button">
-      <input type="button" value="Add Category" onclick="toggle('add_category_button');toggle('add_category_form');clear_field('category_name');focus_form('add_category_form');" />
+    <div>
+      <span id="category_list" >
+        <%= render_component :action => 'list_categories', :id => @event.id, :params => @params %>
+      </span>
+      <span class="add_action" id="show_category_form" onclick="toggle_slide('add_category_form');toggle_action_link('show_category_form', 'Add a new category', 'Hide form');">Add a new category</span>
     </div>
-    <div style="float: right; display: none" id="add_category_form">
-      <%= render_component :controller => "categories",
-                           :action => "new_remote",
-                           :params => { 
-                              :update => "category_list",
-                              :update_with => {
-                                  :controller => "events",
-                                  :action => "list_categories",
-                                  :id => @event.id
-                                },
-                              :html => {
-                                :onsubmit => "toggle('add_category_button');toggle('add_category_form');"
-                              }
-                            } %> 
-    </div>
-    <div id="category_list" >
-      <%= render_component :action => 'list_categories', :id => @event.id, :params => @params %>
+    <div class="embedded_add_form" style="display: none" id="add_category_form">
+      <div class="wrapper">
+        <div class="hide_button" onclick="toggle_slide('add_category_form');toggle_action_link('show_category_form', 'Add a new category', 'Hide form');">hide <%= image_tag 'close.gif' %></div>
+        <h3>Add a new category</h3>
+        <%= render_component :controller => "categories",
+                             :action => "new_remote",
+                             :params => { 
+                                :update => "category_list",
+                                :update_with => {
+                                    :controller => "events",
+                                    :action => "list_categories",
+                                    :id => @event.id
+                                  },
+                                :html => {
+                                  :onsubmit => "toggle_slide('add_category_form');toggle_action_link('show_category_form', 'Add a new category', 'Hide form');"
+                                }
+                              } %> 
+      </div>
     </div>
   </div>
 

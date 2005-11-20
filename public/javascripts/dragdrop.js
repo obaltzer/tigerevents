@@ -10,7 +10,7 @@ var Droppables = {
   drops: [],
 
   remove: function(element) {
-    this.drops = this.drops.reject(function(e) { return e==element });
+    this.drops = this.drops.reject(function(d) { return d.element==element });
   },
 
   add: function(element) {
@@ -93,7 +93,7 @@ var Droppables = {
 
     if (this.isAffected(Event.pointerX(event), Event.pointerY(event), element, this.last_active))
       if (this.last_active.onDrop) 
-        this.last_active.onDrop(element, this.last_active.element);
+        this.last_active.onDrop(element, this.last_active.element, event);
   },
 
   reset: function() {
@@ -137,7 +137,11 @@ Draggable.prototype = {
     }, arguments[1] || {});
 
     this.element      = $(element);
-    this.handle       = options.handle ? $(options.handle) : this.element;
+    if(options.handle && (typeof options.handle == 'string'))
+      this.handle = Element.Class.childrenWith(this.element, options.handle)[0];
+      
+    if(!this.handle) this.handle = $(options.handle);
+    if(!this.handle) this.handle = this.element;
 
     Element.makePositioned(this.element); // fix IE    
 
@@ -147,7 +151,6 @@ Draggable.prototype = {
     this.originalTop  = this.currentTop();
     this.originalX    = this.element.offsetLeft;
     this.originalY    = this.element.offsetTop;
-    this.originalZ    = parseInt(this.element.style.zIndex || "0");
 
     this.options      = options;
 
@@ -158,24 +161,24 @@ Draggable.prototype = {
     this.eventMouseUp   = this.endDrag.bindAsEventListener(this);
     this.eventMouseMove = this.update.bindAsEventListener(this);
     this.eventKeypress  = this.keyPress.bindAsEventListener(this);
-
-    Event.observe(this.handle, "mousedown", this.eventMouseDown);
+    
+    this.registerEvents();
   },
   destroy: function() {
     Event.stopObserving(this.handle, "mousedown", this.eventMouseDown);
     this.unregisterEvents();
   },
   registerEvents: function() {
-    if(this.active) return;
     Event.observe(document, "mouseup", this.eventMouseUp);
     Event.observe(document, "mousemove", this.eventMouseMove);
     Event.observe(document, "keypress", this.eventKeypress);
+    Event.observe(this.handle, "mousedown", this.eventMouseDown);
   },
   unregisterEvents: function() {
-    if(!this.active) return;
-    Event.stopObserving(document, "mouseup", this.eventMouseUp);
-    Event.stopObserving(document, "mousemove", this.eventMouseMove);
-    Event.stopObserving(document, "keypress", this.eventKeypress);
+    //if(!this.active) return;
+    //Event.stopObserving(document, "mouseup", this.eventMouseUp);
+    //Event.stopObserving(document, "mousemove", this.eventMouseMove);
+    //Event.stopObserving(document, "keypress", this.eventKeypress);
   },
   currentLeft: function() {
     return parseInt(this.element.style.left || '0');
@@ -194,7 +197,7 @@ Draggable.prototype = {
         src.tagName=='BUTTON' ||
         src.tagName=='TEXTAREA')) return;
       
-      this.registerEvents();
+      // this.registerEvents();
       this.active = true;
       var pointer = [Event.pointerX(event), Event.pointerY(event)];
       var offsets = Position.cumulativeOffset(this.element);
@@ -204,7 +207,7 @@ Draggable.prototype = {
     }
   },
   finishDrag: function(event, success) {
-    this.unregisterEvents();
+    // this.unregisterEvents();
 
     this.active = false;
     this.dragging = false;
@@ -230,7 +233,8 @@ Draggable.prototype = {
       this.originalTop  = this.currentTop();
     }
 
-    this.element.style.zIndex = this.originalZ;
+    if(this.options.zindex)
+      this.element.style.zIndex = this.originalZ;
 
     if(this.options.endeffect) 
       this.options.endeffect(this.element);
@@ -271,8 +275,14 @@ Draggable.prototype = {
       if(!this.dragging) {
         var style = this.element.style;
         this.dragging = true;
-        if(style.position=="") style.position = "relative";
-        style.zIndex = this.options.zindex;
+        
+        if(Element.getStyle(this.element,'position')=='') 
+          style.position = "relative";
+        
+        if(this.options.zindex) {
+          this.originalZ = parseInt(Element.getStyle(this.element,'z-index') || 0);
+          style.zIndex = this.options.zindex;
+        }
 
         if(this.options.ghosting) {
           this._clone = this.element.cloneNode(true);
@@ -344,8 +354,9 @@ var Sortable = {
       only:        false,
       hoverclass:  null,
       ghosting:    false,
-      onChange:    function() {},
-      onUpdate:    function() {}
+      format:      null,
+      onChange:    Prototype.emptyFunction,
+      onUpdate:    Prototype.emptyFunction
     }, arguments[1] || {});
 
     // clear any old sortable with same element
@@ -461,7 +472,10 @@ var Sortable = {
 
   onEmptyHover: function(element, dropon) {
     if(element.parentNode!=dropon) {
+      var oldParentNode = element.parentNode;
       dropon.appendChild(element);
+      Sortable.options(oldParentNode).onChange(element);
+      Sortable.options(dropon).onChange(element);
     }
   },
 
@@ -494,11 +508,12 @@ var Sortable = {
     var options = Object.extend({
       tag:  sortableOptions.tag,
       only: sortableOptions.only,
-      name: element.id
+      name: element.id,
+      format: sortableOptions.format || /^[^_]*_(.*)$/
     }, arguments[1] || {});
-    return $A(element.childNodes).collect( function(item) { 
+    return $(this.findElements(element, options) || []).collect( function(item) {
       return (encodeURIComponent(options.name) + "[]=" + 
-              encodeURIComponent(item.id.split("_")[1]));
+              encodeURIComponent(item.id.match(options.format) ? item.id.match(options.format)[1] : ''));
     }).join("&");
   }
-} 
+}

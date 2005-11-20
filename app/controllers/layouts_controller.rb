@@ -9,7 +9,7 @@ class LayoutsController < ApplicationController
     def selector_selection
         @layout = Layout.find @params[:id]
         @active_selectors = @layout.selectors
-        @available_selectors = Array.new(Selector.find_all)
+        @available_selectors = Array.new(Selector.find(:all))
         @available_selectors.reject! { |x|
             @active_selectors.include?(x)
         }
@@ -24,7 +24,7 @@ class LayoutsController < ApplicationController
             @params[:active_selectors].size.times { |i| 
                 map[@params[:active_selectors][i].to_i] = i
             }
-            for selector in Selector.find_all
+            for selector in Selector.find(:all)
                 if map[selector.id]
                     @layout.selectors.push_with_attributes(
                         selector, "rank" =>  map[selector.id])

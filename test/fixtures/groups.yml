@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first_group:
+group_1:
   id: 1
   name: 'Computer Science Society'
   description: "Computer Science Society"
   group_class_id: 2
   approved: true
-second_group:
+group_2:
   id: 2
   name: 'Dal-ACM'
   description: "The Dalhousie Chapter Of The ACM"
@@ -17,10 +17,16 @@ super_group:
   description: "Dalhousie Student Union"
   group_class_id: 1
   approved: true
-not_approved:
+not_approved_1:
   id: 4
   name: 'DISA'
   description: "Dalhousie International Students Association"
   group_class_id: 2
   approved: false
+group_3:
+  id: 5
+  name: 'History Society'
+  description: "Dalhousie History Society"
+  group_class_id: 2
+  approved: true
 

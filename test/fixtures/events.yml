@@ -77,3 +77,29 @@ announcement_3:
   endTime: <%= (Time.now + 15.days).strftime("%Y-%m-%d %H:%M:%S")%>
   created_on: <%= Time.now.strftime("%Y-%m-%d %H:%M:%S")%>
   priority_id: 1
+old_event_1:
+  id: 10
+  group_id: 5
+  title: 'History Society Becomes History'
+  description: 'We make history historical'
+  startTime: <%=(Time.now - 15.days).strftime("%Y-%m-%d %H:%M:%S")%>
+  created_on: <%= (Time.now - 20.days).strftime("%Y-%m-%d %H:%M:%S")%>
+  priority_id: 4
+old_event_2:
+  id: 11
+  group_id: 5
+  title: 'Test Post'
+  description: 'Checking to see if history authorized filter is working'
+  startTime: <%=(Time.now - 10.days).strftime("%Y-%m-%d %H:%M:%S")%>
+  created_on: <%= (Time.now - 20.days).strftime("%Y-%m-%d %H:%M:%S")%>
+  priority_id: 4
+old_announcement_1:
+  id: 12
+  announcement: true
+  group_id: 5
+  title: 'Test Announcement'
+  description: 'Checking to see if history time filters work'
+  startTime: <%=(Time.now - 10.days).strftime("%Y-%m-%d %H:%M:%S")%>
+  endTime: <%=(Time.now - 5.days).strftime("%Y-%m-%d %H:%M:%S")%>
+  created_on: <%= (Time.now - 20.days).strftime("%Y-%m-%d %H:%M:%S")%>
+  priority_id: 4

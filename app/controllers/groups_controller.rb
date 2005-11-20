@@ -28,7 +28,7 @@ class GroupsController < ApplicationController
             # redirection kicks in
             redirect_to :action => 'edit', :id => @group
         else
-            @group_classes = GroupClass.find_all
+            @group_classes = GroupClass.find(:all)
             render_action 'edit'
         end
     end
@@ -46,12 +46,13 @@ class GroupsController < ApplicationController
     
     def new_remote
         @group = Group.new
-        @group_classes = GroupClass.find_all
+        @group_classes = GroupClass.find(:all)
         render_partial
     end
     
     def show
         @group = Group.find(@params[:id])
+        history
     end
 
     def mygroups
@@ -110,7 +111,7 @@ class GroupsController < ApplicationController
 							
     def edit
        @group = Group.find(@params[:id])
-       @group_classes = GroupClass.find_all
+       @group_classes = GroupClass.find(:all)
     end
 
     #the next two methods deal with finding unauthorized members and possibly authorizing or dismissing them
@@ -200,15 +201,29 @@ class GroupsController < ApplicationController
     def list_events_remote
        @group = Group.find(@params[:id])
        @events = @group.undeleted_events
+       @show_legend = false
+       for event in @events
+        if(event.pending?(@group))
+            @show_legend = true
+            break
+        end
+       end
        render_partial
     end
     
     #shows all events, lets you edit only those that haven't passed.
     def history
-	@group = Group.find(@params[:id])
+	#@group = Group.find(@params[:id])
 	@events_pages, @events = paginate :event, :per_page => 10,
-            :conditions => ["events.group_id = ? AND events.deleted = ? AND events.startTime < ?",
-            @group.id, false, Time.now]
-        render_partial
+            :joins => "LEFT JOIN activities ON events.id =
+            activities.event_id LEFT JOIN groups ON groups.id =
+            events.group_id LEFT JOIN groups_users ON groups.id =
+            groups_users.group_id",
+            :conditions => ["events.group_id = ? AND events.deleted = ? 
+                AND events.startTime < ? AND (events.endTime IS ? 
+                OR events.endTime < ?) AND activities.action = 'CREATE'
+                AND activities.user_id = groups_users.user_id
+                AND groups_users.authorized = ?",
+            @group.id, false, Time.now, nil, Time.now, true]
     end
 end
