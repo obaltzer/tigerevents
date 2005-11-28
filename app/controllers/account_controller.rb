@@ -1,8 +1,19 @@
 class AccountController < ApplicationController
     before_filter :super_user, :only => [:list, :toggle_superuser, \
                                          :toggle_banned]
+    before_filter :login_status, :only => [:login, :signup]
 
     include eval(AUTH_TYPE)
+
+    def login_status
+        if !@session[:user]
+            return true
+        else
+            flash[:auth] = "Already Logged in"
+            redirect_to :controller => 'events', :action => 'index'
+            return false
+        end
+    end
 
     def login
         case @request.method

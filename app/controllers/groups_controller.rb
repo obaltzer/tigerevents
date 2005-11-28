@@ -9,7 +9,8 @@ class GroupsController < ApplicationController
 
     def create_remote
         @group = Group.new(@params[:group])
-        if @group.save && @group.users.push_with_attributes( @session[:user], :authorized => 1 )
+        if @group.save && @group.users.push_with_attributes(
+        @session[:user].id, :authorized => 1 )
             # redirect back to the group listing for the current event
             redirect_to @params[:update_with]
         else
