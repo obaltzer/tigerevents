@@ -42,6 +42,8 @@ class AccountController < ApplicationController
 	    redirect_back_or_default :controller => 'events', :action => 'index'
 	end
         @session[:user] = nil
+        flash[:auth] = "You have now been successfully logged out"
+        redirect_back_or_default :controller => 'events', :action => 'index'
     end
 
     def list

@@ -76,6 +76,11 @@
               <li><%= link_to 'Edit Layout', :controller => 'layouts', :action => 'edit', :id => 1 %></li>
             </ul>
           </li>
+          <li>
+            <% if AccountController.new.respond_to?(:change_pass) %>
+                <%= link_to 'Change Password', :controller => 'account',
+                :action => 'change_pass' %>
+            <% end %>
           <% end %>
           <li>
           <%= start_form_tag :controller => "account", :action=> "logout" %>
@@ -93,7 +98,7 @@
         <p>
           File a ticket and we will take care of it.
         </p>
-        <a href="http://mblast.cs.dal.ca/projects/te2/newticket"><big>Click here!</big></a>
+        <a href="http://www.tigeronrails.com/tigerevents/newticket"><big>Click here!</big></a>
       </div>
       </li>
       </ul>
