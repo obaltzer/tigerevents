@@ -1,0 +1,21 @@
+<% @page_title = "Change Password" -%>
+<%= form_tag %>
+<table>
+    <tr>
+        <td>Old Password:</td>
+        <td><%= password_field("pass", "oldpass") %></td>
+    </tr>
+    <tr>
+        <td>New Password:</td>
+        <td><%= password_field("pass", "newpass") %></td>
+    </tr>
+    <tr>
+        <td>Verify New Password:</td>
+        <td><%= password_field("pass", "verifypass") %></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><input type="submit" value=" Change Password " /></td>
+    </tr>
+    </table>
+<%= end_form_tag %>

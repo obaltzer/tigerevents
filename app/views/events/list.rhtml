@@ -1,15 +1,3 @@
-<% @session[:prev_params] = { :controller => 'events', :action => 'list', \
-                              :id => "#{@params[:id]}"} %>
-
-<% if @flash[:auth] -%>
-    <div class="auth"><%= @flash[:auth] %></div>
-<%end -%>
-<% if @flash[:notice] %>
-    <div class="notice"><%= @flash[:notice] %></div>
-<% end %>
-<% if @flash[:ban_notice] %>
-    <div class="ban_notice"><%= @flash[:ban_notice] %></div>
-<% end %>
 <div id="period_display">
   <small>Events From <%= @period[:startTime].strftime('%A, %b %d %Y') %> to <%= @period[:endTime].strftime('%A, %b %d %Y') %></small>
 </div>

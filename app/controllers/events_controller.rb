@@ -1,10 +1,11 @@
 class EventsController < ApplicationController
-
     before_filter :login_required, :only => [:new, :edit, 
                   :create, :update, :delete]
     before_filter :can_edit, :only => [:edit, :update,  
                   :delete]
- 
+
+    after_filter :store_location
+
     def index
         list
         render_action 'list'
@@ -113,7 +114,7 @@ class EventsController < ApplicationController
             flash[:notice] = 'Event was successfully updated.'
             # clear selectors cache
             SelectorsController.clearCache
-            redirect_to @session[:prev_params]
+            redirect_to :back
         else
             render_action 'edit'
         end

@@ -10,7 +10,7 @@ class AccountController < ApplicationController
             return true
         else
             flash[:auth] = "Already Logged in"
-            redirect_to :controller => 'events', :action => 'index'
+            redirect_back_or_default :controller => 'events', :action => 'index'
             return false
         end
     end

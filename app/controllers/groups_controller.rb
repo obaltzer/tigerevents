@@ -7,6 +7,8 @@ class GroupsController < ApplicationController
                   :list_events_remote, :update]
     before_filter :super_user, :only => [:list]
 
+    after_filter :store_location
+
     def create_remote
         @group = Group.new(@params[:group])
         if @group.save && @group.users.push_with_attributes(
@@ -97,7 +99,7 @@ class GroupsController < ApplicationController
         if(@session[:user] == nil || @session[:user].banned? )
             flash[:auth] = \
                 "You do not have permission to manage this group."
-	    redirect_to :controller => "events", :action => "index"
+	    redirect_back_or_default :controller => "events", :action => "index"
         elsif(@session[:user].superuser? )
 	    return true
 	end
@@ -105,7 +107,7 @@ class GroupsController < ApplicationController
 	if(!Group.find(@params[:id]).authorized_users.include? @session[:user])
             flash[:auth] = \
                 "You do not have permission to manage this group."
-	    redirect_to :controller => "events", :action => "index"
+	    redirect_back_or_default :controller => "events", :action => "index"
         end
 	return true
     end

@@ -1,11 +1,4 @@
-<% @session[:prev_params] = @params %>
 <h1>Editing group</h1>
-
-<% if @flash[:notice] %>
-  <div class="notice">
-    <%=h @flash[:notice] %>
-  </div>
-<% end %>
 
 <%= error_messages_for 'group' %>
 

@@ -150,7 +150,17 @@
     </div>
 
     <div id="content">
-      
+
+        <% if @flash[:auth] -%>
+            <div class="auth"><%= @flash[:auth] %></div>
+        <% end -%>
+        <% if @flash[:notice] -%>
+            <div class="notice"><%= @flash[:notice] %></div>
+        <% end -%>
+        <% if @flash[:ban_notice] -%>
+            <div class="ban_notice"><%= @flash[:ban_notice] %></div>
+        <% end -%>
+
       <%= @content_for_layout %>
    
       <div class="invisibleclear">---</div>

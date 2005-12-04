@@ -1,11 +1,5 @@
 <h3>Editing Posting: <%= @event.title %></h3>
 
-<% if @flash[:notice] %>
-  <div class="notice">
-    <%=h @flash[:notice] %>
-  </div>
-<% end %>
-
 <% if (session[:user] != nil) && (session[:user][:superuser]) %>
   <div class="last_update">
     Last updated by:
@@ -13,12 +7,11 @@
     <%= "&lt;" + mail_to(@event.updator.email) + "&gt" if @event.updator.email %>
   </div>
 <% end %>
-                            
 
 <%= start_form_tag :action => 'update', :id => @event.id %>
   <%= render_partial "form" %>
   <div>
     <%= submit_tag 'Update' %>
-    <%=link_to 'Cancel', @session[:prev_params] %>
+    <%=link_to 'Cancel', @request.env['HTTP_REFERER'] %>
   </div>
 <%= end_form_tag %>

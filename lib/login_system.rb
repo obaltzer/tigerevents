@@ -48,12 +48,12 @@ module LoginSystem
       return true
     end
 
-    # store current location so that we can 
-    # come back after the user logged in
-    store_location
   
     # call overwriteable reaction to unauthorized access
     access_denied
+    # store current location so that we can 
+    # come back after the user logged in
+    store_location
     return false 
   end
 
@@ -64,7 +64,7 @@ module LoginSystem
   # a popup window might just close itself for instance
   def access_denied
     flash[:auth] = "You must log in to use this function"
-    redirect_to :controller => "events", :action => "list" 
+    redirect_back_or_default :controller => "events", :action => "list" 
 #    redirect_to :controller=>"/account", :action =>"login"
   end  
   
