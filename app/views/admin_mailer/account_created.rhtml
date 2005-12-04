@@ -1,4 +1,4 @@
-Dear <%= @user.fullname %>,
+<%= render :partial => './header' %>
 
 This is a quick e-mail to let you know your account has been created at
 #{TE_PATH} with the following details:
@@ -8,8 +8,4 @@ This is a quick e-mail to let you know your account has been created at
     E-mail <%= @user.email %>
     Password <%= @user.user_password %>
 
-Regards,
-
-
-<%= ADMIN_CONTACT %>
-
+<%= render :partial => './footer' %>

@@ -1,9 +1,7 @@
-Dear <%= @user.fullname %>,
+<%= render :partial => './_header' %>
 
 This is a quick e-mail to inform you that you have been accepted to the
 group <%= @group.name %>. You may now submit posts for said group as much as
 you want.
 
-Regards,
-
-<%= ADMIN_CONTACT %>
+<%= render :partial => './_footer' %>

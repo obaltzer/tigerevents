@@ -54,7 +54,6 @@ class GroupsController < ApplicationController
     end
     
     def show
-        @group = Group.find(@params[:id])
         history
     end
 
@@ -216,7 +215,7 @@ class GroupsController < ApplicationController
     
     #shows all events, lets you edit only those that haven't passed.
     def history
-	#@group = Group.find(@params[:id])
+	@group = Group.find(@params[:id])
 	@events_pages, @events = paginate :event, :per_page => 10,
             :joins => "LEFT JOIN activities ON events.id =
             activities.event_id LEFT JOIN groups ON groups.id =

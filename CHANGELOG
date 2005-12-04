@@ -1,3 +1,15 @@
+0.6.2
+
+Group classes are hidden from the user if there is only one.
+User's can change their password (SQL Authentication)
+Proper redirection to the previous page instead of redirecting to the front
+page all the time.
+E-mails now include header/footer includes, for html, disclaimers, etc.
+All history links now link to the correct item.
+SQLite error with initial user not being able to associate with groups was
+fixed.
+Logout changed to a flash message instead of redirecting to its own page
+
 0.6.1
 
 Changes the way the add group and add category forms worked.

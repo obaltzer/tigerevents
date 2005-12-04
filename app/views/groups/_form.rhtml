@@ -12,7 +12,11 @@
   </div>
   <%= text_area 'group', 'description', :rows => 5 %>
 </div>
+<% if @group_classes.length > 1 %> 
 <div class="input">
+<% else %>
+<div class="input" style="display:none;">
+<% end %>
   <label for="group_group_class_id">Group Class</label>
   <div class="description">
     Specify your group's class.
