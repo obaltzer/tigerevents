@@ -682,30 +682,9 @@ img.date_select
     margin-bottom: 0.5em;
 }
 
-/*********CREDITS*********/
-div.ninja{
-    min-height: 175px;
-}
-
-div.ninja_name{
-    color: black;
-    font-size: 130%;
-    font-weight: normal;
-    font-style: italic;
-}
-
-div.ninja_image{
-    margin: 0.5em;
-    float: left;
-}
-
-div.ninja_text{
-    margin: 0.5em;
-}
-
 /*********ERROR MESSAGES***********/
 
-#ErrorExplanation {
+#errorExplanation {
   background-color: #FFDD62;
   border: 2px red solid;
   padding: 7px;
@@ -715,22 +694,23 @@ div.ninja_text{
   width: 40em;
 }
 
-#ErrorExplanation h2 {
+#errorExplanation h2 {
   text-align: left;
   font-weight: bold;
   padding: 5px 5px 5px 15px;
   margin: -7px;
 }
 
-#ErrorExplanation p {
+#errorExplanation p {
   color: #333;
   margin-bottom: 0;
   padding: 5px;
 }
 
-#ErrorExplanation ul li {
+#errorExplanation ul li {
   list-style: square;
 }
+
 
 /************** TOOLTIP ****************/
 
