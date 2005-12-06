@@ -67,8 +67,16 @@ class GroupsController < ApplicationController
     def list
         if @params[:action] == "list"
             @newgroups = Group.find(:all, 
-                :conditions => ["approved = ?", false],
+                :conditions => ["approved = ? AND deleted = ?", false, false],
                 :order => "name ASC")
+            #This is for automatic deletion of groups that have no user
+            # associations
+            for group in @newgroups
+                if group.users.first == nil
+                    group.delete
+                    @newgroups.delete_at(@newgroups.index(group))
+                end
+            end
         end
         if not @params[:search] or @params[:search] == ""
             @params.delete(:search)
@@ -116,6 +124,12 @@ class GroupsController < ApplicationController
        @group_classes = GroupClass.find(:all)
     end
 
+    def disapprove
+        @group = Group.find(@params[:id])
+        @group.delete
+        redirect_to :action => "list"
+    end
+    
     #the next two methods deal with finding unauthorized members and possibly authorizing or dismissing them
     def unauthorized_remote
         @group = Group.find(@params[:id])

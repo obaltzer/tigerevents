@@ -27,5 +27,10 @@ class Group < ActiveRecord::Base
             :conditions => ["deleted = ? AND groups.id = #{self.id}", false], 
             :order => "startTime ASC")
     end
+
+    def delete
+        self.deleted = true
+        self.save
+    end
     
 end
