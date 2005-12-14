@@ -112,7 +112,9 @@ class SelectorsController < ApplicationController
             show_val << true
             show_cond << " AND groups_users.authorized = ?"
             show_val << true
-            show_cond << " AND deleted = ?"
+            show_cond << " AND events.deleted = ?"
+            show_val << false
+            show_cond << " AND groups.deleted = ?"
             show_val << false
             show_cond << " AND users.banned = ?"
             show_val << false
