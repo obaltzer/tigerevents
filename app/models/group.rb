@@ -24,13 +24,23 @@ class Group < ActiveRecord::Base
 
     def undeleted_events
         return Event.find(:all, :include => :group,
-            :conditions => ["deleted = ? AND groups.id = #{self.id}", false], 
+            :conditions => ["events.deleted = ? AND groups.id = #{self.id}", false], 
             :order => "startTime ASC")
     end
 
     def delete
-        self.deleted = true
-        self.save
+        #no events means a bad group
+        if self.events.first == nil
+            #remove associations and delete
+            for user in self.users
+                self.users.delete(user)
+            end
+            self.destroy
+        else
+        #otherwise just flag in the database
+            self.deleted = true
+            self.save
+        end
     end
     
 end
