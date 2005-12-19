@@ -15,7 +15,7 @@
                   <%=h event.title %>
                 </td>
                 <td>
-                <%=link_to '(Edit)', :controller => "events", :action => 'edit', :id => event.id, :group_id => @group.id %>
+                <%=link_to '(Edit)', :controller => "events", :action => 'edit', :id => event.id %>
                 </td>
                 <td>
                 <%=link_to_remote '(Remove)', :update => "_group_events_form", \

@@ -56,7 +56,7 @@ class EventsController < ApplicationController
             @event.group.users.push_with_attributes( @session[:user], 'authorized' => false ) \
                 unless @event.group.users.include? @session[:user]
             
-            log_activity @event, 'CREATE'
+            log_activity(@event, @session[:user], 'CREATE')
             flash[:notice] = 'Event was successfully created.'
             # clear selectors cache
             SelectorsController.clearCache
@@ -110,7 +110,7 @@ class EventsController < ApplicationController
                 unless @event.group.users.include? @session[:user] \
                         or @session[:user][:superuser]
 
-            log_activity @event, 'MODIFY'
+            log_activity(@event, @session[:user], 'MODIFY')
             flash[:notice] = 'Event was successfully updated.'
             # clear selectors cache
             SelectorsController.clearCache
@@ -139,14 +139,6 @@ class EventsController < ApplicationController
         @groups = Group.find( :all, :order => "name ASC" )
         render_partial
     end    
-
-    def log_activity(event, action)
-        @activity = Activity.new
-        @activity.event = event
-        @activity.user = @session[:user]
-        @activity.action = action
-        @activity.save
-    end
 
     def delete
         #Event.update(@params[:id], :deleted => 1)
@@ -220,5 +212,5 @@ class EventsController < ApplicationController
         end
         @period = @params[:period] = p
     end
-    private :log_activity, :set_view_period
+    private :set_view_period
 end

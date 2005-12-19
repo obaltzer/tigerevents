@@ -201,11 +201,7 @@ class GroupsController < ApplicationController
                             @group.id, user.id]
         # adopt events from user_id to adopter_id 
         for e in events do
-            a = Activity.new
-            a.event = e
-            a.user = adopter
-            a.action = 'ADOPT'
-            a.save
+            log_activity(e, adopter, 'ADOPT')
         end
         @group.users.delete user
         # clear selectors cache
@@ -215,16 +211,16 @@ class GroupsController < ApplicationController
 
     #these methods are for editing events that belong to the group
     def list_events_remote
-       @group = Group.find(@params[:id])
-       @events = @group.undeleted_events
-       @show_legend = false
-       for event in @events
-        if(event.pending?(@group))
-            @show_legend = true
-            break
+        @group = Group.find(@params[:id])
+        @events = @group.undeleted_events
+        @show_legend = false
+        for event in @events
+            if(event.pending?(@group))
+                @show_legend = true
+                break
+            end
         end
-       end
-       render_partial
+        render_partial
     end
     
     #shows all events, lets you edit only those that haven't passed.

@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
     model :user
     helper :Application
 
+    def log_activity(event, user, action)
+        @activity = Activity.new(:event => event, :user => user, :action => action)
+        @activity.save
+    end
+
     def can_edit
         if(@session[:user] == nil || @session[:user].banned == 1)
             flash[:auth] = \
