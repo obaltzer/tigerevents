@@ -16,7 +16,7 @@
           <% if event.announcement == false %>
             <div class="time">
               <span class="start">
-                <%=h event.startTime.strftime( "%a %b %d %I:%M %p" ) %>
+                <%=h event.startTime.to_formatted_s(:short_detailed_format) %>
               </span>
               <% if event.endTime %>
                 <span class="sep">-</span> 

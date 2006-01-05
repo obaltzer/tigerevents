@@ -1,5 +1,6 @@
 <div id="period_display">
-  <small>Events From <%= @period[:startTime].strftime('%A, %b %d %Y') %> to <%= @period[:endTime].strftime('%A, %b %d %Y') %></small>
+  <small>Events From <%= @period[:startTime].to_formatted_s(:human_short_format) %> 
+  to <%= @period[:endTime].to_formatted_s(:human_short_format) %></small>
 </div>
 <div id="selector_container">
 <% for selector in @selectors %>

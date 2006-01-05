@@ -40,7 +40,7 @@
     </h1>
    
     <div id="today">
-      <%= Time.now.strftime '%A, %B %d %Y' %>
+      <%= Time.now.to_formatted_s(:human_short_format) %>
     </div>
    
     <ul id="site_actions">

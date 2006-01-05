@@ -1,7 +1,7 @@
 <div class="event_information">
   <h2><%=h @event.title %></h2>
   <div class="last_update">
-    Last updated: <%=h (@event.updated_on ? @event.updated_on : @event.created_on).strftime( "%a %b %d %I:%M %p" ) %>
+    Last updated: <%=h (@event.updated_on ? @event.updated_on : @event.created_on).to_formatted_s(:short_detailed_format)) %>
     <% if (session[:user] != nil) && (session[:user][:superuser]) %>
       by 
       <%= @event.updator.fullname %> 
@@ -51,7 +51,7 @@
           Starts:
         </th>
         <td>
-          <%=h @event.startTime.strftime("%I:%M %p on %A, %B %d %Y") %>
+          <%=h @event.startTime.to_formatted_s(:human_expanded_format) %>
         </td>
       </tr>
       <% if @event.endTime %>
@@ -60,7 +60,7 @@
             Ends:
           </th>
           <td>
-            <%=h @event.endTime.strftime("%I:%M %p on %A, %B %d %Y") %>
+            <%=h @event.endTime.to_formatted_s(:human_expanded_format) %>
           </td>
         </tr>
       <% end %>

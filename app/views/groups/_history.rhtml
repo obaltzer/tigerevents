@@ -15,9 +15,9 @@
                "show", :id => event.event_id %>
             </td>
             <td class="time_string">
-              <%=h event.startTime.strftime( "%a %b %d %I:%M %p" ) %>
+              <%=h event.startTime.to_formatted_s(:short_detailed_format) %>
               <% if event.endTime %>
-              - <%=h event.endTime.strftime( "%a %b %d %I:%M %p" ) %>
+              - <%=h event.endTime.to_formatted_s(:short_detailed_format) %>
               <% end %>
             </td>
           </tr>
