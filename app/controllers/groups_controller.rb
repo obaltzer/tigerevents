@@ -124,7 +124,7 @@ class GroupsController < ApplicationController
        @group_classes = GroupClass.find(:all)
     end
 
-    def disapprove
+    def reject
         @group = Group.find(@params[:id])
         @group.delete
         redirect_to :action => "list"

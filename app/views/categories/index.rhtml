@@ -1,0 +1,9 @@
+<div id="message_container">
+</div>
+<div id="category_new">
+  <%= render_component :action => 'new', :params => { 
+			:update => 'category_list', :update_with => { :action => :list } } %>
+</div>
+<div id="category_list">
+  <%= render_component :action => 'list' %>
+</div>

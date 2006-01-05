@@ -1,8 +1,10 @@
 class CategoriesController < ApplicationController
     before_filter :login_required, :only => [:create_remote]
-    def create_remote
+    
+    # create a new category from a JavaScript request
+    def create
         @category = Category.new(@params[:category])
-	@category.created_by = @session[:user].id
+        @category.created_by = @session[:user].id
 
         if @category.save
             # redirect back to the category listing for the current event
@@ -12,7 +14,50 @@ class CategoriesController < ApplicationController
         end
     end
 
-    def new_remote
+    # list existing categories
+    def list
+        @categories = Category.find :all, :order => "name"
+        @complements = {}
+        for c in @categories do
+            @complements[c] = \
+                Array.new(@categories).delete_if {|x| x.id == c.id }
+        end
         render_partial
+    end
+
+    # display JavaScript submission form
+    def new
+        render_partial
+    end
+    
+    def remove
+        @old_c = Category.find @params[:id]
+        begin
+            new_c = Category.find @params[:new_category_id]
+            if not @old_c or not new_c
+                @message = "You have to specify the replacement category."
+                render_partial 'embed_error_message'
+            elsif @old_c != new_c
+                # for all events that are associated with the old category
+                for e in @old_c.events do
+                    # delete the category from the event
+                    e.categories.delete(@old_c)
+                    if not e.categories.include?(new_c)
+                        # add the new category to the event if it is not 
+                        # yet associated with it
+                        e.categories << new_c
+                    end
+                end
+                @old_c.destroy
+                SelectorsController.clearCache
+                render_partial
+            else
+                @message = "You cannot replace a category with itself."
+                render_partial 'embed_error_message'
+            end
+        rescue ActiveRecord::RecordNotFound
+            @message = "Error! Your computer is going to explode!"
+            render_partial 'embed_error_message'
+        end
     end
 end

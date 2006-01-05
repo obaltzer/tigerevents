@@ -1,0 +1,45 @@
+<h2>Existing Categories</h2>
+<div class="block_list">
+	<ul id="categories">
+	  <% for c in @categories %>
+	    <li id="item_<%= c.id %>">
+	      <div class="action">
+	          <a id="remove_link_<%= c.id %>" href="#"
+							 onclick="toggle('remove_form_<%= c.id %>');
+								        toggle('remove_link_<%= c.id %>');">
+							<%= image_tag('trash.gif', :alt => 'Delete Category') %></a>
+	      </div>
+      
+				<%=h c.name %>
+      
+				<div id="remove_form_<%= c.id %>" style="display: none">
+	        <% if @categories.length >= 2 %>
+	          <%= form_remote_tag :update => "message_container", 
+								:url => { :action => :remove, :id => c.id },
+	              :complete => remote_function(:update => 'category_list', 
+									:url => { :action => :list }) + ";" +
+										visual_effect(:highlight, 'message', :duration => 0.5 ) %>
+	            <div class="input">
+	              <label style="display: inline">
+									Reassign existing events to category:
+								</label>
+	              <select name="new_category_id">
+	                <%= options_from_collection_for_select @complements[c], 
+											'id', 'name' %>
+	              </select>
+	              <input type="hidden" name="update_with" 
+	                     value="<%= url_for :action => :list %>"/>
+	              <%= submit_tag "Ok" %>
+	              <input type="reset" value="Cancel" 
+									     onclick="toggle('remove_form_<%= c.id %>');
+									              toggle('remove_link_<%= c.id %>');"/>
+	            </div>
+	          <%= end_form_tag %>
+	        <% else %>
+	        	Please create a new category first.
+	        <% end %>
+	      </div>
+	    </li>
+	  <% end %>
+	</ul>
+</div>

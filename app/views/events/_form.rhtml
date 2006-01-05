@@ -156,7 +156,7 @@
         <div class="hide_button" onclick="toggle_slide('add_category_form');toggle_action_link('show_category_form', 'Add a new category', 'Hide form');">hide <%= image_tag 'close.gif' %></div>
         <h3>Add a new category</h3>
         <%= render_component :controller => "categories",
-                             :action => "new_remote",
+                             :action => "new",
                              :params => { 
                                 :update => "category_list",
                                 :update_with => {

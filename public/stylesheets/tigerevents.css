@@ -123,6 +123,13 @@ div#sidebar ul li label {
     font-weight: bold;
 }
 
+div#sidebar ul#site_management
+{
+	list-style: none;
+	padding: 0em;
+	margin: 0.5em 0 0.2em 0.5em;
+}
+
 #time_period_selection
 {
     font-size: 70%;
@@ -733,18 +740,18 @@ div#selector_creation
     float: left;
 }
 
-div.dragable_list
+div.block_list
 {
     float: left;
     width: 25em;
 }
 
-div.dragable_list h3
+div.block_list h3
 {
     font-family: sans-serif;
 }
 
-div.dragable_list ul
+div.block_list ul
 {
     list-style: none;
     font-family: sans-serif;
@@ -755,29 +762,29 @@ div.dragable_list ul
     height: 2em;
 }
 
-div.dragable_list ul li {
+div.block_list ul li {
     float: left;
-    height: 1.3em;
     width: 20em;
     padding: 2px;
     padding-left: 5px;
     border: 1px solid #999999;
-    background-color: white;
     margin: 2px;
+    background-color: #EEDC82;
+    height: auto;
 }
 
-div.dragable_list ul li div.action
+div.block_list ul li div.action
 {
     float: right;
     margin-left: 2px;
     margin-right: 2px;
 }
-div.dragable_list ul li div.action img
+div.block_list ul li div.action img
 {
     vertical-align: middle;
 }
 
-div.dragable_list form
+div.block_list form
 {
     display: inline;
     margin: 0;
@@ -794,7 +801,7 @@ ul#available_selectors li
     background-color: #EEDC82;
 }
 
-#priority_list li
+ul#priorities li
 {
     background-color: #EEDC82;
     height: auto;

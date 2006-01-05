@@ -7,7 +7,7 @@
         <td><%= link_to newgroup.name, :controller => 'groups', :action => 'edit', :id => newgroup %></td>
         <td><%=h newgroup.description %></td>
         <td><%= link_to 'Approve', :action => 'toggle_approved', :id => newgroup %></td>
-        <td><%= link_to 'Disapprove', {:action => 'disapprove', :id =>
+        <td><%= link_to 'Reject', {:action => 'reject', :id =>
         newgroup},
             :confirm => "Are you sure? You will not be able to undo this
             function" %></td>

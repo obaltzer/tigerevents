@@ -36,25 +36,38 @@ class EventsController < ApplicationController
 
     def create
         @event = Event.new(@params[:event])
-	@event.priority_id = \
-            Priority.find(:first, :conditions => "name = 'Normal'").id
+        # assign the default priority to the event
+        priority = Priority.find(:first, 
+                        :conditions => ["name = ?", DEFAULT_PRIORITY])
+        if priority
+            @event.priority_id = priority.id
+        else
+            @event.priority_id = 1
+        end
         @event.hasEndTime = @params[:event_hasEndTime] ? true : false;
         if @event.group
-	   if not @event.group.authorized_users.include? @session[:user]
-	      flash[:auth] = "You are not an authorized member of the #{@event.group.name}. " +
-                          "Your posting will be displayed once your membership to #{@event.group.name} " +
-                          "has been authorized by one its members."
-           elsif @event.group.approved == false 
-              flash[:auth] = "Group #{@event.group.name} is not approved yet. The #{ADMIN_CONTACT} is responsible " +
-                          "for approving groups. Once your group is approved your postings for #{@event.group.name} " + 
-                          "will be displayed. If you have any questions please contact the #{ADMIN_CONTACT} at #{ADMIN_EMAIL}."    
-	   end
+	        if not @event.group.authorized_users.include? @session[:user]
+	            flash[:auth] = 
+	                "You are not an authorized member of group " +
+	                "'#{@event.group.name}'. Your posting will be displayed " +
+	                "once your membership to '#{@event.group.name}' has " +
+	                "been authorized by one its members."
+            elsif @event.group.approved == false 
+                flash[:auth] = 
+                    "Group '#{@event.group.name}' is not approved yet. The " +
+                    "#{ADMIN_CONTACT} is responsible for approving groups. " +
+                    "Once your group is approved your postings for " +
+                    "'#{@event.group.name}' will be displayed. If you have " +
+                    "any questions please contact the #{ADMIN_CONTACT} at " +
+                    "#{ADMIN_EMAIL}."    
+	        end
         end
-	if @event.save
+        if @event.save
             # only associate user with group after the event has been
             # created to ensure the group exists
-            @event.group.users.push_with_attributes( @session[:user], 'authorized' => false ) \
-                unless @event.group.users.include? @session[:user]
+            @event.group.users.push_with_attributes(@session[:user], 
+                'authorized' => false ) \
+                    unless @event.group.users.include? @session[:user]
             
             log_activity(@event, @session[:user], 'CREATE')
             flash[:notice] = 'Event was successfully created.'

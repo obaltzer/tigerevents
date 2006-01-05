@@ -1,7 +1,7 @@
 <div class="event_information">
   <h2><%=h @event.title %></h2>
   <div class="last_update">
-    Last updated: <%=h (@event.updated_on ? @event.updated_on : @event.created_on).to_formatted_s(:short_detailed_format)) %>
+    Last updated: <%=h (@event.updated_on ? @event.updated_on : @event.created_on).to_formatted_s(:short_detailed_format) %>
     <% if (session[:user] != nil) && (session[:user][:superuser]) %>
       by 
       <%= @event.updator.fullname %> 

@@ -7,15 +7,18 @@
     DHTML Date/Time Selector
     (c) dynarch.com 2002-2005 / Author: Mihai Bazon
     For latest version visit: http://www.dynarch.com/projects/calendar/
-    Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details
+    Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for
+    	details
   -->
   <head>
     <title>TigerEvents</title>
     <%= stylesheet_link_tag 'tigerevents' %>
     <%= stylesheet_link_tag 'calendar' %>
     <%= stylesheet_link_tag 'tigerevents-calendar' %>
-    <%= stylesheet_link_tag 'tigerevents-nofx', :rel => "alternate stylesheet", :title => "nofx" %>
-    <%= stylesheet_link_tag 'tigerevents-ie', :rel => "alternate stylesheet", :title => "ie" %>
+    <%= stylesheet_link_tag 'tigerevents-nofx', 
+        :rel => "alternate stylesheet", :title => "nofx" %>
+    <%= stylesheet_link_tag 'tigerevents-ie', :rel => "alternate stylesheet",
+        :title => "ie" %>
     <%= javascript_include_tag "browser_detect" %>
     <%= javascript_include_tag "prototype" %>
     <!--
@@ -36,7 +39,8 @@
     </div>
     
     <h1 id="site_logo">
-      <%= link_to "TigerEvents", { :controller => "events", :action => "list", :id => nil } %>
+      <%= link_to "TigerEvents", { :controller => "events", 
+          :action => "list", :id => nil } %>
     </h1>
    
     <div id="today">
@@ -45,16 +49,19 @@
    
     <ul id="site_actions">
       <li>
-        <%= link_to "Home", { :controller => "events", :action => "list", :id => nil } %>
+        <%= link_to "Home", { :controller => "events", :action => "list",
+            :id => nil } %>
       </li>
       <li>
-        <%= link_to "Post Events", {:controller => "events", :action => "new"} %>
+        <%= link_to "Post Events", {:controller => "events", 
+            :action => "new"} %>
       </li>
       <li>
         <%= link_to "Help", { :controller => "content", :action => "help" } %>
       </li>
       <li>
-        <%= link_to "Credits", { :controller => "content", :action => "credits" } %>
+        <%= link_to "Credits", { :controller => "content", 
+            :action => "credits" } %>
       </li>
     </ul>
     <div id="sidebar">
@@ -64,53 +71,75 @@
           Welcome<br/>
           <%= session[:user].fullname %>
         </li>
-          <%= render_component :controller => "groups", :action => "mygroups" %>
-          <% if session[:user][:superuser] %>
-          <li>
-              <strong>Site Management:</strong>
-            <ul style="list-style: none; padding: 0; margin: 0.5em 0 0.2em 0.5em;">
-              <li><%= link_to 'Groups', :controller => 'groups', :action => 'list' %></li>
-              <li><%= link_to 'Group Classes', :controller => 'group_classes' %></li>
-              <li><%= link_to 'Priorities', :controller => 'priorities' %></li>
-              <li><%= link_to 'Users', :controller => 'account', :action => 'list' %></li>
-              <li><%= link_to 'Edit Layout', :controller => 'layouts', :action => 'edit', :id => 1 %></li>
+        <%= render_component :controller => "groups", :action => "mygroups" %>
+        <% if session[:user][:superuser] %>
+        	<li>
+						<strong>Site Management:</strong>
+						<ul id="site_management">
+              <li>
+								<%= link_to 'Groups', :controller => 'groups',
+										:action => 'list' %>
+							</li>
+              <li>
+								<%= link_to 'Group Classes', :controller => 'group_classes' %>
+							</li>
+              <li>
+								<%= link_to 'Priorities', :controller => 'priorities' %>
+							</li>
+              <li>
+								<%= link_to 'Users', :controller => 'account', 
+										:action => 'list' %>
+							</li>
+              <li>
+								<%= link_to 'Edit Layout', :controller => 'layouts',
+										:action => 'edit', :id => 1 %>
+			  			</li>
+              <li>
+								<%= link_to 'Categories', :controller => 'categories' %>
+              </li>
             </ul>
           </li>
-          <li>
-            <% if AccountController.new.respond_to?(:change_pass) %>
-                <%= link_to 'Change Password', :controller => 'account',
+        <% end %>
+        <% if AccountController.new.respond_to?(:change_pass) %>
+        	<li>
+          	<%= link_to 'Change Password', :controller => 'account',
                 :action => 'change_pass' %>
-            <% end %>
-          <% end %>
-          <li>
+					</li>
+        <% end %>
+        <li>
           <%= start_form_tag :controller => "account", :action=> "logout" %>
-            <div><input type="submit" name="logout" value="Logout" class="primary" /></div>
+            <div><input type="submit" name="logout" value="Logout"
+								  class="primary" /></div>
           <%= end_form_tag %>
-          </li>
+        </li>
       <% else %>
         <li>
             <%= render_file "account/login" %>
         </li>
       <% end -%>
-      <li>
-      <div id="bug_box">
-        <big>Problems? Doesn't work? Complicated?</big>
-        <p>
-          File a ticket and we will take care of it.
-        </p>
-        <a href="http://www.tigeronrails.com/tigerevents/newticket"><big>Click here!</big></a>
-      </div>
-      </li>
+      	<li>
+      		<div id="bug_box">
+        		<big>Problems? Doesn't work? Complicated?</big>
+        		<p>
+          		File a ticket and we will take care of it.
+        		</p>
+        		<a href="http://www.tigeronrails.com/tigerevents/newticket"><big>Click here!</big></a>
+      		</div>
+      	</li>
       </ul>
     </div>
 
     <div id="time_period_selection">
       <ul id="time_period_links">
         <li>Change View To: </li>
-        <li><%= link_to 'This Week', :controller => "events", :action => "list", :id => "this_week" %></li>
-        <li><%= link_to 'Next Week', :controller => "events", :action => "list", :id => "next_week" %></li>
-        <li><%= link_to 'This Month', :controller => "events", :action => "list", :id => "this_month" %></li>
-        <li><%= link_to 'Next Month', :controller => "events", :action => "list", :id => "next_month" %></li>
+        <li><%= link_to 'This Week', :controller => "events", 
+								:action => "list", :id => "this_week" %></li>
+        <li><%= link_to 'Next Week', :controller => "events", 
+								:action => "list", :id => "next_week" %></li>
+        <li><%= link_to 'This Month', :controller => "events", 
+								:action => "list", :id => "this_month" %></li>
+        <li><%= link_to 'Next Month', :controller => "events", 
+								:action => "list", :id => "next_month" %></li>
       </ul>
       <a href="javascript:toggle_slide('advanced_time_box');">Advanced</a>
       <% @period ||= {} # XXX bad bad fix, but I have no idea how to do it better right now %>
