@@ -3,21 +3,21 @@
     <table>
       <thead>
         <tr>
-	  <th></th>
+          <th></th>
           <th>Name</th>
           <th>E-mail</th>
-	  <th>Authorize</th>
-	  <th>Do Not Authorize</th>
+          <th>Authorize</th>
+          <th>Do Not Authorize</th>
         </tr>
       </thead>
       <tbody>
         <% for @member in @unauthorized_members %>
           <tr>
-	    <td>
-	      <% if @member.banned == 1 %>
-	        <em>Banned</em>
-	      <% end %>
-	    </td>
+            <td>
+              <% if @member.banned == 1 %>
+                <em>Banned</em>
+              <% end %>
+            </td>
             <td> <%=h @member.fullname %> </td> 
             <td> <%=h @member.email %> </td> 
             <td> <%=radio_button 'member[]', 'authorized', true %></td>

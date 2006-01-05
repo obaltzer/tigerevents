@@ -46,12 +46,12 @@ class EventsController < ApplicationController
         end
         @event.hasEndTime = @params[:event_hasEndTime] ? true : false;
         if @event.group
-	        if not @event.group.authorized_users.include? @session[:user]
-	            flash[:auth] = 
-	                "You are not an authorized member of group " +
-	                "'#{@event.group.name}'. Your posting will be displayed " +
-	                "once your membership to '#{@event.group.name}' has " +
-	                "been authorized by one its members."
+            if not @event.group.authorized_users.include? @session[:user]
+                flash[:auth] = 
+                    "You are not an authorized member of group " +
+                    "'#{@event.group.name}'. Your posting will be displayed " +
+                    "once your membership to '#{@event.group.name}' has " +
+                    "been authorized by one its members."
             elsif @event.group.approved == false 
                 flash[:auth] = 
                     "Group '#{@event.group.name}' is not approved yet. The " +
@@ -60,7 +60,7 @@ class EventsController < ApplicationController
                     "'#{@event.group.name}' will be displayed. If you have " +
                     "any questions please contact the #{ADMIN_CONTACT} at " +
                     "#{ADMIN_EMAIL}."    
-	        end
+            end
         end
         if @event.save
             # only associate user with group after the event has been
@@ -86,7 +86,7 @@ class EventsController < ApplicationController
     def edit
         @event = Event.find(@params[:id])
         if @event.startTime < Time.now and (not @event.endTime or  @event.endTime < Time.now)
-           redirect_to :action => 'list'
+            redirect_to :action => 'list'
         end
 
         @categories = Category.find(:all)
@@ -97,7 +97,7 @@ class EventsController < ApplicationController
     def update
         @event = Event.find(@params[:id])
         if @event.startTime < Time.now and (not @event.endTime or  @event.endTime < Time.now)
-           redirect_to :action => 'list'
+            redirect_to :action => 'list'
         end
 
         # make sure only superusers can set the priority if someone
@@ -158,7 +158,7 @@ class EventsController < ApplicationController
         event = Event.find(@params[:id])
         #can't delete events that have already past
         if event.startTime < Time.now and (not event.endTime or  event.endTime < Time.now)
-           redirect_to :action => 'list'
+            redirect_to :action => 'list'
         end
 
         event.update_attribute( :deleted, 1 )

@@ -38,9 +38,10 @@ class AccountController < ApplicationController
     end
 
     def logout
-	if not @session[:user]
-	    redirect_back_or_default :controller => 'events', :action => 'index'
-	end
+        if not @session[:user]
+            redirect_back_or_default :controller => 'events', 
+                                     :action => 'index'
+        end
         @session[:user] = nil
         flash[:auth] = "You have now been successfully logged out"
         redirect_back_or_default :controller => 'events', :action => 'index'

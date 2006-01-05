@@ -1,48 +1,48 @@
 <% require 'date' %>
 <div id="_group_events_form">
-   <div class="input">
-      <table>
-         <tr>
-            <th colspan="3">Name</th>
-            <th>Date</th>
-            <th>Last Editted</th>
-         </tr>
+  <div class="input">
+    <table>
+      <tr>
+        <th colspan="3">Name</th>
+        <th>Date</th>
+        <th>Last Editted</th>
+      </tr>
 
-         <% for event in @events %>
-            <% if not event.expired? %>
-	      <tr id="event_<%=h event.id %>" class="<%= event.pending?(@group) ? 'pending_event' : 'active_event' %>">
-        	<td>
-                  <%=h event.title %>
-                </td>
-                <td>
-                <%=link_to '(Edit)', :controller => "events", :action => 'edit', :id => event.id %>
-                </td>
-                <td>
-                <%=link_to_remote '(Remove)', :update => "_group_events_form", \
-                    :url => {:controller => "events", :action => "delete", :id => event.id, :group_id => @group.id }, \
-                    :confirm => "Really delete #{event.title}" %>
-        	</td>
-        	<td class="time_string">
-        	<%=h event.startTime.to_formatted_s(:short_detailed_format) %> 
-        	<% if event.endTime %>
-        	- <%=h event.endTime.strftime( (event.endTime - event.startTime < 1.day and event.endTime.day == event.startTime.day)?
+      <% for event in @events %>
+        <% if not event.expired? %>
+          <tr id="event_<%=h event.id %>" class="<%= event.pending?(@group) ? 'pending_event' : 'active_event' %>">
+            <td>
+              <%=h event.title %>
+            </td>
+            <td>
+              <%=link_to '(Edit)', :controller => "events", :action => 'edit', :id => event.id %>
+            </td>
+            <td>
+              <%= link_to_remote '(Remove)', :update => "_group_events_form",
+                  :url => {:controller => "events", :action => "delete", 
+                  :id => event.id, :group_id => @group.id },
+                  :confirm => "Really delete #{event.title}" %>
+            </td>
+            <td class="time_string">
+              <%=h event.startTime.to_formatted_s(:short_detailed_format) %> 
+              <% if event.endTime %>
+                - <%=h event.endTime.strftime( (event.endTime - event.startTime < 1.day and event.endTime.day == event.startTime.day)?
                                               "%I:%M %p" :
                                               "%a %b %d %I:%M %p") %>
-                                                                          
-        	<% end %>
-                </td>
-                <td class="last_editor">
-                  <%=h event.pending?(@group) ? event.creator.fullname : event.lastEditted.fullname %>
-        	</td>
-	      </tr>
-             <% end %>
-	<% end %>
-      </table>
-      <% if @show_legend %>
+              <% end %>
+            </td>
+            <td class="last_editor">
+              <%=h event.pending?(@group) ? event.creator.fullname : event.lastEditted.fullname %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+    <% if @show_legend %>
       <p>
         <span class="pending_event" style="float: left; width: 2em; height: 1em; margin-right: 1em;"> </span>The event was created by an <em>unapproved member</em> and will not be displayed until they are approved.
       </p>
-      <% end %>
-   </div>
+    <% end %>
+  </div>
 </div>
 

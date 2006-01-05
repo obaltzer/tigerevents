@@ -15,29 +15,33 @@ class ApplicationController < ActionController::Base
         if(@session[:user] == nil || @session[:user].banned == 1)
             flash[:auth] = \
                 "You do not have permissions to edit this posting."
-	    redirect_back_or_default :controller => "events", :action => "index"
+            redirect_back_or_default :controller => "events", 
+                                     :action => "index"
         elsif(@session[:user][:superuser])
-	    return true
-	end
-	@event = Event.find(@params[:id])
-	if(@event.deleted == 1)
+            return true
+        end
+        @event = Event.find(@params[:id])
+        if(@event.deleted == 1)
             flash[:auth] = \
                 "You do not have permissions to edit this posting."
-	    redirect_back_or_default :controller => "events", :action => "index"
-	elsif(!@session[:user].approved_groups.include? Group.find(@event.group_id))
+            redirect_back_or_default :controller => "events", 
+                                     :action => "index"
+        elsif(!@session[:user].approved_groups.include? Group.find(@event.group_id))
             flash[:auth] = \
                 "You do not have permissions to edit this posting."
-	    redirect_back_or_default :controller => "events", :action => "index"
-	end
-	true
+            redirect_back_or_default :controller => "events", 
+                                     :action => "index"
+        end
+        true
     end
 
     def super_user
         if(@session[:user] == nil || !@session[:user][:superuser])
             flash[:auth] = \
                 'You do not have permissions to access the page.'
-            redirect_back_or_default :controller => "events", :action => "index"
-	end
+            redirect_back_or_default :controller => "events", 
+                                     :action => "index"
+        end
     end
 
     def help

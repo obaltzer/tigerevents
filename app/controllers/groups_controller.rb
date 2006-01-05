@@ -37,14 +37,14 @@ class GroupsController < ApplicationController
     end
 
     def toggle_approved
-	@group = Group.find(@params[:id])
-	@group.toggle! :approved
+        @group = Group.find(@params[:id])
+        @group.toggle! :approved
         # clear cache to render events of the approved group
         if @group.approved?
             AdminMailer.deliver_group_approved(@group)
         end
         SelectorsController.clearCache
-	redirect_to :action => "list"
+        redirect_to :action => "list"
     end
     
     def new_remote
@@ -58,10 +58,10 @@ class GroupsController < ApplicationController
     end
 
     def mygroups
-    	@groups = @session[:user].approved_groups.sort_by { |a| a.name }
-    	@pengroups = @session[:user].unapproved_groups.sort_by { |a| a.name }
-    	@penmember = @session[:user].unapproved_member.sort_by { |a| a.name }
-	render_partial
+        @groups = @session[:user].approved_groups.sort_by { |a| a.name }
+        @pengroups = @session[:user].unapproved_groups.sort_by { |a| a.name }
+        @penmember = @session[:user].unapproved_member.sort_by { |a| a.name }
+        render_partial
     end
 
     def list
@@ -80,7 +80,7 @@ class GroupsController < ApplicationController
         end
         if not @params[:search] or @params[:search] == ""
             @params.delete(:search)
-	    @groups_pages, @groups = paginate :group, :per_page => 10,
+            @groups_pages, @groups = paginate :group, :per_page => 10,
                 :conditions => ["approved =?", true],
                 :order_by => :name
         else
@@ -106,19 +106,21 @@ class GroupsController < ApplicationController
         if(@session[:user] == nil || @session[:user].banned? )
             flash[:auth] = \
                 "You do not have permission to manage this group."
-	    redirect_back_or_default :controller => "events", :action => "index"
+            redirect_back_or_default :controller => "events", 
+                                     :action => "index"
         elsif(@session[:user].superuser? )
-	    return true
-	end
+            return true
+        end
+        
         #check to see if the user is one of the authorized group members
-	if(!Group.find(@params[:id]).authorized_users.include? @session[:user])
+        if(!Group.find(@params[:id]).authorized_users.include? @session[:user])
             flash[:auth] = \
                 "You do not have permission to manage this group."
-	    redirect_back_or_default :controller => "events", :action => "index"
+            redirect_back_or_default :controller => "events", :action => "index"
         end
-	return true
+        return true
     end
-							
+
     def edit
        @group = Group.find(@params[:id])
        @group_classes = GroupClass.find(:all)
@@ -137,35 +139,40 @@ class GroupsController < ApplicationController
         render_partial
     end
 
-    #authorizes and dismisses users requesting membership to the group
+    # authorizes and dismisses users requesting membership to the group
     def authorize_members
         @group = Group.find(@params[:id])
         if @params[:member]
-          for m in @params[:member].keys
-             user = User.find(m)
-             logger.debug "Params: #{@params[:member][m].inspect}"
-             #approve the user if the authorized radio button has been selected
-             if @params[:member][m][:authorized] == "true"
-                @group.users.delete( user )
-                @group.users.push_with_attributes( user, 'authorized' => true )
-                AdminMailer.deliver_accepted(user, @group)
+            for m in @params[:member].keys
+                user = User.find(m)
+                logger.debug "Params: #{@params[:member][m].inspect}"
+                # approve the user if the authorized radio button has been 
+                # selected
+                if @params[:member][m][:authorized] == "true"
+                    @group.users.delete( user )
+                    @group.users.push_with_attributes(user, 
+                                                      'authorized' => true )
+                    AdminMailer.deliver_accepted(user, @group)
 
-             #otherwise, flagged their submitted events for this group as deleted
-             else
-                #get the events the user created for the group
-                events_to_delete = Event.find(:all, \
-                    :joins => "LEFT JOIN activities on events.id = event_id", \
-                    :conditions => ["group_id = ? and user_id = ? and action = 'CREATE'", \
-                                    @group.id, user.id])
-                #flagged them as deleted
-                for e in events_to_delete
+                    # otherwise, flagged their submitted events for this group 
+                    # as deleted
+                else
+                    #get the events the user created for the group
+                    events_to_delete = Event.find(:all, \
+                        :joins => "LEFT JOIN activities on events.id " +
+                                  "= event_id",
+                        :conditions => ["group_id = ? and user_id = ? " +
+                                        "and action = 'CREATE'", \
+                                        @group.id, user.id])
+                    #flagged them as deleted
+                    for e in events_to_delete
                         e.update_attribute( :deleted, true );
+                    end
+                    @group.users.delete( user )
                 end
-                @group.users.delete( user )
-             end
-          end
-          # clear selectors cache
-          SelectorsController.clearCache
+            end
+            # clear selectors cache
+            SelectorsController.clearCache
         end
         render_partial 'members_section', :id => @params[:id] 
     end
@@ -225,8 +232,8 @@ class GroupsController < ApplicationController
     
     #shows all events, lets you edit only those that haven't passed.
     def history
-	@group = Group.find(@params[:id])
-	@events_pages, @events = paginate :event, :per_page => 10,
+        @group = Group.find(@params[:id])
+        @events_pages, @events = paginate :event, :per_page => 10,
             :joins => "LEFT JOIN activities ON events.id =
             activities.event_id LEFT JOIN groups ON groups.id =
             events.group_id LEFT JOIN groups_users ON groups.id =
