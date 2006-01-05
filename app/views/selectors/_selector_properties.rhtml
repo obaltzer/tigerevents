@@ -1,6 +1,13 @@
 <h2>Modify Selector: <%=h @selector.name %></h2>
 
-<%= form_remote_tag :update => "selector_properties", :url => { :action => "update", :id => @selector.id } %>
+<%= form_remote_tag :update => "message_container", 
+                    :url => { :action => "update", :id => @selector.id },
+                    :complete => \
+                      remote_function(:update => 'selector_properties', 
+                                      :url => { :action => 'properties', 
+                                                :id => @selector.id }) +
+                      ";" + visual_effect(:highlight, 'message', 
+                                          :duration => 0.5 ) %>
   <div class="input">
     <label for="selector_name" style="display: inline;">Selector Name:</label>
     <%= text_field 'selector', 'name', :size => 15 %>
