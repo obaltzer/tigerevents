@@ -9,5 +9,13 @@
 <p>
   Class: <%=h @group.group_class.name %>
 </p>
+<div id="events">
+<% unless @upcoming_events.empty? %>
+<h3>Upcoming Events</h3>
+<%= render_partial 'upcoming_events' %>
+<% end %>
+<% unless @past_events.empty? %>
 <h3>History</h3>
 <%= render_partial 'history' %>
+<% end %>
+</div>

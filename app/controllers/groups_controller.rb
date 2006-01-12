@@ -54,6 +54,17 @@ class GroupsController < ApplicationController
     end
     
     def show
+        @group = Group.find(@params[:id])
+        @upcoming_events_pages, @upcoming_events = paginate :event, :per_page => 10,
+            :joins => "LEFT JOIN activities ON events.id =
+            activities.event_id LEFT JOIN groups ON groups.id =
+            events.group_id LEFT JOIN groups_users ON groups.id =
+            groups_users.group_id",
+            :conditions => ["events.group_id = ? AND events.deleted = ? 
+                AND events.startTime > ? AND activities.action = 'CREATE'
+                AND activities.user_id = groups_users.user_id
+                AND groups_users.authorized = ?",
+            @group.id, false, Time.now, true]
         history
     end
 
@@ -62,6 +73,10 @@ class GroupsController < ApplicationController
         @pengroups = @session[:user].unapproved_groups.sort_by { |a| a.name }
         @penmember = @session[:user].unapproved_member.sort_by { |a| a.name }
         render_partial
+    end
+
+    def all_groups
+        list
     end
 
     def list
@@ -233,7 +248,7 @@ class GroupsController < ApplicationController
     #shows all events, lets you edit only those that haven't passed.
     def history
         @group = Group.find(@params[:id])
-        @events_pages, @events = paginate :event, :per_page => 10,
+        @past_events_pages, @past_events = paginate :event, :per_page => 10,
             :joins => "LEFT JOIN activities ON events.id =
             activities.event_id LEFT JOIN groups ON groups.id =
             events.group_id LEFT JOIN groups_users ON groups.id =

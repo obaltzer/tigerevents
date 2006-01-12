@@ -1,0 +1,23 @@
+<% if not @groups.empty? %>
+<div class="group_listing">
+  <h2>Groups</h2>
+  
+  <form id="search_form" action="<%= url_for :action => 'list' %>" method="POST">
+    <div class="input">
+      <label for="search" style="display: inline">Find group:</label>
+      <%= text_field_tag 'search', @params[:search] ? @params[:search] : '' %>
+      <div class="description">
+        Specify a the text you want to search for in a group's name and description.
+      </div>
+    </div>
+  </form>
+  <%= observe_form 'search_form', 
+    :url => { :action => 'live_search' }, 
+    :frequency => 1, 
+    :update => 'approved_groups' %>
+  
+  <div id="approved_groups">
+    <%= render_partial 'public_group_list' %>
+  </div>
+</div>
+<% end %>
