@@ -82,4 +82,12 @@ module ApplicationHelper
         @context[:id] = action ? action : @params[:action]
         render_partial 'layouts/context_help'
     end
+
+    def default_stylesheets
+        render_partial 'layouts/default_stylesheets'
+    end
+
+    def default_javascripts
+        render_partial 'layouts/default_javascripts'
+    end
 end

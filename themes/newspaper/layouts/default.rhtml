@@ -12,26 +12,22 @@
   -->
   <head>
     <title>TigerEvents</title>
-    <%= stylesheet_link_tag 'tigerevents' %>
-    <%= stylesheet_link_tag 'calendar' %>
-    <%= stylesheet_link_tag 'tigerevents-calendar' %>
-    <%= stylesheet_link_tag 'tigerevents-nofx', 
+    
+    <%= default_stylesheets %>
+   
+    <!-- Theme CSS -->
+    <%= theme_stylesheet_link_tag 'tigerevents' %>
+    <%= theme_stylesheet_link_tag 'tigerevents-nofx', 
         :rel => "alternate stylesheet", :title => "nofx" %>
-    <%= stylesheet_link_tag 'tigerevents-ie', :rel => "alternate stylesheet",
+    <%= theme_stylesheet_link_tag 'tigerevents-ie', :rel => "alternate stylesheet",
         :title => "ie" %>
-    <%= javascript_include_tag "browser_detect" %>
-    <%= javascript_include_tag "prototype" %>
-    <!--
-    <%= javascript_include_tag "effects" %>
-    <%= javascript_include_tag "dragdrop" %>
-    -->
-    <%= javascript_include_tag "scriptaculous" %>
-    <%= javascript_include_tag "calendar" %>
-    <%= javascript_include_tag "calendar-en" %>
-    <%= javascript_include_tag "calendar-setup" %>
-    <%= javascript_include_tag "tigerevents" %>
-    <%= javascript_include_tag "behaviour" %>
-    <%= javascript_include_tag "styles" %>
+    
+    <%= default_javascripts %>
+    <!-- theme JavaScripts -->
+
+    <%= theme_javascript_include_tag 'tigerevents-functions' %>
+    <%= theme_javascript_include_tag 'tigerevents-behaviour' %>
+    
   </head>
   
   <body>

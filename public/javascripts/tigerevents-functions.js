@@ -1,4 +1,4 @@
-/* tigerevents.js
+/* tigerevents-functions.js
  *
  * This file contains TigerEvents specific JavaScript functions used
  * throughout the view.

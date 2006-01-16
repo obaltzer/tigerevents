@@ -5,6 +5,16 @@ class ApplicationController < ActionController::Base
     include LoginSystem
     model :user
     helper :Application
+    theme :get_theme
+    layout :get_layout
+
+    def get_theme
+        return 'newspaper'
+    end
+
+    def get_layout
+        return 'default'
+    end
 
     def log_activity(event, user, action)
         @activity = Activity.new(:event => event, :user => user, :action => action)
