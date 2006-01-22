@@ -1,0 +1,53 @@
+<h1 id="site_logo">
+  <%= link_to 'TigerEvents', { :controller => 'events',
+        :action => 'list' } %>
+</h1> 
+
+<div id="today">
+  <%= Time.new.to_formatted_s(:human_short_format) %>
+</div>
+
+<ul id="main_actions">
+  <li>
+    <%= link_to 'Home', { :controller => 'events', :action => 'list',
+        :id => nil } %>
+  </li>
+  <li>
+    <%= link_to "Post Events", {:controller => "events", 
+        :action => "new"} %>
+  </li>
+  <li>
+    <%= link_to "Group Listing", { :controller => "groups", :action => "all_groups" } %>
+  </li>
+  <li>
+    <%= link_to "Help", { :controller => "content", :action => "help" } %>
+  </li>
+  <li>
+    <%= link_to "Credits", { :controller => "content", 
+        :action => "credits" } %>
+  </li>
+</ul>
+
+<ul id="user_actions">
+  <% if session[:user] %>
+    <li>
+      Welcome <span id="username"><%= session[:user].fullname %></span>.
+    </li>
+    <% if AccountController.new.respond_to?(:change_pass) %>
+      <li>
+        <%= link_to 'Change Password', :controller => 'account',
+            :action => 'change_pass' %>
+      </li>
+    <% end %>
+    <li>
+      <%= link_to 'Logout', :controller => 'account', :action => 'logout' %>
+    </li>
+  <% else %>
+    <li>
+      You are not logged in.
+    </li>
+    <li>
+      <%= link_to 'Login', :controller => 'account', :action => 'login' %>
+    </li>
+  <% end %>
+</ul>
