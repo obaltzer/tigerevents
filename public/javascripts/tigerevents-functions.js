@@ -58,6 +58,30 @@ function ttOff()
     tooltip_obj = null;
 }
 
+function toolTipOn(e)
+{
+    tooltip_obj = e;
+    tooltip_obj.style.display = "block";
+}
+
+function toolTipOff()
+{
+    tooltip_obj.style.display = "none";
+    tooltip_obj = null;
+}
+
+function getSiblingByClass(e, class)
+{
+    var i;
+    var n = e.parentNode.childNodes.length;
+    for(i = 0; i < n; i++)
+    {
+        if(e.parentNode.childNodes[i].className == class)
+            return e.parentNode.childNodes[i];
+    }
+    return 0;
+}
+
 function mail(b, a)
 {
     window.location = 'mailto:' + a + '@' + b;

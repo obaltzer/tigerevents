@@ -8,8 +8,10 @@ class ApplicationController < ActionController::Base
     theme :get_theme
     layout :get_layout
 
+    @@theme = 'newspaper'
+    
     def get_theme
-        return 'newspaper'
+        return @@theme
     end
 
     def get_layout

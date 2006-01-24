@@ -1,5 +1,5 @@
 /*
-   Behaviour v1.0 by Ben Nolan, June 2005. Based largely on the work
+   Behaviour v1.1 by Ben Nolan, June 2005. Based largely on the work
    of Simon Willison (see comments by Simon below).
 
    Description:
@@ -29,7 +29,7 @@
 
    License:
    
-   	My stuff is BSD licensed. Not sure about Simon's.
+   	This file is entirely BSD licensed.
    	
    More information:
    	
@@ -125,7 +125,7 @@ document.getElementsBySelector = function(selector) {
       var tagName = bits[0];
       var id = bits[1];
       var element = document.getElementById(id);
-      if (tagName && element.nodeName.toLowerCase() != tagName) {
+      if (tagName && element && element.nodeName.toLowerCase() != tagName) {
         // tag with that ID not found, return false
         return new Array();
       }

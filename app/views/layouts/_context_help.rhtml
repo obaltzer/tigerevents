@@ -1,9 +1,9 @@
-<div class="help_link">
+<div class="context_help">
   <a href="#" onmouseout="ttOff('help_tooltip')" onmouseover="ttOn('help_tooltip')" onclick="<%= remote_function(:update => 'help_content', :url => @context) %>;toggle_help(event, 'help_container');"><%= image_tag 'help.gif' %></a>
   <div class="tooltip" id="help_tooltip">
     Help
   </div>
-  <div class="help_container" id="help_container" style="width: 450px">
+  <div id="help_container" style="width: 450px">
     <div id="help_close">
       <a href="#" onclick="toggle_help(event, 'help_container');">close <%= image_tag 'close.gif' %></a>
     </div>
