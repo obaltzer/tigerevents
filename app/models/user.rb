@@ -36,9 +36,6 @@ class User < ActiveRecord::Base
     end
     
     def after_create
-      if(self.id > 1)
-          AdminMailer.deliver_account_created(self)
-      end
       @password = nil
     end
     

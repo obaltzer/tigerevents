@@ -13,6 +13,9 @@ module SQLAccountController
                 flash[:auth] = "User #{@user.login} created"
                 redirect_to :controller => 'events',
                     :action => 'index'
+                if(@user.id > 1)
+                    AdminMailer.deliver_account_created(@user)
+                end
             end
         end
     end

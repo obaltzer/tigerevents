@@ -1,5 +1,11 @@
 class AdminMailer < ActionMailer::Base
 
+    def current_theme
+    end
+
+    def force_liquid_template
+    end
+
     def group_approved(group)
         @subject    = 'Group Approved'
         @body["group"] = group
