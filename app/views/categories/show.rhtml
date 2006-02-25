@@ -1,0 +1,36 @@
+<% if not @events.empty? %>
+      <% for event in @events %>
+        <li>
+          <div class="prefix_time">
+            <span class="start">
+              <%=h event.startTime.strftime( "%b %d %I:%M" ) %>
+            </span>
+          </div>
+          <div class="title"><%= link_to event.title, :controller => "events", :action => "show", :id => event %></div>
+          <% if event.announcement == false %>
+            <div class="time">
+              <span class="start">
+                <%=h event.startTime.to_formatted_s(:short_detailed_format) %>
+              </span>
+              <% if event.endTime %>
+                <span class="sep">-</span> 
+                <span class="end"><%=h event.endTime.strftime( (event.endTime - event.startTime < 1.day and event.endTime.day == event.startTime.day) ? 
+                              "%I:%M %p" : 
+                              "%a %b %d %I:%M %p") %></span>
+              <% end %>
+            </div>
+          <% end %>
+          <div class="description">
+            <% if event.description.size > 100 %>
+              <%= sanitize(simple_format(event.description.slice(0, event.description.rindex(' ')))) %>
+              <span class="link_more">
+                <%= link_to "...more", :controller => "events", 
+                    :action => "show", :id => event %>
+              </span>
+            <% else %>
+              <%= sanitize(simple_format(event.description)) %>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+<% end %>

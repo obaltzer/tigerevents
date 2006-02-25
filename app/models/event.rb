@@ -1,6 +1,6 @@
 require 'date'
 class Event < ActiveRecord::Base
-    has_and_belongs_to_many :categories
+    acts_as_taggable :tag_class_name => 'Category', :collection => :categories
     belongs_to :group
     belongs_to :priority
     attr_writer :hasEndTime
@@ -40,7 +40,7 @@ class Event < ActiveRecord::Base
         end
     end
     
-    def pending? (group)
+    def pending?(group)
         group.unauthorized_users.collect{|x| x.id }.include? \
             self.creator.user_id.to_i
     end
@@ -201,7 +201,6 @@ class Event < ActiveRecord::Base
     validates_presence_of :title
     validates_presence_of :startTime
     validates_presence_of :description
-    validates_presence_of :categories
     validates_presence_of :group
     validates_associated :group
     validates_format_of :url, :with => /^($|https?:\/\/$|https?:\/\/((?:[-a-z0-9]+\.)+[a-z]{2,}))/

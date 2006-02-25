@@ -142,33 +142,12 @@
   <div class="input">
     <label for="event_categories">Categories</label>
     <div class="description">
-      Specify the categories this event or announcement fits under or create a
-      new category. Hold 'Ctrl' key to select multiple categories.  
+        Create a comma (,) seperated list of categories this event belongs
+        to.
+        e.g. ball, dancing, formal event
     </div>
     <div>
-      <span id="category_list" >
-        <%= render_component :action => 'list_categories', :id => @event.id, :params => @params %>
-      </span>
-      <span class="add_action" id="show_category_form" onclick="toggle_slide('add_category_form');toggle_action_link('show_category_form', 'Add a new category', 'Hide form');">Add a new category</span>
-    </div>
-    <div class="embedded_add_form" style="display: none" id="add_category_form">
-      <div class="wrapper">
-        <div class="hide_button" onclick="toggle_slide('add_category_form');toggle_action_link('show_category_form', 'Add a new category', 'Hide form');">hide <%= image_tag 'close.gif' %></div>
-        <h3>Add a new category</h3>
-        <%= render_component :controller => "categories",
-                             :action => "new",
-                             :params => { 
-                                :update => "category_list",
-                                :update_with => {
-                                    :controller => "events",
-                                    :action => "list_categories",
-                                    :id => @event.id
-                                  },
-                                :html => {
-                                  :onsubmit => "toggle_slide('add_category_form');toggle_action_link('show_category_form', 'Add a new category', 'Hide form');"
-                                }
-                              } %> 
-      </div>
+        <%= text_field_tag('tags', '') %>
     </div>
   </div>
 

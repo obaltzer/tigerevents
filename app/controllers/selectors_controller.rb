@@ -121,7 +121,7 @@ class SelectorsController < ApplicationController
             
             events = Event.find(\
                 :all, \
-                :include => [:categories, :group, :priority], \
+                :include => [:group, :priority], \
                 :joins => "LEFT JOIN group_classes ON "\
                     + "groups.group_class_id = group_classes.id "\
                     + "LEFT JOIN groups_users ON "\

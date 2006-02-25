@@ -1,6 +1,15 @@
 class CategoriesController < ApplicationController
     before_filter :login_required, :only => [:create_remote]
-    
+
+    def list
+      @categories = Category.find :all, :order => "name"
+    end
+
+    def show
+      @category = Category.find(@params[:id])
+      @events = Event.find_tagged_with(:any => @category.name)
+    end
+                                        
     # create a new category from a JavaScript request
     def create
         @category = Category.new(@params[:category])
@@ -15,7 +24,7 @@ class CategoriesController < ApplicationController
     end
 
     # list existing categories
-    def list
+    def list_admin
         @categories = Category.find :all, :order => "name"
         @complements = {}
         for c in @categories do
@@ -26,9 +35,9 @@ class CategoriesController < ApplicationController
     end
 
     # display JavaScript submission form
-    def new
-        render_partial
-    end
+#    def new
+#        render_partial
+#    end
     
     def remove
         @old_c = Category.find @params[:id]

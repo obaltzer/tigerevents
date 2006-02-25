@@ -57,5 +57,5 @@ ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
   :human_expanded_format => '%I:%M %p on %A, %B %d %Y',
   :human_short_format => '%A, %b %d %Y'
 )
-
+require_gem 'acts_as_taggable'
 require 'tigerevents_config'

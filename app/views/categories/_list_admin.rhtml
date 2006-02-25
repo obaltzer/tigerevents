@@ -17,7 +17,7 @@
             <%= form_remote_tag :update => "message_container", 
                 :url => { :action => :remove, :id => c.id },
                 :complete => remote_function(:update => 'category_list', 
-                  :url => { :action => :list }) + ";" +
+                  :url => { :action => :list_admin }) + ";" +
                     visual_effect(:highlight, 'message', :duration => 0.5 ) %>
               <div class="input">
                 <label style="display: inline">

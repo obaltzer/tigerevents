@@ -68,6 +68,8 @@ class EventsController < ApplicationController
             @event.group.users.push_with_attributes(@session[:user], 
                 'authorized' => false ) \
                     unless @event.group.users.include? @session[:user]
+            @event.tag(params[:tags], :separator => ',', :attributes =>\
+                {:created_by => @session[:user]})
             
             log_activity(@event, @session[:user], 'CREATE')
             flash[:notice] = 'Event was successfully created.'
