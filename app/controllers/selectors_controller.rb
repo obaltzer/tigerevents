@@ -20,8 +20,9 @@ class SelectorsController < ApplicationController
     def events
         #if the cacheKey is nil then it should not be stored
         cacheKey = nil
-        if @params[:period] and @params[:period][:fixed] 
-           cacheKey = "#{@params[:id]}_#{@params[:period][:fixed]}" 
+        if @params[:period] and @params[:period][:fixed] \
+                and not @params[:search]
+            cacheKey = "#{@params[:id]}_#{@params[:period][:fixed]}" 
         end
 
         #do not perform selection if it is in the cache
@@ -85,7 +86,24 @@ class SelectorsController < ApplicationController
                 startTime = Time.now
                 endTime = 7.days.from_now.at_beginning_of_day
             end
-
+    
+            if @params[:search] and not @params[:search] == ""
+                tokens = @params[:search].split.collect {
+                    |c|
+                    "%#{c.downcase}%"
+                }
+                search_cond = " AND " + 
+                    (["(LOWER(events.title) LIKE ? " +
+                        "OR LOWER(events.description) LIKE ? " +
+                        "OR LOWER(groups.name) LIKE ? " +
+                        "OR LOWER(groups.description) LIKE ?)"] *
+                        tokens.size).join(" AND ")
+                search_val = *tokens.collect { |t| [t] * 4 }.flatten
+            else
+                search_cond = ""
+                search_val = []
+            end
+            
             time_cond = ""
             time_val = []
                 # get all announcements which have started and not ended
@@ -118,7 +136,7 @@ class SelectorsController < ApplicationController
             show_val << false
             show_cond << " AND users.banned = ?"
             show_val << false
-            
+
             events = Event.find(\
                 :all, \
                 :include => [:group, :priority], \
@@ -134,8 +152,8 @@ class SelectorsController < ApplicationController
                     + "users.id = activities.user_id", \
                 :conditions => [conditions \
                     + show_cond \
-                    + type_cond + time_cond] + condition_val + show_val + type_val +
-                    time_val, \
+                    + type_cond + time_cond + search_cond] + condition_val + show_val + type_val +
+                        time_val + search_val, \
                 :order => "events.startTime, priorities.rank, "\
                         + "activities.created_on DESC")
             #cache the query if it is from a defined period

@@ -1,9 +1,1 @@
-<div id="period_display">
-  <small>Events From <%= @period[:startTime].to_formatted_s(:human_short_format) %> 
-  to <%= @period[:endTime].to_formatted_s(:human_short_format) %></small>
-</div>
-<div id="selector_container">
-<% for selector in @selectors %>
-  <%= render_component :controller => "selectors", :action => "events", :id => selector.id, :params => {:period => @params[:period]} %>
-<% end %>
-</div>
+<%= render_partial 'list' %>

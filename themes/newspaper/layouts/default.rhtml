@@ -40,6 +40,7 @@
     </h1>
 
     <%= render_partial 'layouts/theme_selector' %>
+    <%= render_partial 'layouts/event_search' %>
    
     <div id="today">
       <%= Time.now.to_formatted_s(:human_short_format) %>
@@ -137,13 +138,13 @@
       <ul id="time_period_links">
         <li>Change View To: </li>
         <li><%= link_to 'This Week', :controller => "events", 
-                :action => "list", :id => "this_week" %></li>
+                :action => "list", :id => "this_week", :search => @params[:search] %></li>
         <li><%= link_to 'Next Week', :controller => "events", 
-                :action => "list", :id => "next_week" %></li>
+                :action => "list", :id => "next_week", :search => @params[:search] %></li>
         <li><%= link_to 'This Month', :controller => "events", 
-                :action => "list", :id => "this_month" %></li>
+                :action => "list", :id => "this_month", :search => @params[:search] %></li>
         <li><%= link_to 'Next Month', :controller => "events", 
-                :action => "list", :id => "next_month" %></li>
+                :action => "list", :id => "next_month", :search => @params[:search] %></li>
       </ul>
       <a href="javascript:toggle_slide('advanced_time_box');">Advanced</a>
       <% @period ||= {} # XXX bad bad fix, but I have no idea how to do it better right now %>
@@ -152,6 +153,7 @@
             Select a time period to display:
           </p>
           <%= start_form_tag :controller => "events", :action => "list", :id => nil %>
+          <%= hidden_field_tag 'search', @params[:search] %>
           <div class="input">
             <label for="period_start_date">Start:</label>
             <%= text_field_tag 'period[start_date]', @period[:start_date], \
