@@ -309,3 +309,13 @@ function toggle_action_link(id, on, off)
         elem.innerHTML = on;
     }
 }
+
+function quicklink(selObj, restore)
+{
+    if(selObj.options[selObj.selectedIndex].value) 
+        eval("parent.location='" + selObj.options[selObj.selectedIndex].value + "'");
+    if(restore)
+        selObj.selectedIndex = 0;
+}
+
+

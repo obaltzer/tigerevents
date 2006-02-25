@@ -3,6 +3,8 @@
         :action => 'list' } %>
 </h1> 
 
+<%= render_partial 'layouts/theme_selector' %>
+
 <div id="today">
   <%= Time.new.to_formatted_s(:human_short_format) %>
 </div>

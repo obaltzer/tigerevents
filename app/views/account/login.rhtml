@@ -1,6 +1,13 @@
 <form action="<%= LOGIN_URL %>" method="post">
 
 <div title="Account login" id="loginform" class="form">
+    <% if @flash.length %>
+      <% for k in @flash.keys %>
+        <div class="flash">
+          <%= @flash[k] %>
+        </div>
+      <% end %>
+    <% end %>
     <h2>
     <% if @flash[:login] -%>
       <%= @flash[:login] %>

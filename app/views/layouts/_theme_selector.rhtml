@@ -1,0 +1,13 @@
+<div id="theme_selection">
+  <select id="theme_selector" width="15" name="theme">
+    <option value="">
+      Select a theme...
+    </option>
+    <% for t in AccountController::available_themes %>
+      <option value="<%= url_for :controller => 'account', :action => 'theme',
+                                 :id => t %>">
+        <%=h t %>
+      </option>
+    <% end %>
+  </select>
+</div>

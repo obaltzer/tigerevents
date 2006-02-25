@@ -38,6 +38,8 @@
       <%= link_to "TigerEvents", { :controller => "events", 
           :action => "list", :id => nil } %>
     </h1>
+
+    <%= render_partial 'layouts/theme_selector' %>
    
     <div id="today">
       <%= Time.now.to_formatted_s(:human_short_format) %>

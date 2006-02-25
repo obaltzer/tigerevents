@@ -7,7 +7,7 @@ if(browser.isGecko && !browser.isKonqueror || browser.isSafari
             new FadeItems(e);
         },
         
-        'a#group_info_tooltip': function(e) {
+        'a#group_info': function(e) {
             e.onmouseover = function() {
                 toolTipOn(getSiblingByClass(e, 'tooltip'));
             };
@@ -15,7 +15,7 @@ if(browser.isGecko && !browser.isKonqueror || browser.isSafari
                 toolTipOff();
             };
         }
-   };
+    };
     Behaviour.register(myrules);
 }
 else

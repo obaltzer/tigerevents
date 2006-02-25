@@ -25,7 +25,7 @@
         <%=link_to @event.group.name, :controller => 'groups', :action => 'show', :id => @event.group.id %> 
         <%= link_to image_tag('i.png', { :alt => '', :class => 'info_image'}), \
             { :controller => 'groups', :action => 'show', :id => @event.group.id}, \
-            :id => 'group_info_tooltip' %>
+            :id => 'group_info' %>
         <% if (session[:user] != nil) && (session[:user][:superuser]) %>
           <%=link_to "(edit)", :controller => 'groups', :action => 'edit', :id => @event.group.id %> 
         <% end %>

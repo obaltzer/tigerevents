@@ -3,8 +3,10 @@ class AccountController < ApplicationController
                                          :toggle_banned]
     before_filter :login_status, :only => [:login, :signup]
 
+    @@available_themes = ['minimal', 'newspaper']
+    
     include eval(AUTH_TYPE)
-
+    
     def login_status
         if !@session[:user]
             return true
@@ -31,9 +33,10 @@ class AccountController < ApplicationController
                             + "'> " + ADMIN_CONTACT + "</a>"
                     else
                         @session[:user] = @user
+                        @session[:theme] = @user.theme
                     end
                 end
-                redirect_to :controller => 'events', :action => 'index'
+                redirect_back_or_default :controller => 'events', :action => 'index'
         end
     end
 
@@ -44,7 +47,7 @@ class AccountController < ApplicationController
         end
         @session[:user] = nil
         flash[:auth] = "You have now been successfully logged out"
-        redirect_back_or_default :controller => 'events', :action => 'index'
+        redirect_to :action => 'login'
     end
 
     def list
@@ -86,5 +89,22 @@ class AccountController < ApplicationController
         redirect_to :action => 'list', \
             :params => { :search => @params[:search], \
                 :page => @params[:page] }
+    end
+
+    def theme
+        id = @params[:id]
+        if id and @@available_themes.include?(id)
+            @session[:theme] = id
+            if @session[:user]
+                @session[:user].theme = id
+                @session[:user].save
+            end
+        end
+        redirect_back_or_default url_for(:controller => 'event', 
+                                         :action => 'list')
+    end
+
+    def AccountController::available_themes
+        return @@available_themes
     end
 end
