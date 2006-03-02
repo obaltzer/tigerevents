@@ -2,12 +2,14 @@ class CategoriesController < ApplicationController
     before_filter :login_required, :only => [:create_remote]
 
     def list
-      @categories = Category.find :all, :order => "name"
+      @categories = Category.find (:all, :order => "name")
+      @tagged_items = Event.tags_count(:limit => 100)
     end
 
     def show
       @category = Category.find(@params[:id])
-      @events = Event.find_tagged_with(:any => @category.name)
+      @events = Event.find_tagged_with(:any => @category.name, :conditions => \
+        ["startTime > ?", Time.now])
     end
                                         
     # create a new category from a JavaScript request
@@ -23,6 +25,19 @@ class CategoriesController < ApplicationController
         end
     end
 
+    def delete
+        if (@params[:category] != "")
+            @old_c = Category.find @params[:category]
+            Category.delete(@params[:category])
+        end
+        render_partial
+    end
+
+    def list_categories
+        @categories = Category.find :all, :order => "name"
+        render_partial
+    end
+
     # list existing categories
     def list_admin
         @categories = Category.find :all, :order => "name"
@@ -34,11 +49,6 @@ class CategoriesController < ApplicationController
         render_partial
     end
 
-    # display JavaScript submission form
-#    def new
-#        render_partial
-#    end
-    
     def remove
         @old_c = Category.find @params[:id]
         begin

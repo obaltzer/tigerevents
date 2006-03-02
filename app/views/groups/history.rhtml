@@ -10,7 +10,7 @@
                
           <tr id="event<%=h event.id %>" class="<%= event.pending?(@group) ? 'pending_event' : 'active_event' %>">
             <td>
-               <%=link_to event.title, :controller => "events", :action => "show", :id => event %>
+               <%=link_to event.title, :controller => "events", :action => "show", :id => event.event_id %>
             </td>
             <td class="time_string">
               <%=h event.startTime.to_formatted_s(:short_detailed_format) %>

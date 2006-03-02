@@ -79,8 +79,10 @@
           Tags:
         </th>
         <td>
-          <%= @event.tag_names.join(" ") %>
-        </td>
+        </d>
+        <% for category in @categories %>
+          <%= link_to category.name, :controller => 'categories', :action => 'show', :id => category %>
+        <% end %>
     </tr>
   </table>
   <% if @session[:user] and (@event.group.authorized_users.include?@session[:user] or @session[:user][:superuser]) \

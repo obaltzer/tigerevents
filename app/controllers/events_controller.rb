@@ -26,6 +26,8 @@ class EventsController < ApplicationController
 
     def show
         @event = Event.find(@params[:id], :include => [:group])
+        tags = @event.tag_names
+        @categories = Category.category_objects(tags)
     end
 
     def new

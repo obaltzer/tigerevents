@@ -1,11 +1,9 @@
+<div class="selector_name">
+<h3><%= @category.name %></h3>
+</div>
+
 <% if not @events.empty? %>
       <% for event in @events %>
-        <li>
-          <div class="prefix_time">
-            <span class="start">
-              <%=h event.startTime.strftime( "%b %d %I:%M" ) %>
-            </span>
-          </div>
           <div class="title"><%= link_to event.title, :controller => "events", :action => "show", :id => event %></div>
           <% if event.announcement == false %>
             <div class="time">
@@ -31,6 +29,5 @@
               <%= sanitize(simple_format(event.description)) %>
             <% end %>
           </div>
-        </li>
       <% end %>
 <% end %>

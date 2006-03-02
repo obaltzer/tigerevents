@@ -1,4 +1,13 @@
 <h2>Existing Categories</h2>
+  <%= form_remote_tag :update => "message_container", :url => {:action => :delete},
+  :complete => remote_function(:update => 'category_selector', :url =>
+  {:action => :list_categories }) %>
+  <select id="category_selector" width="15" name="category">
+    <%= render_partial 'list_categories' %>
+  </select>
+  <input type="submit" value="Delete">
+  <%= end_form_tag %>
+
 <div class="block_list">
   <ul id="categories">
     <% for c in @categories %>

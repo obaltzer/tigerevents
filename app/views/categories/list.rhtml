@@ -1,10 +1,8 @@
 <div>
   <h2>Categories</h2>
-  <table>
-    <% for category in @categories %>
-      <tr>
-        <td><%= link_to category.name, :controller => 'categories', :action => 'show', :id => category %></td>
-      </tr>
-    <% end %>
-  </table>
+  <% tag_cloud(@tagged_items, %w(x-small small medium large x-large)) do |tag, font_size| %>
+    <span style="font-size: <%= font_size %>"}>
+      <%= link_to_if tag, tag, :controller => 'categories', :action => 'show', :id => Category.category_item(tag) %>
+    </span>
+  <% end %>
 </div>
