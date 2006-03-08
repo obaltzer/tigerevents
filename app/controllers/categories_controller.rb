@@ -7,28 +7,28 @@ class CategoriesController < ApplicationController
     end
 
     def show
-      @category = Category.find(@params[:id])
+      @category = Category.find(:first, :conditions => ["name = ?", @params[:id]])
       @events = Event.find_tagged_with(:any => @category.name, :conditions => \
         ["startTime > ?", Time.now])
     end
                                         
-    # create a new category from a JavaScript request
-    def create
-        @category = Category.new(@params[:category])
-        @category.created_by = @session[:user].id
-
-        if @category.save
-            # redirect back to the category listing for the current event
-            redirect_to @params[:update_with]
-        else
-            render_partial 'embed_error_message'
-        end
-    end
-
     def delete
         if (@params[:category] != "")
             @old_c = Category.find @params[:category]
             Category.delete(@params[:category])
+        end
+        render_partial
+    end
+
+    def split
+        if (@params[:category_split] !="")
+            @old_c = Category.find(@params[:category_split])
+            @events = Event.find_tagged_with(:any => @old_c.name)
+            Category.delete(@params[:category_split])
+            for event in @events do
+                event.tag(params[:tags], :separator => ',', :attributes =>\
+                    {:created_by => @session[:user]})
+            end
         end
         render_partial
     end

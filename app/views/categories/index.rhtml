@@ -1,10 +1,7 @@
 <div id="message_container">
-</div>
-<div id="category_new">
-<!--
-  <%= render_component :action => 'new', :params => { 
-      :update => 'category_list', :update_with => { :action => :list } } %>
-      -->
+<% if @flash[:info] -%>
+    <%= @flash[:info] %>
+<% end -%>
 </div>
 <div id="category_list">
   <%= render_component :action => 'list_admin' %>

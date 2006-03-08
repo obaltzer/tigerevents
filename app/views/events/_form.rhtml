@@ -147,7 +147,7 @@
         e.g. ball, dancing, formal event
     </div>
     <div>
-        <%= text_field_tag('tags', '') %>
+        <%= text_field_tag('tags', @event.tag_names.join(", ")) %>
     </div>
   </div>
 

@@ -112,7 +112,7 @@ class EventsController < ApplicationController
             render_action 'edit'
             return true
         end
-            
+        
         # make sure to set endTime == nil when the box is unchecked  
         @event.hasEndTime = @params[:event_hasEndTime] ? true : false;
          
@@ -126,7 +126,8 @@ class EventsController < ApplicationController
             @event.group.users.push_with_attributes( @session[:user], 'authorized' => false ) \
                 unless @event.group.users.include? @session[:user] \
                         or @session[:user][:superuser]
-
+            @event.tag(params[:tags], :separator => ',', :clear => true,\
+                :attributes => {:created_by => @session[:user]})
             log_activity(@event, @session[:user], 'MODIFY')
             flash[:notice] = 'Event was successfully updated.'
             # clear selectors cache

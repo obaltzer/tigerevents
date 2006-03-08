@@ -1,6 +1,8 @@
 <h2>Existing Categories</h2>
   <%= form_remote_tag :update => "message_container", :url => {:action => :delete},
   :complete => remote_function(:update => 'category_selector', :url =>
+  {:action => :list_categories }),
+  :success => remote_function(:update => 'category_split', :url =>
   {:action => :list_categories }) %>
   <select id="category_selector" width="15" name="category">
     <%= render_partial 'list_categories' %>
@@ -8,47 +10,20 @@
   <input type="submit" value="Delete">
   <%= end_form_tag %>
 
-<div class="block_list">
-  <ul id="categories">
-    <% for c in @categories %>
-      <li id="item_<%= c.id %>">
-        <div class="action">
-            <a id="remove_link_<%= c.id %>" href="#"
-               onclick="toggle('remove_form_<%= c.id %>');
-                        toggle('remove_link_<%= c.id %>');">
-              <%= image_tag('trash.gif', :alt => 'Delete Category') %></a>
-        </div>
-      
-        <%=h c.name %>
-      
-        <div id="remove_form_<%= c.id %>" style="display: none">
-          <% if @categories.length >= 2 %>
-            <%= form_remote_tag :update => "message_container", 
-                :url => { :action => :remove, :id => c.id },
-                :complete => remote_function(:update => 'category_list', 
-                  :url => { :action => :list_admin }) + ";" +
-                    visual_effect(:highlight, 'message', :duration => 0.5 ) %>
-              <div class="input">
-                <label style="display: inline">
-                  Reassign existing events to category:
-                </label>
-                <select name="new_category_id">
-                  <%= options_from_collection_for_select @complements[c], 
-                      'id', 'name' %>
-                </select>
-                <input type="hidden" name="update_with" 
-                       value="<%= url_for :action => :list %>"/>
-                <%= submit_tag "Ok" %>
-                <input type="reset" value="Cancel" 
-                       onclick="toggle('remove_form_<%= c.id %>');
-                                toggle('remove_link_<%= c.id %>');"/>
-              </div>
-            <%= end_form_tag %>
-          <% else %>
-            Please create a new category first.
-          <% end %>
-        </div>
-      </li>
-    <% end %>
-  </ul>
-</div>
+  <%= form_remote_tag :update => "message_container", :url => {:action => :split},
+  :complete => remote_function(:update => 'category_selector', :url =>
+  {:action => :list_categories }),
+  :success => remote_function(:update => 'category_split', :url =>
+  {:action => :list_categories }) %>
+  <select id="category_split" width="15" name="category_split">
+    <%= render_partial 'list_categories' %>
+  </select>
+  <div class="description">
+    Create a comma (,) seperated list of categories this event belongs
+    to. e.g. ball, dancing, formal event
+  </div>
+                              
+  <%= text_field_tag('tags', '') %>
+  <input type="submit" value="Replace">
+  <%= end_form_tag %>
+  
