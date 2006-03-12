@@ -3,8 +3,10 @@
     <div class="input">
       <label for="search" style="display: inline">Find event:</label>
       <%= text_field_tag 'search', @params[:search] ? @params[:search] : '' %>
-      <%= hidden_field_tag 'period[start_date]', @params[:period][:startTime].strftime('%d/%m/%Y') %>
-      <%= hidden_field_tag 'period[end_date]', @params[:period][:endTime].strftime('%d/%m/%Y') %>
+      <% if @params[:period] %>
+        <%= hidden_field_tag 'period[start_date]', @params[:period][:startTime].strftime('%d/%m/%Y') %>
+        <%= hidden_field_tag 'period[end_date]', @params[:period][:endTime].strftime('%d/%m/%Y') %>
+      <% end %>
     </div>
   </form>
 </div>

@@ -7,7 +7,13 @@ class CategoriesController < ApplicationController
     end
 
     def show
-      @category = Category.find(:first, :conditions => ["name = ?", @params[:id]])
+      # this makes sure we can find tags by ID and name
+      if @params[:id]
+        @category = Category.find(@params[:id])
+      elsif @params[:name]
+        @category = Category.find(:first, :conditions => 
+                        ["name = ?", @params[:name]])
+      end
       @events = Event.find_tagged_with(:any => @category.name, :conditions => \
         ["startTime > ?", Time.now])
     end

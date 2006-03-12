@@ -4,8 +4,8 @@
   <table>
     <% for newgroup in @newgroups %>
       <tr>
-        <td><%= link_to newgroup.name, :controller => 'groups', :action => 'edit', :id => newgroup %></td>
-        <td><%=h newgroup.description %></td>
+        <td class="clickable" onclick="window.location = '<%= url_for :controller => "groups", :action => "edit", :id => newgroup %>'"><%= link_to newgroup.name, :controller => 'groups', :action => 'edit', :id => newgroup %></td>
+        <td class="clickable" onclick="window.location = '<%= url_for :controller => "groups", :action => "edit", :id => newgroup %>'"><%=h newgroup.description %></td>
         <td><%= link_to 'Approve', :action => 'toggle_approved', :id => newgroup %></td>
         <td><%= link_to 'Reject', {:action => 'reject', :id =>
         newgroup},

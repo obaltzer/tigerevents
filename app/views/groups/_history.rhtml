@@ -9,7 +9,7 @@
          </tr>
 
          <% for event in @past_events %>
-          <tr id="event<%=h event.id %>" class="<%= event.pending?(@group) ? 'pending_event' : 'active_event' %>">
+          <tr id="event<%=h event.event_id %>" class="<%= event.pending?(@group) ? 'pending_event' : 'active_event' %> clickable" onclick="window.location = '<%= url_for :controller => "events", :action => "show", :id => event.event_id %>'">
             <td>
                <%=link_to event.title, :controller => "events", :action =>
                "show", :id => event.event_id %>

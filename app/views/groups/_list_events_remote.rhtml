@@ -11,7 +11,7 @@
       <% for event in @events %>
         <% if not event.expired? %>
           <tr id="event_<%=h event.id %>" class="<%= event.pending?(@group) ? 'pending_event' : 'active_event' %>">
-            <td>
+            <td class="clickable" onclick="window.location = '<%= url_for :controller => "events", :action => "show", :id => event %>'">
               <%=h event.title %>
             </td>
             <td>

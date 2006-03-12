@@ -608,6 +608,11 @@ tr:hover
     background-color: #FFFFBB;
 }
 
+tr a
+{
+    display: block;
+}
+
 td
 {
     text-align: left;

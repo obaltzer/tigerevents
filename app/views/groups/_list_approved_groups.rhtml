@@ -5,8 +5,8 @@
 <table>
   <% for group in @groups %>
     <tr>
-      <td><%= link_to group.name, :controller => 'groups', :action => 'edit', :id => group %></td>
-      <td><%=h group.description %></td>
+      <td class="clickable" onclick="window.location = '<%= url_for :controller => "groups", :action => "edit", :id => group %>'"><%= link_to group.name, :controller => 'groups', :action => 'edit', :id => group %></td>
+      <td class="clickable" onclick="window.location = '<%= url_for :controller => "groups", :action => "edit", :id => group %>'"><%=h group.description %></td>
       <td><%= link_to 'Ban', :action => 'toggle_approved', :id => group %></td>
     </tr>
   <% end %>
