@@ -58,6 +58,8 @@ module LDAPAccountController
                 conn.search(LDAP_DN, LDAP::LDAP_SCOPE_SUBTREE, "(uid=#{username})") {|x|
                     if x.vals(LDAP_DISPLAY_NAME)
                         fullName = x.get_values(LDAP_DISPLAY_NAME)[0]
+                    end
+                    if x.vals(LDAP_EMAIL_ADDRESS)
                         email = x.get_values(LDAP_EMAIL_ADDRESS)[0]
                     end
 		    #set user as being authenticated
