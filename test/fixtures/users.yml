@@ -1,3 +1,17 @@
+# Schema as of Sat Mar 11 16:46:27 AST 2006 (schema version 5)
+#
+#  id                  :integer(11)   not null
+#  login               :string(80)    default(), not null
+#  fullname            :string(80)    default(), not null
+#  hashed_pass         :string(40)    
+#  banned              :boolean(1)    not null
+#  superuser           :boolean(1)    not null
+#  created_on          :datetime      
+#  updated_on          :datetime      
+#  email               :string(100)   
+#  theme               :string(100)   
+#
+
 user_1:
   id: 1
   login: 'dummy'

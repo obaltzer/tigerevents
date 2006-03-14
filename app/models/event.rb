@@ -1,3 +1,20 @@
+# Schema as of Sat Mar 11 16:46:27 AST 2006 (schema version 5)
+#
+#  id                  :integer(11)   not null
+#  announcement        :boolean(1)    not null
+#  group_id            :integer(11)   
+#  description         :text          default(), not null
+#  title               :string(100)   default(), not null
+#  startTime           :datetime      not null
+#  endTime             :datetime      
+#  priority_id         :integer(11)   
+#  url                 :string(100)   
+#  deleted             :boolean(1)    not null
+#  created_on          :datetime      
+#  updated_on          :datetime      
+#  location            :string(100)   
+#
+
 require 'date'
 class Event < ActiveRecord::Base
     acts_as_taggable :tag_class_name => 'Category', :collection => :categories

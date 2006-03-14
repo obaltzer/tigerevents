@@ -116,6 +116,11 @@ class GroupsController < ApplicationController
         render_partial "list_approved_groups"
     end
     
+    def live_search_public
+        list
+        render_partial "public_group_list"
+    end
+    
     #checks to see if the user belongs to this group
     def belongs_to
         if(@session[:user] == nil || @session[:user].banned? )

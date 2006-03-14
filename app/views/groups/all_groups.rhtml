@@ -12,11 +12,11 @@
     </div>
   </form>
   <%= observe_form 'search_form', 
-    :url => { :action => 'live_search' }, 
+    :url => { :action => 'live_search_public' }, 
     :frequency => 1, 
-    :update => 'approved_groups' %>
+    :update => 'display_groups' %>
   
-  <div id="approved_groups">
+  <div id="display_groups">
     <%= render_partial 'public_group_list' %>
   </div>
 </div>

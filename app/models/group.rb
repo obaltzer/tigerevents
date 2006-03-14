@@ -1,3 +1,13 @@
+# Schema as of Sat Mar 11 16:46:27 AST 2006 (schema version 5)
+#
+#  id                  :integer(11)   not null
+#  name                :string(100)   default(), not null
+#  description         :text          default(), not null
+#  group_class_id      :integer(11)   
+#  approved            :boolean(1)    not null
+#  deleted             :boolean(1)    not null
+#
+
 class Group < ActiveRecord::Base
     has_many :events
     belongs_to :group_class

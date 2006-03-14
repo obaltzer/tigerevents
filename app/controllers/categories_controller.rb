@@ -44,6 +44,10 @@ class CategoriesController < ApplicationController
         render_partial
     end
 
+    def tag_cloud
+        list
+    end
+    
     # list existing categories
     def list_admin
         @categories = Category.find :all, :order => "name"
