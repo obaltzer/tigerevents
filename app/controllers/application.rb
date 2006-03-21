@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     theme :get_theme
     layout :get_layout
 
-    @@default_theme = 'minimal'
+    @@default_theme = 'newspaper'
     
     def get_theme
         # returning the theme that is associated with the session

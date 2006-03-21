@@ -24,6 +24,20 @@ class EventsController < ApplicationController
         end
     end
 
+    # display the x latest active events posted
+    def latest
+        #default value of 10 events
+        if not @params[:id]
+            @params[:id] = 10
+        end
+        @events = Event.find(:all, :limit => @params[:id], :include => \
+            [:group], :order => "events.id DESC", :conditions => \
+            ["events.startTime > ?", Time.now])
+        #make sure that the number actually returned remains consistent
+        #(due to lack of active events)
+        @params[:id] = @events.size
+    end
+
     def show
         @event = Event.find(@params[:id], :include => [:group])
         tags = @event.tag_names
