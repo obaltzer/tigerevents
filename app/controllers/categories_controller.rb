@@ -2,8 +2,14 @@ class CategoriesController < ApplicationController
     before_filter :login_required, :only => [:create_remote]
 
     def list
-      @categories = Category.find (:all, :order => "name")
-      @tagged_items = Event.tags_count(:limit => 100)
+        if(@params['page']==nil)
+            @params['page']=1
+        end
+        @categories = Category.find(:all, :order => "name", :include => \
+            "events", :conditions => ["events.startTime > ?", Time.now])
+        @categories_pages = Paginator.new self, @categories.size, 10, @params['page']
+        @tagged_items = Event.tags_count(:limit => 100, :conditions => \
+            ["startTime > ?", Time.now])
     end
 
     def show
@@ -36,11 +42,6 @@ class CategoriesController < ApplicationController
                     {:created_by => @session[:user]})
             end
         end
-        render_partial
-    end
-
-    def list_categories
-        @categories = Category.find :all, :order => "name"
         render_partial
     end
 

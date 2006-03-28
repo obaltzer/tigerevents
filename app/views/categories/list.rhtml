@@ -1,8 +1,7 @@
 <div>
-  <h2>Categories</h2>
-  <% tag_cloud(@tagged_items, %w(x-small small medium large x-large)) do |tag, font_size| %>
-    <span style="font-size: <%= font_size %>"}>
-      <%= link_to_if tag, tag, :controller => 'categories', :action => 'show', :name => tag %>
-    </span>
-  <% end %>
+    <h3>Categories</h3>
+</div>
+
+<div>
+    <%= render_partial 'active_categories_list' %>
 </div>
