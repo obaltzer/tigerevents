@@ -28,19 +28,19 @@ class User < ActiveRecord::Base
     def approved_groups
         return Group.find(:all, :include => :users,
             :conditions => ["authorized = ? AND approved = ? AND users.id =
-            #{self.id}", true, true])
+            #{self.id} AND deleted = ?", true, true, false])
     end
 
     def unapproved_member
         return Group.find(:all, :include => :users,
             :conditions => ["authorized = ? AND users.id =
-            #{self.id}", false])
+            #{self.id} AND deleted = ?", false, false])
     end
 
     def unapproved_groups
         return Group.find(:all, :include => :users,
             :conditions => ["authorized = ? AND approved = ? AND users.id =
-            #{self.id}", true, false])
+            #{self.id} AND deleted = ?", true, false, false])
     end
 
     def before_create
