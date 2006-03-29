@@ -13,9 +13,17 @@ class Group < ActiveRecord::Base
     belongs_to :group_class
     has_and_belongs_to_many :users
     validates_presence_of :name
-    validates_uniqueness_of :name
+    validates_uniqueness_of :name, :if => Proc.new {determine_uniqueness(:name)}
     validates_presence_of :group_class_id
     validates_presence_of :description
+
+    def self.determine_uniqueness(name)
+        @group = Group.find(:first, :conditions => ["name = ? and deleted = ?", name, false])
+        if(@group == nil) 
+            return false
+        end
+        return true
+    end
 
     def authorized_users
         return User.find(:all, :include => :groups,
