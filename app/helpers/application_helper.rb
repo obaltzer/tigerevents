@@ -104,5 +104,21 @@ module ApplicationHelper
             yield tag, category_list[(count - min) / divisor] 
         end
     end
+
+    def to_formatted_s(format = :default)
+        DATE_FORMATS[format] ? strftime(DATE_FORMATS[format]).strip : to_default_s          
+    end
+
+    def print_time(startTime, endTime, format)
+        if(MILITARY_TIME_FORMAT)
+            format = (format.to_s+"_24h").to_sym
+        end
+        time = startTime.to_formatted_s(format)
+        if(endTime!=nil)
+            time+= " - " + endTime.to_formatted_s ((endTime -
+            startTime < 1.day)? "%I:%M %p" : format)
+        end
+        return time
+    end
     
 end

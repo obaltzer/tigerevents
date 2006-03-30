@@ -24,12 +24,7 @@
                   :confirm => "Really delete #{event.title}" %>
             </td>
             <td class="time_string">
-              <%=h event.startTime.to_formatted_s(:short_detailed_format) %> 
-              <% if event.endTime %>
-                - <%=h event.endTime.strftime( (event.endTime - event.startTime < 1.day and event.endTime.day == event.startTime.day)?
-                                              "%I:%M %p" :
-                                              "%a %b %d %I:%M %p") %>
-              <% end %>
+              <%=h print_time(event.startTime, event.endTime, :short_detailed_format) %> 
             </td>
             <td class="last_editor">
               <%=h event.pending?(@group) ? event.creator.fullname : event.lastEditted.fullname %>

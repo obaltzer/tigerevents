@@ -47,22 +47,12 @@
       <% end %>
       <tr class="event_time">
         <th>
-          Starts:
+          Time:
         </th>
         <td>
-          <%=h @event.startTime.to_formatted_s(:human_expanded_format) %>
+          <%=h print_time(@event.startTime, @event.endTime, :human_expanded_format) %>
         </td>
       </tr>
-      <% if @event.endTime %>
-        <tr class="event_time">
-          <th>
-            Ends:
-          </th>
-          <td>
-            <%=h @event.endTime.to_formatted_s(:human_expanded_format) %>
-          </td>
-        </tr>
-      <% end %>
     <% end %>
     <% if @event.url %>
       <tr class="event_url">

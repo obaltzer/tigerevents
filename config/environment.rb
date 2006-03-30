@@ -55,6 +55,8 @@ end
 ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
   :short_detailed_format => '%a %b %d %I:%M %p',
   :human_expanded_format => '%I:%M %p on %A, %B %d %Y',
+  :short_detailed_format_24h => '%a %b %d %H:%M',
+  :human_expanded_format_24h => '%H:%M on %A, %B %d %Y',
   :human_short_format => '%A, %b %d %Y'
 )
 require_gem 'acts_as_taggable'

@@ -8,14 +8,8 @@
           <% if event.announcement == false %>
             <div class="time">
               <span class="start">
-                <%=h event.startTime.to_formatted_s(:short_detailed_format) %>
+                <%=h print_time(event.startTime, event.endTime, :short_detailed_format) %>
               </span>
-              <% if event.endTime %>
-                <span class="sep">-</span> 
-                <span class="end"><%=h event.endTime.strftime( (event.endTime - event.startTime < 1.day and event.endTime.day == event.startTime.day) ? 
-                              "%I:%M %p" : 
-                              "%a %b %d %I:%M %p") %></span>
-              <% end %>
             </div>
           <% end %>
           <div class="description">
