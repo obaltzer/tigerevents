@@ -61,3 +61,10 @@ ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
 )
 require_gem 'acts_as_taggable'
 require 'tigerevents_config'
+
+@@available_themes = []
+Dir.foreach('./themes/') do |file|
+    if File.basename(file)[0] != ?.
+         @@available_themes << file
+    end
+end

@@ -3,7 +3,7 @@ class AccountController < ApplicationController
                                          :toggle_banned]
     before_filter :login_status, :only => [:login, :signup]
 
-    @@available_themes = ['minimal', 'newspaper']
+#    @@available_themes = ['minimal', 'newspaper']
     
     include eval(AUTH_TYPE)
     
