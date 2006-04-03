@@ -38,6 +38,8 @@ class GroupClassesController < ApplicationController
                     g.save
                 end
                 old_class.destroy
+                # clear selectors cache
+                SelectorsController.clearCache
                 redirect_to @params[:update_with]
             else
                 @message = "The group class to delete and the replacement "\

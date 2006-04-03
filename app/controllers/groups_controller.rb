@@ -149,6 +149,8 @@ class GroupsController < ApplicationController
     def reject
         @group = Group.find(@params[:id])
         @group.delete
+        # clear selectors cache
+        SelectorsController.clearCache
         redirect_to :action => "list"
     end
     

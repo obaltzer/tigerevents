@@ -181,6 +181,8 @@ class EventsController < ApplicationController
         end
 
         event.update_attribute( :deleted, 1 )
+        # clear selectors cache
+        SelectorsController.clearCache
         redirect_to :controller => 'groups', :action => 'list_events_remote', :id => @params[:group_id]
     end
 
