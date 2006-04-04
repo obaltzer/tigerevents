@@ -113,9 +113,9 @@ module ApplicationHelper
         if(MILITARY_TIME_FORMAT)
             format = (format.to_s+"_24h").to_sym
         end
-        time = startTime.to_formatted_s(format)
+        time = startTime.to_ordinalized_s(format)
         if(endTime!=nil)
-            time+= " - " + endTime.to_formatted_s ((endTime -
+            time+= " - " + endTime.to_ordinalized_s ((endTime -
             startTime < 1.day)? "%I:%M %p" : format)
         end
         return time

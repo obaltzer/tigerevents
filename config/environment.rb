@@ -59,6 +59,15 @@ ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
   :human_expanded_format_24h => '%H:%M on %A, %B %d %Y',
   :human_short_format => '%A, %b %d %Y'
 )
+
+module ActiveSupport::CoreExtensions::Time::Conversions
+    def to_ordinalized_s(format = :default)
+        format = ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS[format]
+        return to_default_s if format.nil?
+        strftime(format.gsub(/%d/, '_%d_')).gsub(/_(\d+)_/) { |s| s.to_i.ordinalize }
+    end
+end
+
 require_gem 'acts_as_taggable'
 require 'tigerevents_config'
 
