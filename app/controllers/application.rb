@@ -16,10 +16,13 @@ class ApplicationController < ActionController::Base
             # the code will make sure, that the session theme is replaced
             # with the user theme on authentication to avoid testing for
             # valid theme for every page
-            return @session[:theme]
-        else
-            return @@default_theme
+            @@available_themes.each do |theme|
+                if(theme == @session[:theme])
+                    return @session[:theme]
+                end
+            end
         end
+        return @@default_theme
     end
 
     def get_layout
