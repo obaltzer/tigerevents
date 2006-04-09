@@ -4,6 +4,5 @@ class RemoveGroupnameIndex < ActiveRecord::Migration
   end
 
   def self.down
-    add_index :groups, [:name], :unique => true
   end
 end
