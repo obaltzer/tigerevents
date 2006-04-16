@@ -23,6 +23,20 @@ if cont != "y"
     exit
 end
 
+military_time = nil
+while not military_time
+  print "Section 0: Time Format\n"
+  print "--------------------------------\n"
+  print "\nPlease choose the time format you would like to use\n\n"
+  print "\t[1] 12 Hour Format\n"
+  print "\t[2] 24 Hour Format\n"
+  military_time = gets.strip
+  if military_time != "2"
+    military_time = true
+  else
+    military_time = false
+  end
+end
 
 print "Section 1: Server\n"
 print "--------------------------------\n"

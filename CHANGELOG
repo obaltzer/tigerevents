@@ -1,6 +1,8 @@
 0.6.2
 
 Group classes are hidden from the user if there is only one.
+Groups names can now be reused if an old group is deleted, and then later
+reformed.
 User's can change their password (SQL Authentication)
 Proper redirection to the previous page instead of redirecting to the front
 page all the time.
@@ -8,7 +10,14 @@ E-mails now include header/footer includes, for html, disclaimers, etc.
 All history links now link to the correct item.
 SQLite error with initial user not being able to associate with groups was
 fixed.
-Logout changed to a flash message instead of redirecting to its own page
+Theme support via 'theme_generator' implemented
+Categories can now be removed/altered/merged
+Categories now act as tags, via 'acts_as_taggable'
+Events search feature implemented
+Able to browse by both group and category.
+
+For a full list see:
+http://www.tigeronrails.com/tigerevents/query?status=closed&milestone=0.6.2
 
 0.6.1
 
