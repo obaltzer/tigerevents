@@ -1015,3 +1015,9 @@ span.add_action:hover
     cursor: pointer;
     cursor: hand;
 }
+
+.important  a:link
+{
+  font-weight: bold;
+  color: red;
+}
