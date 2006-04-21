@@ -122,10 +122,10 @@ module ApplicationHelper
     end
 
     def new_group_notice
-      @unapproved = Group.find(:all, 
+      unapproved = Group.find(:first, 
                 :conditions => ["approved = ? AND deleted = ?", false, false],
                 :order => "name ASC")
-      @toapprove = true if @unapproved.size > 0
+      return true if unapproved != nil
     end
     
 end
