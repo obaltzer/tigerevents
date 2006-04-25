@@ -46,95 +46,16 @@
       <%= Time.now.to_formatted_s(:human_short_format) %>
     </div>
    
-    <ul id="site_actions">
-      <li>
-        <%= link_to "Home", { :controller => "events", :action => "list",
-            :id => nil } %>
-      </li>
-      <li>
-        <%= link_to "Post Events", {:controller => "events", 
-            :action => "new"} %>
-      </li>
-      <li>
-        <%= link_to "Group Listing", { :controller => "groups", :action => "all_groups" } %>
-      </li>
-      <li>
-        <%= link_to "Categories Listing", { :controller => "categories", :action => "list" } %>
-      </li>
-      <li>
-        <%= link_to "Latest Posted Events", { :controller => "events", :action => "latest" } %>
-      </li>
-      <li>
-        <%= link_to "Help", { :controller => "content", :action => "help" } %>
-      </li>
-      <li>
-        <%= link_to "Credits", { :controller => "content", 
-            :action => "credits" } %>
-      </li>
-    </ul>
+    <%= render_partial 'layouts/site_actions' %>
     <div id="sidebar">
-     <ul>
-      <% if session[:user] -%>
-        <li>
-          Welcome<br/>
-          <%= session[:user].fullname %>
-        </li>
-        <%= render_component :controller => "groups", :action => "mygroups" %>
-        <% if session[:user][:superuser] %>
-        <li>
-          <strong>Site Management:</strong>
-          <ul id="site_management">
-            <li class="<%= new_group_notice ? 'important' : '' %>">
-              <%= link_to 'Groups', :controller => 'groups',
-                  :action => 'list' %>
-            </li>
-            <li>
-              <%= link_to 'Group Classes', :controller => 'group_classes' %>
-            </li>
-            <li>
-              <%= link_to 'Priorities', :controller => 'priorities' %>
-            </li>
-            <li>
-              <%= link_to 'Users', :controller => 'account', 
-                  :action => 'list' %>
-            </li>
-            <li>
-              <%= link_to 'Edit Layout', :controller => 'layouts',
-                  :action => 'edit', :id => 1 %>
-            </li>
-            <li>
-              <%= link_to 'Categories', :controller => 'categories' %>
-            </li>
-          </ul>
-        </li>
-        <% end %>
-        <% if AccountController.new.respond_to?(:change_pass) %>
-          <li>
-            <%= link_to 'Change Password', :controller => 'account',
-                :action => 'change_pass' %>
-          </li>
-        <% end %>
-        <li>
-          <%= start_form_tag :controller => "account", :action=> "logout" %>
-            <div><input type="submit" name="logout" value="Logout"
-                  class="primary" /></div>
-          <%= end_form_tag %>
-        </li>
-      <% else %>
-        <li>
-            <%= render_file "account/login" %>
-        </li>
-      <% end -%>
-        <li>
-          <div id="bug_box">
+      <%= render_partial 'layouts/user_menu' %>
+      <div id="bug_box">
             <big>Problems? Doesn't work? Complicated?</big>
             <p>
               File a ticket and we will take care of it.
             </p>
             <a href="http://www.tigeronrails.com/tigerevents/newticket"><big>Click here!</big></a>
-          </div>
-        </li>
-      </ul>
+      </div>
     </div>
 
     <div id="time_period_selection">

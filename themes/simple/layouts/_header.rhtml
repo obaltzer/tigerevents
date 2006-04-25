@@ -1,0 +1,37 @@
+<div id="header_wrapper">
+<%= render_partial 'layouts/theme_selector' %>
+
+<div id="user_info">
+  <% if session[:user] %>
+    Welcome <span class="username"><%=h session[:user].fullname %></span> |
+    <a href="#" id="show_user_menu" onclick="toggleCookie('user_menu');toggle_fade('user_menu_wrapper');toggle_action_link('show_user_menu', 'Hide Menu', 'Show Menu');">Hide Menu</a> |
+    <%= link_to "Logout", :controller => 'account', :action => 'logout' %>
+  <% else %>
+    You are not logged in. | 
+    <%= link_to "Login", :controller => 'account', :action => 'login' %>
+  <% end %>
+</div>
+
+<h1 id="site_title">
+  <%= link_to 'TigerEvents', { :controller => 'events', :action => 'list' } %>
+</h1> 
+
+<%= render_partial 'layouts/current_date' %>
+<%= render_partial 'layouts/event_search' %>
+<%= render_partial 'layouts/site_actions' %>
+</div>
+
+<div id="user_menu_wrapper">
+  <%= render_partial 'layouts/user_menu'%>
+  <a href="#" id="hide_menu_link" onclick="toggleCookie('user_menu');toggle_fade('user_menu_wrapper');toggle_action_link('show_user_menu', 'Hide Menu', 'Show Menu');">Hide This Menu</a>
+</div>
+
+<script type="text/javascript">
+  // hide user actions at first load if the 'user_actions' cookie is not set
+  if(readCookie('user_menu') == null)
+  {
+    Element.hide('user_menu_wrapper');
+    hide('user_menu_wrapper');
+    toggle_action_link('show_user_menu', 'Hide Menu', 'Show Menu');  
+  }
+</script> 

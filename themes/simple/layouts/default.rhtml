@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title><%=h @page_title %></title>
+    <%= default_stylesheets %>
+    <%= theme_stylesheet_link_tag 'defaults' %>
+    <%= theme_stylesheet_link_tag 'tigerevents' %>
+    
+    <%= default_javascripts %>
+    <%= theme_javascript_include_tag 'defaults.js' %>
+    <%= theme_javascript_include_tag 'behaviour.js' %>
+  </head>
+  <body>
+    <%= render_partial 'layouts/header'%>
+    <div id="content_wrapper">
+      <%= @content_for_layout %>
+    </div>
+  </body>
+</html>

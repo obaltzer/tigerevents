@@ -1,0 +1,207 @@
+/* Stylesheets in this file should be incorporated into the default
+ * stylesheets */
+
+body {
+    font: 80% "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+    background-color: white;
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    font-size: 100%;
+}
+
+a {
+    color: blue;
+    background-color: transparent;
+}
+
+img {
+    border: none;
+    vertical-align: middle;
+}
+
+p {
+    margin: 0 0 0.75em 0;
+    line-height: 1.5em;
+}
+
+p img {
+    border: none;
+    margin: 0;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    color: black;
+    background-color: black;
+    margin: 0.5em 0 1em 0;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    color: black;
+    background-color: transparent;
+    font-family: "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    margin: 0;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+    color: black ! important;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 160%;
+}
+
+h2 {
+    font-size: 150%;
+}
+
+h3 {
+    font-size: 125%;
+}
+
+h4 {
+    font-size: 110%;
+}
+
+h5 {
+    font-size: 100%;
+}
+
+h6 {
+    font-size: 85%;
+}
+
+ul {
+    line-height: 1.5em;
+    margin: 0.5em 0 0 1.5em;
+    padding: 0;
+    /* list-style-image: url(http://plone.org/bullet.gif); */
+    list-style-type: disc;
+}
+
+ol {
+    line-height: 1.5em;
+    margin: 0.5em 0 0 2.5em;
+    padding: 0;
+    list-style-image: none;
+}
+
+li {
+}
+
+dt {
+    font-weight: bold;
+}
+
+dd {
+    line-height: 1.5em;
+}
+
+fieldset {
+    border: 1px solid black;
+    margin: 1em 0em 1em 0em;
+    padding: 0em 1em 1em 1em;
+    line-height: 1.5em;
+    width: auto;
+}
+legend {
+    background: white;
+    padding: 0.5em;
+    font-size: 90%;
+}
+
+form {
+    border: none;
+    margin: 0;
+}
+
+label {
+    font-weight: bold;
+}
+
+textarea {
+    font: 100% Monaco, "Courier New", Courier, monospace;
+    border: 1px solid #999999;
+    color: black;
+    background: white;
+    width: 100%;
+}
+
+input {
+    font-family: "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+    visibility: visible;
+    border: 1px solid #999999;
+    color: black;
+    vertical-align: middle;
+    background: white;
+}
+select {
+    border: 1px solid #aaaaaa;
+    color: black;
+    background-color: white;
+    vertical-align: top;
+}
+q {
+    font-family: Baskerville, Georgia, serif;
+    font-style: italic;
+    font-size: 120%;
+}
+blockquote {
+    padding-left: 0.5em;
+    margin-left: 0;
+    border-left: 4px solid #999999;
+    color: black;
+}
+code {
+    font-family: Monaco, "Courier New", Courier, monospace;
+    font-size: 120%;
+    color: black;
+    background-color: white;
+    padding: 0 0.1em;
+}
+pre {
+    font-family: Monaco, "Courier New", Courier, monospace;
+    font-size: 100%;
+    padding: 1em;
+    border: 1px solid #999999;
+    color: black;
+    background-color: white;
+    overflow: auto;
+}
+
+ins {
+    color: green;
+    text-decoration: none;
+}
+
+del {
+    color: red;
+    text-decoration: line-through;
+}
+
+span.action_link
+{
+    color: blue;
+    vertical-align: bottom;
+}
+
+span.action_link:hover
+{
+    text-decoration: underline;
+    cursor: pointer;
+    cursor: hand;
+}
+    

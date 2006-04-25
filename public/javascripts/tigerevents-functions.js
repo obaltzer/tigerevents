@@ -70,13 +70,13 @@ function toolTipOff()
     tooltip_obj = null;
 }
 
-function getSiblingByClass(e, class)
+function getSiblingByClass(e, c)
 {
     var i;
     var n = e.parentNode.childNodes.length;
     for(i = 0; i < n; i++)
     {
-        if(e.parentNode.childNodes[i].className == class)
+        if(e.parentNode.childNodes[i].className == c)
             return e.parentNode.childNodes[i];
     }
     return 0;
@@ -133,6 +133,37 @@ function toggle_slide(elemId)
             new Effect.SlideDown(target);
         else
             new Effect.SlideUp(target);
+    }
+    else
+    {
+        if(target.style.display == "none")
+            target.style.display = "block";
+        else
+            target.style.display = "none";
+    }
+  }
+}
+
+function toggle_fade(elemId)
+{
+  if(document.getElementById)
+  {
+    target = document.getElementById(elemId);
+    if(browser.isGecko && !browser.isKonqueror || browser.isSafari
+        || browser.isOpera)
+    {
+        if(target.style.display == "none")
+        {
+            Element.hide(elemId);
+            new Effect.Appear(elemId, {duration: 0.3});
+            // target.style.display = "block";
+        }
+        else
+        {
+            Element.show(elemId);
+            new Effect.Fade(target, {duration: 0.3});
+            // target.style.display = "none";
+        }
     }
     else
     {

@@ -91,6 +91,39 @@ module ApplicationHelper
         render_partial 'layouts/default_javascripts'
     end
 
+    # User actions are generated from the following lists depending on the
+    # permissions of the user.
+    @@user_actions = [
+        { :perm => [:superuser], :name => 'Groups', :action => { :controller => 'groups', :action => 'list'}, :attr => {:important => "new_group_notice" }},
+        { :perm => [:superuser], :name => 'Group Classes', :action => { :controller => 'group_classes' } },
+        { :perm => [:superuser], :name => 'Priorities', :action => { :controller => 'priorities'} },
+        { :perm => [:superuser], :name => 'Users', :action => { :controller => 'account', :action => 'list'} },
+        { :perm => [:superuser], :name => 'Edit Layout', :action => { :controller => 'layouts', :action => 'edit', :id => 1} },
+        { :perm => [:superuser], :name => 'Categories', :action => { :controller => 'categories'} },
+        { :perm => [], :name => 'Logout', :action => { :controller => 'account', :action => 'logout' } },
+    ]
+
+    def list_user_actions
+      perm = @session[:user].superuser? ? :superuser : :default
+      actions = []
+      @@user_actions.each { |a|
+        # add the action to the actions list if either no permissions are
+        # assigned or the permissions list is empty or the permissions of
+        # the user are included in the permissions list
+        if not a[:perm] or a[:perm].length == 0 or a[:perm].include? perm
+          x = {}.update(a)
+          # if there are extra attributes that need to be generated do so 
+          if a[:attr]
+            a[:attr].keys.each { |k|
+              x[k] = eval(a[:attr][k])
+            }
+          end
+          actions << x
+        end
+      }
+      return actions
+    end
+    
     def tag_cloud(tag_cloud, category_list)
         max, min = 0, 0
         tag_cloud.each_value do |count|
@@ -115,8 +148,7 @@ module ApplicationHelper
         end
         time = startTime.to_ordinalized_s(format)
         if(endTime!=nil)
-            time+= " - " + endTime.to_ordinalized_s((endTime -
-            startTime < 1.day)? "%I:%M %p" : format)
+            time+= " - " + endTime.to_ordinalized_s((endTime - startTime < 1.day)? "%I:%M %p" : format)
         end
         return time
     end

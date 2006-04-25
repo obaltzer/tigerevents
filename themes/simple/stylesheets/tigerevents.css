@@ -1,0 +1,153 @@
+/* Stylesheets for this theme. */
+h1#site_title
+{
+    text-transform: lowercase;
+    display: block;
+    background-color: #cccccc;
+    padding: 0.2em 0 0.2em 5px;
+}
+
+div#theme_selection
+{
+    float: right;
+    margin: 0.5em 5px 0 0;
+}
+
+div#user_info
+{
+    float: right;
+    margin-top: 0.7em;
+    margin-right: 2em;
+}
+
+ul#site_actions
+{
+    display: block;
+    list-style: none;
+    margin: 0;
+    background-color: #dddddd;
+    padding: 0.4em 0 0.4em 5px;
+    border-bottom: 1px dotted #666666;
+}
+
+ul#site_actions li
+{
+    display: inline;
+    margin: 0 1em 0 0;
+}
+
+ul#site_actions li a
+{
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+ul#site_actions li a:hover
+{
+    text-decoration: underline;
+}
+
+div#event_search
+{
+    float: right;
+    margin: 0.4em 2em 0.4em 0;
+}
+div#today
+{
+    margin: 0.4em 5px 0.4em 0;
+    font-weight: bold;
+    float: right;
+}
+
+div#user_menu_wrapper
+{
+    position: absolute;
+    left: auto;
+    right: 0em;
+    width: 25em;
+    margin-top: -1px;
+    padding: 0.5em 0 0 0;
+    border-top: none;
+    border-left: 1px dotted #666666;
+    border-bottom: 1px dotted #666666;
+    background-color: #eeeeee;
+}
+    
+ul#user_actions
+{
+    display: block;
+    list-style: none;
+    margin: 0;
+}
+
+ul#user_actions li
+{
+    display: inline;
+    margin: 0 0.5em 0 0;
+}
+
+ul#user_actions li a
+{
+    text-decoration: none;
+    border-bottom: 1px dotted #666666;
+    white-space: nowrap;
+}
+
+ul#user_actions li a.important
+{
+    font-weight: bold;
+    color: red;
+}
+
+ul#user_actions li a:hover
+{
+    background-color: #dddddd;
+    border-bottom: 1px solid transparent;
+}
+
+div.user_groups, div.user_actions
+{
+    margin: 0 5px 0.5em 5px;
+}
+
+ul.user_groups
+{
+    display: block;
+    list-style: none;
+    margin: 0 0 0.5em 0;
+}
+
+ul.user_groups li
+{
+    display: inline;
+    margin: 0 0.5em 0 0;
+}
+
+ul.user_groups li a
+{
+    text-decoration: none;
+    border-bottom: 1px dotted #666666;
+    white-space: nowrap;
+}
+
+ul.user_groups li a:hover
+{
+    background-color: #dddddd;
+    border-bottom: 1px solid transparent;
+}
+
+div#user_menu_wrapper a#hide_menu_link
+{
+    display: block;
+    font-size: 70%;
+    text-decoration: none;
+    color: black;
+    padding: 2px 5px 2px 5px;
+    background-color: #dddddd;
+}
+
+div#content_wrapper
+{
+    margin: 0 5px 0em 5px;
+}

@@ -1,0 +1,9 @@
+<div id="user_menu">
+  <% if session[:user] %>
+    <%= render_component :controller => "groups", :action => "mygroups" %>
+  <% end %>
+  <div class="user_actions">
+    <label>Actions</label>
+    <%= render_partial 'layouts/user_actions'%>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<ul id="user_actions">
+  <% if session[:user] %>
+    <% if AccountController.new.respond_to?(:change_pass) %>
+      <li>
+        <%= link_to 'Change Password', :controller => 'account',
+            :action => 'change_pass' %>
+      </li>
+    <% end %>
+    <% for action in list_user_actions %>
+      <li><%= link_to action[:name], action[:action], :class => action[:important] ? 'important' : '' %></li>
+    <% end %>
+  <% else %>
+    <li>
+      <%= link_to 'Login', :controller => 'account', :action => 'login' %>
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,8 @@
+<ul id="site_actions">
+  <li><%= link_to 'Home', { :controller => 'events', :action => 'list', :id => nil } %></li>
+  <li><%= link_to "Post Events", {:controller => "events", :action => "new"} %></li>
+  <li><%= link_to "Group Listing", { :controller => "groups", :action => "all_groups" } %></li>
+  <li><%= link_to "Categories Listing", { :controller => "categories", :action => "list" } %></li>
+  <li><%= link_to "Help", { :controller => "content", :action => "help" } %></li>
+  <li><%= link_to "Credits", { :controller => "content", :action => "credits" } %></li>
+</ul>

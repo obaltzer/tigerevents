@@ -1,37 +1,36 @@
 <% unless @groups.empty? %>
-  <li>
+  <div id="user_approved_groups" class="user_groups">
     <label>Your Groups</label>
-    <ul id="member_groups" class="group_menu">
+    <ul id="approve_groups" class="user_groups">
       <% @groups.each do |group| %>
         <li class="<%= group.unauthorized_users.empty? ? 'has_authorized_members' : 'has_unauthorized_members'%>">
-        <%= link_to group.name + (group.unauthorized_users.empty? ? '' : ' *' ) , :controller => "groups", :action => "edit", :id => group.id %>
+          <%= link_to group.name + (group.unauthorized_users.empty? ? '' : ' *' ) , :controller => "groups", :action => "edit", :id => group.id %>
         </li>
       <% end %>
     </ul>
-  </li>
+  </div>
 <% end %>
 <% unless @pengroups.empty? %>
-  <li>
+  <div id="user_pending_groups" class="user_groups">
     <label>Your Pending Groups</label>
-    <ul id="pending_groups" class="group_menu">
+    <ul id="pending_groups" class="user_groups">
       <% @pengroups.each do |group| %>
         <li>
           <%= link_to group.name, :controller => "groups", :action => "edit", :id => group.id %>
         </li>
       <% end %>
     </ul>
-  </li>
+  </div>
 <% end %>
 <% unless @penmember.empty? %>
-  <li>
+  <div id="user_pending_membership" class="user_groups">
     <label>Pending Memberships</label>
-    <ul id="pending_membership" class="group_menu">
+    <ul id="pending_membership" class="user_groups">
       <% @penmember.each do |group| %>
         <li>
           <%= group.name %>
         </li>
       <% end %>
     </ul>
-  </li>
+  </div>
 <% end %>
-

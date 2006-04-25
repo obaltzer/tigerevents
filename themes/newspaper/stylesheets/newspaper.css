@@ -1016,7 +1016,7 @@ span.add_action:hover
     cursor: hand;
 }
 
-.important  a:link
+a.important
 {
   font-weight: bold;
   color: red;
