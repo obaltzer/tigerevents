@@ -26,6 +26,14 @@
   <a href="#" id="hide_menu_link" onclick="toggleCookie('user_menu');toggle_fade('user_menu_wrapper');toggle_action_link('show_user_menu', 'Hide Menu', 'Show Menu');">Hide This Menu</a>
 </div>
 
+<% if new_group_notice? %>
+<script type="text/javascript">
+  // make sure we show the menu when there are new groups
+  if(readCookie('user_menu') == null)
+    toggleCookie('user_menu');
+</script>
+<% end %>
+  
 <script type="text/javascript">
   // hide user actions at first load if the 'user_actions' cookie is not set
   if(readCookie('user_menu') == null)

@@ -94,7 +94,7 @@ module ApplicationHelper
     # User actions are generated from the following lists depending on the
     # permissions of the user.
     @@user_actions = [
-        { :perm => [:superuser], :name => 'Groups', :action => { :controller => 'groups', :action => 'list'}, :attr => {:important => "new_group_notice" }},
+        { :perm => [:superuser], :name => 'Groups', :action => { :controller => 'groups', :action => 'list'}, :attr => {:important => "new_group_notice?" }},
         { :perm => [:superuser], :name => 'Group Classes', :action => { :controller => 'group_classes' } },
         { :perm => [:superuser], :name => 'Priorities', :action => { :controller => 'priorities'} },
         { :perm => [:superuser], :name => 'Users', :action => { :controller => 'account', :action => 'list'} },
@@ -153,7 +153,7 @@ module ApplicationHelper
         return time
     end
 
-    def new_group_notice
+    def new_group_notice?
       unapproved = Group.find(:first, 
                 :conditions => ["approved = ? AND deleted = ?", false, false],
                 :order => "name ASC")
