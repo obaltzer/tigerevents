@@ -3,8 +3,6 @@ class AccountController < ApplicationController
                                          :toggle_banned]
     before_filter :login_status, :only => [:login, :signup]
 
-#    @@available_themes = ['minimal', 'newspaper']
-    
     include eval(AUTH_TYPE)
     
     def login_status
@@ -33,7 +31,11 @@ class AccountController < ApplicationController
                             + "'> " + ADMIN_CONTACT + "</a>"
                     else
                         @session[:user] = @user
-                        @session[:theme] = @user.theme
+                        if @@available_themes.include?(@user.theme)
+                          @session[:theme] = @user.theme
+                        else
+                          @session[:theme] = DEFAULT_THEME
+                        end
                     end
                 end
                 redirect_back_or_default :controller => 'events', :action => 'index'
