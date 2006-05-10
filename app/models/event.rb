@@ -132,7 +132,7 @@ class Event < ActiveRecord::Base
         begin
             a = date_str.split(/\//).collect {|x| x.to_i}
             @start_date = Date.new a[2], a[1], a[0]
-        rescue ArgumentError
+        rescue
             @start_date = nil
         end
     end
@@ -175,7 +175,7 @@ class Event < ActiveRecord::Base
         begin
             a = date_str.split(/\//).collect {|x| x.to_i}
             @end_date = Date.new a[2], a[1], a[0]
-        rescue ArgumentError
+        rescue
             @end_date = nil
         end
     end
