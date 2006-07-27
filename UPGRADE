@@ -19,6 +19,6 @@ there are some things you need to do to ensure that you keep your old data.
 
 1) Dump tables using 'mysqldump -t -c'
 2) Drop your old database, and create a new blank one
-3) run 'ruby upgrade_to_0.6.rb'
+3) run 'ruby script/upgrade_to_0.6'
 4) Import your old data
 

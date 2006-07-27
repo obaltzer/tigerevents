@@ -1,0 +1,24 @@
+
+print """
+This script will delete all your database content. 
+You should dump your database first. Please see UPGRADE 
+for details.
+
+Are you sure you want to continue (type 'Yes' <ENTER>): """
+res = gets.strip
+
+if res == "Yes"
+  require './config/boot'
+  require './config/environment.rb'
+  
+  fork do
+    exec "rake migrate"
+  end
+  Process.wait
+    
+  User.destroy_all
+  Priority.destroy_all
+  Layout.destroy_all
+  Selector.destroy_all
+  AssociationType.destroy_all
+end
