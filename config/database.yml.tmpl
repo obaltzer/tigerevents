@@ -1,20 +1,17 @@
+defaults: &defaults
+  adapter: mysql
+  #{db_prot}
+  username: #{db_user}
+  password: #{db_pass}
+  
 development:
-  adapter: mysql
-  database: #{db_name}
-  #{db_prot}
-  username: #{db_user}
-  password: #{db_pass}
-
+  database: #{db_name}_dev
+  <<: *defaults
+  
 test:
-  adapter: mysql
-  database: #{db_name}
-  #{db_prot}
-  username: #{db_user}
-  password: #{db_pass}
+  database: #{db_name}_test
+  <<: *defaults
 
 production:
-  adapter: mysql
   database: #{db_name}
-  #{db_prot}
-  username: #{db_user}
-  password: #{db_pass}
+  <<: *defaults

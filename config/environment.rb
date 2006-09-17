@@ -2,7 +2,7 @@
 
 # Uncomment below to force Rails into production mode when 
 # you don't control web/app server and can't set it the proper way
-# ENV['RAILS_ENV'] ||= 'production'
+ENV['RAILS_ENV'] ||= 'production'
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -60,10 +60,11 @@ end
 
 ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
   :short_detailed_format => '%a %b %d %I:%M %p',
-  :human_expanded_format => '%I:%M %p on %A, %B %d %Y',
+  :human_expanded_format => '%A, %B %d %Y - %I:%M %p',
   :short_detailed_format_24h => '%a %b %d %H:%M',
-  :human_expanded_format_24h => '%H:%M on %A, %B %d %Y',
-  :human_short_format => '%A, %b %d %Y'
+  :human_expanded_format_24h => '%A, %B %d %Y - %H:%M',
+  :human_short_format => '%A, %b %d %Y',
+  :hour_format => '%I:%M %p'
 )
 
 module ActiveSupport::CoreExtensions::Time::Conversions

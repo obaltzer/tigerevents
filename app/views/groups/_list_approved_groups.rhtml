@@ -1,6 +1,6 @@
-<%= link_to "Previous page", { :search => @params[:search], :action => 'list', :page => @groups_pages.current.previous } if @groups_pages.current.previous %>
-<%= pagination_links @groups_pages, :params => {:action => 'list', :search => @params[:search] } %>
-<%= link_to "Next page", { :search => @params[:search], :action => 'list', :page => @groups_pages.current.next } if @groups_pages.current.next %>
+<%= link_to "Previous page", { :search => params[:search], :action => 'list', :page => @groups_pages.current.previous } if @groups_pages.current.previous %>
+<%= pagination_links @groups_pages, :params => {:action => 'list', :search => params[:search] } %>
+<%= link_to "Next page", { :search => params[:search], :action => 'list', :page => @groups_pages.current.next } if @groups_pages.current.next %>
 
 <table>
   <% for group in @groups %>
@@ -12,6 +12,6 @@
   <% end %>
 </table>
 
-<%= link_to "Previous page", { :search => @params[:search], :action => 'list', :page => @groups_pages.current.previous } if @groups_pages.current.previous %>
-<%= pagination_links @groups_pages, :params => {:action => 'list', :search => @params[:search] } %>
-<%= link_to "Next page", { :search => @params[:search], :action => 'list', :page => @groups_pages.current.next } if @groups_pages.current.next %>
+<%= link_to "Previous page", { :search => params[:search], :action => 'list', :page => @groups_pages.current.previous } if @groups_pages.current.previous %>
+<%= pagination_links @groups_pages, :params => {:action => 'list', :search => params[:search] } %>
+<%= link_to "Next page", { :search => params[:search], :action => 'list', :page => @groups_pages.current.next } if @groups_pages.current.next %>

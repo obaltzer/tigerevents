@@ -7,11 +7,6 @@
     <ul id="<%=h @selector.label.downcase %>_list">
       <% for event in @events %>
         <li>
-          <div class="prefix_time">
-            <span class="start">
-              <%=h event.startTime.strftime( "%b %d %I:%M" ) %>
-            </span>
-          </div>
           <div class="title"><%= link_to event.title, :controller => "events", :action => "show", :id => event %></div>
           <% if event.announcement == false %>
             <div class="time">
@@ -21,8 +16,9 @@
             </div>
           <% end %>
           <div class="description">
-            <% if event.description.size > 100 %>
-              <%= sanitize(simple_format(event.description.slice(0, event.description.rindex(' ')))) %>
+            <% if event.description.length > DESCRIPTION_LENGTH %>
+              <%= sanitize(simple_format(event.description.slice(0,
+              event.description.rindex(' ', DESCRIPTION_LENGTH)))) %>
               <span class="link_more">
                 <%= link_to "...more", :controller => "events", 
                     :action => "show", :id => event %>
@@ -31,6 +27,7 @@
               <%= sanitize(simple_format(event.description)) %>
             <% end %>
           </div>
+          <br />
         </li>
       <% end %>
     </ul>

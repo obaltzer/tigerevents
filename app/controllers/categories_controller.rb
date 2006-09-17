@@ -2,23 +2,23 @@ class CategoriesController < ApplicationController
     before_filter :login_required, :only => [:create_remote]
 
     def list
-        if(@params['page']==nil)
-            @params['page']=1
+        if(params['page']==nil)
+            params['page']=1
         end
         @categories = Category.find(:all, :order => "name", :include => \
             "events", :conditions => ["events.startTime > ?", Time.now])
-        @categories_pages = Paginator.new self, @categories.size, 10, @params['page']
+        @categories_pages = Paginator.new self, @categories.size, 10, params['page']
         @tagged_items = Event.tags_count(:limit => 100, :conditions => \
             ["startTime > ?", Time.now])
     end
 
     def show
       # this makes sure we can find tags by ID and name
-      if @params[:id]
-        @category = Category.find(@params[:id])
-      elsif @params[:name]
+      if params[:id]
+        @category = Category.find(params[:id])
+      elsif params[:name]
         @category = Category.find(:first, :conditions => 
-                        ["name = ?", @params[:name]])
+                        ["name = ?", params[:name]])
       end
       @events_future = Event.find_tagged_with(:any => @category.name, :conditions => \
         ["startTime >= ?", Time.now], :order => "startTime ASC")
@@ -27,21 +27,21 @@ class CategoriesController < ApplicationController
     end
                                         
     def delete
-        if (@params[:category] != "")
-            @old_c = Category.find @params[:category]
-            Category.delete(@params[:category])
+        if (params[:category] != "")
+            @old_c = Category.find params[:category]
+            Category.delete(params[:category])
         end
         render_partial
     end
 
     def split
-        if (@params[:category_split] !="")
-            @old_c = Category.find(@params[:category_split])
+        if (params[:category_split] !="")
+            @old_c = Category.find(params[:category_split])
             @events = Event.find_tagged_with(:any => @old_c.name)
-            Category.delete(@params[:category_split])
+            Category.delete(params[:category_split])
             for event in @events do
                 event.tag(params[:tags], :separator => ',', :attributes =>\
-                    {:created_by => @session[:user]})
+                    {:created_by => session[:user]})
             end
         end
         render_partial
@@ -63,9 +63,9 @@ class CategoriesController < ApplicationController
     end
 
     def remove
-        @old_c = Category.find @params[:id]
+        @old_c = Category.find params[:id]
         begin
-            new_c = Category.find @params[:new_category_id]
+            new_c = Category.find params[:new_category_id]
             if not @old_c or not new_c
                 @message = "You have to specify the replacement category."
                 render_partial 'embed_error_message'

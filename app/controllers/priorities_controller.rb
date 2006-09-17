@@ -19,22 +19,22 @@ class PrioritiesController < ApplicationController
     def create
         p = Priority.find(:first, :order => "rank DESC")
         if not p
-            @params[:priority][:rank] = 1
+            params[:priority][:rank] = 1
         else
-            @params[:priority][:rank] = p.rank + 1
+            params[:priority][:rank] = p.rank + 1
         end
-        @priority = Priority.new @params[:priority]
+        @priority = Priority.new params[:priority]
         if @priority.save
-            redirect_to @params[:update_with]
+            redirect_to params[:update_with]
         else
             render_partial 'embed_error_message'
         end
     end
 
     def remove
-        @old_p = Priority.find @params[:id]
+        @old_p = Priority.find params[:id]
         begin
-            new_p = Priority.find @params[:new_priority_id]
+            new_p = Priority.find params[:new_priority_id]
             if not @old_p or not new_p
                 @message = "You have to specify the replacement priority."
                 render_partial 'embed_error_message'
@@ -58,10 +58,10 @@ class PrioritiesController < ApplicationController
     end
     
     def order
-        if @params[:priorities]
+        if params[:priorities]
             map = {}
-            @params[:priorities].size.times { |i| 
-                map[@params[:priorities][i].to_i] = i + 1
+            params[:priorities].size.times { |i| 
+                map[params[:priorities][i].to_i] = i + 1
             }
             for p in Priority.find(:all)
                 if map[p.id]

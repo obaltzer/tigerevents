@@ -1,5 +1,5 @@
 <%= error_messages_for 'selector' %>
-<% if @params[:action] == "create" %>
+<% if params[:action] == "create" %>
   Please create a selector with a different name or edit the exiting one.
 <% else %>
   <%= link_to_remote 'Back', :update => "selector_workspace", 

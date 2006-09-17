@@ -9,7 +9,7 @@
 <% end %>
 
 <%= start_form_tag :action => 'update', :id => @event.id %>
-  <%= render_partial "form" %>
+  <%= render :partial => 'form' %>
   <div>
     <%= submit_tag 'Update' %>
     <%=link_to 'Cancel', @request.env['HTTP_REFERER'] %>

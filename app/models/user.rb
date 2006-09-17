@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
     
     # Authenticates the user with the given login and password.
     def self.get(user)
-        @user = find_first(['login = ?', user[:login]])
+        @user = find(:first, :conditions => ['login = ?', user[:login]])
     end
 
     private

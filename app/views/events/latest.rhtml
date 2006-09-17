@@ -5,7 +5,7 @@
 <form id="search_form" action="<%= url_for :action => 'latest' %>" method="POST">
     <div class="input">
        <label for="search" style="display: inline">Number of Events:</label>
-       <%= text_field_tag 'id', @params[:id] ? @params[:id] : '' %>
+       <%= text_field_tag 'id', params[:id] ? params[:id] : '' %>
        <div class="description">
             Specify the amount of events you want to look at
         </div>
@@ -16,7 +16,7 @@
 <% if not @events.empty? %>
       <% for event in @events %>
           <div class="title"><%= link_to event.title, :controller => "events", :action => "show", :id => event %></div>
-          <% if event.announcement == false %>
+          <% if not event.announcement %>
             <div class="time">
               <span class="start">
                 <%=h print_time(event.startTime, event.endTime, :short_detailed_format) %>

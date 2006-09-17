@@ -17,18 +17,18 @@ class GroupClassesController < ApplicationController
     end
 
     def create
-        @group_class = GroupClass.new @params[:group_class]
+        @group_class = GroupClass.new params[:group_class]
         if @group_class.save
-            redirect_to @params[:update_with]
+            redirect_to params[:update_with]
         else
             render_partial 'embed_error_message'
         end
     end
 
     def remove
-        old_class = GroupClass.find @params[:id]
+        old_class = GroupClass.find params[:id]
         begin
-            new_class = GroupClass.find @params[:new_class_id]
+            new_class = GroupClass.find params[:new_class_id]
             if not old_class or not new_class
                 @message = "You have to specify the replacement class."
                 render_partial 'embed_error_message'
@@ -40,7 +40,7 @@ class GroupClassesController < ApplicationController
                 old_class.destroy
                 # clear selectors cache
                 SelectorsController.clearCache
-                redirect_to @params[:update_with]
+                redirect_to params[:update_with]
             else
                 @message = "The group class to delete and the replacement "\
                     + "class cannot be the same."

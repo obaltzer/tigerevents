@@ -33,8 +33,7 @@
   <div class="input">
     <label for="event_title">Title</label>
     <div class="description">
-      The title of the event or announcement (e.g. Computer
-      Science GeekBeek)
+      The title of the event or announcement (e.g. Computer Science GeekBeek)
     </div>
     <%= text_field 'event', 'title' %>
   </div>
@@ -114,7 +113,7 @@
     </div>
     <div>
       <span id="groups_list">
-      <%= render_component :action => 'list_groups', :id => @event.id, :params => @params %> 
+      <%= render_component :action => 'list_groups', :id => @event.id, :params => params %> 
       </span>
       <span class="add_action" id="show_group_form" onclick="toggle_slide('add_group_form');toggle_action_link('show_group_form', 'Add a new group', 'Hide form');">Add a new group</span>
     </div>

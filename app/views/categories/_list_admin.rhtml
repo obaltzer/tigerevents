@@ -5,7 +5,7 @@
   :success => remote_function(:update => 'category_split', :url =>
   {:action => :list_categories }) %>
   <select id="category_selector" width="15" name="category">
-    <%= render_partial 'list_categories' %>
+    <%= render :partial => 'list_categories' %>
   </select>
   <input type="submit" value="Delete">
   <%= end_form_tag %>
@@ -16,7 +16,7 @@
   :success => remote_function(:update => 'category_split', :url =>
   {:action => :list_categories }) %>
   <select id="category_split" width="15" name="category_split">
-    <%= render_partial 'list_categories' %>
+    <%= render :partial => 'list_categories' %>
   </select>
   <div class="description">
     Create a comma (,) seperated list of categories this event belongs

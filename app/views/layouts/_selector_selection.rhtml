@@ -10,7 +10,7 @@
           <%= link_to_remote image_tag('trash.gif', :alt => 'Delete Selector'), 
                              :confirm => "Are you sure you want to delete selector \"#{selector.name}\"?", 
                              :complete =>  remote_function(:update => 'selector_selection', 
-                                                          :url => { :controller => 'layouts', :action => 'selector_selection', :id => @params[:id] }) +
+                                                          :url => { :controller => 'layouts', :action => 'selector_selection', :id => params[:id] }) +
                                             ";" + update_element_function("selector_workspace", :action => :empty) +
                                             ";" + visual_effect(:highlight, 'message', :duration => 0.5 ), 
                              :update => 'message_container', 
@@ -36,7 +36,7 @@
           <%= link_to_remote image_tag('trash.gif', :alt => 'Delete Selector'), 
                              :confirm => "Are you sure you want to delete selector \"#{selector.name}\"?", 
                              :complete =>  remote_function(:update => 'selector_selection', 
-                                                          :url => { :controller => 'layouts', :action => 'selector_selection', :id => @params[:id] }) +
+                                                          :url => { :controller => 'layouts', :action => 'selector_selection', :id => params[:id] }) +
                                             ";" + update_element_function("selector_workspace", :action => :empty) +
                                             ";" + visual_effect(:highlight, 'message', :duration => 0.5 ), 
                              :update => 'message_container', 
