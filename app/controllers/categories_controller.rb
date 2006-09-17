@@ -21,9 +21,14 @@ class CategoriesController < ApplicationController
                         ["name = ?", params[:name]])
       end
       @events_future = Event.find_tagged_with(:any => @category.name, :conditions => \
-        ["startTime >= ?", Time.now], :order => "startTime ASC")
+        ["(startTime >= ? AND endTime = ?) ", Time.now, nil], :order => "startTime ASC")
+      @events_future2 = Event.find_tagged_with(:any => @category.name, :conditions => \
+        ["endTime >= ?", Time.now], :order => "startTime ASC")
       @events_past = Event.find_tagged_with(:any => @category.name, :conditions => \
-        ["startTime < ?", Time.now], :order => "startTime DESC", :limit => 20)
+        ["startTime < ?", Time.now], :order => "startTime DESC", :limit =>
+        20)- @events_future2
+      @events_future+= @events_future2
+      
     end
                                         
     def delete
