@@ -77,18 +77,18 @@ module ApplicationHelper
 
     def context_help(action = nil)
         @context = {}
-        @context[:controller] = @params[:controller]
+        @context[:controller] = params[:controller]
         @context[:action] = "help"
-        @context[:id] = action ? action : @params[:action]
-        render_partial 'layouts/context_help'
+        @context[:id] = action ? action : params[:action]
+        render :partial => 'layouts/context_help'
     end
 
     def default_stylesheets
-        render_partial 'layouts/default_stylesheets'
+        render :partial => 'layouts/default_stylesheets'
     end
 
     def default_javascripts
-        render_partial 'layouts/default_javascripts'
+        render :partial => 'layouts/default_javascripts'
     end
 
     # User actions are generated from the following lists depending on the
@@ -104,7 +104,7 @@ module ApplicationHelper
     ]
 
     def list_user_actions
-      perm = @session[:user].superuser? ? :superuser : :default
+      perm = session[:user].superuser? ? :superuser : :default
       actions = []
       @@user_actions.each { |a|
         # add the action to the actions list if either no permissions are

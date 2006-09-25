@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
     before_filter :login_required, :only => [:create_remote]
-    before_filter :super_user, :only =>[:list_admin]
+    before_filter :super_user, :only =>[:edit]
 
     def list
         if(params['page']==nil)

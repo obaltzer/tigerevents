@@ -179,10 +179,11 @@ class EventsController < ApplicationController
         event = Event.find(params[:id])
         #can't delete events that have already past
         if event.startTime < Time.now and (not event.endTime or  event.endTime < Time.now)
+            flash[:notice] = "Can't delete events that have already past"
             redirect_to :action => 'list'
         end
 
-        event.update_attribute( :deleted, 1 )
+        event.update_attribute( :deleted, true )
         # clear selectors cache
         SelectorsController.clearCache
         redirect_to :controller => 'groups', :action => 'list_events_remote', :id => params[:group_id]
@@ -190,8 +191,9 @@ class EventsController < ApplicationController
 
     def set_view_period
         # see if user has specified custom time period
-        if params[:period] and params[:period][:start_date] \
-                and params[:period][:end_date]
+        if params[:period] \
+          and params[:period][:start_date] \
+          and params[:period][:end_date]
             # preserve form values in period variable
             p = params[:period]
             now = Time.now
@@ -202,11 +204,9 @@ class EventsController < ApplicationController
                 p[:startTime] = Time.local start_date[2], start_date[1], \
                     start_date[0], now.hour, now.min, 0, 0
             rescue
-                flash[:notice] = \
-                    "Invalid start date for time period selection."
-                error = true
+              flash[:notice] ="Invalid start date for time period selection."
+              error = true
             end
-
             
             begin
                 end_date = params[:period][:end_date].split(/\//)

@@ -62,13 +62,13 @@
       <ul id="time_period_links">
         <li>Change View To: </li>
         <li><%= link_to 'This Week', :controller => "events", 
-                :action => "list", :id => "this_week", :search => @params[:search] %></li>
+                :action => "list", :id => "this_week", :search => params[:search] %></li>
         <li><%= link_to 'Next Week', :controller => "events", 
-                :action => "list", :id => "next_week", :search => @params[:search] %></li>
+                :action => "list", :id => "next_week", :search => params[:search] %></li>
         <li><%= link_to 'This Month', :controller => "events", 
-                :action => "list", :id => "this_month", :search => @params[:search] %></li>
+                :action => "list", :id => "this_month", :search => params[:search] %></li>
         <li><%= link_to 'Next Month', :controller => "events", 
-                :action => "list", :id => "next_month", :search => @params[:search] %></li>
+                :action => "list", :id => "next_month", :search => params[:search] %></li>
       </ul>
       <a href="javascript:toggle_slide('advanced_time_box');">Advanced</a>
       <% @period ||= {} # XXX bad bad fix, but I have no idea how to do it better right now %>
@@ -77,7 +77,7 @@
             Select a time period to display:
           </p>
           <%= start_form_tag :controller => "events", :action => "list", :id => nil %>
-          <%= hidden_field_tag 'search', @params[:search] %>
+          <%= hidden_field_tag 'search', params[:search] %>
           <div class="input">
             <label for="period_start_date">Start:</label>
             <%= text_field_tag 'period[start_date]', @period[:start_date], \
@@ -110,14 +110,14 @@
 
     <div id="content">
 
-        <% if @flash[:auth] -%>
-            <div class="auth"><%= @flash[:auth] %></div>
+        <% if flash[:auth] -%>
+            <div class="auth"><%= flash[:auth] %></div>
         <% end -%>
-        <% if @flash[:notice] -%>
-            <div class="notice"><%= @flash[:notice] %></div>
+        <% if flash[:notice] -%>
+            <div class="notice"><%= flash[:notice] %></div>
         <% end -%>
-        <% if @flash[:ban_notice] -%>
-            <div class="ban_notice"><%= @flash[:ban_notice] %></div>
+        <% if flash[:ban_notice] -%>
+            <div class="ban_notice"><%= flash[:ban_notice] %></div>
         <% end -%>
 
       <%= @content_for_layout %>
