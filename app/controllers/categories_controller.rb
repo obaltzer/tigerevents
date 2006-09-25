@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
     before_filter :login_required, :only => [:create_remote]
+    before_filter :super_user, :only =>[:list_admin]
 
     def list
         if(params['page']==nil)
@@ -63,14 +64,13 @@ class CategoriesController < ApplicationController
     end
     
     # list existing categories
-    def list_admin
+    def edit
         @categories = Category.find :all, :order => "name"
         @complements = {}
         for c in @categories do
             @complements[c] = \
                 Array.new(@categories).delete_if {|x| x.id == c.id }
         end
-        render_partial
     end
 
     def remove

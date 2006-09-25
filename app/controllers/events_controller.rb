@@ -30,9 +30,11 @@ class EventsController < ApplicationController
         if not params[:id]
             params[:id] = 10
         end
-        @events = Event.find(:all, :limit => params[:id], :include => \
-            [:group], :order => "events.id DESC", :conditions => \
-            ["events.startTime > ?", Time.now])
+        @events = Event.find(:all, 
+          :limit => params[:id], 
+          :include => [:group], 
+          :order => "events.id DESC", 
+          :conditions => ["events.startTime > ?", Time.now])
         #make sure that the number actually returned remains consistent
         #(due to lack of active events)
         params[:id] = @events.size
@@ -238,10 +240,10 @@ class EventsController < ApplicationController
                 p[:startTime] = Time.now
                 p[:endTime] = 7.days.from_now
             else
-                # default is the this_month
+                # default is the this_week
                 p[:fixed] = "this_month"
                 p[:startTime] = Time.now
-                p[:endTime] = 1.month.from_now
+                p[:endTime] = 7.days.from_now
             end
         end
         @period = params[:period] = p

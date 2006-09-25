@@ -95,11 +95,11 @@ module ApplicationHelper
     # permissions of the user.
     @@user_actions = [
         { :perm => [:superuser], :name => 'Groups', :action => { :controller => 'groups', :action => 'list'}, :attr => {:important => "new_group_notice?" }},
-        { :perm => [:superuser], :name => 'Group Classes', :action => { :controller => 'group_classes' } },
+        { :perm => [:superuser], :name => 'Group Classes', :action => { :controller => 'group_classes', :action => 'list' } },
         { :perm => [:superuser], :name => 'Priorities', :action => { :controller => 'priorities'} },
         { :perm => [:superuser], :name => 'Users', :action => { :controller => 'account', :action => 'list'} },
         { :perm => [:superuser], :name => 'Edit Layout', :action => { :controller => 'layouts', :action => 'edit', :id => 1} },
-        { :perm => [:superuser], :name => 'Categories', :action => { :controller => 'categories'} },
+        { :perm => [:superuser], :name => 'Categories', :action => { :controller => 'categories', :action => 'edit'} },
         { :perm => [], :name => 'Logout', :action => { :controller => 'account', :action => 'logout' } },
     ]
 
@@ -160,5 +160,5 @@ module ApplicationHelper
                 :order => "name ASC")
       return true if unapproved != nil
     end
-    
+
 end

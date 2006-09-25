@@ -8,7 +8,6 @@ class GroupClassesController < ApplicationController
             @complements[c] = Array.new(@group_classes)
             @complements[c].delete_if { |x| x.id == c.id }
         end
-        render_partial
     end
 
     def new

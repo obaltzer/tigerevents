@@ -8,7 +8,6 @@ class PrioritiesController < ApplicationController
             @complements[p] = \
                 Array.new(@priorities).delete_if {|x| x.id == p.id }
         end
-        render_partial
     end
 
     def new
