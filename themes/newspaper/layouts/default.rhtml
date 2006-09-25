@@ -39,23 +39,17 @@
           :action => "list", :id => nil } %>
     </h1>
 
-    <%= render_partial 'layouts/theme_selector' %>
-    <%= render_partial 'layouts/event_search' %>
+    <%= render :partial => 'layouts/theme_selector' %>
+    <%= render :partial => 'layouts/event_search' %>
    
     <div id="today">
       <%= Time.now.to_formatted_s(:human_short_format) %>
     </div>
    
-    <%= render_partial 'layouts/site_actions' %>
+    <%= render :partial => 'layouts/site_actions' %>
     <div id="sidebar">
-      <%= render_partial 'layouts/user_menu' %>
-      <div id="bug_box">
-            <big>Problems? Doesn't work? Complicated?</big>
-            <p>
-              File a ticket and we will take care of it.
-            </p>
-            <a href="http://www.tigeronrails.com/tigerevents/newticket"><big>Click here!</big></a>
-      </div>
+      <%= render :partial => 'layouts/user_menu' %>
+      <%= render :partial => 'layouts/bug_box' %>
     </div>
 
     <div id="time_period_selection">
@@ -109,28 +103,15 @@
     </div>
 
     <div id="content">
-
-        <% if flash[:auth] -%>
-            <div class="auth"><%= flash[:auth] %></div>
-        <% end -%>
-        <% if flash[:notice] -%>
-            <div class="notice"><%= flash[:notice] %></div>
-        <% end -%>
-        <% if flash[:ban_notice] -%>
-            <div class="ban_notice"><%= flash[:ban_notice] %></div>
-        <% end -%>
+      <%= render :partial => 'layouts/flash_messages' %>
 
       <%= @content_for_layout %>
    
       <div class="invisibleclear">---</div>
     </div>
     
-    <div id="version_tag">
-      TigerEvents <%= TE_VERSION %>
-    </div>
-    <div id="footer">
-      Developed by <%= link_to 'members', { :controller => 'content', :action => 'credits' } %> of <%= link_to "Dal-ACM", "http://www.dal-acm.ca" %>
-    </div>
+    <%= render :partial => 'layouts/footer' %>
+    
     <script type="text/javascript">
       Behaviour.apply();
     </script>
