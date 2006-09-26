@@ -6,11 +6,13 @@ class CategoriesController < ApplicationController
         if(params['page']==nil)
             params['page']=1
         end
-        @categories = Category.find(:all, :order => "name", :include => \
-            "events", :conditions => ["events.startTime > ?", Time.now])
+        @categories = Category.find(:all, 
+          :order => "name", 
+          :include => "events", 
+          :conditions => ["events.startTime > ?", Time.now])
         @categories_pages = Paginator.new self, @categories.size, 10, params['page']
-        @tagged_items = Event.tags_count(:limit => 100, :conditions => \
-            ["startTime > ?", Time.now])
+        @tagged_items = Event.tags_count(:limit => 100, 
+          :conditions => ["startTime > ?", Time.now])
     end
 
     def show
@@ -18,24 +20,13 @@ class CategoriesController < ApplicationController
       if params[:id]
         @category = Category.find(params[:id])
       elsif params[:name]
-        @category = Category.find(:first, :conditions => 
-                        ["name = ?", params[:name]])
+        @category = Category.find(:first, 
+          :conditions => ["name = ?", params[:name]])
       end
-      @events_future = Event.find_tagged_with(:any => @category.name, 
-        :conditions => ["(startTime >= ?) ", Time.now], 
+      events = Event.find_tagged_with(:any => @category.name,
         :separator => ",",
         :order => "startTime ASC")
-      @events_future2 = Event.find_tagged_with(:any => @category.name, 
-        :conditions => ["startTime < ? AND endTime >= ?", Time.now, Time.now], 
-        :separator => ",",
-        :order => "startTime ASC")
-      @events_past = Event.find_tagged_with(:any => @category.name, 
-        :conditions => ["startTime < ?", Time.now], 
-        :separator => ",",
-        :order => "startTime DESC", 
-        :limit => 20) - @events_future2
-      @events_future+= @events_future2
-      
+      @events_past, @events_future = events.partition &:expired?
     end
                                         
     def delete
@@ -65,7 +56,7 @@ class CategoriesController < ApplicationController
     
     # list existing categories
     def edit
-        @categories = Category.find :all, :order => "name"
+        @categories = Category.find(:all, :order => "name")
         @complements = {}
         for c in @categories do
             @complements[c] = \

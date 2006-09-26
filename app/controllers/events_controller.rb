@@ -1,8 +1,7 @@
 class EventsController < ApplicationController
     before_filter :login_required, :only => [:new, :edit, 
                   :create, :update, :delete]
-    before_filter :can_edit, :only => [:edit, :update,  
-                  :delete]
+    before_filter :can_edit, :only => [:edit, :update, :delete]
 
     after_filter :store_location
 
@@ -48,6 +47,17 @@ class EventsController < ApplicationController
 
     def new
         @event = Event.new
+        @groups = Group.find(:all)
+        @groupclasses = GroupClass.find(:all)
+    end
+
+    def edit
+        @event = Event.find(params[:id])
+        if @event.startTime < Time.now and (not @event.endTime or  @event.endTime < Time.now)
+            redirect_to :action => 'list'
+        end
+
+        @categories = Category.find(:all)
         @groups = Group.find(:all)
         @groupclasses = GroupClass.find(:all)
     end
@@ -103,17 +113,6 @@ class EventsController < ApplicationController
         end
     end
      
-    def edit
-        @event = Event.find(params[:id])
-        if @event.startTime < Time.now and (not @event.endTime or  @event.endTime < Time.now)
-            redirect_to :action => 'list'
-        end
-
-        @categories = Category.find(:all)
-        @groups = Group.find(:all)
-        @groupclasses = GroupClass.find(:all)
-    end
-
     def update
         @event = Event.find(params[:id])
         if @event.startTime < Time.now and (not @event.endTime or  @event.endTime < Time.now)
@@ -123,8 +122,7 @@ class EventsController < ApplicationController
         # make sure only superusers can set the priority if someone
         # hand-crafts a URL
         if params[:event][:priority_id] and !session[:user][:superuser]
-            flash[:notice] = 'You do not have permissions to set '\
-                             + 'the event priority.'
+            flash[:notice] = 'You do not have permissions to set the event priority.'
             render_action 'edit'
             return true
         end
@@ -154,22 +152,22 @@ class EventsController < ApplicationController
         end
     end
 
-    def list_categories
+    def get_event
         if params[:id]
             @event = Event.find(params[:id])
         else
             @event = Event.new(params[:event])
         end
+    end
+
+    def list_categories
+        get_event
         @categories = Category.find(:all).sort_by { |a| a.name }
         render_partial
     end
     
     def list_groups
-        if params[:id]
-            @event = Event.find(params[:id])
-        else
-            @event = Event.new(params[:event])
-        end
+        get_event
         @groups = Group.find( :all, :order => "name ASC" )
         render_partial
     end    
