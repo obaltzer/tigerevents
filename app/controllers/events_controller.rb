@@ -96,8 +96,9 @@ class EventsController < ApplicationController
             @event.group.users.push_with_attributes(session[:user], 
                 'authorized' => false ) \
                     unless @event.group.users.include? session[:user]
-            @event.tag(params[:tags], :separator => ',', :attributes =>\
-                {:created_by => session[:user]})
+            @event.tag(params[:tags], 
+              :separator => ',', 
+              :attributes => {:created_by => session[:user]})
             
             log_activity(@event, session[:user], 'CREATE')
             flash[:notice] = 'Event was successfully created.'
@@ -140,8 +141,10 @@ class EventsController < ApplicationController
             @event.group.users.push_with_attributes( session[:user], 'authorized' => false ) \
                 unless @event.group.users.include? session[:user] \
                         or session[:user][:superuser]
-            @event.tag(params[:tags], :separator => ',', :clear => true,\
-                :attributes => {:created_by => session[:user]})
+            @event.tag(params[:tags], 
+              :separator => ',', 
+              :clear => true,
+              :attributes => {:created_by => session[:user]})
             log_activity(@event, session[:user], 'MODIFY')
             flash[:notice] = 'Event was successfully updated.'
             # clear selectors cache
@@ -223,7 +226,7 @@ class EventsController < ApplicationController
         # initialize
         if not params[:period] or not (p[:startTime] and p[:endTime])
             p = {}
-            p[:fixed] = params[:id] ||= "this_month"
+            p[:fixed] = params[:id] ||= "this_week"
             # the default display is this week
             if params[:id] == "next_week"
                 p[:startTime] = week_start = 7.days.from_now - (7.days.from_now.wday).days
