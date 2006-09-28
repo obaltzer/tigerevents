@@ -190,6 +190,21 @@ class EventsController < ApplicationController
         redirect_to :controller => 'groups', :action => 'list_events_remote', :id => params[:group_id]
     end
 
+    def to_ical
+      event = Event.find(params[:id], :include => [:group])
+      cal = Icalendar::Calendar.new
+      calevent = Icalendar::Event.new
+      calevent.start = event.startTime.strftime("%Y%m%dT%H%M%SZ")
+      calevent.end = event.endTime.strftime("%Y%m%dT%H%M%SZ")
+      calevent.summary = event.title
+      calevent.description = event.description
+      calevent.organizer = event.group.name
+      calevent.location = event.location
+      calevent.url = event.url
+      cal.add_event(calevent)
+      send_data(cal.to_ical, :filename => "event.ics")
+    end
+
     def set_view_period
         # see if user has specified custom time period
         if params[:period] \
