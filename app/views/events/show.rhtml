@@ -1,5 +1,6 @@
 <div class="event_information">
-  <h2><%=h @event.title %></h2>
+  <span class="vevent">
+    <h2 class="summary"><%=h @event.title %></h2>
   <div class="last_update">
     Last updated: <%=h (@event.updated_on ? @event.updated_on : @event.created_on).to_formatted_s(:short_detailed_format) %>
     <% if (session[:user] != nil) && (session[:user][:superuser]) %>
@@ -14,15 +15,19 @@
         Event Description:
       </th>
       <td colspan="3" >
-        <%= sanitize(simple_format(@event.description)) %>
+          <span class="description"><%= sanitize(simple_format(@event.description)) %></span>
       </td>
     </tr>
+    <span class="organizer">
+      <span class="vcard">
+        <span class="fn" style="visibility: hidden"><%= @event.group.name %></span>
+    </span>
     <tr class="event_organizer">
       <th>
         Event Organizer:
       </th>
       <td>
-        <%=link_to @event.group.name, :controller => 'groups', :action => 'show', :id => @event.group.id %> 
+        <%= link_to @event.group.name, {:controller => 'groups', :action =>'show', :id => @event.group.id} %> 
         <%= link_to image_tag('i.png', { :alt => '', :class => 'info_image'}), \
             { :controller => 'groups', :action => 'show', :id => @event.group.id}, \
             :id => 'group_info' %>
@@ -41,7 +46,7 @@
           Location:
         </th>
         <td>
-          <%= @event.location %>
+          <span class="location"><%= @event.location %></span>
         </td>
       </tr>
       <% end %>
@@ -50,7 +55,7 @@
           Time:
         </th>
         <td>
-          <%=h print_time(@event.startTime, @event.endTime, :human_expanded_format) %>
+          <%= print_hcard_time(@event.startTime, @event.endTime, :human_expanded_format) %>
         </td>
       </tr>
     <% end %>
@@ -75,6 +80,7 @@
         <% end %>
     </tr>
   </table>
+  </span>
   <% if session[:user] and (@event.group.authorized_users.include?session[:user] or session[:user][:superuser]) \
       and not @event.expired? %>
     <%= link_to 'Edit', :action => 'edit', :id => @event %> |

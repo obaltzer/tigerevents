@@ -142,6 +142,21 @@ module ApplicationHelper
         DATE_FORMATS[format] ? strftime(DATE_FORMATS[format]).strip : to_default_s          
     end
 
+    def print_hcard_time(startTime, endTime, format)
+        if(MILITARY_TIME_FORMAT)
+            format = (format.to_s+"_24h").to_sym
+        end
+        time = "<abbr class=\"dtstart\"
+        title=\"#{startTime.strftime("%Y-%m-%dT%H:%M:%S-04:00")}\">#{startTime.to_ordinalized_s(format)}</abbr>"
+        if(endTime!=nil)
+            time+= " - <abbr class=\"dtend\" \
+            title=\"#{endTime.strftime("%Y-%m-%dT:%H:%M:%S-04:00")}\">" \
+              + endTime.to_ordinalized_s(((endTime - startTime) < 1.day)? :hour_format : format) \
+              + "</abbr>"
+        end
+        return time
+    end
+
     def print_time(startTime, endTime, format)
         if(MILITARY_TIME_FORMAT)
             format = (format.to_s+"_24h").to_sym
