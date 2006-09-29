@@ -56,17 +56,39 @@ class GroupsController < ApplicationController
     
     def show
         @group = Group.find(params[:id])
-        @upcoming_events_pages, @upcoming_events = paginate :event, :per_page => 10,
+        if params[:format] == "ical"
+          @upcoming_events = Events.find(:all, :include => [:group],
+            :joins => "LEFT JOIN activities ON events.id = activities.event_id 
+                      LEFT JOIN groups ON groups.id = events.group_id 
+                      LEFT JOIN groups_users ON groups.id = groups_users.group_id",
+            :conditions => ["events.group_id = ?
+                AND events.deleted = ?
+                AND events.startTime > ? 
+                AND activities.action = 'CREATE'
+                AND activities.user_id = groups_users.user_id
+                AND groups_users.authorized = ?",
+                @group.id, false, Time.now, true]
+          cal = Icalendar::Calendar.new
+          for event in events
+            calevent = create_ical_event(@upcoming_events)
+            cal.add_event(calevent)
+          end
+          send_data(cal.to_ical, :filename => "#{group.name.crypt("tigerevents")}.ics")
+        else
+          @upcoming_events_pages, @upcoming_events = paginate :event, :per_page => 10,
             :joins => "LEFT JOIN activities ON events.id =
             activities.event_id LEFT JOIN groups ON groups.id =
             events.group_id LEFT JOIN groups_users ON groups.id =
             groups_users.group_id",
-            :conditions => ["events.group_id = ? AND events.deleted = ? 
+            :conditions => ["events.group_id = ? 
+                AND events.deleted = ? 
                 AND events.startTime > ? AND activities.action = 'CREATE'
                 AND activities.user_id = groups_users.user_id
                 AND groups_users.authorized = ?",
             @group.id, false, Time.now, true]
-        history
+          history
+          render
+        end
     end
 
     def mygroups
@@ -269,4 +291,5 @@ class GroupsController < ApplicationController
                 AND groups_users.authorized = ?",
             @group.id, false, Time.now, nil, Time.now, true]
     end
+
 end

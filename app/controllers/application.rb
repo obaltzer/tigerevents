@@ -73,4 +73,16 @@ class ApplicationController < ActionController::Base
             session[:return_to] = nil
         end
     end
+
+    def create_ical_event(event)
+      calevent = Icalendar::Event.new
+      calevent.start = event.startTime.strftime("%Y%m%dT%H%M%SZ")
+      calevent.end = event.endTime.strftime("%Y%m%dT%H%M%SZ") if event.endTime
+      calevent.summary = event.title
+      calevent.description = event.description if event.description
+      calevent.organizer = event.group.name 
+      calevent.location = event.location if event.location
+      return calevent
+    end
+
 end

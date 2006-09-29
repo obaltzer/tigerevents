@@ -19,3 +19,6 @@
     <%= render :partial => 'history' %>
   <% end %>
 </div>
+<%= link_to 'Back', @request.env['HTTP_REFERER'] %>
+<%= link_to 'iCal', :action => 'show', :id => @event, :format => 'ical' %>
+  
