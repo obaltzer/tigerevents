@@ -6,12 +6,13 @@
   <div class="selector_content">
     <ul id="<%=h @selector.label.downcase %>_list">
       <% for event in @events %>
+        <span class="vevent">
         <li>
-          <div class="title"><%= link_to event.title, :controller => "events", :action => "show", :id => event %></div>
+          <div class="title summary"><%= link_to event.title, :controller => "events", :action => "show", :id => event %></div>
           <% if event.announcement == false %>
             <div class="time">
               <span class="start">
-                <%=h print_time(event.startTime, event.endTime, :short_detailed_format) %>
+                <%= print_hcard_time(event.startTime, event.endTime, :short_detailed_format) %>
               </span>
             </div>
           <% end %>

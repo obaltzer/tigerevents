@@ -64,7 +64,8 @@ ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
   :short_detailed_format_24h => '%a %b %d %H:%M',
   :human_expanded_format_24h => '%A, %B %d %Y - %H:%M',
   :human_short_format => '%A, %b %d %Y',
-  :hour_format => '%I:%M %p'
+  :hour_format => '%I:%M %p',
+  :hcard_format => '%Y-%m-%dTO%H:%M:%S-04:00'
 )
 
 module ActiveSupport::CoreExtensions::Time::Conversions
