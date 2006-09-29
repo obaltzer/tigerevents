@@ -87,5 +87,6 @@
   <% end %>
   <%= link_to 'Back', @request.env['HTTP_REFERER'] %>
   <%= link_to 'iCal', :action => 'show', :id => @event, :format => 'ical' %>
+  <%= gCal_link(@event) %>
 </div>
 

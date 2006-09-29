@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+    helper :Events
     before_filter :login_required, :only => [:new, :edit, 
                   :create, :update, :delete]
     before_filter :can_edit, :only => [:edit, :update, :delete]
