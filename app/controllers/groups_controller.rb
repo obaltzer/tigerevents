@@ -67,7 +67,7 @@ class GroupsController < ApplicationController
                 AND activities.action = 'CREATE'
                 AND activities.user_id = groups_users.user_id
                 AND groups_users.authorized = ?",
-                @group.id, false, Time.now, true]
+                @group.id, false, Time.now, true])
           cal = Icalendar::Calendar.new
           for event in events
             calevent = create_ical_event(@upcoming_events)

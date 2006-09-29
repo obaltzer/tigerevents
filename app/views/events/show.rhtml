@@ -81,12 +81,15 @@
     </tr>
   </table>
   </span>
-  <% if session[:user] and (@event.group.authorized_users.include?session[:user] or session[:user][:superuser]) \
+  <div id="page_actions">
+    <% if session[:user] and (@event.group.authorized_users.include?session[:user] or session[:user][:superuser]) \
       and not @event.expired? %>
-    <%= link_to 'Edit', :action => 'edit', :id => @event %> |
-  <% end %>
-  <%= link_to 'Back', @request.env['HTTP_REFERER'] %>
-  <%= link_to 'iCal', :action => 'show', :id => @event, :format => 'ical' %>
-  <%= gCal_link(@event) %>
+      <%= link_to 'Edit', :action => 'edit', :id => @event %> 
+      <%= link_to 'Remove', {:action => "delete", :id => @event.id}, :confirm => "Really remove #{@event.title}?" %>
+    <% end %>
+    <%= link_to 'iCal', :action => 'show', :id => @event, :format => 'ical' %>
+    <%= gCal_link(@event) %>
+    <%= link_to 'Back', @request.env['HTTP_REFERER'] %>
+  </div>
 </div>
 

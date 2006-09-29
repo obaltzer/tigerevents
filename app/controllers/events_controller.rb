@@ -49,8 +49,6 @@ class EventsController < ApplicationController
           calevent = create_ical_event(@event)
           cal.add_event(calevent)
           send_data(cal.to_ical, :filename => "#{@event.title.crypt("tigerevents")}.ics")
-        else
-          render
         end
     end
 
