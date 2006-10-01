@@ -16,7 +16,6 @@
 #
 
 require 'date'
-require 'icalendar'
 class Event < ActiveRecord::Base
     acts_as_taggable :tag_class_name => 'Category', :collection => :categories
     belongs_to :group

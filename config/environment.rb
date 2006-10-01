@@ -15,7 +15,9 @@ Rails::Initializer.run do |config|
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
-
+  config.load_paths += %W(
+    vendor/icalendar/lib
+  ).map {|dir| "#{RAILS_ROOT}/#{dir}"}.select { |dir| File.directory?(dir) }
   # Force all environments to use the same logger level 
   # (by default production uses :info, the others :debug)
   # config.log_level = :debug
@@ -78,6 +80,7 @@ module ActiveSupport::CoreExtensions::Time::Conversions
 end
 
 require_gem 'acts_as_taggable'
+require 'icalendar'
 require 'tigerevents_config'
 
 @@available_themes = []
