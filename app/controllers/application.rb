@@ -79,7 +79,7 @@ class ApplicationController < ActionController::Base
       calevent.start = event.startTime.to_formatted_s(:iCal_short) if event.startTime
       calevent.end = event.endTime.to_formatted_s(:iCal_short) if event.endTime
       calevent.summary = event.title
-      calevent.description = event.description if event.description
+      calevent.description = event.description.gsub(/\r\n/, '\n') if event.description
       calevent.organizer = event.group.name 
       calevent.location = event.location if event.location
       return calevent
