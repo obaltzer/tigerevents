@@ -27,6 +27,14 @@ class CategoriesController < ApplicationController
         :separator => ",",
         :order => "startTime ASC")
       @events_past, @events_future = events.partition &:expired?
+      if(params[:format] == "ical")
+        cal = Icalendar::Calendar.new
+        for event in @events_future
+          calevent = create_ical_event(event)
+          cal.add_event(calevent)
+        end
+        send_data(cal.to_ical, :filename => "#{@category.name.crypt("tigerevents")}.ics", :type => 'text/calendar')
+      end
     end
                                         
     def delete

@@ -87,7 +87,7 @@
       <%= link_to 'Edit', :action => 'edit', :id => @event %> 
       <%= link_to 'Remove', {:action => "delete", :id => @event.id}, :confirm => "Really remove #{@event.title}?" %>
     <% end %>
-    <%= link_to 'iCal', :action => 'show', :id => @event, :format => 'ical' %>
+    <%= link_to 'Export to iCal', :action => 'show', :id => @event, :format => 'ical' %>
     <%= gCal_link(@event) %>
     <%= link_to 'Back', @request.env['HTTP_REFERER'] %>
   </div>

@@ -56,3 +56,7 @@
   <% end %>
   </ul>
 <% end %>
+<div id="page_actions">
+  <%= link_to 'Export to iCal', :action => :show, :id => @category, :format => "ical" %>
+  <%= link_to 'Back', @request.env['HTTP_REFERER'] %>
+</div>

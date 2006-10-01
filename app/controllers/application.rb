@@ -76,8 +76,8 @@ class ApplicationController < ActionController::Base
 
     def create_ical_event(event)
       calevent = Icalendar::Event.new
-      calevent.start = event.startTime.strftime("%Y%m%dT%H%M%SZ")
-      calevent.end = event.endTime.strftime("%Y%m%dT%H%M%SZ") if event.endTime
+      calevent.start = event.startTime.to_formatted_s(:iCal_short) if event.startTime
+      calevent.end = event.endTime.to_formatted_s(:iCal_short) if event.endTime
       calevent.summary = event.title
       calevent.description = event.description if event.description
       calevent.organizer = event.group.name 

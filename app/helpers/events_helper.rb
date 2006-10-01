@@ -1,25 +1,18 @@
 module EventsHelper
 
-  def iCal_date(date)
-    return date.strftime("%Y%m%dT%H%M%SZ")
-  end
-
   def gCal_link(event)
+    link  = "<a href=\"http://www.google.com/calendar/event?action=TEMPLATE"
+    link += "&text=#{url_encode(event.title)}"
     if event.endTime
-    return "<a href=\"http://www.google.com/calendar/event?action=TEMPLATE" +
-         "&text=#{html_escape(event.title).gsub(",", "%2C")}" +
-         "&dates=#{iCal_date(event.startTime)}/#{iCal_date(event.endTime)}" +
-         "&details=#{html_escape(event.description).gsub(",", "%2C")}" +
-         "&location=#{html_escape(event.location)}" +
-         "&trp=false&sprop=&sprop=name:\" target=\"_blank\">Add To gCal</a>"
+      link += "&dates=#{event.startTime.to_formatted_s(:iCal_short)}/#{event.endTime.to_formatted_s(:iCal_short)}"
     else
-    return "<a href=\"http://www.google.com/calendar/event?action=TEMPLATE" +
-         "&text=#{html_escape(event.title).gsub(",", "%2C")}" +
-         "&dates=#{iCal_date(event.startTime)}" +
-         "&details=#{html_escape(event.description)}" +
-         "&location=#{html_escape(event.location)}" +
-         "&trp=false&sprop=&sprop=name:\" target=\"_blank\">Add To gCal</a>"
-    
+      link += "&dates=#{event.startTime.to_formatted_s(:iCal_short)}"
     end
+    link += "&details=#{url_encode(event.description)}"
+    link += "&location=#{url_encode(event.location)}"
+    link += "&trp=false"
+    link += "&sprop=#{url_encode(event.url)}"
+    link += "&sprop=name:\" target=\"_blank\">Add To Google Calendar</a>"
+    return link
   end
 end

@@ -48,7 +48,7 @@ class EventsController < ApplicationController
           cal = Icalendar::Calendar.new
           calevent = create_ical_event(@event)
           cal.add_event(calevent)
-          send_data(cal.to_ical, :filename => "#{@event.title.crypt("tigerevents")}.ics")
+          send_data(cal.to_ical, :filename => "#{@event.title.crypt("tigerevents")}.ics", :type => 'text/calendar')
         end
     end
 
