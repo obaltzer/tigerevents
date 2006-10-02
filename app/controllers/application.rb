@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
     # store current uri in  the session.
     # we can return to this location by calling return_location
     def store_location
-        session[:return_to] = @request.request_uri
+      session[:return_to] = url_for(@request.path_parameters())
     end
 
     # move to the last store_location call or to the passed default one
