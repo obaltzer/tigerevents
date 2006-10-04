@@ -1,6 +1,5 @@
-<%= link_to "Previous page", { :action => 'list', :search => params[:search], :page => @user_pages.current.previous } if @user_pages.current.previous %>
-<%= pagination_links @user_pages, :params => { :action => 'list', :search => params[:search] } %>
-<%= link_to "Next page", { :action => 'list', :search => params[:search], :page => @user_pages.current.next } if @user_pages.current.next %> 
+<div id="user_list">
+<%= render :partial => 'layouts/paginate_links', :locals => {:item => @user_pages} %>
 <table>
   <tr>
     <th>Login</th>
@@ -19,6 +18,5 @@
     </tr>
   <% end %>
 </table>
-<%= link_to "Previous page", { :action => 'list', :search => params[:search], :page => @user_pages.current.previous } if @user_pages.current.previous %>
-<%= pagination_links @user_pages, :params => { :action => 'list', :search => params[:search] } %>
-<%= link_to "Next page", { :action => 'list', :search => params[:search], :page => @user_pages.current.next } if @user_pages.current.next %> 
+<%= render :partial => 'layouts/paginate_links', :locals => {:item => @user_pages} %>
+</div>

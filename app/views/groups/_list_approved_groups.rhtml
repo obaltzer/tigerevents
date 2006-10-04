@@ -1,6 +1,5 @@
-<%= link_to "Previous page", { :search => params[:search], :action => 'list', :page => @groups_pages.current.previous } if @groups_pages.current.previous %>
-<%= pagination_links @groups_pages, :params => {:action => 'list', :search => params[:search] } %>
-<%= link_to "Next page", { :search => params[:search], :action => 'list', :page => @groups_pages.current.next } if @groups_pages.current.next %>
+<div id="approved_groups">
+<%= render :partial => 'layouts/paginate_links', :locals => {:item => @groups_pages} %>
 
 <table>
   <% for group in @groups %>
@@ -12,6 +11,5 @@
   <% end %>
 </table>
 
-<%= link_to "Previous page", { :search => params[:search], :action => 'list', :page => @groups_pages.current.previous } if @groups_pages.current.previous %>
-<%= pagination_links @groups_pages, :params => {:action => 'list', :search => params[:search] } %>
-<%= link_to "Next page", { :search => params[:search], :action => 'list', :page => @groups_pages.current.next } if @groups_pages.current.next %>
+<%= render :partial => 'layouts/paginate_links', :locals => {:item => @groups_pages} %>
+</div>
