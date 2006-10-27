@@ -26,18 +26,20 @@ class Group < ActiveRecord::Base
     end
 
     def authorized_users
-        return User.find(:all, :include => :groups,
-            :conditions => ["authorized = ? AND groups.id = #{self.id}", true])
+      return User.find(:all, 
+        :include => :groups,
+        :conditions => ["authorized = ? AND groups.id = #{self.id}", true])
     end
 
     def unauthorized_users
-        return User.find(:all, :include => :groups,
-            :conditions => ["authorized = ? AND groups.id = #{self.id}", false]).collect { |m|
-                # this adds the missing authorized attribute to the User
-                # object
-                m[:authorized] = false
-                m
-            }
+        return User.find(:all, 
+          :include => :groups,
+          :conditions => ["authorized = ? AND groups.id = #{self.id}", false]).collect { |m|
+            # this adds the missing authorized attribute to the User
+            # object
+            m[:authorized] = false
+            m
+          }
     end
 
     def undeleted_events
@@ -46,19 +48,18 @@ class Group < ActiveRecord::Base
             :order => "startTime ASC")
     end
 
-    def delete
-        #no events means a bad group
-        if self.events.first == nil
-            #remove associations and delete
-            for user in self.users
-                self.users.delete(user)
-            end
-            self.destroy
-        else
-        #otherwise just flag in the database
-            self.deleted = true
-            self.save
-        end
+  def delete
+    #no events means a bad group
+    if self.events.first == nil
+      #remove associations and delete
+      for user in self.users
+        self.users.delete(user)
+      end
+      self.destroy
+    else
+      #otherwise just flag in the database
+      self.deleted = true
+      self.save
     end
-    
+  end
 end

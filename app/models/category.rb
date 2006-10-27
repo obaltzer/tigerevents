@@ -24,5 +24,4 @@ class Category < ActiveRecord::Base
     def self.category_item(category)
       Category.find(:first, :conditions =>["name=?", category])
     end
-    
 end

@@ -60,7 +60,7 @@ class EventsController < ApplicationController
 
     def edit
         @event = Event.find(params[:id])
-        if @event.startTime < Time.now and (not @event.endTime or  @event.endTime < Time.now)
+        if @event.expired?
             redirect_to :action => 'list'
         end
 
@@ -123,7 +123,7 @@ class EventsController < ApplicationController
      
     def update
         @event = Event.find(params[:id])
-        if @event.startTime < Time.now and (not @event.endTime or  @event.endTime < Time.now)
+        if @event.expired?
             redirect_to :action => 'list'
         end
 
@@ -186,7 +186,7 @@ class EventsController < ApplicationController
         #Event.update(params[:id], :deleted => 1)
         event = Event.find(params[:id])
         #can't delete events that have already past
-        if event.startTime < Time.now and (not event.endTime or  event.endTime < Time.now)
+        if event.expired?
             flash[:notice] = "Can't delete events that have already past"
             redirect_to :action => 'list'
         end
@@ -221,8 +221,7 @@ class EventsController < ApplicationController
                 p[:endTime] = Time.local end_date[2], end_date[1], \
                     end_date[0], now.hour, now.min, 0, 0
             rescue 
-                flash[:notice] = \
-                    "Invalid end date for time period selection."
+                flash[:notice] = "Invalid end date for time period selection."
                 error = true
             end
             params[:period].delete :fixed

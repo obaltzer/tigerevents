@@ -178,9 +178,9 @@ class SelectorsController < ApplicationController
     end
 
     def edit
-        @selector = Selector.find params[:id]
+        @selector = Selector.find(params[:id])
         @associations = {}
-        @selector.associations.each { |a|
+        @selector.associations.each do |a|
             @associations[a] = {}
             @associations[a][:active] = @selector.send(Inflector.pluralize(a))
             tmp = Array.new(eval(Inflector.camelize(a)).find(:all))
@@ -188,8 +188,8 @@ class SelectorsController < ApplicationController
                 @associations[a][:active].include?(x) 
             }
             @associations[a][:available] = tmp
-        }
-        render_partial "edit"
+        end
+        render :partial => "edit"
     end
 
     def associate
@@ -202,15 +202,15 @@ class SelectorsController < ApplicationController
         @selector.send(assoc).clear
         # get all possible association objects for this association
         map = {}
-        eval(Inflector.camelize(association)).find(:all).each { |x| 
+        eval(Inflector.camelize(association)).find(:all).each do |x| 
             map[x.id] = x
-        }
+        end
         # now iterate over the new associations and add them to the
         # associations table as OR relationship
-        list.each { |x|
+        list.each do |x|
             @selector.send(assoc).push_with_attributes(
                 map[x.to_i], "association_type_id" => 1)
-        }
+        end
         SelectorsController.clearCache
         render_partial
     end
