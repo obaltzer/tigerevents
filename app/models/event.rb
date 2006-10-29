@@ -37,6 +37,10 @@ class Event < ActiveRecord::Base
         return false
     end
 
+  def last_updated
+    return (self.updated_on ? self.updated_on : self.created_on).to_formatted_s(:short_detailed_format)
+  end
+  
     before_validation :convert_times
     def convert_times
         begin

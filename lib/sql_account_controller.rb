@@ -11,8 +11,7 @@ module SQLAccountController
             @user = User.new(params[:user])
             if @user.save
                 flash[:auth] = "User #{@user.login} created"
-                redirect_to :controller => 'events',
-                    :action => 'index'
+                redirect_to events_url
                 if(@user.id > 1)
                     AdminMailer.deliver_account_created(@user)
                 end
@@ -24,23 +23,19 @@ module SQLAccountController
         if request.get?
         else
             user = User.find(:first, :conditions => ["id= ?", session[:user].id])
-            if session[:user].hashed_pass =
-            User.hash_password(params[:pass][:oldpass]) 
-                if params[:pass][:newpass] == params[:pass][:verifypass]
-                    user.hashed_pass = User.hash_password(params[:pass][:newpass])
+            if session[:user].hashed_password = User.hash_password(params[:password][:oldpassword]) 
+                if params[:password][:newpassword] == params[:password][:verifypassword]
+                    user.hashed_password = User.hash_password(params[:password][:newpassword])
                     user.save
                     flash[:auth]="Password Successfully changes"
-                    redirect_to :controller => 'events',
-                        :action => 'index'
+                    redirect_to events_url
                     return true
                 end
                 flash[:auth] = "Password Verification Fails"
-                redirect_to :controller => 'events',
-                        :action => 'index'
+                redirect_to events_url
             else
                 flash[:auth] = "Old Password Entered Incorrectly"
-                redirect_to :controller => 'events',
-                        :action => 'index'
+                redirect_to events_url
             end
         end
     end

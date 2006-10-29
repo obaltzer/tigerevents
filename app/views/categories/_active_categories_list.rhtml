@@ -1,9 +1,4 @@
-<%= link_to "Previous page", { :search => params[:search], :action => \
-'list', :page => @categories_pages.current.previous } if @categories_pages.current.previous %>
-<%= pagination_links @categories_pages, :params => {:action => 'list', :search => params[:search] } %>
-<%= link_to "Next page", { :search => params[:search], :action => 'list', \
-:page => @categories_pages.current.next } if @categories_pages.current.next %>
-
+<%= render :partial => 'layouts/paginate_links', :locals => {:item => @categories_pages} %>
 <table>
   <% for category in @categories %>
     <tr>
@@ -13,8 +8,4 @@
   <% end %>
 </table>
 
-<%= link_to "Previous page", { :search => params[:search], :action => \
-'list', :page => @categories_pages.current.previous } if @categories_pages.current.previous %>
-<%= pagination_links @categories_pages, :params => {:action => 'list', :search => params[:search] } %>
-<%= link_to "Next page", { :search => params[:search], :action => 'list', \
-:page => @categories_pages.current.next } if @categories_pages.current.next %>
+<%= render :partial => 'layouts/paginate_links', :locals => {:item => @categories_pages} %>

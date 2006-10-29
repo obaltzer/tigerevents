@@ -2,7 +2,7 @@
   <span class="vevent">
     <h2 class="summary"><%=h @event.title %></h2>
   <div class="last_update">
-    Last updated: <%=h (@event.updated_on ? @event.updated_on : @event.created_on).to_formatted_s(:short_detailed_format) %>
+    Last updated: <%=h @event.last_updated %>
     <% if (session[:user] != nil) && (session[:user][:superuser]) %>
       by 
       <%= @event.updator.fullname %> 
@@ -23,9 +23,7 @@
         <span class="fn" style="visibility: hidden"><%= @event.group.name %></span>
     </span>
     <tr class="event_organizer">
-      <th>
-        Event Organizer:
-      </th>
+      <th>Event Organizer:</th>
       <td>
         <%= link_to @event.group.name, {:controller => 'groups', :action =>'show', :id => @event.group.id} %> 
         <%= link_to image_tag('i.png', { :alt => '', :class => 'info_image'}), \
@@ -42,18 +40,14 @@
      <% if @event.announcement == false %>
       <% if @event.location %>
       <tr class="event_location">
-        <th>
-          Location:
-        </th>
+        <th>Location:</th>
         <td>
           <span class="location"><%= @event.location %></span>
         </td>
       </tr>
       <% end %>
       <tr class="event_time">
-        <th>
-          Time:
-        </th>
+        <th>Time:</th>
         <td>
           <%= print_hcard_time(@event.startTime, @event.endTime, :human_expanded_format) %>
         </td>
@@ -61,23 +55,19 @@
     <% end %>
     <% if @event.url %>
       <tr class="event_url">
-        <th>
-          For more information visit: 
-        </th>
+        <th>For more information visit:</th>
         <td>
           <%= link_to "#{h @event.url}", "#{h @event.url}" %>
         </td>
       </tr>
     <% end %>
     <tr class="event_tags">
-        <th>
-          Tags:
-        </th>
+        <th>Tags:</th>
         <td>
-        </d>
         <% for category in @categories %>
           <%= link_to category.name, :controller => 'categories', :action => 'show', :id => category %>
         <% end %>
+        </td>
     </tr>
   </table>
   </span>
@@ -92,4 +82,3 @@
     <%= link_to 'Back', @request.env['HTTP_REFERER'] %>
   </div>
 </div>
-
