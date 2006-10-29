@@ -5,13 +5,13 @@
 <% if not @events_future.empty? %>
   <h3>Future Events of this Category</h3>
   <ul>
-    <%= render :partial => 'common/events_list', :locals => {:events => @events_future} %>
+    <%= render :partial => 'shared/events_list', :locals => {:events => @events_future} %>
   </ul>
 <% end %>
 <% if not @events_past.empty? %>
   <h3>Past Events of this Category</h3>
   </ul>
-    <%= render :partial => 'common/events_list', :locals => {:events => @events_past} %>
+    <%= render :partial => 'shared/events_list', :locals => {:events => @events_past} %>
   </ul>
 <% end %>
 <div id="page_actions">

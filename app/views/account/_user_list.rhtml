@@ -1,5 +1,5 @@
 <div id="user_list">
-<%= render :partial => 'layouts/paginate_links', :locals => {:item => @user_pages} %>
+<%= render :partial => 'shared/paginate_links', :locals => {:item => @user_pages} %>
 <table>
   <tr>
     <th>Login</th>
@@ -18,5 +18,5 @@
     </tr>
   <% end %>
 </table>
-<%= render :partial => 'layouts/paginate_links', :locals => {:item => @user_pages} %>
+<%= render :partial => 'shared/paginate_links', :locals => {:item => @user_pages} %>
 </div>

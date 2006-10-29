@@ -1,4 +1,4 @@
-<%= render :partial => 'layouts/paginate_links', :locals => {:item => @categories_pages} %>
+<%= render :partial => 'shared/paginate_links', :locals => {:item => @categories_pages} %>
 <table>
   <% for category in @categories %>
     <tr>
@@ -8,4 +8,4 @@
   <% end %>
 </table>
 
-<%= render :partial => 'layouts/paginate_links', :locals => {:item => @categories_pages} %>
+<%= render :partial => 'shared/paginate_links', :locals => {:item => @categories_pages} %>

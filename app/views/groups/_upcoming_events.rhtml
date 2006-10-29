@@ -1,6 +1,6 @@
 <% require 'time' %>
   <div class="history">
-  <%= render :partial => "layouts/paginate_links", :locals => {:item => @upcoming_events_pages} %>
+  <%= render :partial => "shared/paginate_links", :locals => {:item => @upcoming_events_pages} %>
       <table>
          <tr>
             <th>Name</th><th>Date</th>
@@ -18,5 +18,5 @@
           </tr>
         <% end %>
       </table>
-  <%= render :partial => "layouts/paginate_links", :locals => {:item => @upcoming_events_pages} %>
+  <%= render :partial => "shared/paginate_links", :locals => {:item => @upcoming_events_pages} %>
   </div>

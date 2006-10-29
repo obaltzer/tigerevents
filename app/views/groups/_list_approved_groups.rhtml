@@ -1,5 +1,5 @@
 <div id="approved_groups">
-<%= render :partial => 'layouts/paginate_links', :locals => {:item => @groups_pages} %>
+<%= render :partial => 'shared/paginate_links', :locals => {:item => @groups_pages} %>
 
 <table>
   <% for group in @groups %>
@@ -11,5 +11,5 @@
   <% end %>
 </table>
 
-<%= render :partial => 'layouts/paginate_links', :locals => {:item => @groups_pages} %>
+<%= render :partial => 'shared/paginate_links', :locals => {:item => @groups_pages} %>
 </div>
