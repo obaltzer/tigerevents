@@ -224,7 +224,7 @@ class SelectorsController < ApplicationController
             params[:id] = @selector.id
             edit
         else
-            render_partial "error_message"
+            render :partial => 'error_message'
         end
     end
 
@@ -236,15 +236,15 @@ class SelectorsController < ApplicationController
         end
         if @selector.update_attributes(params[:selector])
             SelectorsController.clearCache
-            render_partial "properties_updated"
+            render :partial => 'properties_updated'
         else
-            render_partial "error_message"
+            render :partial => 'error_message'
         end
     end
     
     def properties
         @selector = Selector.find(params[:id])
-        render_partial "selector_properties"
+        render :partial => "selector_properties"
     end
 
     def delete

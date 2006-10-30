@@ -26,19 +26,25 @@ class User < ActiveRecord::Base
     validates_uniqueness_of :email, :on => :create
 
     def approved_groups
-        return Group.find(:all, :include => :users,
+        return Group.find(:all, 
+            :include => :users,
+            :order => 'name',
             :conditions => ["authorized = ? AND approved = ? AND users.id =
             #{self.id} AND deleted = ?", true, true, false])
     end
 
     def unapproved_member
-        return Group.find(:all, :include => :users,
+        return Group.find(:all, 
+            :include => :users,
+            :order => 'name',
             :conditions => ["authorized = ? AND users.id =
             #{self.id} AND deleted = ?", false, false])
     end
 
     def unapproved_groups
-        return Group.find(:all, :include => :users,
+        return Group.find(:all, 
+            :include => :users,
+            :order => 'name',
             :conditions => ["authorized = ? AND approved = ? AND users.id =
             #{self.id} AND deleted = ?", true, false, false])
     end
@@ -62,5 +68,4 @@ class User < ActiveRecord::Base
     def self.hash_password(password)
       Digest::SHA1.hexdigest(password)
     end
-    
 end

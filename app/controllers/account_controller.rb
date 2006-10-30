@@ -16,7 +16,7 @@ class AccountController < ApplicationController
   end
 
   def login
-    case @request.method
+    case request.method
     when :post
       @user = login_user(params[:user])
       if not @user

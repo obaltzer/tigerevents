@@ -65,7 +65,7 @@
         <th>Tags:</th>
         <td>
         <% for category in @categories %>
-          <%= link_to category.name, :controller => 'categories', :action => 'show', :id => category %>
+          <%= link_to category.name, :controller => 'categories', :action => 'show', :id => category -%>
         <% end %>
         </td>
     </tr>
@@ -79,6 +79,6 @@
     <% end %>
     <%= link_to 'Export to iCal', :action => 'show', :id => @event, :format => 'ical' %>
     <%= gCal_link(@event) %>
-    <%= link_to 'Back', @request.env['HTTP_REFERER'] %>
+    <%= link_to 'Back', request.env['HTTP_REFERER'] %>
   </div>
 </div>

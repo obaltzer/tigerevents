@@ -25,8 +25,8 @@ class ApplicationController < ActionController::Base
     end
 
     def log_activity(event, user, action)
-        @activity = Activity.new(:event => event, :user => user, :action => action)
-        @activity.save
+        activity = Activity.new(:event => event, :user => user, :action => action)
+        activity.save
     end
 
     def no_permission
@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
     # store current uri in  the session.
     # we can return to this location by calling return_location
     def store_location
-      session[:return_to] = url_for(@request.path_parameters())
+      session[:return_to] = url_for(request.path_parameters())
     end
 
     # move to the last store_location call or to the passed default one
@@ -85,5 +85,4 @@ class ApplicationController < ActionController::Base
       calevent.location = event.location if event.location
       return calevent
     end
-
 end

@@ -16,7 +16,7 @@ class GroupsController < ApplicationController
             # redirect back to the group listing for the current event
             redirect_to params[:update_with]
         else
-            render_partial 'embed_error_message'
+            render :partial => 'embed_error_message'
         end
     end
 
@@ -92,9 +92,9 @@ class GroupsController < ApplicationController
     end
 
     def mygroups
-        @groups = session[:user].approved_groups.sort_by { |a| a.name }
-        @pengroups = session[:user].unapproved_groups.sort_by { |a| a.name }
-        @penmember = session[:user].unapproved_member.sort_by { |a| a.name }
+        @groups = session[:user].approved_groups
+        @pengroups = session[:user].unapproved_groups
+        @penmember = session[:user].unapproved_member
         render_partial
     end
 
@@ -136,29 +136,26 @@ class GroupsController < ApplicationController
     
     def live_search
         list
-        render_partial "list_approved_groups"
+        render :partial => "list_approved_groups"
     end
     
     def live_search_public
         list
-        render_partial "public_group_list"
+        render :partial => "public_group_list"
     end
     
     #checks to see if the user belongs to this group
     def belongs_to
         if(session[:user] == nil || session[:user].banned? )
-            flash[:auth] = \
-                "You do not have permission to manage this group."
-            redirect_back_or_default :controller => "events", 
-                                     :action => "index"
+            flash[:auth] = "You do not have permission to manage this group."
+            redirect_back_or_default :controller => "events", :action => "index"
         elsif(session[:user].superuser? )
             return true
         end
         
         #check to see if the user is one of the authorized group members
         if(!Group.find(params[:id]).authorized_users.include? session[:user])
-            flash[:auth] = \
-                "You do not have permission to manage this group."
+            flash[:auth] = "You do not have permission to manage this group."
             redirect_back_or_default :controller => "events", :action => "index"
         end
         return true
@@ -170,8 +167,8 @@ class GroupsController < ApplicationController
     end
 
     def reject
-        @group = Group.find(params[:id])
-        @group.delete
+        group = Group.find(params[:id])
+        group.delete
         # clear selectors cache
         SelectorsController.clearCache
         redirect_to :action => "list"
@@ -219,7 +216,7 @@ class GroupsController < ApplicationController
             # clear selectors cache
             SelectorsController.clearCache
         end
-        render_partial 'members_section', :id => params[:id] 
+        render :partial => 'members_section', :id => params[:id] 
     end
 
     #the next two methods deal with finding authorized members and possibly removing them
@@ -252,13 +249,13 @@ class GroupsController < ApplicationController
                             + "groups.id = ? AND users.id = ?", \
                             @group.id, user.id]
         # adopt events from user_id to adopter_id 
-        for e in events do
-            log_activity(e, adopter, 'ADOPT')
+        for event in events do
+            log_activity(event, adopter, 'ADOPT')
         end
         @group.users.delete user
         # clear selectors cache
         SelectorsController.clearCache
-        render_partial 'members_section', :id => params[:id]
+        render :partial => 'members_section', :id => params[:id]
     end
 
     #these methods are for editing events that belong to the group
@@ -291,5 +288,4 @@ class GroupsController < ApplicationController
                 AND groups_users.authorized = ?",
             @group.id, false, Time.now, nil, Time.now, true]
     end
-
 end

@@ -74,11 +74,7 @@ class EventsController < ApplicationController
         # assign the default priority to the event
         priority = Priority.find(:first, 
                         :conditions => ["name = ?", DEFAULT_PRIORITY])
-        if priority
-            @event.priority_id = priority.id
-        else
-            @event.priority_id = 1
-        end
+        @event.priority_id = priority ? priority.id : 1
         @event.hasEndTime = params[:event_hasEndTime] ? true : false;
         if @event.group
             if not @event.group.authorized_users.include? session[:user]
@@ -124,6 +120,7 @@ class EventsController < ApplicationController
     def update
         @event = Event.find(params[:id])
         if @event.expired?
+            flash[:notice] = "Can't edit expired events"
             redirect_to :action => 'list'
         end
 
@@ -232,7 +229,7 @@ class EventsController < ApplicationController
         # initialize
         if not params[:period] or not (p[:startTime] and p[:endTime])
             p = {}
-            p[:fixed] = params[:id] ||= "this_week"
+            p[:fixed] = params[:id] ||= "this_month"
             # the default display is this week
             if params[:id] == "next_week"
                 p[:startTime] = week_start = 7.days.from_now - (7.days.from_now.wday).days

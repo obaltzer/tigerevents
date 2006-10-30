@@ -78,7 +78,7 @@ class CategoriesController < ApplicationController
             new_c = Category.find params[:new_category_id]
             if not @old_c or not new_c
                 @message = "You have to specify the replacement category."
-                render_partial 'embed_error_message'
+                render :partial => 'embed_error_message'
             elsif @old_c != new_c
                 # for all events that are associated with the old category
                 for e in @old_c.events do
@@ -95,11 +95,11 @@ class CategoriesController < ApplicationController
                 render_partial
             else
                 @message = "You cannot replace a category with itself."
-                render_partial 'embed_error_message'
+                render :partial => 'embed_error_message'
             end
         rescue ActiveRecord::RecordNotFound
             @message = "Error! Your computer is going to explode!"
-            render_partial 'embed_error_message'
+            render :partial => 'embed_error_message'
         end
     end
 end

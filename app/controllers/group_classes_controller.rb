@@ -20,21 +20,21 @@ class GroupClassesController < ApplicationController
     if @group_class.save
       redirect_to params[:update_with]
     else
-      render_partial 'embed_error_message'
+      render :partial => 'embed_error_message'
     end
   end
 
   def remove
-    old_class = GroupClass.fin( params[:id])
+    old_class = GroupClass.find(params[:id])
     begin
-      new_class = GroupClass.find params[:new_class_id]
+      new_class = GroupClass.find(params[:new_class_id])
       if not old_class or not new_class
          @message = "You have to specify the replacement class."
-         render_partial 'embed_error_message'
+         render :partial => 'embed_error_message'
       elsif old_class != new_class
-        for g in old_class.groups do
-          g.group_class = new_class
-          g.save
+        for group in old_class.groups do
+          group.group_class = new_class
+          group.save
         end
         old_class.destroy
         # clear selectors cache
@@ -42,11 +42,11 @@ class GroupClassesController < ApplicationController
         redirect_to params[:update_with]
       else
         @message = "The group class to delete and the replacement class cannot be the same."
-        render_partial 'embed_error_message'
+        render :partial => 'embed_error_message'
       end
     rescue ActiveRecord::RecordNotFound
       @message = "Error has occurred."
-      render_partial 'embed_error_message'
+      render :partial => 'embed_error_message'
     end
   end
 end

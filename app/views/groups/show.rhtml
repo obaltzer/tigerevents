@@ -21,6 +21,6 @@
 </div>
 <div id="page_actions">
   <%= link_to 'Export to iCal', :action => 'show', :id => @group, :format => 'ical' %>
-  <%= link_to 'Back', @request.env['HTTP_REFERER'] %>
+  <%= link_to 'Back', request.env['HTTP_REFERER'] %>
 </div>
   

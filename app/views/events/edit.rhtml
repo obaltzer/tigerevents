@@ -12,6 +12,6 @@
   <%= render :partial => 'form' %>
   <div>
     <%= submit_tag 'Update' %>
-    <%=link_to 'Cancel', @request.env['HTTP_REFERER'] %>
+    <%=link_to 'Cancel', request.env['HTTP_REFERER'] %>
   </div>
 <%= end_form_tag %>
