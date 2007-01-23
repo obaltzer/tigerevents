@@ -2,10 +2,14 @@
     <div id="time_period_selection">
       <ul id="time_period_links">
         <li>Change View To: </li>
+        <li><%= link_to 'Last Week', :controller => "events", 
+                :action => "list", :id => "last_week", :search => params[:search] %></li>
         <li><%= link_to 'This Week', :controller => "events", 
                 :action => "list", :id => "this_week", :search => params[:search] %></li>
         <li><%= link_to 'Next Week', :controller => "events", 
                 :action => "list", :id => "next_week", :search => params[:search] %></li>
+        <li><%= link_to 'Last Month', :controller => "events", 
+                :action => "list", :id => "last_month", :search => params[:search] %></li>
         <li><%= link_to 'This Month', :controller => "events", 
                 :action => "list", :id => "this_month", :search => params[:search] %></li>
         <li><%= link_to 'Next Month', :controller => "events", 

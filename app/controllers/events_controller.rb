@@ -195,6 +195,7 @@ class EventsController < ApplicationController
     end
 
     def set_view_period
+        session[:startTime] = Time.now if not session[:startTime]
         # see if user has specified custom time period
         if params[:period] \
           and params[:period][:start_date] \
@@ -232,21 +233,27 @@ class EventsController < ApplicationController
             p[:fixed] = params[:id] ||= "this_month"
             # the default display is this week
             if params[:id] == "next_week"
-                p[:startTime] = week_start = 7.days.from_now - (7.days.from_now.wday).days
-                p[:endTime] = week_start + 7.days
+                p[:startTime] = session[:startTime] = session[:startTime] + 7.days
+                  p[:endTime] = session[:startTime] + 7.days
             elsif params[:id] == "next_month"
-                p[:startTime] = month_start = 1.month.from_now - (1.month.from_now.day - 1).days
-                p[:endTime] = month_start + 1.month
+                p[:startTime] = session[:startTime] = session[:startTime] + 1.month
+                p[:endTime] = session[:startTime] + 1.month
+            elsif params[:id] == "last_week"
+                p[:startTime] = session[:startTime] = session[:startTime] - 7.days
+                p[:endTime] = session[:startTime] + 7.days
+            elsif params[:id] == "last_month"
+                p[:startTime] = session[:startTime] = session[:startTime] - 1.month
+                p[:endTime] = session[:startTime] + 1.month
             elsif params[:id] == "this_month"
-                p[:startTime] = Time.now
+                p[:startTime] = session[:startTime] = Time.now
                 p[:endTime] = 1.month.from_now 
             elsif params[:id] == "this_week"
-                p[:startTime] = Time.now
+                p[:startTime] = session[:startTime] = Time.now
                 p[:endTime] = 7.days.from_now
             else
                 # default is the this_week
                 p[:fixed] = "this_month"
-                p[:startTime] = Time.now
+                p[:startTime] = session[:startTime] = Time.now
                 p[:endTime] = 7.days.from_now
             end
         end
