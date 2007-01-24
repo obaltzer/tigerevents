@@ -4,13 +4,15 @@
   <table>
     <% for newgroup in @newgroups %>
       <tr>
-        <td class="clickable" onclick="window.location = '<%= url_for :controller => "groups", :action => "edit", :id => newgroup %>'"><%= link_to newgroup.name, :controller => 'groups', :action => 'edit', :id => newgroup %></td>
-        <td class="clickable" onclick="window.location = '<%= url_for :controller => "groups", :action => "edit", :id => newgroup %>'"><%=h newgroup.description %></td>
+        <td class="clickable" onclick="window.location = 
+          '<%= url_for :controller => "groups", :action => "edit", :id => newgroup %>'">
+          <%= link_to newgroup.name, :controller => 'groups', :action => 'edit', :id => newgroup %></td>
+        <td class="clickable" onclick="window.location = 
+          '<%= url_for :controller => "groups", :action => "edit", :id => newgroup %>'">
+          <%=h newgroup.description %></td>
         <td><%= link_to 'Approve', :action => 'toggle_approved', :id => newgroup %></td>
-        <td><%= link_to 'Reject', {:action => 'reject', :id =>
-        newgroup},
-            :confirm => "Are you sure? You will not be able to undo this
-            function" %></td>
+        <td><%= link_to 'Reject', {:action => 'reject', :id => newgroup},
+            :confirm => "Are you sure? You will not be able to undo this function" %></td>
       </tr>
     <% end %>
   </table>
@@ -24,7 +26,7 @@
   <form id="search_form" action="<%= url_for :action => 'list' %>" method="POST">
     <div class="input">
       <label for="search" style="display: inline">Find group:</label>
-      <%= text_field_tag 'search', @params[:search] ? @params[:search] : '' %>
+      <%= text_field_tag 'search', params[:search] ? params[:search] : '' %>
       <div class="description">
         Specify a the text you want to search for in a group's name and description.
       </div>
@@ -35,8 +37,6 @@
     :frequency => 1, 
     :update => 'approved_groups' %>
   
-  <div id="approved_groups">
-    <%= render_partial 'list_approved_groups' %>
-  </div>
+    <%= render :partial => 'list_approved_groups' %>
 </div>
 <% end %>

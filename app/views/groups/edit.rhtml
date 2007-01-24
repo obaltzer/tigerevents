@@ -3,8 +3,8 @@
 <%= error_messages_for 'group' %>
 
 <%= start_form_tag :action => 'update', :id => @group.id %>
-  <%= render_partial "form" %>
-  <% if @session[:user].superuser? %>
+  <%= render :partial => 'form' %>
+  <% if session[:user].superuser? %>
     <div><%= submit_tag "Update", :id => "group_submit" %></div>
   <% else %>
     <div><%= submit_tag "Update", :id => "group_submit", :onclick => "return confirm('If you do this, your group has to be reapproved by a manager. Until then, none of your events will be listed and you will not be able to edit any of your group properties. Are you absolutely sure about this?')" %></div>
@@ -12,7 +12,7 @@
 <%= end_form_tag %>
 
 <div id="members_section">
-<%= render_partial 'members_section', :id => @group.id %>
+  <%= render :partial => 'members_section', :id => @group.id %>
 </div>
 
 <div class="event_listing">
@@ -21,5 +21,5 @@
 </div>
 
 <div class="history_action">
-<%=link_to 'History', :controller => "groups", :action => 'history', :id => @group.id %>
+  <%=link_to 'History', :controller => "groups", :action => 'history', :id => @group.id %>
 </div>

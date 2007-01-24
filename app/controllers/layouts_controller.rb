@@ -7,7 +7,7 @@ class LayoutsController < ApplicationController
     end
 
     def selector_selection
-        @layout = Layout.find @params[:id]
+        @layout = Layout.find params[:id]
         @active_selectors = @layout.selectors
         @available_selectors = Array.new(Selector.find(:all))
         @available_selectors.reject! { |x|
@@ -17,12 +17,12 @@ class LayoutsController < ApplicationController
     end
 
     def active_selectors
-        @layout = Layout.find @params[:id]
+        @layout = Layout.find params[:id]
         @layout.selectors.clear
-        if @params[:active_selectors]
+        if params[:active_selectors]
             map = {}
-            @params[:active_selectors].size.times { |i| 
-                map[@params[:active_selectors][i].to_i] = i
+            params[:active_selectors].size.times { |i| 
+                map[params[:active_selectors][i].to_i] = i
             }
             for selector in Selector.find(:all)
                 if map[selector.id]
@@ -31,7 +31,7 @@ class LayoutsController < ApplicationController
                 end
             end
         end
-        @order = "#{@params[:active_selectors].inspect} #{map.inspect}"
+        @order = "#{params[:active_selectors].inspect} #{map.inspect}"
         render_partial
     end
 end

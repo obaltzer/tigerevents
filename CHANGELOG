@@ -1,3 +1,30 @@
+0.7.1
+
+Fixed categories not correctly displaying their events
+Allowed cycling through dates, as opposed to static time selectors
+Added hCal Markup
+Added iCal export
+Added Google Calendar export
+
+For a full list see:
+http://projects.dal-acm.ca/tigerevents/query?status=closed&milestone=0.7.1
+
+0.7.0
+
+Fixed selectors not updating when some objects are deleted.
+Allowed groups to be deleted
+Allow redirection back to a previous page
+Switched from categories to tags
+New simple theme
+Created public listing of groups
+Fixed issue where LDAP users received account creation e-mails
+Updated to Rails 1.1.1
+Added an events search feature
+
+
+For a full list see:
+http://projects.dal-acm.ca/tigerevents/query?status=closed&milestone=0.7.0
+
 0.6.2
 
 Group classes are hidden from the user if there is only one.

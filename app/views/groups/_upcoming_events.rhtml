@@ -1,8 +1,6 @@
 <% require 'time' %>
-   <div class="history">
-    <%= link_to "Previous page", { :page => @upcoming_events_pages.current.previous } if @upcoming_events_pages.current.previous %>
-    <%= pagination_links @upcoming_events_pages %>
-    <%= link_to "Next page", { :page => @upcoming_events_pages.current.next } if @upcoming_events_pages.current.next %> 
+  <div class="history">
+  <%= render :partial => "shared/paginate_links", :locals => {:item => @upcoming_events_pages} %>
       <table>
          <tr>
             <th>Name</th><th>Date</th>
@@ -20,7 +18,5 @@
           </tr>
         <% end %>
       </table>
-    <%= link_to "Previous page", { :page => @upcoming_events_pages.current.previous } if @upcoming_events_pages.current.previous %>
-    <%= pagination_links @upcoming_events_pages %>
-    <%= link_to "Next page", { :page => @upcoming_events_pages.current.next } if @upcoming_events_pages.current.next %> 
-   </div>
+  <%= render :partial => "shared/paginate_links", :locals => {:item => @upcoming_events_pages} %>
+  </div>

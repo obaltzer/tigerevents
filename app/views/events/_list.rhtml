@@ -2,18 +2,18 @@
   <small>Events From <%= @period[:startTime].to_formatted_s(:human_short_format) %> 
   to <%= @period[:endTime].to_formatted_s(:human_short_format) %></small>
 </div>
-<% if @params[:search] and @params[:search].length > 0 %>
+<% if params[:search] and params[:search].length > 0 %>
 <div id="search_filter">
   Events listed contain the following search terms: 
-  <span class="search_terms"><%=h @params[:search] %></span> 
-  [<%= link_to 'Clear this list', :controller => @params[:controller], 
-        :action => @params[:action], :id => @params[:id], 
+  <span class="search_terms"><%=h params[:search] %></span> 
+  [<%= link_to 'Clear this list', :controller => params[:controller], 
+        :action => params[:action], :id => params[:id], 
         'period[start_date]' => @period[:start_date],
         'period[end_date]' => @period[:end_date] %>]
 </div>
 <% end %>
 <div id="selector_container">
 <% for selector in @selectors %>
-  <%= render_component :controller => "selectors", :action => "events", :id => selector.id, :params => {:period => @params[:period], :search => @params[:search] } %>
+  <%= render_component :controller => "selectors", :action => "events", :id => selector.id, :params => {:period => params[:period], :search => params[:search] } %>
 <% end %>
 </div>

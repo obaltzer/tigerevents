@@ -3,7 +3,7 @@
 <form id="search_form" action="<%= url_for :action => 'list' %>" method="POST">
 <div class="input">
   <label for="search" style="display: inline">Find user:</label>
-  <%= text_field_tag 'search', @params[:search] ? @params[:search] : '' %>
+  <%= text_field_tag 'search', params[:search] ? params[:search] : '' %>
   <!-- <%= submit_tag 'Find' %> -->
   <div class="description">
     Specify the user's login or part of the fullname. 
@@ -16,6 +16,4 @@
     :frequency => 1, 
     :update => 'user_list' %>
 
-<div id="user_list">
-  <%= render_partial 'user_list' %>
-</div>
+  <%= render :partial => 'user_list' %>

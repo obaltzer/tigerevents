@@ -1,6 +1,5 @@
-<%= link_to "Previous page", { :action => 'list', :search => @params[:search], :page => @user_pages.current.previous } if @user_pages.current.previous %>
-<%= pagination_links @user_pages, :params => { :action => 'list', :search => @params[:search] } %>
-<%= link_to "Next page", { :action => 'list', :search => @params[:search], :page => @user_pages.current.next } if @user_pages.current.next %> 
+<div id="user_list">
+<%= render :partial => 'shared/paginate_links', :locals => {:item => @user_pages} %>
 <table>
   <tr>
     <th>Login</th>
@@ -14,11 +13,10 @@
       <td><%=h @user.login %></td>
       <td><%=h @user.fullname %></td>
       <td><%=h @user.email %></td>
-      <td><%= check_box 'user', 'superuser', :id => 'user_superuser_' + @user.id.to_s, :onclick => "window.location = '" + url_for(:action => 'toggle_superuser', :id => @user, :params => {:search => @params[:search], :page => @params[:page]} ) + "';" %></td>
-      <td><%= check_box 'user', 'banned', :id => 'user_banned_' + @user.id.to_s, :onclick => "window.location = '" + url_for(:action => 'toggle_banned', :id => @user, :params => {:search => @params[:search], :page => @params[:page]} ) + "';" %></td>
+      <td><%= check_box 'user', 'superuser', :id => 'user_superuser_' + @user.id.to_s, :onclick => "window.location = '" + url_for(:action => 'toggle_superuser', :id => @user, :params => {:search => params[:search], :page => params[:page]} ) + "';" %></td>
+      <td><%= check_box 'user', 'banned', :id => 'user_banned_' + @user.id.to_s, :onclick => "window.location = '" + url_for(:action => 'toggle_banned', :id => @user, :params => {:search => params[:search], :page => params[:page]} ) + "';" %></td>
     </tr>
   <% end %>
 </table>
-<%= link_to "Previous page", { :action => 'list', :search => @params[:search], :page => @user_pages.current.previous } if @user_pages.current.previous %>
-<%= pagination_links @user_pages, :params => { :action => 'list', :search => @params[:search] } %>
-<%= link_to "Next page", { :action => 'list', :search => @params[:search], :page => @user_pages.current.next } if @user_pages.current.next %> 
+<%= render :partial => 'shared/paginate_links', :locals => {:item => @user_pages} %>
+</div>

@@ -2,7 +2,7 @@
 
 # Uncomment below to force Rails into production mode when 
 # you don't control web/app server and can't set it the proper way
-# ENV['RAILS_ENV'] ||= 'production'
+ENV['RAILS_ENV'] ||= 'production'
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -15,7 +15,9 @@ Rails::Initializer.run do |config|
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
-
+  config.load_paths += %W(
+    vendor/icalendar/lib
+  ).map {|dir| "#{RAILS_ROOT}/#{dir}"}.select { |dir| File.directory?(dir) }
   # Force all environments to use the same logger level 
   # (by default production uses :info, the others :debug)
   # config.log_level = :debug
@@ -60,10 +62,13 @@ end
 
 ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
   :short_detailed_format => '%a %b %d %I:%M %p',
-  :human_expanded_format => '%I:%M %p on %A, %B %d %Y',
+  :human_expanded_format => '%A, %B %d %Y - %I:%M %p',
   :short_detailed_format_24h => '%a %b %d %H:%M',
-  :human_expanded_format_24h => '%H:%M on %A, %B %d %Y',
-  :human_short_format => '%A, %b %d %Y'
+  :human_expanded_format_24h => '%A, %B %d %Y - %H:%M',
+  :human_short_format => '%A, %b %d %Y',
+  :hour_format => '%I:%M %p',
+  :hcard_format => '%Y-%m-%dTO%H:%M:%S-04:00',
+  :iCal_short => '%Y%m%dT%H%M%SZ'
 )
 
 module ActiveSupport::CoreExtensions::Time::Conversions
@@ -75,6 +80,7 @@ module ActiveSupport::CoreExtensions::Time::Conversions
 end
 
 require_gem 'acts_as_taggable'
+require 'icalendar'
 require 'tigerevents_config'
 
 @@available_themes = []

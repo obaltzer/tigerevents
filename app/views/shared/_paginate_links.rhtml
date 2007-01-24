@@ -1,0 +1,3 @@
+<%= link_to "Previous page", { :action => 'list', :search => params[:search], :page => item.current.previous } if item.current.previous %>
+<%= pagination_links item, :params => { :action => 'list', :search => params[:search] } %>
+<%= link_to "Next page", { :action => 'list', :search => params[:search], :page => item.current.next } if item.current.next %>

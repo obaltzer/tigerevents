@@ -1,0 +1,27 @@
+<% for event in events %>
+<span class="vevent">
+  <li>
+    <div class="title summary"><%= link_to event.title, :controller => "events", :action => "show", :id => event %></div>
+    <% if event.announcement == false %>
+      <div class="time">
+        <span class="start">
+          <%= print_hcard_time(event.startTime, event.endTime, :short_detailed_format) %>
+        </span>
+      </div>
+    <% end %>
+    <div class="description">
+      <% if event.description.length > DESCRIPTION_LENGTH %>
+        <%= sanitize(simple_format(event.description.slice(0,
+            event.description.rindex(' ', DESCRIPTION_LENGTH)))) %>
+        <span class="link_more">
+          <%= link_to "...more", :controller => "events",
+                  :action => "show", :id => event %>
+        </span>
+      <% else %>
+        <%= sanitize(simple_format(event.description)) %>
+      <% end %>
+    </div>
+  <br />
+  </li>
+</span>
+<% end %>

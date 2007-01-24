@@ -24,14 +24,14 @@
             <%=h member.email %>
           </td>
           <td>
-            <% if @session[:user] != member and @complement_authorized_members[member].length != 0 %>
+            <% if session[:user] != member and @complement_authorized_members[member].length != 0 %>
               <a id="remove_link_<%= member.id %>" href="javascript:return false;" onclick="toggle('remove_form_<%= member.id %>');toggle('remove_link_<%= member.id %>');">Remove</a>
               <div id="remove_form_<%= member.id %>" style="display: none">
                 <%= form_remote_tag :update => "members_section", :url => { :action => "remove_member", :id => @group.id } %>
                   <div class="input">
                     <label style="display: inline">User's events will be adopted by:</label>
                     <select name="adopter_id">
-                      <%= options_from_collection_for_select @complement_authorized_members[member], 'id', 'fullname', @session[:user].id %>
+                      <%= options_from_collection_for_select @complement_authorized_members[member], 'id', 'fullname', session[:user].id %>
                     </select>
                     <input type="hidden" name="user_id" value="<%= member.id %>"/>
                     <%= submit_tag "Ok" %>

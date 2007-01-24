@@ -77,34 +77,34 @@ module ApplicationHelper
 
     def context_help(action = nil)
         @context = {}
-        @context[:controller] = @params[:controller]
+        @context[:controller] = params[:controller]
         @context[:action] = "help"
-        @context[:id] = action ? action : @params[:action]
-        render_partial 'layouts/context_help'
+        @context[:id] = action ? action : params[:action]
+        render :partial => 'layouts/context_help'
     end
 
     def default_stylesheets
-        render_partial 'layouts/default_stylesheets'
+        render :partial => 'layouts/default_stylesheets'
     end
 
     def default_javascripts
-        render_partial 'layouts/default_javascripts'
+        render :partial => 'layouts/default_javascripts'
     end
 
     # User actions are generated from the following lists depending on the
     # permissions of the user.
     @@user_actions = [
         { :perm => [:superuser], :name => 'Groups', :action => { :controller => 'groups', :action => 'list'}, :attr => {:important => "new_group_notice?" }},
-        { :perm => [:superuser], :name => 'Group Classes', :action => { :controller => 'group_classes' } },
+        { :perm => [:superuser], :name => 'Group Classes', :action => { :controller => 'group_classes', :action => 'list' } },
         { :perm => [:superuser], :name => 'Priorities', :action => { :controller => 'priorities'} },
         { :perm => [:superuser], :name => 'Users', :action => { :controller => 'account', :action => 'list'} },
         { :perm => [:superuser], :name => 'Edit Layout', :action => { :controller => 'layouts', :action => 'edit', :id => 1} },
-        { :perm => [:superuser], :name => 'Categories', :action => { :controller => 'categories'} },
+        { :perm => [:superuser], :name => 'Categories', :action => { :controller => 'categories', :action => 'edit'} },
         { :perm => [], :name => 'Logout', :action => { :controller => 'account', :action => 'logout' } },
     ]
 
     def list_user_actions
-      perm = @session[:user].superuser? ? :superuser : :default
+      perm = session[:user].superuser? ? :superuser : :default
       actions = []
       @@user_actions.each { |a|
         # add the action to the actions list if either no permissions are
@@ -142,13 +142,29 @@ module ApplicationHelper
         DATE_FORMATS[format] ? strftime(DATE_FORMATS[format]).strip : to_default_s          
     end
 
+    def print_hcard_time(startTime, endTime, format)
+        if(MILITARY_TIME_FORMAT)
+            format = (format.to_s+"_24h").to_sym
+        end
+        time = "<abbr class=\"dtstart\"
+        title=\"#{startTime.strftime("%Y-%m-%dT%H:%M:%S-04:00")}\">#{startTime.to_ordinalized_s(format)}</abbr>"
+        if(endTime!=nil)
+            time+= " - <abbr class=\"dtend\" \
+            title=\"#{endTime.strftime("%Y-%m-%dT:%H:%M:%S-04:00")}\">" \
+              + endTime.to_ordinalized_s(((endTime - startTime) < 1.day)? :hour_format : format) \
+              + "</abbr>"
+        end
+        return time
+    end
+
     def print_time(startTime, endTime, format)
         if(MILITARY_TIME_FORMAT)
             format = (format.to_s+"_24h").to_sym
         end
         time = startTime.to_ordinalized_s(format)
         if(endTime!=nil)
-            time+= " - " + endTime.to_ordinalized_s((endTime - startTime < 1.day)? "%I:%M %p" : format)
+            time+= " - " + endTime.to_ordinalized_s(
+              ((endTime - startTime) < 1.day)? :hour_format : format)
         end
         return time
     end
@@ -159,5 +175,5 @@ module ApplicationHelper
                 :order => "name ASC")
       return true if unapproved != nil
     end
-    
+
 end

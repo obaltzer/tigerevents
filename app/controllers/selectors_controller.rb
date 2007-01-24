@@ -20,9 +20,9 @@ class SelectorsController < ApplicationController
     def events
         #if the cacheKey is nil then it should not be stored
         cacheKey = nil
-        if @params[:period] and @params[:period][:fixed] \
-                and not @params[:search]
-            cacheKey = "#{@params[:id]}_#{@params[:period][:fixed]}" 
+        if params[:period] and params[:period][:fixed] \
+                and not params[:search]
+            cacheKey = "#{params[:id]}_#{params[:period][:fixed]}" 
         end
 
         #do not perform selection if it is in the cache
@@ -32,7 +32,7 @@ class SelectorsController < ApplicationController
               
             # get the selector with the given ID
             selector = \
-                Selector.find(@params[:id])
+                Selector.find(params[:id])
            
             # computing the conditions depending on the associations
             # between the selector and other entities
@@ -72,23 +72,23 @@ class SelectorsController < ApplicationController
             end
 
             #check params
-            if @params[:period] and @params[:period][:startTime] \
-                    and @params[:period][:endTime]
-                startTime = @params[:period][:startTime]
-                #Time.local @params[:startTime][:year], @params[:startTime][:month], @params[:startTime][:day]
+            if params[:period] and params[:period][:startTime] \
+                    and params[:period][:endTime]
+                startTime = params[:period][:startTime]
+                #Time.local params[:startTime][:year], params[:startTime][:month], params[:startTime][:day]
                 #add more day to endTime to be inclusive of the last day
-                endTime = @params[:period][:endTime]
-                #Time.local( @params[:endTime][:year], @params[:endTime][:month], @params[:endTime][:day] ).tomorrow
+                endTime = params[:period][:endTime]
+                #Time.local( params[:endTime][:year], params[:endTime][:month], params[:endTime][:day] ).tomorrow
             else
                 #initialize the start and end time to be used for the time_cond. These may or may not be
-                #initialized with arguments in @params
+                #initialized with arguments in params
                 #default time period is 7 days
                 startTime = Time.now
                 endTime = 7.days.from_now.at_beginning_of_day
             end
     
-            if @params[:search] and not @params[:search] == ""
-                tokens = @params[:search].split.collect {
+            if params[:search] and not params[:search] == ""
+                tokens = params[:search].split.collect {
                     |c|
                     "%#{c.downcase}%"
                 }
@@ -165,11 +165,6 @@ class SelectorsController < ApplicationController
             #grab selector and events
             @selector = selector
             @events = events 
-            for event in @events
-                if (event.description.length > 100)
-                    event.description = event.description.slice(0, 101)
-                end
-            end
         else    #it is cached
            @selector = @@cache[cacheKey][:selector]
            @events = @@cache[cacheKey][:events]
@@ -183,9 +178,9 @@ class SelectorsController < ApplicationController
     end
 
     def edit
-        @selector = Selector.find @params[:id]
+        @selector = Selector.find(params[:id])
         @associations = {}
-        @selector.associations.each { |a|
+        @selector.associations.each do |a|
             @associations[a] = {}
             @associations[a][:active] = @selector.send(Inflector.pluralize(a))
             tmp = Array.new(eval(Inflector.camelize(a)).find(:all))
@@ -193,67 +188,67 @@ class SelectorsController < ApplicationController
                 @associations[a][:active].include?(x) 
             }
             @associations[a][:available] = tmp
-        }
-        render_partial "edit"
+        end
+        render :partial => "edit"
     end
 
     def associate
-        @selector = Selector.find @params[:id]
-        association = @params[:association]
-        list = @params["list_active_#{association}"] || []
+        @selector = Selector.find params[:id]
+        association = params[:association]
+        list = params["list_active_#{association}"] || []
         assoc = Inflector.pluralize(association)
         # we have updated the list for association a, now store the
         # new association, but delete all old ones first
         @selector.send(assoc).clear
         # get all possible association objects for this association
         map = {}
-        eval(Inflector.camelize(association)).find(:all).each { |x| 
+        eval(Inflector.camelize(association)).find(:all).each do |x| 
             map[x.id] = x
-        }
+        end
         # now iterate over the new associations and add them to the
         # associations table as OR relationship
-        list.each { |x|
+        list.each do |x|
             @selector.send(assoc).push_with_attributes(
                 map[x.to_i], "association_type_id" => 1)
-        }
+        end
         SelectorsController.clearCache
         render_partial
     end
 
     def create
-        @selector = Selector.new(@params[:selector])
+        @selector = Selector.new(params[:selector])
         @selector.label = @selector.name.to_s.gsub(/::/, '/').gsub(/ /,'_').downcase
         @selector.include_announcements = true
         @selector.include_events = true
         if @selector.save
-            @params[:id] = @selector.id
+            params[:id] = @selector.id
             edit
         else
-            render_partial "error_message"
+            render :partial => 'error_message'
         end
     end
 
     def update
-        @selector = Selector.find(@params[:id])
-        if @selector.name != @params[:selector][:name]
-            @params[:selector][:label] = 
-                @params[:selector][:name].to_s.gsub(/::/, '/').gsub(/ /,'_').downcase
+        @selector = Selector.find(params[:id])
+        if @selector.name != params[:selector][:name]
+            params[:selector][:label] = 
+                params[:selector][:name].to_s.gsub(/::/, '/').gsub(/ /,'_').downcase
         end
-        if @selector.update_attributes(@params[:selector])
+        if @selector.update_attributes(params[:selector])
             SelectorsController.clearCache
-            render_partial "properties_updated"
+            render :partial => 'properties_updated'
         else
-            render_partial "error_message"
+            render :partial => 'error_message'
         end
     end
     
     def properties
-        @selector = Selector.find(@params[:id])
-        render_partial "selector_properties"
+        @selector = Selector.find(params[:id])
+        render :partial => "selector_properties"
     end
 
     def delete
-        selector = Selector.find(@params[:id])
+        selector = Selector.find(params[:id])
         if selector
             for e in selector.associations do
                 selector.send(Inflector.pluralize(e)).clear

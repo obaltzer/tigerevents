@@ -1,47 +1,58 @@
 class CategoriesController < ApplicationController
     before_filter :login_required, :only => [:create_remote]
+    before_filter :super_user, :only =>[:edit]
 
     def list
-        if(@params['page']==nil)
-            @params['page']=1
+        if(params['page']==nil)
+            params['page']=1
         end
-        @categories = Category.find(:all, :order => "name", :include => \
-            "events", :conditions => ["events.startTime > ?", Time.now])
-        @categories_pages = Paginator.new self, @categories.size, 10, @params['page']
-        @tagged_items = Event.tags_count(:limit => 100, :conditions => \
-            ["startTime > ?", Time.now])
+        @categories = Category.find(:all, 
+          :order => "name", 
+          :include => "events", 
+          :conditions => ["events.startTime > ?", Time.now])
+        @categories_pages = Paginator.new self, @categories.size, 10, params['page']
+        @tagged_items = Event.tags_count(:limit => 100, 
+          :conditions => ["startTime > ?", Time.now])
     end
 
     def show
       # this makes sure we can find tags by ID and name
-      if @params[:id]
-        @category = Category.find(@params[:id])
-      elsif @params[:name]
-        @category = Category.find(:first, :conditions => 
-                        ["name = ?", @params[:name]])
+      if params[:id]
+        @category = Category.find(params[:id])
+      elsif params[:name]
+        @category = Category.find(:first, 
+          :conditions => ["name = ?", params[:name]])
       end
-      @events_future = Event.find_tagged_with(:any => @category.name, :conditions => \
-        ["startTime >= ?", Time.now], :order => "startTime ASC")
-      @events_past = Event.find_tagged_with(:any => @category.name, :conditions => \
-        ["startTime < ?", Time.now], :order => "startTime DESC", :limit => 20)
+      events = Event.find_tagged_with(:any => @category.name,
+        :separator => ",",
+        :order => "startTime ASC")
+      @events_past, @events_future = events.partition &:expired?
+      if(params[:format] == "ical")
+        cal = Icalendar::Calendar.new
+        for event in @events_future
+          calevent = create_ical_event(event)
+          cal.add_event(calevent)
+        end
+        send_data(cal.to_ical, :filename => "#{@category.name.crypt("tigerevents")}.ics", :type => 'text/calendar')
+      end
     end
                                         
     def delete
-        if (@params[:category] != "")
-            @old_c = Category.find @params[:category]
-            Category.delete(@params[:category])
+        if (params[:category] != "")
+            @old_c = Category.find params[:category]
+            Category.delete(params[:category])
         end
         render_partial
     end
 
     def split
-        if (@params[:category_split] !="")
-            @old_c = Category.find(@params[:category_split])
+        if (params[:category_split] !="")
+            @old_c = Category.find(params[:category_split])
             @events = Event.find_tagged_with(:any => @old_c.name)
-            Category.delete(@params[:category_split])
+            Category.delete(params[:category_split])
             for event in @events do
                 event.tag(params[:tags], :separator => ',', :attributes =>\
-                    {:created_by => @session[:user]})
+                    {:created_by => session[:user]})
             end
         end
         render_partial
@@ -52,23 +63,22 @@ class CategoriesController < ApplicationController
     end
     
     # list existing categories
-    def list_admin
-        @categories = Category.find :all, :order => "name"
+    def edit
+        @categories = Category.find(:all, :order => "name")
         @complements = {}
         for c in @categories do
             @complements[c] = \
                 Array.new(@categories).delete_if {|x| x.id == c.id }
         end
-        render_partial
     end
 
     def remove
-        @old_c = Category.find @params[:id]
+        @old_c = Category.find params[:id]
         begin
-            new_c = Category.find @params[:new_category_id]
+            new_c = Category.find params[:new_category_id]
             if not @old_c or not new_c
                 @message = "You have to specify the replacement category."
-                render_partial 'embed_error_message'
+                render :partial => 'embed_error_message'
             elsif @old_c != new_c
                 # for all events that are associated with the old category
                 for e in @old_c.events do
@@ -85,11 +95,11 @@ class CategoriesController < ApplicationController
                 render_partial
             else
                 @message = "You cannot replace a category with itself."
-                render_partial 'embed_error_message'
+                render :partial => 'embed_error_message'
             end
         rescue ActiveRecord::RecordNotFound
             @message = "Error! Your computer is going to explode!"
-            render_partial 'embed_error_message'
+            render :partial => 'embed_error_message'
         end
     end
 end

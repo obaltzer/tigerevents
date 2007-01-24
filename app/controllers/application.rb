@@ -2,6 +2,7 @@ require_dependency "login_system"
 # The filters added to this controller will be run for all controllers in the application.
 # Likewise will all the methods added be available for all controllers.
 class ApplicationController < ActionController::Base
+    filter_parameter_logging "password"
     include LoginSystem
     model :user
     helper :Application
@@ -10,11 +11,11 @@ class ApplicationController < ActionController::Base
 
     def get_theme
         # returning the theme that is associated with the session
-        if @session[:theme]
+        if session[:theme]
             # the code will make sure, that the session theme is replaced
             # with the user theme on authentication to avoid testing for
             # valid theme for every page
-            return @session[:theme]
+            return session[:theme]
         end
         return DEFAULT_THEME
     end
@@ -24,60 +25,64 @@ class ApplicationController < ActionController::Base
     end
 
     def log_activity(event, user, action)
-        @activity = Activity.new(:event => event, :user => user, :action => action)
-        @activity.save
+        activity = Activity.new(:event => event, :user => user, :action => action)
+        activity.save
+    end
+
+    def no_permission
+      flash[:auth] = 'You do not have permissions to access the page.'
+      redirect_back_or_default :controller => "events", :action => "index"
     end
 
     def can_edit
-        if(@session[:user] == nil || @session[:user].banned == 1)
-            flash[:auth] = \
-                "You do not have permissions to edit this posting."
-            redirect_back_or_default :controller => "events", 
-                                     :action => "index"
-        elsif(@session[:user][:superuser])
+        if(session[:user] == nil || session[:user].banned)
+          no_permission
+        elsif(session[:user][:superuser])
             return true
         end
-        @event = Event.find(@params[:id])
-        if(@event.deleted == 1)
-            flash[:auth] = \
-                "You do not have permissions to edit this posting."
-            redirect_back_or_default :controller => "events", 
-                                     :action => "index"
-        elsif(!@session[:user].approved_groups.include? Group.find(@event.group_id))
-            flash[:auth] = \
-                "You do not have permissions to edit this posting."
-            redirect_back_or_default :controller => "events", 
-                                     :action => "index"
+        @event = Event.find(params[:id])
+        if(@event.deleted)
+          no_permission
+        elsif(!session[:user].approved_groups.include? Group.find(@event.group_id))
+          no_permission
         end
         true
     end
 
     def super_user
-        if(@session[:user] == nil || !@session[:user][:superuser])
-            flash[:auth] = \
-                'You do not have permissions to access the page.'
-            redirect_back_or_default :controller => "events", 
-                                     :action => "index"
-        end
+      if(session[:user] == nil || !session[:user][:superuser])
+        no_permission
+      end
     end
 
     def help
-        render_partial @params[:controller] + "/help_" + @params[:id]
+        render :partial => params[:controller] + "/help_" + params[:id]
     end
 
     # store current uri in  the session.
     # we can return to this location by calling return_location
     def store_location
-        @session[:return_to] = @request.request_uri
+      session[:return_to] = url_for(request.path_parameters())
     end
 
     # move to the last store_location call or to the passed default one
     def redirect_back_or_default(default)
-        if @session[:return_to].nil?
+        if session[:return_to].nil?
             redirect_to default
         else
-            redirect_to_url @session[:return_to]
-            @session[:return_to] = nil
+            redirect_to_url session[:return_to]
+            session[:return_to] = nil
         end
+    end
+
+    def create_ical_event(event)
+      calevent = Icalendar::Event.new
+      calevent.start = event.startTime.to_formatted_s(:iCal_short) if event.startTime
+      calevent.end = event.endTime.to_formatted_s(:iCal_short) if event.endTime
+      calevent.summary = event.title
+      calevent.description = event.description.gsub(/\r\n/, '\n') if event.description
+      calevent.organizer = event.group.name 
+      calevent.location = event.location if event.location
+      return calevent
     end
 end
