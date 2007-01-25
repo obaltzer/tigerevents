@@ -1,0 +1,28 @@
+<h2>Existing Categories</h2>
+  <%= form_remote_tag :update => "message_container", :url => {:action => :delete},
+  :complete => remote_function(:update => 'category_selector', :url =>
+  {:action => :list_categories }),
+  :success => remote_function(:update => 'category_split', :url =>
+  {:action => :list_categories }) %>
+  <select id="category_selector" width="15" name="category">
+    <%= render :partial => 'list_categories' %>
+  </select>
+  <input type="submit" value="Delete">
+  <%= end_form_tag %>
+
+  <%= form_remote_tag :update => "message_container", :url => {:action => :split},
+  :complete => remote_function(:update => 'category_selector', :url =>
+  {:action => :list_categories }),
+  :success => remote_function(:update => 'category_split', :url =>
+  {:action => :list_categories }) %>
+  <select id="category_split" width="15" name="category_split">
+    <%= render :partial => 'list_categories' %>
+  </select>
+  <div class="description">
+    Create a comma (,) seperated list of categories this event belongs
+    to. e.g. ball, dancing, formal event
+  </div>
+                              
+  <%= text_field_tag('tags', '') %>
+  <input type="submit" value="Replace">
+  <%= end_form_tag %>
