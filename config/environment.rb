@@ -79,7 +79,7 @@ module ActiveSupport::CoreExtensions::Time::Conversions
     end
 end
 
-require_gem 'acts_as_taggable'
+gem 'acts_as_taggable'
 require 'icalendar'
 require 'tigerevents_config'
 
