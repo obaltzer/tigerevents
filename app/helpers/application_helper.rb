@@ -169,6 +169,10 @@ module ApplicationHelper
         return time
     end
 
+    def short_time(time)
+      time.strftime("%H:%M")
+    end
+
     def new_group_notice?
       unapproved = Group.find(:first, 
                 :conditions => ["approved = ? AND deleted = ?", false, false],
@@ -176,4 +180,92 @@ module ApplicationHelper
       return true if unapproved != nil
     end
 
+    def calendar(start_time = nil)
+      time = params && params[:period] && params[:period][:startTime] || Time.now
+      start_time ||= time.beginning_of_month
+      end_time = start_time.end_of_month
+      first = start_time - start_time.wday.days
+      events = Event.find_approved(:all, :order => "startTime ASC", :conditions => ["startTime >= ? AND startTime <= ?", start_time.to_formatted_s(:db), end_time.to_formatted_s(:db)])
+      day_map = {} 
+      events.each do |e|
+        day_map[e.startTime.beginning_of_day] ||= []
+        day_map[e.startTime.beginning_of_day] << e
+      end
+      puts start_time
+      @weeks = (0..5).collect do |w| 
+        (0..6).collect do |d| 
+          date = first + (w * 7 + d).days
+          { 
+            :day => date.day, 
+            :date => date, 
+            :events => day_map[date.beginning_of_day],
+            :outside => (date < start_time or date > end_time ? true : false),
+            :today => (date == Time.today ? true : false)
+          }
+        end
+      end
+    end
+
+    def make_day_name(d)
+      now = Time.today
+      if d == now.yesterday
+        'Yesterday'
+      elsif d == now
+        'Today'
+      elsif d == now.tomorrow
+        'Tomorrow'
+      elsif (d < now && d > now - 4.days) || (d > now && d < now + 4.days)
+        d.strftime("%A")
+      else
+        d.strftime("%B %d")
+      end
+    end
+
+    def make_day(d)
+      start_time = d.beginning_of_day
+      {
+        :params => { :year => start_time.year, :month => start_time.month, :day => start_time.day },
+        :name => make_day_name(start_time)
+      }
+    end
+
+    def make_week_name(d)
+      now = Time.today
+      if d >= now.beginning_of_week and d < now.next_week
+        'This Week'
+      else
+        if d.beginning_of_month == (d + 6.days).beginning_of_month
+          d.strftime("%b %d") + "-" + (d + 6.days).strftime("%d")
+        else
+          d.strftime("%b %d") + "-" + (d + 6.days).strftime("%b %d")
+        end
+      end
+    end
+
+    def make_week(d)
+      start_time = d.beginning_of_week
+      {
+        :params => { :year => start_time.year, :month => start_time.month, :day => start_time.day },
+        :name => make_week_name(start_time)
+      }
+    end
+
+    def make_month(d)
+      start_time = d.beginning_of_month
+      {
+        :params => { :year => start_time.year, :month => start_time.month },
+        :name => start_time.strftime("%B")
+      }
+    end
+
+    def time_selection
+      time = params && params[:period] && params[:period][:startTime] || Time.now
+      @time_selections = {}
+
+      @time_selections[:day] = [make_day(time - 2.days), make_day(time - 1.day), make_day(time),
+                                make_day(time + 1.day), make_day(time + 2.days)]
+      @time_selections[:week] = [make_week(time - 1.week), make_week(time), make_week(time + 1.week)]
+      @time_selections[:month] = [make_month(time.months_ago(1)), make_month(time), make_month(time.months_since(1))]
+      @time_selections
+    end
 end

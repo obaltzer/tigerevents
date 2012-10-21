@@ -60,6 +60,7 @@ class CategoriesController < ApplicationController
 
     def tag_cloud
         list
+        render_partial
     end
     
     # list existing categories

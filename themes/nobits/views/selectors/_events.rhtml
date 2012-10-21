@@ -1,0 +1,48 @@
+<% if not @events.empty? %>
+<div class="selector" id="<%=h @selector.label.downcase %>">
+  <div class="selector-top-left"></div>
+  <div class="selector-top-right"></div>
+  <div class="selector-top"><%=h @selector.name %></div>
+  <div class="selector-overflow-wrapper">
+    <div class="selector-left-top"></div>
+    <div class="selector-right-top"></div>
+    <div class="selector-left"></div>
+    <div class="selector-right"></div>
+    <div class="selector-content">
+      <ul id="<%=h @selector.label.downcase %>_list" class="events">
+        <% @events.slice(0, 5).each do |event| -%>
+          <li class="event <%= (event == @events.first) ? 'first' : '' %>" onclick="window.location = '<%= url_for :controller => 'events', :action => "show", :id => event %>'">
+            <span class="vevent">
+            <div class="event-top-left"></div>
+            <div class="event-top-right"></div>
+            <div class="event-left"></div>
+            <div class="event-right"></div>
+            <div class="event-top">
+              <div class="event-content">
+                <% if not event.announcement -%>
+                <div class="time">
+                  <span class="dtstart" title="<%= event.startTime.strftime("%y-%m-%d") %>"><%= event.startTime.strftime("%H:%M") %></span>
+                </div>
+                <% end -%>
+                <div class="title summary"><%= event.title %></div>
+                <div class="organizer"><%= event.group.name %></div>
+                <p class="description">
+                  <% if event.description.length > DESCRIPTION_LENGTH -%>
+                    <%= sanitize(simple_format(event.description.slice(0, event.description.rindex(' ', DESCRIPTION_LENGTH)))) %>
+                    <span class="link_more"><%= link_to "...more", :controller => "events", :action => "show", :id => event %></span>
+                  <% else -%>
+                    <%= sanitize(simple_format(event.description)) %>
+                  <% end -%>
+                </p>
+              </div>
+            </div>
+          </li>
+        <% end -%>
+      </ul>
+    </div>
+  </div>
+  <div class="selector-bottom-left"></div>
+  <div class="selector-bottom-right"></div>
+  <div class="selector-bottom"></div>
+</div>
+<% end -%>

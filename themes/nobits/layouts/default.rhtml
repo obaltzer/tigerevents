@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title></title>
+    <%= theme_stylesheet_link_tag 'nobits' %>
+    <%= theme_javascript_include_tag 'mootools.r738.js' %>
+    <%= theme_javascript_include_tag 'nobits' %>
+  </head>
+  <body>
+    <%= render :partial => 'layouts/app_links' %>
+    <div id="overflow-wrapper">
+      <div id="sidebar">
+        <div id="sidebar-close"><%= link_to_function 'lol', 'sidebar_hide()' %></div>
+      </div>
+      <div id="main">
+        <div id="sidebar-open"><%= link_to_function 'Show Sidebar', 'sidebar_show()' %></div>
+        <div id="header">
+        </div>
+        <div id="control">
+          <div id="tag-cloud">
+            <%= render_component :controller => 'categories', :action => 'tag_cloud' %>
+          </div>
+          <%= render :partial => 'layouts/calendar_box' %>
+          <div id="navigate"> 
+            <h1 id="logo"><a href="/">Campus Events</a></h1>
+            <%= render :partial => 'layouts/event_search' %>
+            <script type="text/javascript">
+              window.addEvent('domready', function(){
+                s = $('search');
+                s.value = "Find events...";
+                s.addEvents({
+                  'focus': function(e) {
+                    if(s.value.contains('Find events...')) s.value = '';
+                  }});
+              }); 
+            </script>
+            <%= render :partial => 'layouts/time_selection_v2' %>
+          </div>
+        </div>
+        <div id="content">
+          <%= @content_for_layout %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

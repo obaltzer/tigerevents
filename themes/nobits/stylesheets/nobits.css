@@ -1,0 +1,551 @@
+body
+{
+  background: #B3C990 url(../images/green-yellow-stripes.png) repeat-x top center;
+  margin: 0;
+  padding: 0;
+  color: #444;
+  font-family: sans-serif;
+  font-size: 10pt;
+}
+
+#app-links
+{
+    background-color: black;
+    border-bottom: 1px solid white;
+    font-size: 10px;
+    color: white;
+}
+
+#app-links ul
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#app-links a
+{
+    text-decoration: none;
+}
+
+#app-links a:hover
+{
+    text-decoration: underline;
+}
+
+#overflow-wrapper
+{
+    overflow: hidden;
+}
+
+#main
+{
+    margin-left: 200px;
+}
+
+#sidebar
+{
+    float: left;
+    width: 200px;
+    background: #EDF4D8 url(../images/sidebar-shadow.png) repeat-y top right;
+    border-right: 1px solid #B3C990;
+    padding-bottom: 10000px;
+    margin-bottom: -10000px;
+}
+
+#sidebar-close
+{
+    float: right;
+    background: url(../images/sidebar-close.png) no-repeat top center;
+    width: 16px;
+    margin-top: 5px;
+    margin-right: 10px;
+    padding: 0;
+}
+#sidebar-close a
+{
+    display:block;
+    text-decoration:none;
+    overflow:hidden;
+    padding:0;
+    padding-top: 16px;
+    height: 0px !important;
+    width: 16px;
+    cursor:pointer;
+}
+
+#sidebar-open
+{
+    float: left;
+    margin-top: 6px;
+    margin-left: 10px;
+    padding: 0;
+}
+
+#sidebar-open a
+{
+    display: block;
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: bold;
+    overflow: hidden;
+    padding: 0;
+    color: #9A9A9A;
+}
+
+#sidebar-open a:hover
+{
+    text-decoration: underline;
+}
+
+#header
+{
+    height: 30px;
+}
+
+#control
+{
+    height: 141px;
+    background: url(../images/control-band.png) repeat-x;
+}
+
+#content
+{
+    margin: 1em 0;
+}
+
+#tag-cloud
+{
+    text-align: center;
+    float: left;
+    width: 20%;
+    height: 140px;
+    font-size: 16px;
+}
+
+#tag-cloud a
+{
+    text-decoration: none;
+    color: #809067;
+}
+
+#tag-cloud a:hover
+{
+    text-decoration: underline;
+}
+
+#calendar
+{
+    float: right;
+    width: 20%;
+    height: 140px;
+    font-size: 11px;
+    margin-top: 3px;
+}
+
+#calendar table
+{
+    width: 100%;
+    font-size: 11px;
+    border-collapse: collapse;
+}
+
+#calendar th
+{
+    padding: 3px 0 7px;
+    border-bottom: 1px solid #444;
+}
+
+#calendar td
+{
+    text-align: center;
+    padding: 1px 1px 1px 1px;
+}
+
+#calendar td.weekend, #calendar th.weekend
+{
+    color: #809067;
+}
+
+#calendar td.outside
+{
+    color: #ccc;
+}
+
+#calendar td.outside.weekend
+{
+    color: #A5B985;
+}
+
+#calendar td.today
+{
+    background: #E6F0C3;
+    padding: 0;
+    border: 1px solid #809067;
+}
+
+#calendar td a
+{
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+}
+#calendar td.weekend a
+{
+    color: #809067;
+}
+
+
+#calendar td a:hover
+{
+    text-decoration: underline;
+}
+
+#event_search_form label#search_label
+{
+    display: none;
+}
+
+#navigate
+{
+  text-align: center;
+  height: 9em;
+}
+
+#navigate input
+{
+  width: 40%;
+}
+
+#logo
+{
+    position: relative;
+    top: -20px;
+    background: url(../images/logo.png) no-repeat top center;
+    width: 464px;
+    margin: 0 auto -15px auto;
+    padding: 0;
+}
+#logo a
+{
+    display:block;
+    text-decoration:none;
+    overflow:hidden;
+    margin: 0 auto 0 auto;
+    padding:0;
+    padding-top:45px;
+    height:0px !important;
+    width:464px;
+    cursor:pointer;
+}
+
+table.time-selection
+{
+    font-size: 12px;
+    width: 50%;
+    margin: 0 auto 0 auto;
+}
+table.time-selection td
+{
+  text-align: center;
+  width: 8em;
+  margin: 0.3em 0 0.3em 0;
+  height: 2em;
+}
+
+table.time-selection .sep
+{
+  width: auto;
+}
+
+.tool-tip {
+    color: #fff;
+    width: 200px;
+    z-index: 13000;
+}
+ 
+.tool-title {
+    font-weight: bold;
+    font-size: 11px;
+    margin: 0;
+    color: #C1D99C;
+    padding: 8px 8px 4px;
+    background: url(../images/tooltip-bg.png) top left;
+}
+ 
+.tool-text {
+    font-size: 11px;
+    padding: 4px 8px 8px;
+    background: url(../images/tooltip-bg.png) bottom right;
+}
+
+ul.tooltip-list
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.tooltip-list span.time
+{
+    color: #C1D99C;
+    font-weight: bold;
+    padding-right: 0.5em;
+}
+
+/***************** SELECTOR LISTS *********************/
+
+ul.selector-list
+{
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 30%;
+}
+
+ul.selector-list-center
+{
+    margin: 0 auto 0 auto;
+}
+
+ul.selector-list-left
+{
+    float: left;
+    margin-left: 3%;
+}
+
+ul.selector-list-right
+{
+    float: right;
+    margin-right: 3%;
+}
+
+/***************** SELECTOR DEFINITION ****************/
+
+.selector
+{
+  overflow: hidden;
+}
+
+.selector-top-left
+{
+  float: left;
+  width: 25px;
+  height: 38px;
+  margin: 0;
+  padding: 0;
+  background: url(../images/top-left.png) no-repeat;
+}
+.selector-top-right
+{
+  float: right;
+  width: 25px;
+  height: 38px;
+  margin: 0;
+  padding: 0;
+  background: url(../images/top-right.png) no-repeat;
+}
+
+.selector-top
+{
+  height: 24px;
+  margin: 0 25px 0 25px;
+  font-size: 15px;
+  font-weight: bold;
+  padding-top: 14px;
+  background: url(../images/top-repeat.png) repeat-x;
+}
+
+.selector-left-top
+{
+  float: left;
+  width: 17px;
+  height: 17px;
+  background: url(../images/left-top.png) no-repeat;
+}
+
+.selector-right-top
+{
+  float: right;
+  width: 17px;
+  height: 17px;
+  background: url(../images/right-top.png) no-repeat;
+}
+
+.selector-left
+{
+  clear: left;
+  float: left;
+  width: 17px;
+  padding-bottom: 10000px;
+  margin-bottom: -10000px;
+  background: url(../images/left-repeat.png) repeat-y;
+}
+
+.selector-right
+{
+  clear: right;
+  float: right;
+  width: 17px;
+  padding-bottom: 10000px;
+  margin-bottom: -10000px;
+  background: url(../images/right-repeat.png) repeat-y;
+}
+
+.selector-content
+{
+  margin: 0 17px 0 17px;
+}
+
+.selector-bottom-left
+{
+  clear: left;
+  float: left;
+  width: 25px;
+  height: 25px;
+  background: url(../images/bottom-left.png) no-repeat;
+}
+
+.selector-bottom-right
+{
+  clear: right;
+  float: right;
+  width: 25px;
+  height: 25px;
+  background: url(../images/bottom-right.png) no-repeat;
+}
+
+.selector-bottom
+{
+  height: 25px;
+  margin: 0 25px 0 25px;
+  background: url(../images/bottom-repeat.png) repeat-x;
+}
+
+.selector-overflow-wrapper
+{
+  overflow: hidden;
+}
+
+/********************** EVENT LISTS ************************/
+
+ul.events
+{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.events li
+{
+  margin: 0px;
+  background: #E1EDBC;
+  height: 45px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+ul.events li.first
+{
+  height: 120px;
+}
+
+
+.event-top
+{
+  margin-left: 8px;
+  margin-right: 8px;
+  padding: 5px 0 0 0;
+  background:  url(../images/event-top-repeat.png) repeat-x;
+}
+
+.event-top-left
+{
+  float: left;
+  width: 8px;
+  height: 17px;
+  background: url(../images/event-top-left.png) no-repeat;
+}
+div.event-top-right
+{
+  float: right;
+  width: 8px;
+  height: 17px;
+  background: url(../images/event-top-right.png) no-repeat;
+}
+
+li.first .event-top
+{
+  margin-left: 8px;
+  margin-right: 8px;
+  background:  url(../images/event-1-top-repeat.png) repeat-x;
+}
+
+li.first .event-top-left
+{
+  float: left;
+  width: 8px;
+  height: 17px;
+  background: url(../images/event-1-top-left.png) no-repeat;
+}
+li.first .event-top-right
+{
+  float: right;
+  width: 8px;
+  height: 17px;
+  background: url(../images/event-1-top-right.png) no-repeat;
+}
+
+.event-left
+{
+  clear: left;
+  float: left;
+  width: 8px;
+  padding-bottom: 10000px;
+  margin-bottom: -10000px;
+  background: url(../images/event-left-repeat.png) repeat-y;
+}
+.event-right
+{
+  clear: right;
+  float: right;
+  width: 8px;
+  padding-bottom: 10000px;
+  margin-bottom: -10000px;
+  background: url(../images/event-right-repeat.png) repeat-y;
+}
+
+.event-content
+{
+}
+
+.event-content .time
+{
+  font-size: 20px;
+  width: 110px;
+  font-weight: bold;
+  margin: -5px 0 0 0;
+  padding: 0;
+  float: left;
+}
+
+.event-content .title
+{
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  margin: 2px 0 3px 110px;
+  font-size: 15px;
+}
+
+.event-content .organizer
+{
+  margin-left: 110px;
+  font-size: 10px;
+}
+
+.event-content .description
+{
+  font-size: 80%;
+}

@@ -1,0 +1,37 @@
+<div id="period_display">
+  <small>Events From <%= @period[:startTime].to_formatted_s(:human_short_format) %> 
+  to <%= @period[:endTime].to_formatted_s(:human_short_format) %></small>
+</div>
+<% if params[:search] and params[:search].length > 0 %>
+<div id="search_filter">
+  Events listed contain the following search terms: 
+  <span class="search_terms"><%=h params[:search] %></span> 
+  [<%= link_to 'Clear this list', :controller => params[:controller], 
+        :action => params[:action], :id => params[:id], 
+        'period[start_date]' => @period[:start_date],
+        'period[end_date]' => @period[:end_date] %>]
+</div>
+<% end %>
+
+<%
+count = 0
+col = 3
+l = (1..col).collect { Array.new }
+@selectors.each do |selector|
+  s = render_component(:controller => 'selectors', :action => 'events', :id => selector.id, :params => {:period => params[:period], :search => params[:search] })
+  if not s.empty?
+    l[count % col] << '<li>' + s + '</li>'
+    count = count.next
+  end
+end
+-%>
+
+<ul class="selector-list selector-list-left" id="selectors-1">
+  <%= l[0].join %>
+</ul>
+<ul class="selector-list selector-list-right" id="selectors-3">
+  <%= l[2].join %>
+</ul>
+<ul class="selector-list selector-list-center" id="selectors-2">
+  <%= l[1].join %>
+</ul>

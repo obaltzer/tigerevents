@@ -1,7 +1,7 @@
 <div id="event_search">
   <form id="event_search_form" action="<%= url_for :controller => 'events', :action => 'list' %>" method="POST">
     <div class="input">
-      <label for="search" style="display: inline">Find event:</label>
+      <label for="search" id="search_label">Find event:</label>
       <%= text_field_tag 'search', params[:search] ? params[:search] : '' %>
       <% if params[:period] %>
         <%= hidden_field_tag 'period[start_date]', params[:period][:startTime].strftime('%d/%m/%Y') %>

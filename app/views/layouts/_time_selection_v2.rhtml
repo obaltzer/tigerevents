@@ -1,0 +1,12 @@
+<% time_selection %>
+<table class="time-selection">
+  <tr>
+    <%= @time_selections[:day].collect { |d| '<td class="item">' + link_to(d[:name], {:controller => 'events', :action => 'list_day', :params => d[:params]}) + '</td>' }.join('<td class="sep">-</td>') %>
+  </tr>
+  <tr>
+    <td colspan="2"></td><%= @time_selections[:week].collect { |d| '<td class="item">' + link_to(d[:name], {:controller => 'events', :action => 'list_week', :params => d[:params]}) + '</td>' }.join('<td class="sep">-</td>') %><td colspan="2"></td>
+  </tr>
+  <tr>
+    <td colspan="2"></td><%= @time_selections[:month].collect { |d| '<td class="item">' + link_to(d[:name], {:controller => 'events', :action => 'list_month', :params => d[:params]}) + '</td>' }.join('<td class="sep">-</td>') %><td colspan="2"></td>
+  </tr>
+</table>

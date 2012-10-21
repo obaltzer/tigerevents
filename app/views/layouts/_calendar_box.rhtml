@@ -1,0 +1,26 @@
+<div id="calendar">
+  <table>
+    <tr class="header">
+      <th class="weekend">Su</th> 
+      <th>Mo</th> 
+      <th>Tu</th>
+      <th>We</th>
+      <th>Th</th>
+      <th>Fr</th>
+      <th class="weekend">Sa</th>
+    </tr> 
+    <% calendar.each do |w| -%>
+      <tr> 
+        <% w.each do |d| -%>
+          <td class="<%= d[:outside] ? 'outside' : 'inside' %> <%= d[:today] ? 'today' : '' %> <%= (d[:date].wday == 0 or d[:date].wday == 6) ? 'weekend' : '' %>">
+            <% if d[:events] -%>
+              <%= link_to d[:day], { :controller => 'events', :action => 'list_day', :year => d[:date].year, :month => d[:date].month, :day => d[:date].day }, :class => 'tooltip', :title => 'Events :: <ul class="tooltip-list">' + d[:events].collect { |e| '<li><span class="time">' + short_time(e.startTime) + '</span><span class="title">' + e.title + '</span></li>' }.join("") + '</ul>' %>
+            <% else -%>
+              <%= d[:day] %>
+            <% end -%>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</div>

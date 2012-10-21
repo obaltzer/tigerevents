@@ -10,7 +10,31 @@ class EventsController < ApplicationController
         list
         render_action 'list'
     end
+  
+    def list_day
+      params[:period] ||= {}
+      params[:period][:startTime] = Time.local(params[:year], params[:month], params[:day])  
+      params[:period][:endTime] = Time.local(params[:year], params[:month], params[:day]).tomorrow - 1.second
+      list
+      render 'events/list'
+    end
 
+    def list_month
+      params[:period] ||= {}
+      params[:period][:startTime] = Time.local(params[:year], params[:month])  
+      params[:period][:endTime] = Time.local(params[:year], params[:month]).next_month - 1.second
+      list
+      render 'events/list'
+    end
+
+    def list_week
+      params[:period] ||= {}
+      params[:period][:startTime] = Time.local(params[:year], params[:month], params[:day]).beginning_of_week
+      params[:period][:endTime] = Time.local(params[:year], params[:month], params[:day]).next_week - 1.second
+      list
+      render 'events/list'
+    end
+    
     def list
         # check if the request contained a predefined period
         set_view_period
@@ -208,7 +232,7 @@ class EventsController < ApplicationController
             begin
                 start_date = params[:period][:start_date].split(/\//)
                 p[:startTime] = Time.local start_date[2], start_date[1], \
-                    start_date[0], now.hour, now.min, 0, 0
+                    start_date[0]
             rescue
               flash[:notice] ="Invalid start date for time period selection."
               error = true
@@ -217,7 +241,7 @@ class EventsController < ApplicationController
             begin
                 end_date = params[:period][:end_date].split(/\//)
                 p[:endTime] = Time.local end_date[2], end_date[1], \
-                    end_date[0], now.hour, now.min, 0, 0
+                    end_date[0], 23, 59, 59
             rescue 
                 flash[:notice] = "Invalid end date for time period selection."
                 error = true
@@ -225,7 +249,11 @@ class EventsController < ApplicationController
             params[:period].delete :fixed
             params[:period][:custom] = true
         end
-        
+       
+        if params[:period] and params[:period][:startTime] and params[:period][:endTime]
+          p = params[:period]
+        end
+
         # user did not specify custom time period or it failed to
         # initialize
         if not params[:period] or not (p[:startTime] and p[:endTime])

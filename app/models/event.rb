@@ -16,9 +16,11 @@
 #
 
 require 'date'
+require 'taggable'
+
 class Event < ActiveRecord::Base
     acts_as_taggable :tag_class_name => 'Category', :collection => :categories
-    belongs_to :group
+    belongs_to :group, :include => :users
     belongs_to :priority
     attr_writer :hasEndTime
     
@@ -225,6 +227,29 @@ class Event < ActiveRecord::Base
     validates_presence_of :group
     validates_associated :group
     validates_format_of :url, :with => /^($|https?:\/\/$|https?:\/\/((?:[-a-z0-9]+\.)+[a-z]{2,}))/
+
+    class << self
+      def find_approved(*args)
+        options = extract_options_from_args!(args)
+        options[:include] ||= []
+        options[:include] << [:group]
+        options[:joins] ||= ""
+        options[:joins] << " LEFT JOIN groups_users ON groups.id = groups_users.group_id LEFT JOIN activities ON activities.event_id = events.id AND activities.action IN ('CREATE', 'ADOPT') AND activities.user_id = groups_users.user_id LEFT JOIN users ON users.id = activities.user_id"
+        options[:conditions] ||= ["1 = 1"]
+        options[:conditions][0] << " AND groups.approved = ?"
+        options[:conditions] << true
+        options[:conditions][0] << " AND groups_users.authorized = ?"
+        options[:conditions] << true
+        options[:conditions][0] << " AND events.deleted = ?"
+        options[:conditions] << false
+        options[:conditions][0] << " AND groups.deleted = ?"
+        options[:conditions] << false
+        options[:conditions][0] << " AND users.banned = ?"
+        options[:conditions] << false
+        args << options
+        self.find(*args)
+      end
+    end
 
     private
         def convert_time date, hour, min, ampm
